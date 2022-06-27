@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::group(['namespace' => 'Client'], function () {
+    Route::get('/', [App\Http\Controllers\Client\HomeController::class, 'index'])->name('client.home');
 });
+
+include 'admin.php';
