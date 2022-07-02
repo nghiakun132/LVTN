@@ -32,7 +32,7 @@ return [
     ],
     [
         'name' => 'Nhân viên',
-        'route' => 'admin.home',
+        'route' => 'admin.staff.index',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
     [
@@ -60,4 +60,9 @@ return [
         'route' => 'admin.home',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
+    [
+        'name' => 'Đăng xuất',
+        'route' => 'admin.logout',
+        'icons' => '<i class="fa-solid fa-right-to-bracket"></i>',
+    ]
 ];
