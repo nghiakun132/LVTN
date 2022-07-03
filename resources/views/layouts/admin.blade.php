@@ -5,13 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="{{ asset('admin/css/adminlte.css') }}">
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -209,13 +213,39 @@
         </footer>
 
     </div>
+
     <script src="{{ asset('admin/js/jquery.min.js') }}"></script>
     <script src="{{ asset('admin/js/bootstrap.bundle.js') }}"></script>
     <script src="{{ asset('admin/js/adminlte.js') }}"></script>
     <script src="{{ asset('admin/js/Chart.min.js') }}"></script>
     <script src="{{ asset('admin/js/demo.js') }}"></script>
     <script src="{{ asset('admin/js/dashboard3.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#example2').DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/vi.json"
+                },
+            }, );
+        });
+    </script>
+
 </body>
 
+<?php
+$error = Session::get('error');
+$success = Session::get('success');
+if ($error) {
+    echo '<script>alert("' . $error . '")</script>';
+    Session::forget('error');
+}
+if ($success) {
+    echo '<script>alert("' . $success . '")</script>';
+    Session::forget('success');
+}
+
+?>
 
 </html>
