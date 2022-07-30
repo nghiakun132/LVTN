@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'Client'], function () {
     Route::get('/', [App\Http\Controllers\Client\HomeController::class, 'index'])->name('client.home');
+    Route::post('/login', [App\Http\Controllers\Client\AuthController::class, 'login'])->name('client.login');
+    Route::post('/register', [App\Http\Controllers\Client\AuthController::class, 'register'])->name('client.register');
+    Route::get('/logout', [App\Http\Controllers\Client\AuthController::class, 'logout'])->name('client.logout');
 });
 
 include 'admin.php';

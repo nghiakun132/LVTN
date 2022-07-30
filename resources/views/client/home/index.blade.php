@@ -11,20 +11,26 @@
                                 <span>All Categories</span>
                             </div>
                             <ul data-menuname="All Categories" id="categories" class="clone-main-menu">
-                                <li><a href="#">Fresh Meat</a></li>
-                                <li><a href="#">Vegetables</a></li>
-                                <li><a href="#">Fruit & Nut Gifts</a></li>
-                                <li><a href="#">Fresh Berries</a></li>
-                                <li><a href="#">Ocean Foods</a></li>
-                                <li><a href="#">Butter & Eggs</a></li>
-                                <li><a href="#">Fastfood</a></li>
-                                <li><a href="#">Fresh Onion</a></li>
-                                <li><a href="#">Papayaya & Crisps</a></li>
-                                <li><a href="#">Oatmeal</a></li>
-                                <li><a href="#">Fresh Bananas</a></li>
+                                <li><a href="#"><img
+                                            src="https://bizweb.dktcdn.net/100/441/086/themes/862068/assets/menu_icon_2.png?1657802118354"
+                                            alt="">hello
+                                    </a>
+                                </li>
+                                <li><a href="#"><img
+                                            src="https://bizweb.dktcdn.net/100/441/086/themes/862068/assets/menu_icon_2.png?1657802118354"
+                                            alt="">hello
+                                    </a>
+                                </li>
+                                <li><a href="#"><img
+                                            src="https://bizweb.dktcdn.net/100/441/086/themes/862068/assets/menu_icon_2.png?1657802118354"
+                                            alt="">hello
+                                    </a>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
+
                     <div class="col-md-9">
                         <div class="wrap-main-slide">
                             <div class="slide-carousel owl-carousel style-nav-1" data-items="1" data-loop="1"

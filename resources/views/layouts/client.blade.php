@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Home</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('client/assets/images/favicon.ico') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/images/2.png') }}" />
     <link
         href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic,900,900italic&amp;subset=latin,latin-ext"
         rel="stylesheet" />
@@ -15,15 +15,197 @@
         rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/animate.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/font-awesome.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/test.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/owl.carousel.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/chosen.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/style.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/color-01.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/test.css') }}" />
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/test.css') }}" /> --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/login.css') }}" />
 </head>
+<style>
+    .modal {
+        top: 20% !important;
+    }
+
+    .login-btn {
+        cursor: pointer;
+    }
+
+    .back-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 30px;
+        display: none;
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        z-index: 9999;
+        cursor: pointer;
+    }
+
+    .back-to-top i {
+        font-size: 40px;
+        color: #fff;
+        text-align: center;
+    }
+
+    .list_hover:hover a {
+        background-color: #2e9ed5;
+        color: rgb(241, 226, 226) !important;
+        font-weight: 400 !important;
+        cursor: pointer;
+    }
+
+    .list_hover a:hover {
+        color: rgb(241, 226, 226) !important;
+        font-weight: 400 !important;
+    }
+
+    .list_hover:hover {
+        background-color: #2e9ed5;
+        color: rgb(241, 226, 226) !important;
+        font-weight: 400 !important;
+        cursor: pointer;
+    }
+</style>
 
 <body class="home-page home-01">
+    <div>
+        <div id="login" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times text-danger"
+                                aria-hidden="true"></i></button>
+                        <h4 class="modal-title">Đăng nhập</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('client.login') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="email">Email hoặc số điện thoại:</label>
+                                <input type="text" class="form-control" name="email" id="email">
+                            </div>
+                            @if ($errors->has('email'))
+                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                            @endif
+
+                            <div class="form-group">
+                                <label for="password">Mật khẩu:</label>
+                                <input type="password" class="form-control" name="password" id="password">
+                            </div>
+                            @if ($errors->has('password'))
+                                <span class="text-danger">{{ $errors->first('password') }}</span>
+                            @endif
+                            <div class="checkbox">
+                                <label><input type="checkbox" name="remember"> Ghi nhớ</label>
+                            </div>
+                            <button type="submit" class="btn btn-login">Đăng nhập</button>
+                        </form>
+                        <div>
+                            <p class="no-account">Bạn chưa có tài khoản? <a data-target="#register"
+                                    data-toggle="modal">Đăng ký</a></p>
+                            <div class="social">
+                                <p class="social-heading">
+                                    <span>Hoặc đăng nhập bằng</span>
+                                </p>
+                                <ul class="social__items">
+                                    <li class="social__item">
+                                        <a href="#"><img src="{{ asset('images/fb.png') }}" alt=""></a>
+                                    </li>
+                                    <li class="social__item">
+                                        <a href="#  "><img src="{{ asset('images/gg.png') }}" alt=""></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div id="register" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times text-danger"
+                                aria-hidden="true"></i></button>
+                        <h4 class="modal-title">Đăng ký thành viên</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('client.register') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="name">Họ và tên:</label>
+                                <input type="text" class="form-control" name="name" id="name">
+                            </div>
+                            @if ($errors->has('name'))
+                                <span class="text-danger">{{ $errors->first('name') }}</span>
+                            @endif
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email" id="email">
+                            </div>
+                            @if ($errors->has('email'))
+                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                            @endif
+                            <div class="form-group">
+                                <label for="phone">Số điện thoại:</label>
+                                <input type="text" class="form-control" name="phone" id="phone">
+                            </div>
+                            @if ($errors->has('phone'))
+                                <span class="text-danger">{{ $errors->first('phone') }}</span>
+                            @endif
+                            <div class="form-group">
+                                <label for="password">Mật khẩu:</label>
+                                <input type="password" class="form-control" name="password" id="password">
+                            </div>
+                            @if ($errors->has('password'))
+                                <span class="text-danger">{{ $errors->first('password') }}</span>
+                            @endif
+                            <div class="form-group">
+                                <label for="confirmed">Nhập lại mật khẩu:</label>
+                                <input type="password" class="form-control" name="confirmed" id="confirmed">
+                            </div>
+                            @if ($errors->has('confirmed'))
+                                <span class="text-danger">{{ $errors->first('confirmed') }}</span>
+                            @endif
+                            <div class="form-group">
+                                <label for="address">Địa chỉ:</label>
+                                <input type="text" class="form-control" name="address" id="address">
+                            </div>
+                            @if ($errors->has('address'))
+                                <span class="text-danger">{{ $errors->first('address') }}</span>
+                            @endif
+                            <div>
+                                <button type="submit" class="btn btn-success">Đăng ký</button>
+                            </div>
+                        </form>
+                        <div>
+                            <div class="social">
+                                <p class="social-heading">
+                                    <span>Hoặc đăng nhập bằng</span>
+                                </p>
+                                <ul class="social__items">
+                                    <li class="social__item">
+                                        <a href="#"><img src="{{ asset('images/fb.png') }}"
+                                                alt=""></a>
+                                    </li>
+                                    <li class="social__item">
+                                        <a href="#  "><img src="{{ asset('images/gg.png') }}"
+                                                alt=""></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <!-- mobile menu -->
     <div class="mercado-clone-wrap">
         <div class="mercado-panels-actions-wrap">
@@ -41,60 +223,51 @@
                         <div class="topbar-menu left-menu">
                             <ul>
                                 <li class="menu-item">
-                                    <a title="Hotline: (+123) 456 789" href="#"><span
-                                            class="icon label-before fa fa-mobile"></span>Hotline: (+123) 456 789</a>
+                                    <a title="Hotline: 0776585055" href="#"><span
+                                            class="icon label-before fa fa-mobile"></span>Hotline: 0776585055</a>
                                 </li>
                             </ul>
                         </div>
-
                         <div class="topbar-menu right-menu">
                             <ul>
-                                <li class="menu-item"><a title="Register or Login" href="login.html">Login</a></li>
-                                <li class="menu-item"><a title="Register or Login" href="register.html">Register</a>
-                                </li>
-                                <li class="menu-item lang-menu menu-item-has-children parent">
-                                    <a title="English" href="#"><span class="img label-before"><img
-                                                src="{{ asset('client/assets/images/lang-en.png') }}"
-                                                alt="lang-en" /></span>English<i class="fa fa-angle-down"
-                                            aria-hidden="true"></i></a>
-                                    <ul class="submenu lang">
-                                        <li class="menu-item">
-                                            <a title="hungary" href="#"><span class="img label-before"><img
-                                                        src="{{ asset('client/assets/images/lang-hun.png') }}"
-                                                        alt="lang-hun" /></span>Hungary</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a title="german" href="#"><span class="img label-before"><img
-                                                        src="{{ asset('client/assets/images/lang-ger.png') }}"
-                                                        alt="lang-ger" /></span>German</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a title="french" href="#"><span class="img label-before"><img
-                                                        src="{{ asset('client/assets/images/lang-fra.png') }}"
-                                                        alt="lang-fre" /></span>French</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a title="canada" href="#"><span class="img label-before"><img
-                                                        src="{{ asset('client/assets/images/lang-can.png') }}"
-                                                        alt="lang-can" /></span>Canada</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item menu-item-has-children parent">
-                                    <a title="Dollar (USD)" href="#">Dollar (USD)<i class="fa fa-angle-down"
-                                            aria-hidden="true"></i></a>
-                                    <ul class="submenu curency">
-                                        <li class="menu-item">
-                                            <a title="Pound (GBP)" href="#">Pound (GBP)</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a title="Euro (EUR)" href="#">Euro (EUR)</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a title="Dollar (USD)" href="#">Dollar (USD)</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                @if (Session::get('user'))
+                                    <li class="menu-item">Chào : {{ Session::get('user')->name }}</li>
+                                    <li class="menu-item menu-item-has-children parent">
+                                        <a title="Tài khoản" href="#">Tài khoản<i class="fa fa-angle-down"
+                                                aria-hidden="true"></i></a>
+                                        <ul class="submenu curency">
+                                            <li class="menu-item list_hover">
+                                                <a title="Tài khoản của tôi" href="#">Tài khoản
+                                                    của tôi</a>
+                                            </li>
+                                            <li class="menu-item list_hover">
+                                                <a title="Đơn hàng" href="#">Đơn hàng</a>
+                                            </li>
+                                            <li class="menu-item list_hover">
+                                                <a title="Danh sách yêu thích" href="#">Danh
+                                                    sách
+                                                    yêu thích</a>
+                                            </li>
+                                            <li class="menu-item list_hover">
+                                                <a title="Mã giảm giá" href="#">Mã giảm giá</a>
+                                            </li>
+                                            <li class="menu-item list_hover">
+                                                <a title="Danh sách địa chỉ" href="#">Danh sách
+                                                    địa chỉ</a>
+                                            </li>
+
+                                            <li class="menu-item list_hover">
+                                                <a href="{{ route('client.logout') }}">Đăng xuất</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @else
+                                    <li class="menu-item"><a title="Login" data-toggle="modal" class="login-btn"
+                                            data-target="#login">Login</a></li>
+                                    <li class="menu-item"><a title="Register" data-toggle="modal" class="login-btn"
+                                            data-target="#register">Register</a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -103,8 +276,8 @@
                 <div class="container">
                     <div class="mid-section main-info-area">
                         <div class="wrap-logo-top left-section">
-                            <a href="index.html" class="link-to-home"><img
-                                    src="{{ asset('client/assets/images/logo-top-1.png') }}" alt="mercado" /></a>
+                            <a href="index.html" class="link-to-home"><img src="{{ asset('/images/2.png') }}"
+                                    alt="mercado" /></a>
                         </div>
 
                         <div class="wrap-search center-section">
@@ -231,7 +404,9 @@
         </div>
     </header>
     @yield('content')
-
+    <div>
+        <a class="back-to-top btn btn-danger"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+    </div>
     <footer id="footer">
         <div class="wrap-footer-content footer-style-1">
             <div class="wrap-function-info">
@@ -286,7 +461,7 @@
                                             </li>
                                             <li>
                                                 <i class="fa fa-phone" aria-hidden="true"></i>
-                                                <p class="contact-txt">(+123) 456 789 - (+123) 666 888</p>
+                                                <p class="contact-txt">0776585055 - (+123) 666 888</p>
                                             </li>
                                             <li>
                                                 <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -304,7 +479,7 @@
                                 <div class="item-content">
                                     <div class="wrap-hotline-footer">
                                         <span class="desc">Call Us toll Free</span>
-                                        <b class="phone-number">(+123) 456 789 - (+123) 666 888</b>
+                                        <b class="phone-number">0776585055 - (+123) 666 888</b>
                                     </div>
                                 </div>
                             </div>
@@ -545,13 +720,25 @@
             </div>
         </div>
     </footer>
-
-    <script src="{{ asset('client/assets/js/jquery-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
-    <script src="{{ asset('client/assets/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
+    <?php
+    $error = Session::get('error');
+    $success = Session::get('success');
+    if ($error) {
+        echo '<script>alert("' . $error . '")</script>';
+        Session::forget('error');
+    }
+    if ($success) {
+        echo '<script>alert("' . $success . '")</script>';
+        Session::forget('success');
+    }
+    ?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    {{-- <script src="{{ asset('client/assets/js/jquery-ui-1.12.4.minb8ff.js') }}"></script>
+    <script src="{{ asset('client/assets/js/bootstrap.min.js') }}"></script> --}}
     <script src="{{ asset('client/assets/js/test.js') }}"></script>
-    <script src="{{ asset('client/assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('client/assets/js/jquery.flexslider.js') }}"></script>
-    <script src="{{ asset('client/assets/js/chosen.jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('client/assets/js/jquery.flexslider.js') }}"></script> --}}
+    {{-- <script src="{{ asset('client/assets/js/chosen.jquery.min.js') }}"></script> --}}
     <script src="{{ asset('client/assets/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('client/assets/js/jquery.countdown.min.js') }}"></script>
     <script src="{{ asset('client/assets/js/jquery.sticky.js') }}"></script>

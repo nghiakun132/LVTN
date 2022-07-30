@@ -68,12 +68,18 @@
 .hero__categories ul {
     border: 1px solid #ebebeb;
     padding-left: 40px;
-    /* padding-top: 10px; */
+    /* padding-top: 10px;*/
     padding-bottom: 12px;
 }
 
 .hero__categories ul li {
     list-style: none;
+}
+.hero__categories ul li img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    margin-right: 0px;
 }
 .hero__categories ul li :hover {
     background-color: #ff2832;
@@ -81,9 +87,8 @@
 }
 
 .hero__categories ul li a {
-    font-size: 16px;
-    color: #1c1c1c;
-    line-height: 39px;
-    display: block;
-    padding-left: 38px;
+    width: 34px;
+    height: 33px;
+    object-fit: contain;
+    margin-right: 15px;
 }
