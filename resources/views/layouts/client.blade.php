@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Home</title>
+    <title>@yield('title')</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/images/2.png') }}" />
     <link
         href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic,900,900italic&amp;subset=latin,latin-ext"
@@ -21,7 +21,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/chosen.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/style.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/color-01.css') }}" />
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/test.css') }}" /> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/login.css') }}" />
 </head>
 <style>
@@ -112,11 +111,12 @@
                                     <span>Hoặc đăng nhập bằng</span>
                                 </p>
                                 <ul class="social__items">
-                                    <li class="social__item">
+                                    {{-- <li class="social__item">
                                         <a href="#"><img src="{{ asset('images/fb.png') }}" alt=""></a>
-                                    </li>
+                                    </li> --}}
                                     <li class="social__item">
-                                        <a href="#  "><img src="{{ asset('images/gg.png') }}" alt=""></a>
+                                        <a href="{{ route('client.login.google') }}"><img
+                                                src="{{ asset('images/gg.png') }}" alt=""></a>
                                     </li>
                                 </ul>
                             </div>
@@ -189,13 +189,13 @@
                                     <span>Hoặc đăng nhập bằng</span>
                                 </p>
                                 <ul class="social__items">
-                                    <li class="social__item">
+                                    {{-- <li class="social__item">
                                         <a href="#"><img src="{{ asset('images/fb.png') }}"
                                                 alt=""></a>
-                                    </li>
+                                    </li> --}}
                                     <li class="social__item">
-                                        <a href="#  "><img src="{{ asset('images/gg.png') }}"
-                                                alt=""></a>
+                                        <a href="{{ route('client.login.google') }}"><img
+                                                src="{{ asset('images/gg.png') }}" alt=""></a>
                                     </li>
                                 </ul>
                             </div>
@@ -206,15 +206,12 @@
             </div>
         </div>
     </div>
-    <!-- mobile menu -->
     <div class="mercado-clone-wrap">
         <div class="mercado-panels-actions-wrap">
             <a class="mercado-close-btn mercado-close-panels" href="#">x</a>
         </div>
         <div class="mercado-panels"></div>
     </div>
-
-    <!--header-->
     <header id="header" class="header header-style-1">
         <div class="container-fluid">
             <div class="row">
@@ -237,7 +234,8 @@
                                                 aria-hidden="true"></i></a>
                                         <ul class="submenu curency">
                                             <li class="menu-item list_hover">
-                                                <a title="Tài khoản của tôi" href="#">Tài khoản
+                                                <a title="Tài khoản của tôi"
+                                                    href="{{ route('client.user.index') }}">Tài khoản
                                                     của tôi</a>
                                             </li>
                                             <li class="menu-item list_hover">
@@ -262,10 +260,10 @@
                                         </ul>
                                     </li>
                                 @else
-                                    <li class="menu-item"><a title="Login" data-toggle="modal" class="login-btn"
-                                            data-target="#login">Login</a></li>
-                                    <li class="menu-item"><a title="Register" data-toggle="modal" class="login-btn"
-                                            data-target="#register">Register</a>
+                                    <li class="menu-item"><a title="Đăng nhập" data-toggle="modal" class="login-btn"
+                                            data-target="#login">Đăng nhập</a></li>
+                                    <li class="menu-item"><a title="Đăng ký" data-toggle="modal" class="login-btn"
+                                            data-target="#register">Đăng ký</a>
                                     </li>
                                 @endif
                             </ul>
@@ -276,8 +274,8 @@
                 <div class="container">
                     <div class="mid-section main-info-area">
                         <div class="wrap-logo-top left-section">
-                            <a href="index.html" class="link-to-home"><img src="{{ asset('/images/2.png') }}"
-                                    alt="mercado" /></a>
+                            <a href="{{ route('client.home') }}" class="link-to-home"><img
+                                    src="{{ asset('/images/2.png') }}" alt="mercado" /></a>
                         </div>
 
                         <div class="wrap-search center-section">
