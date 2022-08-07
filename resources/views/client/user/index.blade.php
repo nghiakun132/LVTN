@@ -1,7 +1,7 @@
 @extends('layouts.client')
 @section('content')
 @section('title', 'Thông tin tài khoản')
-<main id="main" class="main-site" style="background-color: rgb(253 253 255);">
+<main id="main" class="main-site" style="background-color:rgb(245, 245, 250)">
     <div class="container">
         <div class="wrap-breadcrumb">
             <ul>
@@ -115,7 +115,7 @@
                 <form action="{{ route('client.user.change_password') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="password">Mật khẩu:</label>
+                        <label for="password">Mật khẩu cũ:</label>
                         <input type="password" class="form-control" name="password" id="password">
                     </div>
                     @if ($errors->has('password'))

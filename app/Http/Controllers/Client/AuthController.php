@@ -57,6 +57,8 @@ class AuthController extends Controller
         $address = new Address();
         $address->user_id = $user->id;
         $address->address = $request->address;
+        $address->phone = $request->phone;
+        $address->name = $request->name;
         $address->save();
 
         return redirect()->route('client.home')->with('success', 'Đăng ký thành công');
@@ -124,6 +126,8 @@ class AuthController extends Controller
         $address = new Address();
         $address->user_id = $user->id;
         $address->address = $request->address;
+        $address->phone = $request->phone;
+        $address->name = $request->name;
         $address->save();
 
         Session()->forget('temp_user');

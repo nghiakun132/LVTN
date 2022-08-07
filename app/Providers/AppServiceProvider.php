@@ -23,10 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $categoriesGlobal = \App\Models\Category::all();
-        try {
-            view()->share('categoriesGlobal', $categoriesGlobal);
-        } catch (\Exception $e) {
-        }
+        // $categoriesGlobal = \App\Models\Category::all();
+        // try {
+        //     view()->share('categoriesGlobal', $categoriesGlobal);
+        // } catch (\Exception $e) {
+        // }
     }
 }

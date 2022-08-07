@@ -20,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/owl.carousel.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/chosen.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/test2.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/color-01.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/login.css') }}" />
 </head>
@@ -67,6 +68,26 @@
         color: rgb(241, 226, 226) !important;
         font-weight: 400 !important;
         cursor: pointer;
+    }
+
+    .bg-nha {
+        background-color: rgb(26, 148, 255);
+    }
+
+    .wrap-list-cate {
+        position: absolute;
+        top: 6px;
+        right: 23px;
+        width: 125px;
+        height: 35px;
+        border: none;
+        outline: none;
+        background: none !important;
+    }
+
+    .wrap-list-cate i {
+        font-size: 27px;
+        text-align: center;
     }
 </style>
 
@@ -145,8 +166,8 @@
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                             @endif
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" id="email">
+                                <label for="email2">Email</label>
+                                <input type="email" class="form-control" name="email" id="email2">
                             </div>
                             @if ($errors->has('email'))
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
@@ -159,8 +180,8 @@
                                 <span class="text-danger">{{ $errors->first('phone') }}</span>
                             @endif
                             <div class="form-group">
-                                <label for="password">Mật khẩu:</label>
-                                <input type="password" class="form-control" name="password" id="password">
+                                <label for="password2">Mật khẩu:</label>
+                                <input type="password" class="form-control" name="password" id="password2">
                             </div>
                             @if ($errors->has('password'))
                                 <span class="text-danger">{{ $errors->first('password') }}</span>
@@ -220,18 +241,20 @@
                         <div class="topbar-menu left-menu">
                             <ul>
                                 <li class="menu-item">
-                                    <a title="Hotline: 0776585055" href="#"><span
-                                            class="icon label-before fa fa-mobile"></span>Hotline: 0776585055</a>
+                                    <a title="Hotline: 0776585055" href="#" style="color: #fff "><span
+                                            class="icon label-before fa fa-mobile" style="color: #fff"></span>Hotline:
+                                        0776585055</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="topbar-menu right-menu">
                             <ul>
                                 @if (Session::get('user'))
-                                    <li class="menu-item">Chào : {{ Session::get('user')->name }}</li>
+                                    <li class="menu-item" style="color: #fff">Chào :
+                                        {{ Session::get('user')->name }}</li>
                                     <li class="menu-item menu-item-has-children parent">
-                                        <a title="Tài khoản" href="#">Tài khoản<i class="fa fa-angle-down"
-                                                aria-hidden="true"></i></a>
+                                        <a title="Tài khoản" href="#" style="color: #fff">Tài khoản<i
+                                                class="fa fa-angle-down" aria-hidden="true"></i></a>
                                         <ul class="submenu curency">
                                             <li class="menu-item list_hover">
                                                 <a title="Tài khoản của tôi"
@@ -260,10 +283,12 @@
                                         </ul>
                                     </li>
                                 @else
-                                    <li class="menu-item"><a title="Đăng nhập" data-toggle="modal" class="login-btn"
-                                            data-target="#login">Đăng nhập</a></li>
-                                    <li class="menu-item"><a title="Đăng ký" data-toggle="modal" class="login-btn"
-                                            data-target="#register">Đăng ký</a>
+                                    <li class="menu-item"><a style="color: #fff" title="Đăng nhập"
+                                            data-toggle="modal" class="login-btn" data-target="#login">Đăng
+                                            nhập</a></li>
+                                    <li class="menu-item"><a style="color: #fff" title="Đăng ký" data-toggle="modal"
+                                            class="login-btn" data-target="#register">Đăng
+                                            ký</a>
                                     </li>
                                 @endif
                             </ul>
@@ -271,7 +296,7 @@
                     </div>
                 </div>
 
-                <div class="container">
+                <div class="container ">
                     <div class="mid-section main-info-area">
                         <div class="wrap-logo-top left-section">
                             <a href="{{ route('client.home') }}" class="link-to-home"><img
@@ -281,58 +306,68 @@
                         <div class="wrap-search center-section">
                             <div class="wrap-search-form">
                                 <form action="#" id="form-search-top" name="form-search-top">
-                                    <input type="text" name="search" value=""
+                                    <input type="text" name="search" value="" id="search-top"
                                         placeholder="Search here..." />
-                                    <button form="form-search-top" type="button">
+                                    <button id="button-search-top" type="button">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
-                                    <div class="wrap-list-cate">
-                                        <input type="hidden" name="product-cate" value="0"
-                                            id="product-cate" />
-                                        <a href="#" class="link-control">All Category</a>
-                                        <ul class="list-cate">
-                                            <li class="level-0">All Category</li>
-                                            <li class="level-1">-Electronics</li>
-                                            <li class="level-2">Batteries & Chargens</li>
-                                            <li class="level-2">Headphone & Headsets</li>
-                                            <li class="level-2">Mp3 Player & Acessories</li>
-                                            <li class="level-1">-Smartphone & Table</li>
-                                            <li class="level-2">Batteries & Chargens</li>
-                                            <li class="level-2">Mp3 Player & Headphones</li>
-                                            <li class="level-2">Table & Accessories</li>
-                                            <li class="level-1">-Electronics</li>
-                                            <li class="level-2">Batteries & Chargens</li>
-                                            <li class="level-2">Headphone & Headsets</li>
-                                            <li class="level-2">Mp3 Player & Acessories</li>
-                                            <li class="level-1">-Smartphone & Table</li>
-                                            <li class="level-2">Batteries & Chargens</li>
-                                            <li class="level-2">Mp3 Player & Headphones</li>
-                                            <li class="level-2">Table & Accessories</li>
-                                        </ul>
-                                    </div>
+                                    {{-- <div class="wrap-list-cate"> --}}
+                                    {{-- <input type="hidden" name="product-cate" value="0"
+                                                id="product-cate" />
+                                            <a href="#" class="link-control">All Category</a>
+                                            <ul class="list-cate">
+                                                <li class="level-0">All Category</li>
+                                                <li class="level-1">-Electronics</li>
+                                                <li class="level-2">Batteries & Chargens</li>
+                                                <li class="level-2">Headphone & Headsets</li>
+                                                <li class="level-2">Mp3 Player & Acessories</li>
+                                                <li class="level-1">-Smartphone & Table</li>
+                                                <li class="level-2">Batteries & Chargens</li>
+                                                <li class="level-2">Mp3 Player & Headphones</li>
+                                                <li class="level-2">Table & Accessories</li>
+                                                <li class="level-1">-Electronics</li>
+                                                <li class="level-2">Batteries & Chargens</li>
+                                                <li class="level-2">Headphone & Headsets</li>
+                                                <li class="level-2">Mp3 Player & Acessories</li>
+                                                <li class="level-1">-Smartphone & Table</li>
+                                                <li class="level-2">Batteries & Chargens</li>
+                                                <li class="level-2">Mp3 Player & Headphones</li>
+                                                <li class="level-2">Table & Accessories</li>
+                                            </ul> --}}
+                                    <a href="#" class="wrap-list-cate"><i class="fa fa-microphone"
+                                            aria-hidden="true"></i></a>
+                                    {{-- </div> --}}
                                 </form>
                             </div>
                         </div>
 
                         <div class="wrap-icon right-section">
                             <div class="wrap-icon-section wishlist">
-                                <a href="#" class="link-direction">
+                                {{-- <a href="#" class="link-direction">
                                     <i class="fa fa-heart" aria-hidden="true"></i>
                                     <div class="left-info">
                                         <span class="index">0 item</span>
                                         <span class="title">Wishlist</span>
                                     </div>
+                                </a> --}}
+                                <a id="btnCheckOrder" href="#">
+                                    <span class="icon">
+                                        <i class="fa fa-truck icon_truck" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="text">Kiểm tra đơn hàng</span>
                                 </a>
                             </div>
                             <div class="wrap-icon-section minicart">
-                                <a href="#" class="link-direction">
+                                <a href="#" class="link-direction cart-cart">
                                     <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                                     <div class="left-info">
                                         <span class="index">4 items</span>
                                         <span class="title">CART</span>
                                     </div>
                                 </a>
+
                             </div>
+
                             <div class="wrap-icon-section show-up-after-1024">
                                 <a href="#" class="mobile-navigation">
                                     <span></span>
@@ -343,61 +378,54 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="nav-section header-sticky">
-                    <div class="header-nav-section">
-                        <div class="container">
-                            <ul class="nav menu-nav">
+            </div>
+            <div class="nav-section header-sticky">
+                <nav style="z-index: 1000;">
+                    <div class="container">
+                        <ul class="root clone-main-menu" data-menuname="Danh mục" id="mercado_main">
+                            @for ($i = 1; $i < 13; $i++)
                                 <li class="menu-item">
-                                    <a href="#sale" class="link-term">Weekly Featured</a><span
-                                        class="nav-label hot-label">hot</span>
+                                    <a href="#" target="_self">
+                                        <i class="fa fa-mobile icon" aria-hidden="true"></i>
+                                        <span>Điện thoại</span>
+                                    </a>
+                                    <div class="sub-container">
+                                        <div class="sub">
+                                            <div class="menu g1">
+                                                <h4><a href="/dien-thoai-di-dong">Hãng sản xuất
+                                                        {{ $i }}</a></h4>
+                                                <ul class="display-column format_3">
+                                                    <li><a href="/dien-thoai-di-dong/iphone">Apple</a>
+                                                    </li>
+                                                    <li><a href="/dien-thoai-di-dong/samsung">Samsung</a></li>
+                                                    <li><a href="/dien-thoai-di-dong/xiaomi">Xiaomi</a></li>
+                                                    <li><a href="/dien-thoai-di-dong/oppo">OPPO</a></li>
+                                                    <li><a href="/dien-thoai-di-dong/nokia">Nokia</a></li>
+                                                    <li><a href="/dien-thoai-di-dong/realme">Realme</a></li>
+                                                    <li><a href="/dien-thoai-di-dong/nubia">Nubia</a></li>
+                                                    <li><a href="/dien-thoai-di-dong/vivo">Vivo</a></li>
+                                                    <li><a href="/dien-thoai-di-dong/energizer">Energizer</a></li>
+                                                    <li><a href="/dien-thoai-di-dong/masstel">Masstel</a></li>
+                                                    <li><a href="/dien-thoai-di-dong/xor">XOR</a></li>
+                                                    <li><a href="/dien-thoai-di-dong/blackberry">Blackberry</a></li>
+                                                    <li><a href="/dien-thoai-di-dong/philips">Philips</a></li>
+                                                    <li><a href="/dien-thoai-di-dong/itel">Itel</a></li>
+                                                    <li><a href="/dien-thoai-di-dong/bphone">BPhone</a></li>
+                                                    <li><a href="/dien-thoai-di-dong/tecno">TECNO</a></li>
+                                                </ul>
+                                                <h4><a href="/dien-thoai-cao-cap">Điện thoại cao cấp</a></h4>
+                                                <ul class="display-row format_1">
+                                                </ul>
+                                            </div>
+                                            <div class="menu ads" style="width:400px">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
-                                <li class="menu-item">
-                                    <a href="#LATESTPRODUCTS" class="link-term">Hot Sale items</a><span
-                                        class="nav-label hot-label">hot</span>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#PRODUCTCATEGORIES" class="link-term">Top new items</a><span
-                                        class="nav-label hot-label">hot</span>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="link-term">Top Selling</a><span
-                                        class="nav-label hot-label">hot</span>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="link-term">Top rated items</a><span
-                                        class="nav-label hot-label">hot</span>
-                                </li>
-                            </ul>
-                        </div>
+                            @endfor
+                        </ul>
                     </div>
-
-                    <div class="primary-nav-section">
-                        <div class="container">
-                            <ul class="nav primary clone-main-menu" id="mercado_main" data-menuname="Menu">
-                                <li class="menu-item home-icon">
-                                    <a href="index.html" class="link-term mercado-item-title"><i class="fa fa-home"
-                                            aria-hidden="true"></i></a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="about-us.html" class="link-term mercado-item-title">About Us</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="shop.html" class="link-term mercado-item-title">Shop</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="cart.html" class="link-term mercado-item-title">Cart</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="checkout.html" class="link-term mercado-item-title">Checkout</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="contact-us.html" class="link-term mercado-item-title">Contact Us</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                </nav>
             </div>
         </div>
     </header>
