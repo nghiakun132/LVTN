@@ -1,1 +1,3 @@
-xài collection của laravel sẽ hay hơn
+- xài collection của laravel sẽ hay hơn
+- Cố gắng xài repository cho dự án để dễ quản lý hơn
+- 
