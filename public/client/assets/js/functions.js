@@ -1,13 +1,13 @@
 (function ($) {
     "use strict";
-    if ($(".mercado-google-maps").length == 1) {
-        var wfm = document.createElement("script");
-        wfm.src =
-            "http://maps.googleapis.com/maps/api/js?key=AIzaSyBpXkIHekTsMPHuS_yuG1cIK0j5TvVjFkE";
-        wfm.type = "text/javascript";
-        var sm = document.getElementsByTagName("script")[0];
-        sm.parentNode.insertBefore(wfm, sm);
-    }
+    // if ($(".mercado-google-maps").length == 1) {
+    //     var wfm = document.createElement("script");
+    //     wfm.src =
+    //         "http://maps.googleapis.com/maps/api/js?key=AIzaSyBpXkIHekTsMPHuS_yuG1cIK0j5TvVjFkE";
+    //     wfm.type = "text/javascript";
+    //     var sm = document.getElementsByTagName("script")[0];
+    //     sm.parentNode.insertBefore(wfm, sm);
+    // }
     var MERCADO_JS = {
         init: function () {
             this.mercado_chosen();
@@ -45,7 +45,9 @@
                     margin: 10,
                     nav: true,
                     dots: false,
-                    loop: false,
+                    loop: true,
+                    autoplay: true,
+                    autoplayTimeout: 5000,
                     navText: [
                         '<i class="fa fa-angle-left " aria-hidden="true"></i>',
                         '<i class="fa fa-angle-right " aria-hidden="true"></i>',
@@ -606,7 +608,7 @@
                     _this.countdown(_expire, function (event) {
                         $(this).html(
                             event.strftime(
-                                "<span><b>%D</b> Days</span> <span><b>%-H</b> Hrs</span> <span><b>%M</b> Mins</span> <span><b>%S</b> Secs</span>"
+                                "<span><b>%D</b> Ngày</span> <span><b>%-H</b> Giờ</span> <span><b>%M</b> Phút</span> <span><b>%S</b> Giây</span>"
                             )
                         );
                     });

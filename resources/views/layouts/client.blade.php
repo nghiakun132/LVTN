@@ -36,14 +36,18 @@
     .back-to-top {
         position: fixed;
         bottom: 20px;
-        right: 30px;
+        right: 29px;
         display: none;
-        width: 60px;
+        width: 67px;
         height: 60px;
-        text-align: center;
         z-index: 9999;
         cursor: pointer;
+        display: block;
+        background: #00483d;
+        opacity: 2.5;
+        border-radius: 8px;
     }
+
 
     .back-to-top i {
         font-size: 40px;
@@ -359,7 +363,8 @@
                             </div>
                             <div class="wrap-icon-section minicart">
                                 <a href="#" class="link-direction cart-cart">
-                                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                                    {{-- <i class="fa fa-shopping-basket" aria-hidden="true"></i> --}}
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     <div class="left-info">
                                         <span class="index">4 items</span>
                                         <span class="title">CART</span>
@@ -380,7 +385,7 @@
                 </div>
             </div>
             <div class="nav-section header-sticky">
-                <nav style="z-index: 1000;">
+                <nav style="z-index: 1000;" id="nav-scroll">
                     <div class="container">
                         <ul class="root clone-main-menu" data-menuname="Danh mục" id="mercado_main">
                             @for ($i = 1; $i < 13; $i++)
@@ -431,7 +436,7 @@
     </header>
     @yield('content')
     <div>
-        <a class="back-to-top btn btn-danger"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+        <a class="back-to-top btn"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
     </div>
     <footer id="footer">
         <div class="wrap-footer-content footer-style-1">

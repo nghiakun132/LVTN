@@ -1648,7 +1648,7 @@ li.menu-item .nav-label.sale-label::before {
 .wrap-product-tab.tab-style-1 {
     display: block;
     margin-top: 10px;
-    border: 1px solid #e6e6e6;
+    /* border: 1px solid #e6e6e6; */
     font-size: 0;
 }
 .tab-style-1 .tab-control {
@@ -1709,8 +1709,7 @@ li.menu-item .nav-label.sale-label::before {
     position: relative;
 }
 .wrap-show-advance-info-box.has-countdown .wrap-products {
-    border: 1px solid #e6e6e6;
-    padding-top: 10px;
+        padding-top: 10px;
 }
 .wrap-show-advance-info-box > .wrap-countdown {
     /* display: inline-block;
@@ -1721,7 +1720,7 @@ li.menu-item .nav-label.sale-label::before {
     top: 40px;
     left: 0; */
     display: inline-block;
-    background-color: #01a272;
+    background-color: #089882;
     padding: 10px 10px 10px 10px;
     position: absolute;
     top: 0px;
@@ -1764,13 +1763,16 @@ li.menu-item .nav-label.sale-label::before {
 .product-style-2 {
     display: inline-block;
     padding: 19px 9px 13px 9px;
-    border: 1px solid transparent;
-    margin-bottom: 9px;
+    /* border: 1px solid transparent; */
     -webkit-transition: all 0.5s ease 0s;
     -moz-transition: all 0.5s ease 0s;
     -ms-transition: all 0.5s ease 0s;
     -o-transition: all 0.5s ease 0s;
     transition: all 0.5s ease 0s;
+    background: #fff;
+    margin: 3px;
+    border-radius: 14px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 .product-style-2:hover {
     /* border-color: #ffa67b; */
@@ -1838,6 +1840,7 @@ li.menu-item .nav-label.sale-label::before {
     display: inline-block;
     width: 100%;
     margin-top: 5px;
+    font-weight: 600;
 }
 .product .product-info .product-rating,
 .wrap-product-detail .detail-info .product-rating {
@@ -1881,8 +1884,8 @@ li.menu-item .nav-label.sale-label::before {
 }
 .product .product-info .wrap-price .product-price,
 .product-style-2 .product-info .wrap-price .product-price {
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 17px;
+    line-height: 35px;
     display: inline-block;
     margin: 0;
 }
@@ -1903,10 +1906,10 @@ li.menu-item .nav-label.sale-label::before {
 .wrap-product-detail .detail-info .wrap-price del > p,
 .product .product-info .wrap-price del > p,
 .product-style-2 .product-info .wrap-price del > p {
-    font-family: "Lato", san-serif;
-    font-weight: 300;
-    font-size: 13px !important;
-    color: #aaaaaa;
+    font-family: sans-serif;
+    font-weight: 500;
+    font-size: 15px !important;
+    color: #000000;
     text-decoration: line-through;
 }
 .product .product-thumnail,

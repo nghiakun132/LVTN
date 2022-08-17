@@ -497,6 +497,27 @@ header nav .sub .g6 {
         border-radius: 0 !important;
     }
     .wrap-show-advance-info-box.has-countdown .wrap-products {
-        padding-top: 30px !important;
+        padding-top: 50px !important;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .lts-product .item {
+        width: 230px !important;
+    }
+}
+@media screen and (max-width: 768px) {
+    .lts-product .item {
+        width: 179px !important;
+    }
+}
+@media screen and (min-width: 450px) and (max-width: 590px) {
+    .lts-product .item {
+        width: 47% !important;
+    }
+}
+@media screen and (max-width: 450px) {
+    .lts-product .item {
+        width: 100% !important;
     }
 }
