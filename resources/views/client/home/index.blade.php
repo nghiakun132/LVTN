@@ -1481,7 +1481,14 @@
                                     <strong>15,390,000 ₫</strong>
                                     <strike>24,990,000 ₫</strike>
                                 </span>
-
+                            </div>
+                            <div class="promote">
+                                <a href="#">
+                                    <ul>
+                                        <li><span class="bag">KM</span> Giảm thêm tới 500.000đ khi thanh toán qua VNPAY
+                                        </li>
+                                    </ul>
+                                </a>
                             </div>
                         </div>
                     @endfor

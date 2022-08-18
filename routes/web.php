@@ -34,7 +34,9 @@ Route::group(['namespace' => 'Client'], function () {
         Route::post('doi-mat-khau', [App\Http\Controllers\Client\UserController::class, 'changePassword'])->name('client.user.change_password');
         Route::get('don-hang-cua-toi', [App\Http\Controllers\Client\OrderController::class, 'index'])->name('client.order');
         Route::get('so-dia-chi', [App\Http\Controllers\Client\UserController::class, 'address'])->name('client.address');
+        Route::get('so-dia-chi/them', [App\Http\Controllers\Client\UserController::class, 'addAddress'])->name('client.address.create');
+        Route::post('so-dia-chi/them', [App\Http\Controllers\Client\UserController::class, 'addAddressPost'])->name('client.address.store');
     });
 });
 
-include 'admin.php';   
+include 'admin.php';

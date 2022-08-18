@@ -1039,7 +1039,7 @@ li.menu-item .nav-label.sale-label::before {
 }
 .wrap-main-slide {
     display: block;
-    margin-top: 39px;
+    margin-top: 25px;
 }
 .wrap-main-slide .item-slide .img-slide,
 .wrap-main-slide .item-slide {
@@ -1972,13 +1972,13 @@ li.menu-item .nav-label.sale-label::before {
 .wrap-footer-content .wrap-function-info .fc-info-item {
     display: inline-block;
     width: 25%;
-    border-right: 1px solid;
+    /* border-right: 1px solid; */
     text-align: center;
     padding: 33.5px 5px;
 }
-.wrap-footer-content .wrap-function-info .fc-info-item:first-child {
+/* .wrap-footer-content .wrap-function-info .fc-info-item:first-child {
     border-left: 1px solid;
-}
+} */
 .wrap-footer-content .wrap-function-info .fc-info-item .wrap-left-info {
     display: inline-block;
     font-size: 13px;

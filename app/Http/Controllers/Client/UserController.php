@@ -71,10 +71,39 @@ class UserController extends Controller
     public function address()
     {
         $id = Session()->get('user')->id;
-        $address = Address::join('users', 'users.id', '=', 'address.user_id')
-            ->where('users.id', $id)
-            ->select('address.*', 'users.name')
+        $address = Address::where('user_id', $id)
             ->get();
-        return view('client.user.address', compact('address'));
+        return view('client.user.address.index', compact('address'));
+    }
+    public function addAddress()
+    {
+        return view('client.user.address.create');
+    }
+    public function addAddressPost(Request $request)
+    {
+        $this->validate($request, [
+            'fullName' => 'required',
+            'phone' => 'required|size:10',
+            'address' => 'required',
+        ], [
+            'fullName.required' => 'Vui lòng nhập họ tên',
+            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'phone.size' => 'Số điện thoại không hợp lệ',
+            'address.required' => 'Vui lòng nhập địa chỉ',
+        ]);
+        $address = new Address();
+        $address->user_id = Session()->get('user')->id;
+        $address->name = $request->fullName;
+        $address->phone = $request->phone;
+        $address->address = $request->address;
+        $address->type = $request->type;
+        if ($request->default == "on") {
+            Address::where('user_id', Session()->get('user')->id)
+                ->update(['default' => 0]);
+            $address->default = 1;
+        }
+        $address->created_at = Carbon::now('Asia/Ho_Chi_Minh');
+        $address->save();
+        return redirect()->route('client.address')->with('success', 'Thêm thành công');
     }
 }

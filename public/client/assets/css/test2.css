@@ -521,3 +521,278 @@ header nav .sub .g6 {
         width: 100% !important;
     }
 }
+.ilGfdX .heading {
+    font-size: 19px;
+    line-height: 21px;
+    font-weight: 300;
+    margin: 20px 0px 15px;
+}
+
+.ilGfdX .new a {
+    background-color: rgb(255, 255, 255);
+    font-size: 15px;
+    height: 60px;
+    border: 1px dashed rgb(216, 216, 216);
+    margin: 0px 0px 10px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+.ilGfdX .new svg {
+    color: rgb(120, 120, 120);
+    font-size: 28px;
+    margin: 0px 20px;
+}
+.ilGfdX .new svg {
+    color: rgb(120, 120, 120);
+    font-size: 28px;
+    margin: 0px 20px;
+}
+.ilGfdX .item:last-child {
+    margin: 0px;
+}
+.ilGfdX .item {
+    background-color: rgb(255, 255, 255);
+    padding: 17px;
+    border-radius: 4px;
+    margin: 0px 0px 10px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    font-size: 13px;
+    line-height: 19px;
+}
+.ilGfdX .item .name {
+    text-transform: uppercase;
+    margin: 0px 0px 10px;
+}
+.ilGfdX .item .name > span {
+    font-size: 12px;
+    margin: 0px 0px 0px 15px;
+    display: inline-block;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(38, 188, 78);
+    text-transform: none;
+}
+.ilGfdX .item .name > span svg {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+}
+.ilGfdX .item .name > span span {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px 0px 0px 5px;
+}
+.ilGfdX .item .address {
+    margin: 0px 0px 5px;
+}
+.ilGfdX .item .address span {
+    color: rgb(120, 120, 120);
+}
+.ilGfdX .item .phone span {
+    color: rgb(120, 120, 120);
+}
+.ilGfdX .item .edit {
+    font-size: 14px;
+    color: rgb(27, 168, 255);
+    display: inline-block;
+    padding: 6px 12px;
+}
+.fJeMaX .heading {
+    font-size: 19px;
+    line-height: 21px;
+    font-weight: 300;
+    margin: 20px 0px 15px;
+}
+.fJeMaX .inner {
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    min-height: 400px;
+    padding: 30px 20px;
+}
+.fJeMaX form {
+    width: 600px;
+}
+.fJeMaX .form-control3 {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 0px 0px 15px;
+}
+.fJeMaX .input-label {
+    width: 110px;
+    min-width: 110px;
+    font-size: 13px;
+    color: rgb(51, 51, 51);
+}
+.fJeMaX .form-control3 > div {
+    display: flex;
+    flex: 1 1 0%;
+    position: relative;
+    z-index: 1;
+}
+.fJeMaX .form-control3 input {
+    flex: 1 1 0%;
+}
+.girQwT {
+    transition: border-color 0.15s ease-in-out 0s,
+        box-shadow 0.15s ease-in-out 0s, -webkit-box-shadow 0.15s ease-in-out 0s;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 4px;
+    height: 34px;
+    padding: 6px 12px;
+    line-height: 34px;
+    outline: none;
+}
+.fJeMaX .form-control3 textarea {
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 4px;
+    width: 100%;
+    padding: 6px 12px;
+}
+
+.kpLnYz {
+    display: flex;
+    margin-right: 15px;
+}
+.kpLnYz input[type="radio"] {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    visibility: hidden;
+    clip: rect(0px, 0px, 0px, 0px);
+    opacity: 0;
+}
+.kpLnYz .radio-fake {
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgb(147, 150, 157);
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px 12px 10px 0px;
+    position: relative;
+    z-index: 1;
+    color: rgb(120, 120, 120);
+    flex-shrink: 0;
+}
+.kpLnYz .radio-fake::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    background-color: rgb(13, 92, 182);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.3s ease 0s;
+}
+.kpLnYz .label2 {
+    font-size: 13px;
+    line-height: 20px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.kpLnYz {
+    display: flex;
+    margin-right: 15px;
+}
+.kpLnYz input[type="radio"] {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    visibility: hidden;
+    clip: rect(0px, 0px, 0px, 0px);
+    opacity: 0;
+}
+.kpLnYz .radio-fake {
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgb(147, 150, 157);
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px 12px 10px 0px;
+    position: relative;
+    z-index: 1;
+    color: rgb(120, 120, 120);
+    flex-shrink: 0;
+}
+.kpLnYz input[type="radio"]:checked + .radio-fake {
+    border-color: rgb(13, 92, 182);
+}
+.etNXAi .checkbox-fake {
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgb(120, 120, 120);
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px 12px 0px 0px;
+    position: relative;
+    z-index: 1;
+    color: rgb(120, 120, 120);
+}
+.etNXAi input[type="checkbox"] {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    visibility: hidden;
+    clip: rect(0px, 0px, 0px, 0px);
+    opacity: 0;
+}
+.etNXAi .label2 {
+    font-size: 14px;
+    line-height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: justify;
+}
+
+.fJeMaX .btn-submit2 {
+    border: 0px;
+    width: 176px;
+    height: 40px;
+    border-radius: 4px;
+    color: rgb(74, 74, 74);
+    font-size: 14px;
+    background-color: rgb(253, 216, 53);
+    cursor: pointer;
+}
+.kpLnYz input[type="radio"]:checked + .radio-fake::before {
+    transform: scale(1);
+}
+.etNXAi .checkbox-fake::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 2px;
+    top: 3px;
+    width: 12px;
+    height: 6px;
+    border-left: 2px solid rgb(255, 255, 255);
+    border-bottom: 2px solid rgb(255, 255, 255);
+    transform: scale(0) rotate(-45deg);
+    transition: transform 0.3s ease 0s;
+}
+.etNXAi {
+    display: inline-block;
+}
+.etNXAi input[type="checkbox"]:checked + .checkbox-fake {
+    border-color: rgb(27, 168, 255);
+    background-color: rgb(27, 168, 255);
+}
+.etNXAi input[type="checkbox"]:checked + .checkbox-fake::before {
+    transform: scale(1) rotate(-45deg);
+}
+@media screen and (max-width: 768px) {
+    .fJeMaX form {
+        width: 100%;
+    }
+}
