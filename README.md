@@ -2,6 +2,8 @@
 - Cố gắng xài repository cho dự án để dễ quản lý hơn
 - sử dụng object cho product detail
 ví dụ:
+       public function store(Request $request)
+    {
         $object = new stdClass();
         $object->name = $request->name;
         $object->ram = $request->ram;
