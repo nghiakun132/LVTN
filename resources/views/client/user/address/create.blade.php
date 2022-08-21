@@ -16,20 +16,20 @@
                     <div class="fJeMaX">
                         <div class="heading">Tạo sổ địa chỉ</div>
                         <div class="inner">
-                            <form method="POST" action="{{ route('client.address.store') }}">
+                            <form method="POST"
+                                action="{{ empty($address) ? route('client.address.store') : route('client.address.update', $address->id) }} ">
                                 @csrf
-                                @if ($errors->has('fullName'))
+                                @if ($errors->has('name'))
                                     <p class="text-danger text-center" role="alert">
-                                        <strong>{{ $errors->first('fullName') }}</strong>
+                                        <strong>{{ $errors->first('name') }}</strong>
                                     </p>
                                 @endif
                                 <div class="form-control3">
-                                    <label for="fullName" class="input-label">Họ và tên:</label>
-                                    <div><input type="text" name="fullName" placeholder="Nhập họ và tên"
-                                            maxlength="50" class="girQwT" value="{{ Session::get('user')->name }}">
-
+                                    <label for="name" class="input-label">Họ và tên:</label>
+                                    <div><input type="text" name="name" placeholder="Nhập họ và tên"
+                                            maxlength="50" class="girQwT"
+                                            value="{{ empty($address) ? Session::get('user')->name : $address->name }}">
                                     </div>
-
                                 </div>
 
                                 @if ($errors->has('phone'))
@@ -42,7 +42,7 @@
                                         thoại:</label>
                                     <div>
                                         <input type="text" name="phone" placeholder="Nhập số điện thoại"
-                                            class="girQwT" value="">
+                                            class="girQwT" value="{{ empty($address) ? '' : $address->phone }}">
 
                                     </div>
                                 </div>
@@ -55,19 +55,22 @@
                                 <div class="form-control3 ">
                                     <label for="address" class="input-label">Địa chỉ:</label>
                                     <div>
-                                        <textarea name="address" rows="5" placeholder="Nhập địa chỉ"></textarea>
+                                        <textarea name="address" rows="5" placeholder="Nhập địa chỉ">{{ empty($address) ? '' : $address->address }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-control3">
                                     <label for="type" class="input-label">Loại địa chỉ:</label>
                                     <label class="kpLnYz">
-                                        <input type="radio" name="type" value="0" checked="">
+                                        <input type="radio" name="type" value="0"
+                                            {{ !empty($address) && $address->type == 0 ? 'checked' : '' }}
+                                            {{ empty($address) ? 'checked' : '' }}>
                                         <span class="radio-fake"></span>
                                         <span class="label2">Nhà riêng</span>
                                     </label>
                                     <label class="kpLnYz">
-                                        <input type="radio" name="type" value="1">
+                                        <input type="radio" name="type" value="1"
+                                            {{ !empty($address) && $address->type == 1 ? 'checked' : '' }}>
                                         <span class="radio-fake"></span>
                                         <span class="label2">Cơ quan</span>
                                     </label>
@@ -75,7 +78,8 @@
                                 <div class="form-control3">
                                     <label class="input-label">&nbsp;</label>
                                     <label class="etNXAi">
-                                        <input type="checkbox" name="default"><span class="checkbox-fake"></span>
+                                        <input type="checkbox" name="default">
+                                        <span class="checkbox-fake"></span>
                                         <span class="label2">Đặt làm địa chỉ mặc định</span>
                                     </label>
                                 </div>

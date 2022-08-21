@@ -4,14 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'categories';
-    protected $fillable = ['c_name', 'c_slug', 'c_description'];
-    public function parent()
-    {
-        return $this->belongsTo(Category::class, 'parent_id');
-    }
+    protected $primaryKey = 'c_id';
+    protected $fillable = ['c_name', 'parent_id', 'c_slug', 'c_banner', 'c_status'];
 }

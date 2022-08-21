@@ -1709,7 +1709,7 @@ li.menu-item .nav-label.sale-label::before {
     position: relative;
 }
 .wrap-show-advance-info-box.has-countdown .wrap-products {
-        padding-top: 10px;
+    padding-top: 10px;
 }
 .wrap-show-advance-info-box > .wrap-countdown {
     /* display: inline-block;
@@ -2336,8 +2336,9 @@ li.menu-item .nav-label.sale-label::before {
 }
 .wrap-breadcrumb ul span {
     font-size: 13px;
-    color: #222222;
+    color: #00483d;
     text-transform: uppercase;
+    font-weight: bold;
 }
 .wrap-shop-control {
     padding: 4.5px 0;

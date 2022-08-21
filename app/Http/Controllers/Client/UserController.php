@@ -20,6 +20,7 @@ class UserController extends Controller
         ];
         return view('client.user.index', $data);
     }
+
     public function changeInformation(Request $request)
     {
         $this->validate($request, [
@@ -42,6 +43,7 @@ class UserController extends Controller
         $user->save();
         return redirect()->back()->with('success', 'Cập nhật thành công');
     }
+
     public function changePassword(Request $request)
     {
         $this->validate($request, [
@@ -68,6 +70,7 @@ class UserController extends Controller
             return redirect()->route('client.user.index')->with('error', 'Mật khẩu cũ không đúng');
         }
     }
+
     public function address()
     {
         $id = Session()->get('user')->id;
@@ -75,25 +78,26 @@ class UserController extends Controller
             ->get();
         return view('client.user.address.index', compact('address'));
     }
+
     public function addAddress()
     {
-        return view('client.user.address.create');
+        return view('client.user.address.create', ['address' => []]);
     }
     public function addAddressPost(Request $request)
     {
         $this->validate($request, [
-            'fullName' => 'required',
+            'name' => 'required',
             'phone' => 'required|size:10',
             'address' => 'required',
         ], [
-            'fullName.required' => 'Vui lòng nhập họ tên',
+            'name.required' => 'Vui lòng nhập họ tên',
             'phone.required' => 'Vui lòng nhập số điện thoại',
             'phone.size' => 'Số điện thoại không hợp lệ',
             'address.required' => 'Vui lòng nhập địa chỉ',
         ]);
         $address = new Address();
         $address->user_id = Session()->get('user')->id;
-        $address->name = $request->fullName;
+        $address->name = $request->name;
         $address->phone = $request->phone;
         $address->address = $request->address;
         $address->type = $request->type;
@@ -105,5 +109,43 @@ class UserController extends Controller
         $address->created_at = Carbon::now('Asia/Ho_Chi_Minh');
         $address->save();
         return redirect()->route('client.address')->with('success', 'Thêm thành công');
+    }
+    public function editAddress($id)
+    {
+        $address = Address::find($id);
+        return view('client.user.address.create', compact('address'));
+    }
+    public function updateAddress(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'phone' => 'required|size:10',
+            'address' => 'required',
+        ], [
+            'name.required' => 'Vui lòng nhập họ tên',
+            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'phone.size' => 'Số điện thoại không hợp lệ',
+            'address.required' => 'Vui lòng nhập địa chỉ',
+        ]);
+        $address = Address::find($id);
+        $address->name = $request->name;
+        $address->phone = $request->phone;
+        $address->address = $request->address;
+        $address->type = $request->type;
+        if ($request->default == "on") {
+        }
+        $address->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
+        $address->save();
+        return redirect()->route('client.address')->with('success', 'Cập nhật thành công');
+    }
+    public function setDefault($id)
+    {
+        Address::where('user_id', Session()->get('user')->id)
+            ->update(['default' => 0]);
+
+        $address = Address::find($id);
+        $address->default = 1;
+        $address->save();
+        return redirect()->route('client.address')->with('success', 'Cập nhật thành công');
     }
 }

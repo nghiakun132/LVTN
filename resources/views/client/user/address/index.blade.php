@@ -41,10 +41,12 @@
                                         <div class="phone"><span>Điện thoại: </span>{{ $address->phone }}</div>
                                     </div>
                                     <div class="action">
-                                        <a class="edit" href="#">Chỉnh
+                                        <a class="edit" href="{{ route('client.address.edit', $address->id) }}">Chỉnh
                                             sửa</a>
                                         @if ($address->default == 0)
-                                            <a class="edit" href="#">Địa chỉ mặc định</a>
+                                            <a class="edit"
+                                                href="{{ route('client.address.set_default', $address->id) }}">Địa
+                                                chỉ mặc định</a>
                                         @endif
                                     </div>
                                 </div>

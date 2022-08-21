@@ -14,11 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->id();
+            $table->increments('c_id');
             $table->string('c_name');
-            $table->foreignIdFor(\App\Models\Category::class, 'parent_id')->nullable()->constrained('categories')->nullOnDelete();
-            $table->string('c_slug')->unique();
-            $table->text('c_description')->nullable();
+            $table->string('parent_id')->default(0);
+            $table->string('c_slug');
+            $table->string('c_banner')->nullable();
+            $table->tinyInteger('c_status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

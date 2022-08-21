@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('', function () {
 //     return view('welcome');
 // });
+include 'admin.php';
 
 Route::group(['namespace' => 'Client'], function () {
     Route::get('', [App\Http\Controllers\Client\HomeController::class, 'index'])->name('client.home');
@@ -36,7 +37,15 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('so-dia-chi', [App\Http\Controllers\Client\UserController::class, 'address'])->name('client.address');
         Route::get('so-dia-chi/them', [App\Http\Controllers\Client\UserController::class, 'addAddress'])->name('client.address.create');
         Route::post('so-dia-chi/them', [App\Http\Controllers\Client\UserController::class, 'addAddressPost'])->name('client.address.store');
+        Route::get('so-dia-chi/{id}/sua', [App\Http\Controllers\Client\UserController::class, 'editAddress'])->name('client.address.edit');
+        Route::post('so-dia-chi/{id}/sua', [App\Http\Controllers\Client\UserController::class, 'updateAddress'])->name('client.address.update');
+        Route::get('dat-mat-dinh/{id}', [App\Http\Controllers\Client\UserController::class, 'setDefault'])->name('client.address.set_default');
+    });
+
+    //category
+
+    Route::group([], function () {
+        Route::get('{slug}', [App\Http\Controllers\Client\CategoryController::class, 'index'])->name('client.category');
+        Route::get('{slug}/{slug_product}', [App\Http\Controllers\Client\ProductController::class, 'index'])->name('client.product');
     });
 });
-
-include 'admin.php';

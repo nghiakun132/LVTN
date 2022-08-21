@@ -32,7 +32,6 @@ class Staff extends FormRequest
     }
     public function messages()
     {
-
         return [
             'name.required' => 'Vui lòng nhập tên',
             'phone.required' => 'Vui lòng nhập số điện thoại',

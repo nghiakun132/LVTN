@@ -3,6 +3,10 @@
 return [
     'admin' => [
         'name' => 'Danh mục sản phẩm',
+        'route' => 'admin.category.index',
+        'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
+    ], [
+        'name' => 'Thương hiệu',
         'route' => 'admin.home',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ], [

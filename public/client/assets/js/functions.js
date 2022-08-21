@@ -18,7 +18,7 @@
             this.mercado_countdown();
             this.mercado_better_equal_elems();
             this.mercado_toggle_slide_menu();
-
+            this.mercado_product_slider();
             this.mercado_toggle_vertical_main_menu();
             this.mercado_sticky_menu();
         },
@@ -45,12 +45,10 @@
                     margin: 10,
                     nav: true,
                     dots: false,
-                    loop: true,
-                    autoplay: true,
-                    autoplayTimeout: 5000,
+                    loop: false,
                     navText: [
-                        '<i class="fa fa-angle-left " aria-hidden="true"></i>',
-                        '<i class="fa fa-angle-right " aria-hidden="true"></i>',
+                        '<i class="fa-solid fa-angle-left"></i>',
+                        '<i class="fa-solid fa-angle-right"></i>',
                     ],
                 };
                 config.responsive = {

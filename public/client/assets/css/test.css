@@ -646,8 +646,8 @@
 
 .lts-product .item {
     margin: 0 10px 10px 0;
-    /* width: calc(1 / 5 * 100% - (1 - 1 / 5) * 10px); */
-    width: 224px;
+    width: calc(1 / 5 * 100% - (1 - 1 / 5) * 13px);
+    /* width: 224px; */
     background: #fff;
     box-shadow: 0 4px 6px #00000029;
     border-radius: 8px;
@@ -702,7 +702,7 @@
     position: absolute;
     width: 100%;
     top: 100px;
-    right: 20px;
+    right: 0px;
 }
 section .box-home {
     margin: 20px 0;
@@ -806,4 +806,182 @@ section .news-home .item p a:visited {
     visibility: visible;
     opacity: 0.9;
     animation: 1s ease 0s 1 normal none running fade;
+}
+
+/* //category */
+.top-category-ads {
+    margin: 10px 0 0 0;
+}
+.top-category-ads .ads-container {
+    display: flex;
+}
+.top-category-ads .item:last-child {
+    margin-right: 0;
+}
+.top-category-ads .full {
+    width: 100%;
+}
+.top-category-ads .item a:last-child img {
+    margin: 0;
+}
+.lst-quickfilter.q-manu {
+    width: 100%;
+}
+.lst-quickfilter {
+    display: flex;
+    flex-wrap: wrap;
+}
+.box-quicklink__item.bd-radius {
+    border-radius: 52px;
+}
+.box-quicklink__item {
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    color: #333;
+    display: flex;
+    font-size: 14px;
+    line-height: 13px;
+    margin-right: 8px;
+    margin-bottom: 10px;
+    min-height: 36px;
+    max-height: 36px;
+    padding: 6px 13px;
+    vertical-align: top;
+    background-color: #fff;
+}
+.box-quicklink__item img.no-text {
+    margin-right: 0;
+}
+.box-quicklink__item img {
+    vertical-align: middle;
+    width: auto;
+    height: 20px;
+    margin-right: 5px;
+}
+#quick {
+    margin-top: 10px;
+}
+.box-quicklink__item:hover {
+    border-color: #00917a;
+}
+.box-quicklink__item.quicklink-logo:hover {
+    color: #2f80ed;
+}
+/* filter */
+.product-filters2 {
+    position: relative;
+    display: flex;
+}
+.product-filters2 {
+    background: #fff 0% 0% no-repeat padding-box;
+    box-shadow: 0 3px 6px #00000029;
+    border-radius: 14px;
+}
+.product-filters2 .left,
+.product-filters2 .right {
+    display: flex;
+    justify-items: right;
+    justify-content: right;
+    width: 100px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.product-filters2 .left {
+    flex-basis: auto;
+    flex-shrink: 1;
+    flex-grow: 2;
+}
+
+.product-filters2 strong.label {
+    display: inline-block;
+    color: #00917a;
+    padding: 15px 20px;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: inherit;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25em;
+}
+.product-filters2 .facet {
+    display: block;
+    padding: 15px 10px;
+    margin-right: 20px;
+}
+.product-filters2 .facet label {
+    display: flex;
+}
+.product-filters2 .facet i.icon-rightar::before {
+    font-size: 8px;
+    transform: rotate(90deg);
+}
+.product-filters2 .facet .sub2 {
+    display: none;
+    position: absolute;
+    width: 100%;
+    z-index: 123;
+    left: 0;
+    top: 56px;
+}
+.product-filters2 .facet .sub2 ul {
+    background: #fff;
+    box-shadow: 0 3px 6px #00000029;
+    border-radius: 14px;
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    padding: 5px 10px;
+    grid-column-gap: 10px;
+}
+.product-filters2 .facet .sub2 ul li {
+    list-style: none;
+    padding: 5px;
+}
+.product-filters2 .facet ul li a {
+    display: flex;
+}
+.product-filters2 .facet:hover .sub2 {
+    display: block;
+}
+
+.product-filters2-mobile {
+    padding: 0 10px;
+    font-size: 12px;
+}
+.product-filters2-mobile h3 {
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+.product-filters2-mobile .facet {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    margin-bottom: 8px;
+}
+.product-filters2-mobile .facet label {
+    padding: 5px 0;
+    color: #888;
+    font-weight: bold;
+}
+.product-filters2-mobile .facet select {
+    border: 1px solid #009981;
+    color: #009981;
+    padding: 4px 8px;
+}
+@media screen and (max-width: 768px) {
+    #filter-laptop {
+        display: none;
+    }
+    .product-filters2-mobile {
+        display: block;
+    }
+}
+@media screen and (min-width: 768px) {
+    #filter-laptop {
+        display: block;
+    }
+    .product-filters2-mobile {
+        display: none;
+    }
 }

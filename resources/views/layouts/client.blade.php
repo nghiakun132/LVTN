@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>@yield('title')</title>
+    <title>@yield('title') | Nghiakun.online</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/images/2.png') }}" />
     <link
         href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic,900,900italic&amp;subset=latin,latin-ext"
@@ -388,7 +388,7 @@
                 <nav style="z-index: 1000;" id="nav-scroll">
                     <div class="container">
                         <ul class="root clone-main-menu" data-menuname="Danh mục" id="mercado_main">
-                            @for ($i = 1; $i < 13; $i++)
+                            @for ($i = 1; $i < 12; $i++)
                                 <li class="menu-item">
                                     <a href="#" target="_self">
                                         <i class="fa fa-mobile icon" aria-hidden="true"></i>
@@ -768,7 +768,7 @@
     {{-- <script src="{{ asset('client/assets/js/jquery-ui-1.12.4.minb8ff.js') }}"></script>
     <script src="{{ asset('client/assets/js/bootstrap.min.js') }}"></script> --}}
     <script src="{{ asset('client/assets/js/test.js') }}"></script>
-    {{-- <script src="{{ asset('client/assets/js/jquery.flexslider.js') }}"></script> --}}
+    <script src="{{ asset('client/assets/js/jquery.flexslider.js') }}"></script>
     {{-- <script src="{{ asset('client/assets/js/chosen.jquery.min.js') }}"></script> --}}
     <script src="{{ asset('client/assets/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('client/assets/js/jquery.countdown.min.js') }}"></script>

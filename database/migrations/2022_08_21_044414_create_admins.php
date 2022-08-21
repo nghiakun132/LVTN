@@ -18,9 +18,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('avatar')->nullable();
-            $table->tinyInteger('status')->default(1);
             $table->string('password');
-            $table->integer('level')->default(1);
+            $table->date('dob')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->tinyInteger('level')->default(2);
+            $table->tinyInteger('status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
