@@ -4,9 +4,8 @@ namespace App\Repositories\Category;
 
 use App\Models\Category;
 use App\Repositories\BaseRepository;
-use App\Repositories\RepositoryInterface;
 
-class CategoryRepository extends BaseRepository implements RepositoryInterface
+class CategoryRepository extends BaseRepository
 {
     public function getModel()
     {
@@ -40,5 +39,30 @@ class CategoryRepository extends BaseRepository implements RepositoryInterface
             }
         }
         return $html;
+    }
+
+    public function findOne($id)
+    {
+        return $this->model->where('c_id', $id)->first();
+    }
+
+    public function update($attributes = [], $id)
+    {
+        $result = $this->findOne($id);
+        if ($result) {
+            $result->update($attributes);
+            return true;
+        }
+        return false;
+    }
+
+    public function delete($id)
+    {
+        $result = $this->findOne($id);
+        if ($result) {
+            $result->delete();
+            return true;
+        }
+        return false;
     }
 }

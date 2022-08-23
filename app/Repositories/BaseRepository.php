@@ -42,7 +42,7 @@ abstract class BaseRepository implements RepositoryInterface
         $result = $this->findById($id);
         if ($result) {
             $result->update($attributes);
-            return $result;
+            return true;
         }
 
         return false;
@@ -58,5 +58,10 @@ abstract class BaseRepository implements RepositoryInterface
         }
 
         return false;
+    }
+
+    public function getWithRelationship($relate)
+    {
+        return $this->model->with($relate)->get();
     }
 }

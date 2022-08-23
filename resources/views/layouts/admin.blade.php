@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title')</title>
+    <title>@yield('title') | Nghiakun.online</title>
     <link rel="shortcut icon" href="{{ asset('images/2.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -217,25 +217,25 @@
             </div>
         </footer>
 
-    </div>
+        <script src="{{ asset('admin/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('admin/js/bootstrap.bundle.js') }}"></script>
+        <script src="{{ asset('admin/js/adminlte.js') }}"></script>
+        <script src="{{ asset('admin/js/Chart.min.js') }}"></script>
+        <script src="{{ asset('admin/js/demo.js') }}"></script>
+        <script src="{{ asset('admin/js/dashboard3.js') }}"></script>
+        <script src="{{ asset('admin/js/test.js') }}"></script>
 
-    <script src="{{ asset('admin/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('admin/js/bootstrap.bundle.js') }}"></script>
-    <script src="{{ asset('admin/js/adminlte.js') }}"></script>
-    <script src="{{ asset('admin/js/Chart.min.js') }}"></script>
-    <script src="{{ asset('admin/js/demo.js') }}"></script>
-    <script src="{{ asset('admin/js/dashboard3.js') }}"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            $('#example2').DataTable({
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/vi.json"
-                },
-            }, );
-        });
-    </script>
+        <script>
+            $(document).ready(function() {
+                $('#example2').DataTable({
+                    language: {
+                        url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/vi.json"
+                    },
+                }, );
+            });
+        </script>
 
 </body>
 

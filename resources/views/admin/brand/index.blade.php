@@ -1,17 +1,17 @@
 @extends('layouts.admin')
-@section('title', 'Quản lý danh mục')
+@section('title', 'Quản lý thương hiệu')
 @section('content')
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Quản lý danh mục</h1>
+                        <h1 class="m-0">Quản lý thương hiệu</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                            <li class="breadcrumb-item active">Quản lý danh mục</li>
+                            <li class="breadcrumb-item active">Quản lý thương hiệu</li>
                         </ol>
                     </div>
                 </div>
@@ -35,53 +35,45 @@
                                             <table id="example2" class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th style="width:50px">ID</th>
-                                                        <th style="width:100px"> Tên</th>
-                                                        <th style="width:80px">Danh mục cha</th>
-                                                        <th style="width:400px">Banner</th>
-                                                        <th style="width:50px">Trạng thái</th>
-                                                        <th style="width:50px">Thao tác</th>
+                                                        <th>ID</th>
+                                                        <th>Tên thương hiệu</th>
+                                                        <th>Danh mục</th>
+                                                        <th>Avatar</th>
+                                                        <th>Trạng thái</th>
+                                                        <th>Thao tác</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($categories as $category)
+                                                    @foreach ($brands as $brand)
                                                         <tr>
-                                                            <td>{{ $category->c_id }}</td>
-                                                            <td>{{ $category->c_name }}</td>
+                                                            <td>{{ $brand->b_id }}</td>
+                                                            <td>{{ $brand->b_name }}</td>
+                                                            <td>{{ $brand->category->c_name }}</td>
                                                             <td>
-                                                                @if ($category->parent_id == 0)
-                                                                    {{ 'Danh mục cha' }}
-                                                                @else
-                                                                    {{ $category->parent->c_name }}
-                                                                @endif
+                                                                <img src="{{ asset('images/brands/' . $brand->b_banner) }}"
+                                                                    alt="">
                                                             </td>
                                                             <td>
-                                                                @isset($category->c_banner)
-                                                                    <img src="{{ asset('images/categories/' . $category->c_banner) }}"
-                                                                        alt="{{ $category->c_name }}" height="100px">
-                                                                @endisset
-                                                            </td>
-                                                            <td>
-                                                                @if ($category->c_status == 1)
+                                                                @if ($brand->b_status == 1)
                                                                     <a
-                                                                        href="{{ route('admin.category.changeStatus', $category->c_id) }}"><span
+                                                                        href="{{ route('admin.brand.changeStatus', $brand->b_id) }}"><span
                                                                             class="badge badge-success">Đang
                                                                             hoạt động</span></a>
                                                                 @else
                                                                     <a
-                                                                        href="{{ route('admin.category.changeStatus', $category->c_id) }}"><span
+                                                                        href="{{ route('admin.brand.changeStatus', $brand->b_id) }}"><span
                                                                             class="badge badge-danger">Đang
                                                                             khóa</span></a>
                                                                 @endif
                                                             </td>
                                                             <td>
-                                                                <a href="{{ route('admin.category.show', $category->c_id) }}"
+                                                                <a href="{{ route('admin.brand.show', $brand->b_id) }}"
                                                                     class="btn btn-primary btn-sm">
-                                                                    <i class="fa fa-edit"></i> Sửa
+                                                                    <i class="fa fa-pencil" aria-hidden="true"></i>
                                                                 </a>
-                                                                <a href="{{ route('admin.category.delete', $category->c_id) }}"
+                                                                <a href="{{ route('admin.brand.delete', $brand->b_id) }}"
                                                                     class="btn btn-danger btn-sm">
-                                                                    <i class="fa fa-trash"></i> Xóa
+                                                                    <i class="fa fa-trash" aria-hidden="true"></i>
                                                                 </a>
                                                             </td>
                                                         </tr>
@@ -103,7 +95,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Thêm nhân viên</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm thương hiệu</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -115,24 +107,29 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="c_name">Tên danh mục</label>
-                                        <input type="text" placeholder="Nhập tên danh mục" name="c_name"
-                                            class="form-control" id="c_name">
+                                        <label for="b_name">Tên thương hiệu</label>
+                                        <input type="text" placeholder="Nhập tên thương hiệu" name="b_name"
+                                            class="form-control" id="b_name">
                                     </div>
-                                    @if ($errors->has('c_name'))
-                                        <span class="text-danger">{{ $errors->first('c_name') }}</span>
+                                    @if ($errors->has('b_name'))
+                                        <span class="text-danger">{{ $errors->first('b_name') }}</span>
                                     @endif
                                     <div class="form-group">
-                                        <label for="dob">Chọn danh mục cha</label>
-                                        <select class="custom-select custom-select-lg mb-3" name="parent_id">
-                                            <option value="0">Chọn danh mục cha</option>
-                                            <?php echo $showSelect; ?>
+                                        <label for="b_category">Danh mục</label>
+                                        <select class="custom-select custom-select-xl" name="b_category_id">
+                                            <option selected>Chọn danh mục</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->c_id }}">{{ $category->c_name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
+                                    @if ($errors->has('b_category_id'))
+                                        <span class="text-danger">{{ $errors->first('b_category_id') }}</span>
+                                    @endif
                                     <div class="input-group">
-                                        <input type="file" class="form-control" id="inputGroupFile04" name="c_banner">
+                                        <input type="file" class="form-control" id="inputGroupFile04" name="b_banner">
                                         <button class="btn btn-outline-secondary" type="button"
-                                            id="inputGroupFileAddon04">Button</button>
+                                            id="delete-img">Xóa</button>
                                     </div>
                                 </div>
                             </div>
