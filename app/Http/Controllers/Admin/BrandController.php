@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BrandRequest;
 use App\Models\Category;
 use App\Repositories\Brand\BrandRepository;
 use App\Repositories\Category\CategoryRepository;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class BrandController extends Controller
 {
@@ -37,16 +39,8 @@ class BrandController extends Controller
         return view('admin.brand.index', $data);
     }
 
-    public function store(Request $request)
+    public function store(BrandRequest $request)
     {
-        $this->validate($request, [
-            'b_name' => 'required|',
-            'b_category_id' => 'required|unique:brands,b_category_id',
-        ], [
-            'b_name.required' => 'Tên thương hiệu không được để trống',
-            'b_category_id.required' => 'Danh mục không được để trống',
-            'b_category_id.unique' => 'Danh mục đã tồn tại',
-        ]);
         try {
             DB::beginTransaction();
             $data = [
@@ -142,5 +136,19 @@ class BrandController extends Controller
         $brand->b_status = !$brand->b_status;
         $brand->save();
         return redirect()->back()->with('success', 'Cập nhật thành công');
+    }
+    public function getBrand(Request $request)
+    {
+        if ($request->ajax()) {
+            $arr = [
+                'b_category_id' => $request->category,
+            ];
+            $brands = $this->brandRepository->getBrand($arr);
+            $html = '';
+            foreach ($brands as $brand) {
+                $html .= '<option value="' . $brand->b_id . '">' . $brand->b_name . '</option>';
+            }
+            return $html;
+        }
     }
 }

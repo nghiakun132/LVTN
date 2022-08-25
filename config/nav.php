@@ -11,7 +11,7 @@ return [
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ], [
         'name' => 'Sản phẩm',
-        'route' => 'admin.home',
+        'route' => 'admin.product.index',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
     [

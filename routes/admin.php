@@ -29,6 +29,17 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::post('/{id}/edit', [App\Http\Controllers\Admin\BrandController::class, 'update'])->name('admin.brand.update');
             Route::get('/{id}/delete', [App\Http\Controllers\Admin\BrandController::class, 'delete'])->name('admin.brand.delete');
             Route::get('/{id}/change-status', [App\Http\Controllers\Admin\BrandController::class, 'changeStatus'])->name('admin.brand.changeStatus');
+            Route::get('/get-brand-by-category', [App\Http\Controllers\Admin\BrandController::class, 'getBrand'])->name('admin.brand.getBrand');
+        });
+        Route::group(['prefix' => 'product'], function () {
+            Route::get('', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('admin.product.index');
+            Route::post('', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('admin.product.store');
+            Route::get('/{id}/edit', [App\Http\Controllers\Admin\ProductController::class, 'show'])->name('admin.product.show');
+            Route::post('/{id}/edit', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('admin.product.update');
+            Route::get('/{id}/delete', [App\Http\Controllers\Admin\ProductController::class, 'delete'])->name('admin.product.delete');
+            Route::get('/{id}/change-status', [App\Http\Controllers\Admin\ProductController::class, 'changeStatus'])->name('admin.product.changeStatus');
+            Route::post('/add-group-product', [App\Http\Controllers\Admin\ProductController::class, 'addGroup'])->name('admin.product.addGroup');
+            Route::get('/get-group-product', [App\Http\Controllers\Admin\ProductController::class, 'getGroup'])->name('admin.product.getGroup');
         });
     });
 });

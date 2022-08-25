@@ -27,4 +27,9 @@ class BrandRepository extends BaseRepository
         }
         return false;
     }
+
+    public function getBrand($attribute)
+    {
+        return $this->model->where($attribute)->get();
+    }
 }

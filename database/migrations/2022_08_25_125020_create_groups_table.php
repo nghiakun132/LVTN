@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('brands', function (Blueprint $table) {
-            $table->increments('b_id');
-            $table->string('b_name');
-            $table->integer('b_category_id')->unique();
-            $table->string('b_slug');
-            $table->string('b_banner')->nullable();
-            $table->boolean('b_status')->default(1);
+        Schema::create('groups', function (Blueprint $table) {
+            $table->increments('group_id');
+            $table->string('name');
+            $table->string('slug');
+            $table->tinyInteger('active')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('brands');
+        Schema::dropIfExists('groups');
     }
 };

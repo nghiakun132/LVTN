@@ -13,7 +13,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**
@@ -23,10 +22,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $categoriesGlobal = \App\Models\Category::all();
-        // try {
-        //     view()->share('categoriesGlobal', $categoriesGlobal);
-        // } catch (\Exception $e) {
-        // }
+        $categoriesGlobal = \App\Models\Category::all();
+        $brandGlobal = \App\Models\Brands::all();
+        $groupGlobal = \App\Models\Groups::all();
+        try {
+            view()->share('categoriesGlobal', $categoriesGlobal);
+            view()->share('brandGlobal', $brandGlobal);
+            view()->share('groupGlobal', $groupGlobal);
+        } catch (\Exception $e) {
+        }
     }
 }
