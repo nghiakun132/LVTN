@@ -55,8 +55,7 @@ class CategoryController extends Controller
             $data['parent_id'] = $request->parent_id;
             if ($request->file('c_banner')) {
                 $file = $request->file('c_banner');
-                $fileName = $file->getClientOriginalName();
-                $file->move('images/categories', $fileName);
+                $fileName = $this->categoryRepository->uploadFile($file, 'categories');
                 $data['c_banner'] = $fileName;
             }
             $data['created_at'] = date('Y-m-d H:i:s');

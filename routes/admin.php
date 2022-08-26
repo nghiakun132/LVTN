@@ -38,8 +38,13 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::post('/{id}/edit', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('admin.product.update');
             Route::get('/{id}/delete', [App\Http\Controllers\Admin\ProductController::class, 'delete'])->name('admin.product.delete');
             Route::get('/{id}/change-status', [App\Http\Controllers\Admin\ProductController::class, 'changeStatus'])->name('admin.product.changeStatus');
+            Route::get('/{id}/detail', [App\Http\Controllers\Admin\ProductController::class, 'detail'])->name('admin.product.detail');
+            Route::post('/{id}/detail', [App\Http\Controllers\Admin\ProductController::class, 'detailPost'])->name('admin.product.detailPost');
+
             Route::post('/add-group-product', [App\Http\Controllers\Admin\ProductController::class, 'addGroup'])->name('admin.product.addGroup');
             Route::get('/get-group-product', [App\Http\Controllers\Admin\ProductController::class, 'getGroup'])->name('admin.product.getGroup');
+            Route::post('/add-color-product', [App\Http\Controllers\Admin\ProductController::class, 'addColor'])->name('admin.product.addColor');
+            Route::get('/get-color-product', [App\Http\Controllers\Admin\ProductController::class, 'getColor'])->name('admin.product.getColor');
         });
     });
 });

@@ -95,8 +95,7 @@ class BrandController extends Controller
             $data['b_category_id'] = $request->b_category_id;
             if ($request->file('c_banner')) {
                 $file = $request->file('c_banner');
-                $fileName = $file->getClientOriginalName();
-                $file->move('images/brands', $fileName);
+                $fileName = $this->brandRepository->uploadFile($file, 'brands');
                 $data['b_banner'] = $fileName;
             }
             $data['updated_at'] = date('Y-m-d H:i:s');

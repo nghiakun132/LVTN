@@ -64,4 +64,11 @@ abstract class BaseRepository implements RepositoryInterface
     {
         return $this->model->with($relate)->get();
     }
+
+    public function uploadFile($file, $path)
+    {
+        $fileName = $file->getClientOriginalName();
+        $file->move('images/' . $path, $fileName);
+        return $fileName;
+    }
 }

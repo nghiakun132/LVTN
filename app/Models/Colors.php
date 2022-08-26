@@ -11,7 +11,7 @@ class Colors extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'colors';
     protected $primaryKey = 'color_id';
-    protected $fillable = ['name', 'slug', 'active', 'price'];
+    protected $fillable = ['color', 'active'];
 
     public function product()
     {

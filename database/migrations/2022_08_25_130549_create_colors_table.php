@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('colors', function (Blueprint $table) {
             $table->increments('color_id');
             $table->string('color');
-            $table->decimal('price', 12, 0);
             $table->tinyInteger('active')->default(1);
             $table->softDeletes();
             $table->timestamps();

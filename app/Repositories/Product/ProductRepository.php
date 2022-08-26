@@ -11,4 +11,14 @@ class ProductRepository extends BaseRepository
     {
         return Product::class;
     }
+
+    public function findOne($id)
+    {
+        return $this->model->where('pro_id', $id)->first();
+    }
+
+    public function findOneWithRelationship($relationship, $id)
+    {
+        return $this->model->where('pro_id', $id)->with($relationship)->first();
+    }
 }

@@ -227,7 +227,21 @@
         <script src="{{ asset('admin/js/test.js') }}"></script>
 
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-
+        <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#pro_content'))
+                .catch(error => {
+                    console.error(error);
+                });
+        </script>
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#pro_description'))
+                .catch(error => {
+                    console.error(error);
+                });
+        </script>
         <script>
             $(document).ready(function() {
                 $('#example2').DataTable({
