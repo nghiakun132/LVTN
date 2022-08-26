@@ -3,6 +3,7 @@
 - import file excel product detail. Lưu nó trong storage hoặc gg drive
 - Tên file lấy trong csdl ra
 - Khi gọi tới 1 product thì sử dụng
+        <code>
         $fileName = $request->input('file');
         $data = [];
         if ($fileName) {
@@ -14,7 +15,7 @@
                 $data[$v] = $value[$k] * 2;
             }
         }
-        
+        </code>
         
 - Lưu file
         <code>
