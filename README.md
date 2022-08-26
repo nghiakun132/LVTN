@@ -17,6 +17,7 @@
         
         
 - Lưu file
+        <code>
         if ($request->file()) {
             $file = $request->file('file');
             //$name = $file->getClientOriginalName();
@@ -26,3 +27,4 @@
         } else {
             return redirect()->route('test.index');
         }
+    </code>
