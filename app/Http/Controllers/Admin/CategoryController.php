@@ -20,9 +20,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = $this->categoryRepository->getWithRelationship([
-            'parent' => function ($query) {
-                $query->select('c_id', 'c_name');
-            }
+            'parent'
         ]);
         $arr = $categories->toArray();
         $child = $this->categoryRepository->show($arr, 0);
@@ -31,7 +29,6 @@ class CategoryController extends Controller
             'categories' => $categories,
             'showSelect' => $showSelect,
         ];
-
         return view('admin.category.index', $data);
     }
 
@@ -53,6 +50,7 @@ class CategoryController extends Controller
             $data['c_name'] = $request->c_name;
             $data['c_slug'] = Str::slug($request->c_name);
             $data['parent_id'] = $request->parent_id;
+            $data['c_icon'] = $request->c_icon;
             if ($request->file('c_banner')) {
                 $file = $request->file('c_banner');
                 $fileName = $this->categoryRepository->uploadFile($file, 'categories');
@@ -62,7 +60,7 @@ class CategoryController extends Controller
             $data['updated_at'] = date('Y-m-d H:i:s');
             $this->categoryRepository->create($data);
             DB::commit();
-            return redirect()->back()->with('success', 'Thêm mới thành công');
+            return redirect()->back();
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
@@ -101,6 +99,7 @@ class CategoryController extends Controller
             $data['c_name'] = $request->c_name;
             $data['c_slug'] = Str::slug($request->c_name);
             $data['parent_id'] = $request->parent_id;
+            $data['c_icon'] = $request->c_icon;
             if ($request->file('c_banner')) {
                 $file = $request->file('c_banner');
                 $fileName = $file->getClientOriginalName();
@@ -112,10 +111,10 @@ class CategoryController extends Controller
             $result  = $this->categoryRepository->update($data, $id);
             if (!$result) {
                 DB::rollBack();
-                return redirect()->back()->with('error', 'Cập nhật thất bại');
+                return redirect()->back();
             }
             DB::commit();
-            return redirect()->route('admin.category.index')->with('success', 'Cập nhật thành công');
+            return redirect()->route('admin.category.index');
         } catch (\Exception $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -128,7 +127,7 @@ class CategoryController extends Controller
             DB::beginTransaction();
             $this->categoryRepository->delete($id);
             DB::commit();
-            return redirect()->back()->with('success', 'Xóa thành công');
+            return redirect()->back();
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());

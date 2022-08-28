@@ -25,13 +25,19 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <a class="btn btn-success btn-sm text-white" data-toggle="modal"
+                                        <a class="btn btn-outline-warning btn-sm text-muted" data-toggle="modal"
                                             data-target="#addProduct">
                                             <i class="fa fa-user-circle " aria-hidden="true"></i> Thêm mới
                                         </a>
-                                        <a class="btn btn-outline-warning btn-sm text-danger` float-right">
+                                        <a href="{{ route('admin.product.export') }}"
+                                            class="btn btn-outline-warning btn-sm text-danger float-right">
                                             <i class="fa fa-file-excel" aria-hidden="true"></i>
                                             Xuất Excel
+                                        </a>
+                                        <a href="#" data-toggle="modal" data-target="#import"
+                                            class="btn btn-outline-success btn-sm text-dark float-right mr-3">
+                                            <i class="fa fa-file-pdf" aria-hidden="true"></i>
+                                            Nhập Excel
                                         </a>
                                     </div>
                                     <div class="card-body">
@@ -81,9 +87,6 @@
                                                                 <a href="{{ route('admin.product.detail', $product->pro_id) }}"
                                                                     class="btn btn-primary btn-sm text-white">
                                                                     <i class="fa fa-eye"></i>
-                                                                </a>
-                                                                <a href="#" class="btn btn-primary btn-sm text-white">
-                                                                    <i class="fas fa-file-import"></i>
                                                                 </a>
                                                             </td>
                                                         </tr>
@@ -189,10 +192,10 @@
                                             <a href="#" class="btn btn-outline-primary" data-toggle="modal"
                                                 data-target="#addColor">Thêm màu</a>
                                         </div>
-                                        <select class="custom-select" id="colors" name="color_id">
+                                        <select class="custom-select" id="colors" name="color">
                                             <option selected value="0">Chọn màu</option>
                                             @foreach ($colorGlobal as $colorGlobal)
-                                                <option value="{{ $colorGlobal->color_id }}">
+                                                <option value="{{ $colorGlobal->color }}">
                                                     {{ $colorGlobal->color }}
                                                 </option>
                                             @endforeach
@@ -291,6 +294,34 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary" id="submitFormAddColor">Thêm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="import" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Import</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{ route('admin.product.import') }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mt-4">
+                                        <label for="pro_name">File</label>
+                                        <input type="file" name="file" class="form-control" id="file">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>

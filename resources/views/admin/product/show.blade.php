@@ -92,7 +92,7 @@
                                                             <label for="pro_name">Thương hiệu</label>
                                                             <select class="form-control form-control-xl" name="pro_brand_id"
                                                                 id="brands">
-                                                                <option value="0" selected>Chọn thương hiệu</option>
+                                                                <option selected>Chọn thương hiệu</option>
                                                             </select>
                                                         </div>
                                                         <div class=" input-group mb-3 mt-4" style="top:32px">
@@ -117,10 +117,10 @@
                                                                 <a href="#" class="btn btn-outline-primary"
                                                                     data-toggle="modal" data-target="#addColor">Thêm màu</a>
                                                             </div>
-                                                            <select class="custom-select" id="colors" name="color_id">
-                                                                <option selected value="0">Chọn màu</option>
+                                                            <select class="custom-select" id="colors" name="color">
+                                                                <option selected>Chọn màu</option>
                                                                 @foreach ($colorGlobal as $colorGlobal)
-                                                                    <option value="{{ $colorGlobal->color_id }}"
+                                                                    <option value="{{ $colorGlobal->color }}"
                                                                         {{ $colorGlobal->color_id == $product->color_id ? 'selected' : '' }}>
                                                                         {{ $colorGlobal->color }}
                                                                     </option>

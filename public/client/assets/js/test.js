@@ -1,3 +1,20 @@
+function runSpeechRecognition() {
+    var output = document.getElementById("output");
+    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+    var recognition = new SpeechRecognition();
+    recognition.lang = "vi-VN";
+    recognition.onstart = function () {
+        output.setAttribute("value", "Đang nhận dạng...");
+    };
+    recognition.onspeechend = function () {
+        recognition.stop();
+    };
+    recognition.onresult = function (event) {
+        var transcript = event.results[0][0].transcript;
+        output.setAttribute("value", transcript);
+    };
+    recognition.start();
+}
 $("document").ready(function () {
     $(".hero__categories ul").slideToggle(400);
     $(".hero__categories ul").css("padding", "0");

@@ -38,9 +38,11 @@
                                                         <th style="width:50px">ID</th>
                                                         <th style="width:100px"> Tên</th>
                                                         <th style="width:80px">Danh mục cha</th>
+                                                        <th style="width:80px">Icon</th>
                                                         <th style="width:400px">Banner</th>
                                                         <th style="width:50px">Trạng thái</th>
-                                                        <th style="width:50px">Thao tác</th>
+                                                        <th style="width:50px">Thao tác </th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -48,13 +50,11 @@
                                                         <tr>
                                                             <td>{{ $category->c_id }}</td>
                                                             <td>{{ $category->c_name }}</td>
-                                                            <td>
-                                                                @if ($category->parent_id == 0)
-                                                                    {{ 'Danh mục cha' }}
-                                                                @else
-                                                                    {{ $category->parent->c_name }}
-                                                                @endif
+                                                            <td>{{ $category->parent_id == 0 ? 'Danh mục cha' : $category->parent_id }}
                                                             </td>
+                                                            <td><?php echo $category->c_icon; ?></td>
+                                                            </td>
+
                                                             <td>
                                                                 @isset($category->c_banner)
                                                                     <img src="{{ asset('images/categories/' . $category->c_banner) }}"
@@ -124,15 +124,20 @@
                                     @endif
                                     <div class="form-group">
                                         <label for="dob">Chọn danh mục cha</label>
-                                        <select class="custom-select custom-select-lg mb-3" name="parent_id">
+                                        <select class="custom-select custom-select-md mb-3" name="parent_id">
                                             <option value="0">Chọn danh mục cha</option>
                                             <?php echo $showSelect; ?>
                                         </select>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="">Icon</label>
+                                        <input type="text" placeholder="Nhập icon" name="c_icon" class="form-control"
+                                            id="c_icon">
+                                    </div>
                                     <div class="input-group">
                                         <input type="file" class="form-control" id="inputGroupFile04" name="c_banner">
                                         <button class="btn btn-outline-secondary" type="button"
-                                            id="inputGroupFileAddon04">Button</button>
+                                            id="delete-img">Xóa</button>
                                     </div>
                                 </div>
                             </div>

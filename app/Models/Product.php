@@ -22,7 +22,7 @@ class Product extends Model
         'pro_sale',
         'pro_quantity',
         'pro_number',
-        'color_id',
+        'color',
         'pro_description',
         'pro_content',
         'pro_avatar',
@@ -42,12 +42,13 @@ class Product extends Model
     {
         return $this->belongsTo(Brands::class, 'pro_brand_id');
     }
-    public function color()
-    {
-        return $this->belongsTo(Colors::class, 'color_id');
-    }
     public function group()
     {
         return $this->belongsTo(Groups::class, 'group_id');
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Images::class, 'product_id');
     }
 }

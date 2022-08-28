@@ -65,13 +65,15 @@ $("#submitFormAddColor").click(function (e) {
             if (data.status == true) {
                 $("#addColor").modal("hide");
                 $("#colors").append(
-                    '<option value="' +
-                        data.color_id +
-                        '">' +
-                        color +
-                        "</option>"
+                    '<option value="' + data.color + '">' + color + "</option>"
                 );
             }
         },
     });
+});
+
+let itemDetail = document.querySelectorAll(".item-detail");
+
+itemDetail.forEach((item) => {
+    return (item.innerHTML = item.innerHTML.replace(/\n/g, "<br>"));
 });

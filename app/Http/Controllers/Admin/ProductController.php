@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ProductExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Imports\ProductImport;
 use App\Models\Colors;
 use App\Models\Groups;
+use App\Models\Images;
 use App\Repositories\Product\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -33,9 +35,6 @@ class ProductController extends Controller
             'group' => function ($query) {
                 $query->select('group_id', 'name', 'slug');
             },
-            'color' => function ($query) {
-                $query->select('color_id', 'color');
-            },
         ]);
         return view('admin.product.index', compact('products'));
     }
@@ -53,7 +52,7 @@ class ProductController extends Controller
             'pro_content' => $request->pro_content,
             'pro_description' => $request->pro_description,
             'group_id' => $request->group_id,
-            'color_id' => $request->color_id,
+            'color' => $request->color,
         ];
         if ($request->file('pro_avatar')) {
             $file = $request->file('pro_avatar');
@@ -64,10 +63,10 @@ class ProductController extends Controller
             DB::beginTransaction();
             $this->productRepository->create($data);
             DB::commit();
-            return redirect()->back()->with('success', 'Thêm mới thành công');
+            return redirect()->back();
         } catch (\Exception $exception) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Thêm mới thất bại');
+            return redirect()->back();
         }
     }
 
@@ -83,14 +82,11 @@ class ProductController extends Controller
             'group' => function ($query) {
                 $query->select('group_id', 'name', 'slug');
             },
-            'color' => function ($query) {
-                $query->select('color_id', 'color');
-            },
         ], $id);
         return view('admin.product.show', compact('product'));
     }
 
-    public function update(ProductRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = [
             'pro_name' => $request->pro_name,
@@ -98,12 +94,12 @@ class ProductController extends Controller
             'pro_category_id' => $request->pro_category_id,
             'pro_brand_id' => $request->pro_brand_id,
             'pro_price' => $request->pro_price,
-            'pro_sale' => $request->pro_sale / 100,
+            'pro_sale' => $request->pro_sale,
             'pro_quantity' => $request->pro_quantity,
             'pro_content' => $request->pro_content,
             'pro_description' => $request->pro_description,
             'group_id' => $request->group_id,
-            'color_id' => $request->color_id,
+            'color' => $request->color,
         ];
         if ($request->file('pro_avatar')) {
             $file = $request->file('pro_avatar');
@@ -114,10 +110,10 @@ class ProductController extends Controller
             DB::beginTransaction();
             $this->productRepository->update($data, $id);
             DB::commit();
-            return redirect()->route('admin.product.index')->with('success', 'Cập nhật thành công');
+            return redirect()->route('admin.product.index');
         } catch (\Exception $exception) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Cập nhật thất bại');
+            return redirect()->back()->with('error', $exception->getMessage());
         }
     }
 
@@ -127,9 +123,9 @@ class ProductController extends Controller
         if ($product) {
             $product->pro_active = !$product->pro_active;
             $product->save();
-            return redirect()->back()->with('success', 'Cập nhật thành công');
+            return redirect()->back();
         }
-        return redirect()->back()->with('error', 'Cập nhật thất bại');
+        return redirect()->back();
     }
 
     public function delete($id)
@@ -144,7 +140,20 @@ class ProductController extends Controller
 
     public function detail($id)
     {
-        $product = $this->productRepository->findOne($id);
+        $product = $this->productRepository->findOneWithRelationship([
+            'category' => function ($query) {
+                $query->select('c_id', 'c_name');
+            },
+            'brand' => function ($query) {
+                $query->select('b_id', 'b_name');
+            },
+            'group' => function ($query) {
+                $query->select('group_id', 'name', 'slug');
+            },
+            'images' => function ($query) {
+                $query->select('product_id', 'path');
+            }
+        ], $id);
         $file = $product->pro_detail;
         $data = [];
         if (!empty($file)) {
@@ -154,7 +163,23 @@ class ProductController extends Controller
             $value = $data[0][1];
             $data = array_combine($key, $value);
         }
+
         return view('admin.product.detail', compact('data', 'product'));
+    }
+
+    public function uploadImages(Request $request, $id)
+    {
+        if ($request->file('images')) {
+            foreach ($request->file('images') as $file) {
+                $fileName = $this->productRepository->uploadFile($file, 'products');
+                $data = [
+                    'path' => $fileName,
+                    'product_id' => $id,
+                ];
+                Images::create($data);
+            }
+            return redirect()->back();
+        }
     }
 
     public function detailPost(Request $request, $id)
@@ -203,5 +228,16 @@ class ProductController extends Controller
             }
             return response()->json(['status' => false, 'message' => 'Thêm thất bại']);
         }
+    }
+    public function import(Request $request)
+    {
+        if ($request->file('file')) {
+            Excel::import(new ProductImport, $request->file('file'));
+        }
+        return redirect()->back();
+    }
+    public function export()
+    {
+        return Excel::download(new ProductExport, 'products.xlsx');
     }
 }

@@ -49,11 +49,16 @@
                                                         @endif
                                                         <div class="form-group">
                                                             <label for="dob">Chọn danh mục cha</label>
-                                                            <select class="custom-select custom-select-lg mb-3"
+                                                            <select class="custom-select custom-select-md mb-3"
                                                                 name="parent_id">
                                                                 <option value="0">Chọn danh mục cha</option>
                                                                 <?php echo $showSelect; ?>
                                                             </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="">Icon</label>
+                                                            <input type="text" placeholder="Nhập icon" name="c_icon"
+                                                                value="{{ $category->c_icon }}" class="form-control">
                                                         </div>
                                                         <div class="input-group">
                                                             <input type="file" class="form-control" id="inputGroupFile04"

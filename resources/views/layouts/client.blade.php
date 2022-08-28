@@ -310,8 +310,8 @@
                         <div class="wrap-search center-section">
                             <div class="wrap-search-form">
                                 <form action="#" id="form-search-top" name="form-search-top">
-                                    <input type="text" name="search" value="" id="search-top"
-                                        placeholder="Search here..." />
+                                    <input type="text" name="search" class="search_input" id="output"
+                                        placeholder="Tìm kiếm ..." title="Tìm kiếm bằng văn bản">
                                     <button id="button-search-top" type="button">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
@@ -338,8 +338,8 @@
                                                 <li class="level-2">Mp3 Player & Headphones</li>
                                                 <li class="level-2">Table & Accessories</li>
                                             </ul> --}}
-                                    <a href="#" class="wrap-list-cate"><i class="fa fa-microphone"
-                                            aria-hidden="true"></i></a>
+                                    <a href="#" class="wrap-list-cate" onclick="runSpeechRecognition()"><i
+                                            class="fa fa-microphone" aria-hidden="true"></i></a>
                                     {{-- </div> --}}
                                 </form>
                             </div>
@@ -388,38 +388,77 @@
                 <nav style="z-index: 1000;" id="nav-scroll">
                     <div class="container">
                         <ul class="root clone-main-menu" data-menuname="Danh mục" id="mercado_main">
-                            @for ($i = 1; $i < 12; $i++)
+                            @foreach ($categoriesGlobal as $category)
                                 <li class="menu-item">
                                     <a href="#" target="_self">
-                                        <i class="fa fa-mobile icon" aria-hidden="true"></i>
-                                        <span>Điện thoại</span>
+                                        <?php echo $category->c_icon; ?>
+                                        <span>{{ $category->c_name }}</span>
                                     </a>
                                     <div class="sub-container">
                                         <div class="sub">
                                             <div class="menu g1">
                                                 <h4><a href="/dien-thoai-di-dong">Hãng sản xuất
-                                                        {{ $i }}</a></h4>
+                                                    </a></h4>
                                                 <ul class="display-column format_3">
-                                                    <li><a href="/dien-thoai-di-dong/iphone">Apple</a>
-                                                    </li>
-                                                    <li><a href="/dien-thoai-di-dong/samsung">Samsung</a></li>
-                                                    <li><a href="/dien-thoai-di-dong/xiaomi">Xiaomi</a></li>
-                                                    <li><a href="/dien-thoai-di-dong/oppo">OPPO</a></li>
-                                                    <li><a href="/dien-thoai-di-dong/nokia">Nokia</a></li>
-                                                    <li><a href="/dien-thoai-di-dong/realme">Realme</a></li>
-                                                    <li><a href="/dien-thoai-di-dong/nubia">Nubia</a></li>
-                                                    <li><a href="/dien-thoai-di-dong/vivo">Vivo</a></li>
-                                                    <li><a href="/dien-thoai-di-dong/energizer">Energizer</a></li>
-                                                    <li><a href="/dien-thoai-di-dong/masstel">Masstel</a></li>
-                                                    <li><a href="/dien-thoai-di-dong/xor">XOR</a></li>
-                                                    <li><a href="/dien-thoai-di-dong/blackberry">Blackberry</a></li>
-                                                    <li><a href="/dien-thoai-di-dong/philips">Philips</a></li>
-                                                    <li><a href="/dien-thoai-di-dong/itel">Itel</a></li>
-                                                    <li><a href="/dien-thoai-di-dong/bphone">BPhone</a></li>
-                                                    <li><a href="/dien-thoai-di-dong/tecno">TECNO</a></li>
+                                                    @foreach ($category->brand as $brand)
+                                                        <li><a href="#">{{ $brand->b_name }}</a>
+                                                        </li>
+                                                    @endforeach
                                                 </ul>
-                                                <h4><a href="/dien-thoai-cao-cap">Điện thoại cao cấp</a></h4>
+                                                {{-- @foreach ($category->parent as $child)
+                                                @endforeach --}}
                                                 <ul class="display-row format_1">
+                                                    @foreach ($category->parent as $brand)
+                                                        <h4><a href="/dien-thoai-cao-cap">{{ $brand->c_name }}</a>
+                                                        </h4>
+                                                        @foreach ($brand->brand as $value)
+                                                            <li><a href="#">{{ $value->b_name }}</a>
+                                                            </li>
+                                                        @endforeach
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                            <div class="menu g2">
+                                                <h4><a href="/dien-thoai-duoi-1-trieu">Mức giá</a></h4>
+                                                <ul class="display-row format_2">
+                                                    <li><a
+                                                            href="/dien-thoai-di-dong?filters={%22price%22:%22T100t%22}&amp;search=true">Trên
+                                                            100 triệu</a></li>
+                                                    <li><a
+                                                            href="/dien-thoai-di-dong?=&amp;filters={&quot;sort&quot;:&quot;10&quot;,&quot;price&quot;:&quot;1t&quot;}">Dưới
+                                                            1 triệu</a></li>
+                                                    <li><a
+                                                            href="/dien-thoai-di-dong?=&amp;filters={&quot;sort&quot;:&quot;10&quot;,&quot;price&quot;:&quot;2t-3t&quot;}">Từ
+                                                            2 đến 3 triệu</a></li>
+                                                    <li><a
+                                                            href="/dien-thoai-di-dong?=&amp;filters={&quot;sort&quot;:&quot;10&quot;,&quot;price&quot;:&quot;3t-4t&quot;}">Từ
+                                                            3 đến 4 triệu</a></li>
+                                                    <li><a
+                                                            href="/dien-thoai-di-dong?=&amp;filters={&quot;price&quot;:&quot;6t-8t&quot;}">Từ
+                                                            6 đến 8 triệu</a></li>
+                                                    <li><a
+                                                            href="/dien-thoai-di-dong?=&amp;filters={&quot;price&quot;:&quot;15t-20t&quot;}">Từ
+                                                            15 đến 20 triệu</a></li>
+                                                    <li><a
+                                                            href="/dien-thoai-di-dong?search=true&amp;filters={%22price%22:%2220t-100tr%22}&amp;search=true">Từ
+                                                            20 đến 100 triệu</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="menu g3">
+                                                <h4><a>Quan tâm nhất</a></h4>
+                                                <ul class="display-row format_2">
+                                                    <li><a
+                                                            href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;6&quot;}">Hôm
+                                                            nay</a></li>
+                                                    <li><a
+                                                            href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;7&quot;}">Tuần
+                                                            này</a></li>
+                                                    <li><a
+                                                            href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;8&quot;}">Tháng
+                                                            này</a></li>
+                                                    <li><a
+                                                            href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;10&quot;}">Năm
+                                                            nay</a></li>
                                                 </ul>
                                             </div>
                                             <div class="menu ads" style="width:400px">
@@ -427,7 +466,8 @@
                                         </div>
                                     </div>
                                 </li>
-                            @endfor
+                            @endforeach
+
                         </ul>
                     </div>
                 </nav>
@@ -774,6 +814,7 @@
     <script src="{{ asset('client/assets/js/jquery.countdown.min.js') }}"></script>
     <script src="{{ asset('client/assets/js/jquery.sticky.js') }}"></script>
     <script src="{{ asset('client/assets/js/functions.js') }}"></script>
+
 </body>
 
 </html>

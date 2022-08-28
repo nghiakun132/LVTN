@@ -12,9 +12,4 @@ class Colors extends Model
     protected $table = 'colors';
     protected $primaryKey = 'color_id';
     protected $fillable = ['color', 'active'];
-
-    public function product()
-    {
-        return $this->belongsToMany(Product::class, 'color_id');
-    }
 }

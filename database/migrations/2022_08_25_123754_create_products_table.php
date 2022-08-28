@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('pro_category_id');
             $table->integer('pro_brand_id');
             $table->decimal('pro_price', 12, 0);
-            $table->float('pro_sale', 3, 0);
+            $table->integer('pro_sale');
             $table->integer('pro_quantity');
             $table->text('pro_description')->nullable();
             $table->text('pro_content')->nullable();

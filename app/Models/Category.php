@@ -11,11 +11,11 @@ class Category extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'categories';
     protected $primaryKey = 'c_id';
-    protected $fillable = ['c_name', 'parent_id', 'c_slug', 'c_banner', 'c_status'];
+    protected $fillable = ['c_name', 'parent_id', 'c_slug', 'c_banner', 'c_status', 'c_icon'];
 
     public function parent()
     {
-        return $this->belongsTo(Category::class, 'parent_id');
+        return $this->hasMany(Category::class, 'parent_id', 'c_id');
     }
 
     public function brand()

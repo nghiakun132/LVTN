@@ -40,7 +40,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::get('/{id}/change-status', [App\Http\Controllers\Admin\ProductController::class, 'changeStatus'])->name('admin.product.changeStatus');
             Route::get('/{id}/detail', [App\Http\Controllers\Admin\ProductController::class, 'detail'])->name('admin.product.detail');
             Route::post('/{id}/detail', [App\Http\Controllers\Admin\ProductController::class, 'detailPost'])->name('admin.product.detailPost');
-
+            Route::post('/{id}/images', [App\Http\Controllers\Admin\ProductController::class, 'uploadImages'])->name('admin.product.image');
+            Route::post('/import', [App\Http\Controllers\Admin\ProductController::class, 'import'])->name('admin.product.import');
+            Route::get('/export', [App\Http\Controllers\Admin\ProductController::class, 'export'])->name('admin.product.export');
             Route::post('/add-group-product', [App\Http\Controllers\Admin\ProductController::class, 'addGroup'])->name('admin.product.addGroup');
             Route::get('/get-group-product', [App\Http\Controllers\Admin\ProductController::class, 'getGroup'])->name('admin.product.getGroup');
             Route::post('/add-color-product', [App\Http\Controllers\Admin\ProductController::class, 'addColor'])->name('admin.product.addColor');
