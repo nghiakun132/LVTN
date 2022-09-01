@@ -92,7 +92,8 @@
                                                             <label for="pro_name">Thương hiệu</label>
                                                             <select class="form-control form-control-xl" name="pro_brand_id"
                                                                 id="brands">
-                                                                <option selected>Chọn thương hiệu</option>
+                                                                <option selected value="{{ $product->brand->b_id }}">
+                                                                    {{ $product->brand->b_name }}</option>
                                                             </select>
                                                         </div>
                                                         <div class=" input-group mb-3 mt-4" style="top:32px">

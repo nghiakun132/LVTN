@@ -18,11 +18,8 @@ class ProductExport implements WithHeadings, FromCollection
             'pro_price',
             'pro_sale',
             'pro_quantity',
-            'pro_description',
-            'pro_content',
             'color',
             'group_id',
-            'pro_avatar',
         ];
     }
 
@@ -49,11 +46,8 @@ class ProductExport implements WithHeadings, FromCollection
                 'pro_price' => $product->pro_price,
                 'pro_sale' => $product->pro_sale,
                 'pro_quantity' => $product->pro_quantity,
-                'pro_description' => $product->pro_description,
-                'pro_content' => $product->pro_content,
                 'color' => $product->color,
                 'group_id' => $product->group->name,
-                'pro_avatar' => $product->pro_avatar,
             ];
         }
         return collect($data);

@@ -31,7 +31,7 @@ return [
     ],
     [
         'name' => 'Mã giảm giá',
-        'route' => 'admin.home',
+        'route' => 'admin.coupon.index',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
     [
@@ -41,7 +41,7 @@ return [
     ],
     [
         'name' => 'Nhà cung cấp',
-        'route' => 'admin.home',
+        'route' => 'admin.supplier.index',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
     [

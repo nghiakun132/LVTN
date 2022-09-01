@@ -16,9 +16,9 @@ class checkUserLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Session()->get('user')) {
-            return $next($request);
+        if (!Session()->get('user')) {
+            return redirect()->route('client.login');
         }
-        return redirect()->route('client.login');
+        return $next($request);
     }
 }

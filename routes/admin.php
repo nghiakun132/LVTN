@@ -6,6 +6,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
     Route::get('/logout', [App\Http\Controllers\Admin\HomeController::class, 'logout'])->name('admin.logout');
 
     Route::group(['middleware' => ['admin']], function () {
+
         Route::group(['prefix' => 'staff', 'middleware' => ['role']], function () {
             Route::get('/', [App\Http\Controllers\Admin\StaffController::class, 'index'])->name('admin.staff.index');
             Route::post('/', [App\Http\Controllers\Admin\StaffController::class, 'store']);
@@ -14,6 +15,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::get('/{id}/delete', [App\Http\Controllers\Admin\StaffController::class, 'delete'])->name('admin.staff.delete');
             Route::get('/{id}/change-status', [App\Http\Controllers\Admin\StaffController::class, 'changeStatus'])->name('admin.staff.changeStatus');
         });
+
         Route::group(['prefix' => 'category'], function () {
             Route::get('', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('admin.category.index');
             Route::post('', [App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('admin.category.store');
@@ -22,6 +24,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::get('/{id}/delete', [App\Http\Controllers\Admin\CategoryController::class, 'delete'])->name('admin.category.delete');
             Route::get('/{id}/change-status', [App\Http\Controllers\Admin\CategoryController::class, 'changeStatus'])->name('admin.category.changeStatus');
         });
+
         Route::group(['prefix' => 'brand'], function () {
             Route::get('', [App\Http\Controllers\Admin\BrandController::class, 'index'])->name('admin.brand.index');
             Route::post('', [App\Http\Controllers\Admin\BrandController::class, 'store'])->name('admin.brand.store');
@@ -31,6 +34,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::get('/{id}/change-status', [App\Http\Controllers\Admin\BrandController::class, 'changeStatus'])->name('admin.brand.changeStatus');
             Route::get('/get-brand-by-category', [App\Http\Controllers\Admin\BrandController::class, 'getBrand'])->name('admin.brand.getBrand');
         });
+
         Route::group(['prefix' => 'product'], function () {
             Route::get('', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('admin.product.index');
             Route::post('', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('admin.product.store');
@@ -47,6 +51,23 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::get('/get-group-product', [App\Http\Controllers\Admin\ProductController::class, 'getGroup'])->name('admin.product.getGroup');
             Route::post('/add-color-product', [App\Http\Controllers\Admin\ProductController::class, 'addColor'])->name('admin.product.addColor');
             Route::get('/get-color-product', [App\Http\Controllers\Admin\ProductController::class, 'getColor'])->name('admin.product.getColor');
+        });
+
+        Route::group(['prefix' => 'coupon'], function () {
+            Route::get('', [App\Http\Controllers\Admin\CouponController::class, 'index'])->name('admin.coupon.index');
+            Route::post('', [App\Http\Controllers\Admin\CouponController::class, 'store'])->name('admin.coupon.store');
+            Route::get('/{id}/edit', [App\Http\Controllers\Admin\CouponController::class, 'show'])->name('admin.coupon.show');
+            Route::post('/{id}/edit', [App\Http\Controllers\Admin\CouponController::class, 'update'])->name('admin.coupon.update');
+            Route::get('/{id}/delete', [App\Http\Controllers\Admin\CouponController::class, 'delete'])->name('admin.coupon.delete');
+        });
+
+        Route::group(['prefix' => 'supplier'], function () {
+            Route::get('', [App\Http\Controllers\Admin\SupplierController::class, 'index'])->name('admin.supplier.index');
+            Route::post('', [App\Http\Controllers\Admin\SupplierController::class, 'store'])->name('admin.supplier.store');
+            Route::get('/{id}/edit', [App\Http\Controllers\Admin\SupplierController::class, 'show'])->name('admin.supplier.show');
+            Route::post('/{id}/edit', [App\Http\Controllers\Admin\SupplierController::class, 'update'])->name('admin.supplier.update');
+            Route::get('/{id}/delete', [App\Http\Controllers\Admin\SupplierController::class, 'delete'])->name('admin.supplier.delete');
+            Route::get('/{id}/change-status', [App\Http\Controllers\Admin\SupplierController::class, 'changeStatus'])->name('admin.supplier.changeStatus');
         });
     });
 });
