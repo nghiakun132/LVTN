@@ -21,6 +21,11 @@ class Import extends Model
 
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class, 's_id');
+        return $this->belongsTo(Supplier::class, 'supplier_id');
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'admin_id');
     }
 }

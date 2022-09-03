@@ -17,9 +17,9 @@ return new class extends Migration
             $table->increments('i_id');
             $table->integer('supplier_id')->unsigned();
             $table->integer('admin_id')->unsigned();
-            $table->decimal('i_total', 10, 2);
+            $table->decimal('i_total', 10, 2)->nullable();
             $table->string('i_date');
-            $table->string('i_note');
+            $table->string('i_note')->nullable();;
             $table->boolean('i_status')->default(1);
             $table->date('confirm_date')->nullable();
             $table->string('confirm_by')->nullable();

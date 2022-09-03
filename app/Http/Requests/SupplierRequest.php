@@ -27,7 +27,7 @@ class SupplierRequest extends FormRequest
             's_name' => 'required',
             's_address' => 'required',
             's_phone' => 'required',
-            's_email' => 'required',
+            's_email' => 'required|email',
         ];
     }
     public function messages()
@@ -37,6 +37,7 @@ class SupplierRequest extends FormRequest
             's_address.required' => 'Vui lòng nhập địa chỉ nhà cung cấp',
             's_phone.required' => 'Vui lòng nhập số điện thoại nhà cung cấp',
             's_email.required' => 'Vui lòng nhập email nhà cung cấp',
+            's_email.email' => 'Email không đúng định dạng',
         ];
     }
 }

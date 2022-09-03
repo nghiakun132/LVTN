@@ -38,11 +38,14 @@ class AppServiceProvider extends ServiceProvider
         $brandGlobal = \App\Models\Brands::all();
         $groupGlobal = \App\Models\Groups::all();
         $colorGlobal = \App\Models\Colors::all();
+        $supplierGlobal = \App\Models\Supplier::all();
+
         try {
             view()->share('categoriesGlobal', $categoriesGlobal);
             view()->share('brandGlobal', $brandGlobal);
             view()->share('groupGlobal', $groupGlobal);
             view()->share('colorGlobal', $colorGlobal);
+            view()->share('supplierGlobal', $supplierGlobal);
         } catch (\Exception $e) {
         }
     }

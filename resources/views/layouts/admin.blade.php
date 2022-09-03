@@ -167,7 +167,7 @@
                         <img src="{{ asset('images/ronaldo.jpg') }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Ronaldo De Lima</a>
+                        <a href="#" class="d-block">{{ Session()->get('admin')->name }}</a>
                     </div>
                 </div>
                 <div class="form-inline">

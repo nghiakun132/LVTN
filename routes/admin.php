@@ -69,5 +69,11 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::get('/{id}/delete', [App\Http\Controllers\Admin\SupplierController::class, 'delete'])->name('admin.supplier.delete');
             Route::get('/{id}/change-status', [App\Http\Controllers\Admin\SupplierController::class, 'changeStatus'])->name('admin.supplier.changeStatus');
         });
+
+        Route::group(['prefix' => 'import'], function () {
+            Route::get('', [App\Http\Controllers\Admin\ImportController::class, 'index'])->name('admin.import.index');
+            Route::post('', [App\Http\Controllers\Admin\ImportController::class, 'store'])->name('admin.import.store');
+            Route::get('/{id}/edit', [App\Http\Controllers\Admin\ImportController::class, 'show'])->name('admin.import.show');
+        });
     });
 });

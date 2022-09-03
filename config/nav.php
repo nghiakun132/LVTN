@@ -61,7 +61,7 @@ return [
     ],
     [
         'name' => 'Nhập hàng',
-        'route' => 'admin.home',
+        'route' => 'admin.import.index',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
     [

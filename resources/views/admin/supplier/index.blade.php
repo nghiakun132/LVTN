@@ -48,6 +48,37 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @foreach ($suppliers as $supplier)
+                                                        <tr>
+                                                            <td>{{ $supplier->s_id }}</td>
+                                                            <td>{{ $supplier->s_name }}</td>
+                                                            <td>{{ $supplier->s_address }}</td>
+                                                            <td>{{ $supplier->s_phone }}</td>
+                                                            <td>{{ $supplier->s_email }}</td>
+                                                            <td>
+                                                                @if ($supplier->s_status == 1)
+                                                                    <a
+                                                                        href="{{ route('admin.staff.changeStatus', $supplier->s_id) }}"><span
+                                                                            class="badge badge-success">Hiển
+                                                                            thị</span></a>
+                                                                @else
+                                                                    <a
+                                                                        href="{{ route('admin.staff.changeStatus', $supplier->s_id) }}"><span
+                                                                            class="badge badge-danger">Ẩn</span></a>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                <a href="{{ route('admin.supplier.show', $supplier->s_id) }}"
+                                                                    class="btn btn-warning btn-sm text-white">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </a>
+                                                                <a href="{{ route('admin.supplier.delete', $supplier->s_id) }}"
+                                                                    class="btn btn-danger btn-sm text-white">
+                                                                    <i class="fa fa-trash"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -72,12 +103,12 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <form method="post" action="#" enctype="multipart/form-data">
+                            <form method="post" action="" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="s_name">Tên nhà cung cấp</label>
-                                        <input type="number" placeholder="Nhập tên nhà cung cấp" name="s_name"
+                                        <input type="text" placeholder="Nhập tên nhà cung cấp" name="s_name"
                                             class="form-control" id="s_name">
                                     </div>
                                     @if ($errors->has('s_name'))
@@ -85,7 +116,7 @@
                                     @endif
                                     <div class="form-group">
                                         <label for="s_address">Địa chỉ</label>
-                                        <input type="number" placeholder="Nhập địa chỉ" name="s_address"
+                                        <input type="text" placeholder="Nhập địa chỉ" name="s_address"
                                             class="form-control" id="s_address">
                                     </div>
                                     @if ($errors->has('s_address'))
@@ -93,7 +124,7 @@
                                     @endif
                                     <div class="form-group">
                                         <label for="s_phone">Số điện thoại</label>
-                                        <input type="number" placeholder="Nhập số điện thoại" name="s_phone"
+                                        <input type="text" placeholder="Nhập số điện thoại" name="s_phone"
                                             class="form-control" id="s_phone">
                                     </div>
                                     @if ($errors->has('s_phone'))
@@ -101,7 +132,7 @@
                                     @endif
                                     <div class="form-group">
                                         <label for="s_email">Email</label>
-                                        <input type="number" placeholder="Nhập email" name="s_email" class="form-control"
+                                        <input type="text" placeholder="Nhập email" name="s_email" class="form-control"
                                             id="s_email">
                                     </div>
                                     @if ($errors->has('s_email'))
@@ -109,7 +140,7 @@
                                     @endif
 
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Thêm</button>
                             </form>
                         </div>
                     </div>
