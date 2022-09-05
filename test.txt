@@ -1,1 +1,1 @@
-https://www.nicesnippets.com/blog/laravel-9-comment-system-example-tutorial
+- Bình luận và trả lời nè: https://www.nicesnippets.com/blog/laravel-9-comment-system-example-tutorial
