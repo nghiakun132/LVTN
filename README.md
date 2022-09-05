@@ -29,3 +29,41 @@
             return redirect()->route('test.index');
         }
     </code>
+    
+- Like comment
+<code>
+<script>
+    $(document).ready(function() {
+        $('.like').click(function() {
+            var id = $(this).data('id');
+            var url = "{{ route('like') }}";
+            $.ajax({
+                url: url,
+                data: {
+                    id: id
+                },
+                success: function(data) {
+                    if (data.status == 'success') {
+                        $('.like[data-id=' + id + ']').html(
+                            '<i class="fa-regular fa-thumbs-up"></i> ' + data.likes);
+                    }
+                }
+            });
+        })
+    })
+</script>
+
+if ($request->ajax()) {
+            $post = \App\Models\Post::find($request->id);
+            $post->likes = $post->likes + 1;
+            $post->save();
+            return response()->json(
+                [
+                'status' => 'success',
+                'likes' => $post->likes
+                ]
+            );
+        }
+</code>
+    
+ 
