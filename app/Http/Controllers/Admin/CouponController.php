@@ -45,13 +45,11 @@ class CouponController extends Controller
                 'coupon_discount' => $discount,
             ]);
             DB::commit();
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Thêm mã giảm giá thành công');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
         }
-
-
-        return redirect()->back();
+        return redirect()->back()->with('error', 'Thêm mã giảm giá thất bại');
     }
 }

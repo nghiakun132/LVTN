@@ -77,32 +77,3 @@ let itemDetail = document.querySelectorAll(".item-detail");
 itemDetail.forEach((item) => {
     return (item.innerHTML = item.innerHTML.replace(/\n/g, "<br>"));
 });
-
-$("#submitAddSupplier").click(function (e) {
-    e.preventDefault();
-    let name = $("#s_name").val();
-    let phone = $("#s_phone").val();
-    let address = $("#s_address").val();
-    let email = $("#s_email").val();
-    $.ajax({
-        url: "/panel/supplier/",
-        type: "POST",
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-        data: {
-            s_name: name,
-            s_phone: phone,
-            s_address: address,
-            s_email: email,
-        },
-        success: function (data) {
-            if (data.status == true) {
-                $("#addSupplier").modal("hide");
-                $("#suppliers").append(
-                    '<option value="' + data.s_id + '">' + name + "</option>"
-                );
-            }
-        },
-    });
-});

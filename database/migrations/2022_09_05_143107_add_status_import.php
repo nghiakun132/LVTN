@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('suppliers', function (Blueprint $table) {
-            $table->increments('s_id');
-            $table->string('s_name');
-            $table->string('s_address');
-            $table->string('s_phone');
-            $table->string('s_email');
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('imports', function (Blueprint $table) {
+            $table->tinyInteger('i_status')->after('i_quantity')->default(1);
         });
     }
 
@@ -31,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('suppliers');
+        Schema::table('imports', function (Blueprint $table) {
+            //
+        });
     }
 };

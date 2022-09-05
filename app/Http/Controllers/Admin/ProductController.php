@@ -234,7 +234,7 @@ class ProductController extends Controller
         if ($request->file('file')) {
             Excel::import(new ProductImport, $request->file('file'));
         }
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Thêm thành công');
     }
     public function export()
     {

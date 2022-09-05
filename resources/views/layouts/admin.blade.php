@@ -217,7 +217,6 @@
                 <b>Version</b>1.0.0
             </div>
         </footer>
-
         <script src="{{ asset('admin/js/jquery.min.js') }}"></script>
         <script src="{{ asset('admin/js/bootstrap.bundle.js') }}"></script>
         <script src="{{ asset('admin/js/adminlte.js') }}"></script>
@@ -225,9 +224,11 @@
         <script src="{{ asset('admin/js/demo.js') }}"></script>
         <script src="{{ asset('admin/js/dashboard3.js') }}"></script>
         <script src="{{ asset('admin/js/test.js') }}"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
         <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+        <link rel="stylesheet" type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         <script>
             ClassicEditor
                 .create(document.querySelector('#pro_content'))
@@ -251,21 +252,8 @@
                 }, );
             });
         </script>
+        @include('components.toastr')
 
 </body>
-
-<?php
-$error = Session::get('error');
-$success = Session::get('success');
-if ($error) {
-    echo '<script>alert("' . $error . '")</script>';
-    Session::forget('error');
-}
-if ($success) {
-    echo '<script>alert("' . $success . '")</script>';
-    Session::forget('success');
-}
-
-?>
 
 </html>

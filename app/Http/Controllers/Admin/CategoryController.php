@@ -139,6 +139,6 @@ class CategoryController extends Controller
         $category = $this->categoryRepository->findOne($id);
         $category->c_status = !$category->c_status;
         $category->save();
-        return redirect()->back()->with('success', 'Cập nhật thành công');
+        return redirect()->back()->with('success', 'Cập nhật trạng thái thành công');
     }
 }

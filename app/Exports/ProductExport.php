@@ -11,15 +11,14 @@ class ProductExport implements WithHeadings, FromCollection
     public function headings(): array
     {
         return [
-            'pro_name',
-            'pro_slug',
+            'name',
             'category',
-            'brand_id',
-            'pro_price',
-            'pro_sale',
-            'pro_quantity',
+            'brand',
+            'price',
+            'sale',
+            'quantity',
             'color',
-            'group_id',
+            'group',
         ];
     }
 
@@ -40,7 +39,6 @@ class ProductExport implements WithHeadings, FromCollection
         foreach ($products as $product) {
             $data[] = [
                 'pro_name' => $product->pro_name,
-                'pro_slug' => $product->pro_slug,
                 'category' => $product->category->c_name,
                 'brand' => $product->brand->b_name,
                 'pro_price' => $product->pro_price,

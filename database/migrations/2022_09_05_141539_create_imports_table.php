@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('import_details', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('import_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->integer('quantity');
-            $table->decimal('price', 10, 2);
-            $table->softDeletes();
+        Schema::create('imports', function (Blueprint $table) {
+            $table->increments('i_id');
+            $table->integer('i_product_id');
+            $table->float('i_price');
+            $table->integer('i_quantity');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('import_details');
+        Schema::dropIfExists('imports');
     }
 };
