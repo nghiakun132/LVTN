@@ -1,1 +1,2 @@
 - Bình luận và trả lời nè: https://www.nicesnippets.com/blog/laravel-9-comment-system-example-tutorial
+- PDF để in đơn hàng: https://www.nicesnippets.com/blog/laravel-9-generate-pdf-example-tutorial
