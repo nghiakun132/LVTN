@@ -1,2 +1,9 @@
 - Bình luận và trả lời nè: https://www.nicesnippets.com/blog/laravel-9-comment-system-example-tutorial
 - PDF để in đơn hàng: https://www.nicesnippets.com/blog/laravel-9-generate-pdf-example-tutorial
+- Nhập hàng theo từng lô hàng
+    + Thêm 1 bảng import nữa
+    + Trong đó có Mã lô hàng, tổng tiền, ngày nhập, người nhập
+    + Tổng tiền tính trong lúc import vô
+    + Gán $total = 0, trong foreach cộng dồn lên
+    + Người nhập lấy session()
+    + Mã lô hàng random string
