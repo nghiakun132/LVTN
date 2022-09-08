@@ -38,26 +38,49 @@
                                             <table id="example2" class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
+                                                        <th>Lô hàng</th>
                                                         <th>Ngày nhập</th>
-                                                        <th>Tên sản phẩm</th>
-                                                        <th>Danh mục</th>
-                                                        <th>Số lượng</th>
-                                                        <th>Giá nhập</th>
-                                                        <th>Thành tiền</th>
+                                                        <th>Người nhập</th>
+                                                        <th>Tổng tiền</th>
+                                                        <th>Trạng thái</th>
+                                                        <th>Thao tác</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($imports as $import)
                                                         <tr>
-                                                            <td>{{ $import->i_id }}</td>
-                                                            <td>{{ $import->created_at }}</td>
-                                                            <td>{{ $import->products->pro_name }}</td>
-                                                            <td>{{ $import->products->category->c_name }}</td>
-                                                            <td>{{ $import->i_quantity }}</td>
-                                                            <td>{{ number_format($import->i_price) }} VNĐ</td>
-                                                            <td>{{ number_format($import->i_quantity * $import->i_price) }}
-                                                                VNĐ</td>
+                                                            <td>
+                                                                {{ $import->i_code }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $import->created_at }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $import->admin->name }}
+                                                            </td>
+                                                            <td>
+                                                                {{ number_format($import->i_total, 0, ',', '.') }} VNĐ
+                                                            </td>
+                                                            <td>
+
+                                                                @if ($import->i_status == 1)
+                                                                    <a
+                                                                        href="{{ route('admin.import.changestatus', $import->i_id) }}"><span
+                                                                            class="badge badge-danger">Chưa
+                                                                            duyệt</span></a>
+                                                                @else
+                                                                    <a
+                                                                        href="{{ route('admin.import.changestatus', $import->i_id) }}"><span
+                                                                            class="badge badge-success">Đã
+                                                                            duyệt</span></a>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                <a href="{{ route('admin.import.detail', $import->i_id) }}"
+                                                                    class="btn btn-outline-primary btn-sm">
+                                                                    <i class="fas fa-eye"></i> Xem chi tiết
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

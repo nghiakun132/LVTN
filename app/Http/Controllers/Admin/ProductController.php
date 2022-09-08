@@ -9,6 +9,7 @@ use App\Imports\ProductImport;
 use App\Models\Colors;
 use App\Models\Groups;
 use App\Models\Images;
+use App\Repositories\Import\ImportRepository;
 use App\Repositories\Product\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,10 +19,13 @@ use Maatwebsite\Excel\Facades\Excel;
 class ProductController extends Controller
 {
     protected $productRepository;
+    protected $importRepository;
     public function __construct(
         ProductRepository $productRepository,
+        ImportRepository $importRepository
     ) {
         $this->productRepository = $productRepository;
+        $this->importRepository = $importRepository;
     }
     public function index()
     {
@@ -61,7 +65,16 @@ class ProductController extends Controller
         }
         try {
             DB::beginTransaction();
-            $this->productRepository->create($data);
+
+            $product = $this->productRepository->insertGetId($data);
+
+            // $this->importRepository->create([
+            //     'i_product_id' => $product,
+            //     'i_price' => $request->pro_price,
+            //     'i_quantity' => $request->pro_quantity,
+            //     'i_status' => 1,
+            // ]);
+
             DB::commit();
             return redirect()->back();
         } catch (\Exception $exception) {
@@ -95,20 +108,32 @@ class ProductController extends Controller
             'pro_brand_id' => $request->pro_brand_id,
             'pro_price' => $request->pro_price,
             'pro_sale' => $request->pro_sale,
-            'pro_quantity' => $request->pro_quantity,
+            // 'pro_quantity' => $request->pro_quantity,
             'pro_content' => $request->pro_content,
             'pro_description' => $request->pro_description,
             'group_id' => $request->group_id,
             'color' => $request->color,
         ];
+
         if ($request->file('pro_avatar')) {
             $file = $request->file('pro_avatar');
             $fileName = $this->productRepository->uploadFile($file, 'products');
             $data['pro_avatar'] = $fileName;
         }
+
         try {
             DB::beginTransaction();
-            $this->productRepository->update($data, $id);
+            $product = $this->productRepository->findOne($id);
+            if ($product->pro_quantity != $request->pro_quantity) {
+                $data['pro_quantity'] = $product->pro_quantity + $request->pro_quantity;
+                $this->productRepository->update($data, $id);
+                // $this->importRepository->create([
+                //     'i_product_id' => $id,
+                //     'i_price' => $request->pro_price,
+                //     'i_quantity' => $request->pro_quantity,
+                //     'i_status' => 1,
+                // ]);
+            }
             DB::commit();
             return redirect()->route('admin.product.index');
         } catch (\Exception $exception) {
@@ -123,9 +148,9 @@ class ProductController extends Controller
         if ($product) {
             $product->pro_active = !$product->pro_active;
             $product->save();
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Cập nhật thành công');
         }
-        return redirect()->back();
+        return redirect()->back()->with('error', 'Cập nhật thất bại');
     }
 
     public function delete($id)
@@ -229,13 +254,22 @@ class ProductController extends Controller
             return response()->json(['status' => false, 'message' => 'Thêm thất bại']);
         }
     }
+
     public function import(Request $request)
     {
-        if ($request->file('file')) {
-            Excel::import(new ProductImport, $request->file('file'));
+        try {
+            DB::beginTransaction();
+            if ($request->file('file')) {
+                Excel::import(new ProductImport, $request->file('file'));
+            }
+            DB::commit();
+            return redirect()->back()->with('success', 'Thêm thành công');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $exception->getMessage());
         }
-        return redirect()->back()->with('success', 'Thêm thành công');
     }
+
     public function export()
     {
         $fileName = 'product' . date('YmdHis') . '.xlsx';

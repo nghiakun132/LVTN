@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('imports', function (Blueprint $table) {
-            $table->tinyInteger('i_status')->after('i_quantity')->default(1);
+        Schema::create('sales', function (Blueprint $table) {
+            $table->id();
+            $table->string('s_name')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('imports', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('sales');
     }
 };

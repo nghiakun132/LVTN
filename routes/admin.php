@@ -64,6 +64,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
         Route::group(['prefix' => 'import'], function () {
             Route::get('', [App\Http\Controllers\Admin\ImportController::class, 'index'])->name('admin.import.index');
             Route::get('export', [App\Http\Controllers\Admin\ImportController::class, 'export'])->name('admin.import.export');
+            Route::get('detail/{id}', [App\Http\Controllers\Admin\ImportController::class, 'detail'])->name('admin.import.detail');
+            Route::get('changeStatus/{id}', [App\Http\Controllers\Admin\ImportController::class, 'changeStatus'])->name('admin.import.changestatus');
         });
     });
 });

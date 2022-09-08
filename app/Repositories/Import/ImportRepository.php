@@ -2,14 +2,14 @@
 
 namespace App\Repositories\Import;
 
-use App\Models\Import;
+use App\Models\imports;
 use App\Repositories\BaseRepository;
 
 class ImportRepository extends BaseRepository
 {
     public function getModel()
     {
-        return Import::class;
+        return imports::class;
     }
 
     public function findOne($id)
@@ -37,5 +37,10 @@ class ImportRepository extends BaseRepository
         }
 
         return false;
+    }
+
+    public function getWithRelationshipHaveId($relate, $id)
+    {
+        return $this->model->where('i_id', $id)->with($relate)->get();
     }
 }

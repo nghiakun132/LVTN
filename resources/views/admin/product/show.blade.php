@@ -122,7 +122,7 @@
                                                                 <option selected>Chọn màu</option>
                                                                 @foreach ($colorGlobal as $colorGlobal)
                                                                     <option value="{{ $colorGlobal->color }}"
-                                                                        {{ $colorGlobal->color_id == $product->color_id ? 'selected' : '' }}>
+                                                                        {{ $colorGlobal->color == $product->color ? 'selected' : '' }}>
                                                                         {{ $colorGlobal->color }}
                                                                     </option>
                                                                 @endforeach
