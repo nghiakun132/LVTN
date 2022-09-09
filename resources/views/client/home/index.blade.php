@@ -487,17 +487,16 @@
         <div class="wrap-show-advance-info-box style-1" id="PRODUCTCATEGORIES">
             <div class="header-title">
                 <h3>
-                    <a href="#"> Product Categories</a>
+                    <a href="#">APPLE AUTHORISED RESELLER</a>
                 </h3>
             </div>
-
             <div class="col-content lts-product col-product">
-                @for ($i = 0; $i < 15; $i++)
+                @foreach ($apple as $apple)
                     <div class="item">
                         <div class="img">
-                            <a href="">
-                                <img src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2021/02/25/iphon12.png"
-                                    alt="">
+                            <a href="#">
+                                <img src="{{ asset('images/products/' . $apple->pro_avatar) }}" alt=""
+                                    style="height: 210px">
                             </a>
                         </div>
                         <div class="cover">
@@ -508,20 +507,28 @@
                                 </marquee>
                             </div>
                         </div>
-                        <span class="sales">
-                            <i class="icon-flash2"></i> Giảm 600,000 ₫
-                        </span>
+                        @if ($apple->pro_sale > 0)
+                            <span class="sales">
+                                <i class="icon-flash2"></i> Giảm
+                                {{ number_format(($apple->pro_price * ($apple->pro_sale / 100)) / 1000, 0, ',', '.') }}K
+                            </span>
+                        @endif
+
                         <div class="info">
-                            <a href="#" class="title" title="Apple iPhone 12 - 64GB - chính hãng VN/A">Apple
-                                iPhone 12 - 64GB - chính hãng VN/A</a>
+                            <a href="#" class="title"
+                                title="Apple iPhone 12 - 64GB - chính hãng VN/A">{{ $apple->pro_name }}</a>
                             <span class="price">
-                                <strong>15,390,000 ₫</strong>
-                                <strike>24,990,000 ₫</strike>
+                                <strong>
+                                    {{ number_format($apple->pro_price - ($apple->pro_price * $apple->pro_sale) / 100, 0, ',', '.') }}
+                                    ₫</strong>
+                                <strike>{{ number_format($apple->pro_price, 0, ',', '.') }}
+                                    ₫</strike>
                             </span>
 
                         </div>
                     </div>
-                @endfor
+                @endforeach
+
             </div>
         </div>
         <div class="wrap-show-advance-info-box style-1" id="PRODUCTCATEGORIES2">

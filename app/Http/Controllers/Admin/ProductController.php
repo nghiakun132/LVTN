@@ -9,8 +9,10 @@ use App\Imports\ProductImport;
 use App\Models\Colors;
 use App\Models\Groups;
 use App\Models\Images;
+use App\Models\sales_products;
 use App\Repositories\Import\ImportRepository;
 use App\Repositories\Product\ProductRepository;
+use App\Repositories\Sale\SaleRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -20,12 +22,16 @@ class ProductController extends Controller
 {
     protected $productRepository;
     protected $importRepository;
+    protected $saleRepository;
     public function __construct(
         ProductRepository $productRepository,
-        ImportRepository $importRepository
+        ImportRepository $importRepository,
+        SaleRepository $saleRepository
+
     ) {
         $this->productRepository = $productRepository;
         $this->importRepository = $importRepository;
+        $this->saleRepository = $saleRepository;
     }
     public function index()
     {
@@ -126,7 +132,6 @@ class ProductController extends Controller
             $product = $this->productRepository->findOne($id);
             if ($product->pro_quantity != $request->pro_quantity) {
                 $data['pro_quantity'] = $product->pro_quantity + $request->pro_quantity;
-                $this->productRepository->update($data, $id);
                 // $this->importRepository->create([
                 //     'i_product_id' => $id,
                 //     'i_price' => $request->pro_price,
@@ -134,8 +139,9 @@ class ProductController extends Controller
                 //     'i_status' => 1,
                 // ]);
             }
+            $this->productRepository->update($data, $id);
             DB::commit();
-            return redirect()->route('admin.product.index');
+            return redirect()->route('admin.product.index')->with('success', 'Cập nhật thành công');
         } catch (\Exception $exception) {
             DB::rollBack();
             return redirect()->back()->with('error', $exception->getMessage());
@@ -253,6 +259,40 @@ class ProductController extends Controller
             }
             return response()->json(['status' => false, 'message' => 'Thêm thất bại']);
         }
+    }
+
+    public function addSales($id)
+    {
+        $product = $this->productRepository->findOne($id);
+        $sales = $this->saleRepository->getAll();
+        $saleProduct = sales_products::where('product_id', $id)->with([
+            'sales'
+        ])->get();
+        return view('admin.product.addSale', compact('sales', 'saleProduct', 'product'));
+    }
+
+    public function addSalesPost(Request $request, $id)
+    {
+        $saleId = $request->sale_id;
+        foreach ($saleId as $item) {
+            $saleProduct = sales_products::where('product_id', $id)->where('sale_id', $item)->first();
+            if (!$saleProduct) {
+                sales_products::create([
+                    'product_id' => $id,
+                    'sale_id' => $item,
+                ]);
+            }
+        }
+        return redirect()->back()->with('success', 'Thêm thành công');
+    }
+    public function deleteSales($id)
+    {
+        $saleProduct = sales_products::find($id);
+        if ($saleProduct) {
+            $saleProduct->delete();
+            return redirect()->back()->with('success', 'Xóa thành công');
+        }
+        return redirect()->back()->with('error', 'Xóa thất bại');
     }
 
     public function import(Request $request)

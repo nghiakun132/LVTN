@@ -51,6 +51,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::get('/get-group-product', [App\Http\Controllers\Admin\ProductController::class, 'getGroup'])->name('admin.product.getGroup');
             Route::post('/add-color-product', [App\Http\Controllers\Admin\ProductController::class, 'addColor'])->name('admin.product.addColor');
             Route::get('/get-color-product', [App\Http\Controllers\Admin\ProductController::class, 'getColor'])->name('admin.product.getColor');
+            Route::get('/{id}/add-sales', [App\Http\Controllers\Admin\ProductController::class, 'addSales'])->name('admin.product.addSales');
+            Route::post('/{id}/add-sales', [App\Http\Controllers\Admin\ProductController::class, 'addSalesPost'])->name('admin.product.addSalesPost');
+            Route::get('/{id}/delete-sales', [App\Http\Controllers\Admin\ProductController::class, 'deleteSales'])->name('admin.product.deleteSale');
         });
 
         Route::group(['prefix' => 'coupon'], function () {
@@ -66,6 +69,13 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::get('export', [App\Http\Controllers\Admin\ImportController::class, 'export'])->name('admin.import.export');
             Route::get('detail/{id}', [App\Http\Controllers\Admin\ImportController::class, 'detail'])->name('admin.import.detail');
             Route::get('changeStatus/{id}', [App\Http\Controllers\Admin\ImportController::class, 'changeStatus'])->name('admin.import.changestatus');
+        });
+
+        Route::group(['prefix' => 'sale'], function () {
+            Route::get('', [App\Http\Controllers\Admin\SaleController::class, 'index'])->name('admin.sale.index');
+            Route::post('', [App\Http\Controllers\Admin\SaleController::class, 'store'])->name('admin.sale.store');
+            Route::get('/{id}/delete', [App\Http\Controllers\Admin\SaleController::class, 'delete'])->name('admin.sale.delete');
+            Route::get('changeStatus/{id}', [App\Http\Controllers\Admin\SaleController::class, 'changeStatus'])->name('admin.sale.changeStatus');
         });
     });
 });

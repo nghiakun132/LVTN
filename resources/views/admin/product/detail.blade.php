@@ -115,7 +115,11 @@
                                                         </tr>
                                                         <tr>
                                                             <th>Nhóm</th>
-                                                            <td>{{ $product->group->name }}</td>
+                                                            @if ($product->group_id == 0)
+                                                                <td>Không có</td>
+                                                            @else
+                                                                <td>{{ $product->group->name }}</td>
+                                                            @endif
                                                         </tr>
                                                         <tr>
                                                             <th>Số lượng view</th>

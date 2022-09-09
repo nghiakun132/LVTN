@@ -1,7 +1,18 @@
 <?php
 
 return [
-    'admin' => [
+    'admin' =>
+    [
+        'name' => 'Nhân viên',
+        'route' => 'admin.staff.index',
+        'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
+    ],
+    [
+        'name' => 'Khách hàng',
+        'route' => 'admin.home',
+        'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
+    ],
+    [
         'name' => 'Danh mục sản phẩm',
         'route' => 'admin.category.index',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
@@ -20,25 +31,23 @@ return [
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
     [
-        'name' => 'Khách hàng',
-        'route' => 'admin.home',
+        'name' => 'Nhập hàng',
+        'route' => 'admin.import.index',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
-    [
-        'name' => 'Bài viết',
-        'route' => 'admin.home',
-        'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
-    ],
+
     [
         'name' => 'Mã giảm giá',
         'route' => 'admin.coupon.index',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
     [
-        'name' => 'Nhân viên',
-        'route' => 'admin.staff.index',
+        'name' => 'Khuyến mãi',
+        'route' => 'admin.sale.index',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
+
+
     [
         'name' => 'Bình luận',
         'route' => 'admin.home',
@@ -55,8 +64,8 @@ return [
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
     [
-        'name' => 'Nhập hàng',
-        'route' => 'admin.import.index',
+        'name' => 'Bài viết',
+        'route' => 'admin.home',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
     [

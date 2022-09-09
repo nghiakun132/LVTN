@@ -85,8 +85,12 @@
                                                                     <i class="fa fa-trash"></i>
                                                                 </a>
                                                                 <a href="{{ route('admin.product.detail', $product->pro_id) }}"
-                                                                    class="btn btn-primary btn-sm text-white">
+                                                                    class="btn btn-success btn-sm text-white">
                                                                     <i class="fa fa-eye"></i>
+                                                                </a>
+                                                                <a href="{{ route('admin.product.addSales', $product->pro_id) }}"
+                                                                    class="btn btn-warning btn-sm text-white">
+                                                                    <i class="fa fa-percent"></i>
                                                                 </a>
                                                             </td>
                                                         </tr>

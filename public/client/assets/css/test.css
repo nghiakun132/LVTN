@@ -127,7 +127,7 @@
 .info strong {
     font-size: 16px;
     line-height: 19px;
-    font-weight: 400;
+    font-weight: 600;
     display: block;
     margin: 4px 0px 0px;
 }
@@ -685,7 +685,7 @@
 }
 .lts-product .item .sales {
     position: absolute;
-    top: 258px;
+    top: 202px;
     left: 16%;
     background: #ff6801;
     border-radius: 40px;
