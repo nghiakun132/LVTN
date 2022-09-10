@@ -229,6 +229,7 @@
         <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
         <link rel="stylesheet" type="text/css"
             href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             ClassicEditor
                 .create(document.querySelector('#pro_content'))

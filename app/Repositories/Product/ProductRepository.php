@@ -32,4 +32,9 @@ class ProductRepository extends BaseRepository
     {
         return $this->model->where('pro_id', $id)->update($data);
     }
+
+    public function getAll()
+    {
+        return $this->model->where('pro_active', 1)->get();
+    }
 }

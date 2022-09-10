@@ -54,6 +54,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::get('/{id}/add-sales', [App\Http\Controllers\Admin\ProductController::class, 'addSales'])->name('admin.product.addSales');
             Route::post('/{id}/add-sales', [App\Http\Controllers\Admin\ProductController::class, 'addSalesPost'])->name('admin.product.addSalesPost');
             Route::get('/{id}/delete-sales', [App\Http\Controllers\Admin\ProductController::class, 'deleteSales'])->name('admin.product.deleteSale');
+            Route::post('/{id}/add-image', [App\Http\Controllers\Admin\ProductController::class, 'addImg'])->name('admin.product.image');
         });
 
         Route::group(['prefix' => 'coupon'], function () {
@@ -76,6 +77,16 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::post('', [App\Http\Controllers\Admin\SaleController::class, 'store'])->name('admin.sale.store');
             Route::get('/{id}/delete', [App\Http\Controllers\Admin\SaleController::class, 'delete'])->name('admin.sale.delete');
             Route::get('changeStatus/{id}', [App\Http\Controllers\Admin\SaleController::class, 'changeStatus'])->name('admin.sale.changeStatus');
+        });
+
+        Route::group(['prefix' => 'event'], function () {
+            Route::get('', [App\Http\Controllers\Admin\EventController::class, 'index'])->name('admin.event.index');
+            Route::post('', [App\Http\Controllers\Admin\EventController::class, 'store'])->name('admin.event.store');
+            Route::get('/{id}/edit', [App\Http\Controllers\Admin\EventController::class, 'show'])->name('admin.event.show');
+            Route::post('/{id}/edit', [App\Http\Controllers\Admin\EventController::class, 'update'])->name('admin.event.update');
+            Route::get('/{id}/delete', [App\Http\Controllers\Admin\EventController::class, 'delete'])->name('admin.event.delete');
+            Route::get('/check', [App\Http\Controllers\Admin\EventController::class, 'check'])->name('admin.event.check');
+            Route::get('/delete-detail', [App\Http\Controllers\Admin\EventController::class, 'deleteDetail'])->name('admin.event.deleteDetail');
         });
     });
 });

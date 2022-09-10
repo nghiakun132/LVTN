@@ -25,6 +25,7 @@ abstract class BaseRepository implements RepositoryInterface
     {
         return $this->model->all();
     }
+
     public function findById($id)
     {
         $result = $this->model->find($id);

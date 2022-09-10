@@ -46,8 +46,6 @@ return [
         'route' => 'admin.sale.index',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
-
-
     [
         'name' => 'Bình luận',
         'route' => 'admin.home',
@@ -60,7 +58,7 @@ return [
     ],
     [
         'name' => 'Chương trình khuyến mãi',
-        'route' => 'admin.home',
+        'route' => 'admin.event.index',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
     [

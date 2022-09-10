@@ -64,11 +64,7 @@ class ProductController extends Controller
             'group_id' => $request->group_id,
             'color' => $request->color,
         ];
-        if ($request->file('pro_avatar')) {
-            $file = $request->file('pro_avatar');
-            $fileName = $this->productRepository->uploadFile($file, 'products');
-            $data['pro_avatar'] = $fileName;
-        }
+
         try {
             DB::beginTransaction();
 
@@ -293,6 +289,17 @@ class ProductController extends Controller
             return redirect()->back()->with('success', 'Xóa thành công');
         }
         return redirect()->back()->with('error', 'Xóa thất bại');
+    }
+
+    public function addImg(Request $request, $id)
+    {
+        if ($request->file('pro_avatar')) {
+            $file = $request->file('pro_avatar');
+            $fileName = $this->productRepository->uploadFile($file, 'products');
+            $data['pro_avatar'] = $fileName;
+            $this->productRepository->update($data, $id);
+        }
+        return redirect()->back()->with('success', 'Cập nhật thành công');
     }
 
     public function import(Request $request)

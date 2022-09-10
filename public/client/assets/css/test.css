@@ -770,7 +770,7 @@ section .news-home .item p a:visited {
     box-shadow: rgb(0 0 0 / 16%) 0px 4px 6px;
     margin: 3px;
     position: absolute;
-    top: 50px;
+    top: 0;
     display: none;
     opacity: 0;
     visibility: hidden;

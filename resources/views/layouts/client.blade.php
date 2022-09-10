@@ -253,6 +253,10 @@
                         </div>
                         <div class="topbar-menu right-menu">
                             <ul>
+                                <li class="menu-item"><a href="#" style="color: #fff"
+                                        title="Sản phẩm đã xem">Sản phẩm đã
+                                        xem</a>
+                                </li>
                                 @if (Session::get('user'))
                                     <li class="menu-item" style="color: #fff">Chào :
                                         {{ Session::get('user')->name }}</li>
@@ -295,6 +299,7 @@
                                             ký</a>
                                     </li>
                                 @endif
+
                             </ul>
                         </div>
                     </div>

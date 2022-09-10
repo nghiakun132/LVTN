@@ -41,7 +41,7 @@
                                         </a>
                                     </div>
                                     <div class="card-body">
-                                        <div class="table-responsive-xl">
+                                        <div class="table-responsive">
                                             <table id="example2" class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
@@ -50,6 +50,9 @@
                                                         <th>Ảnh</th>
                                                         <th>Giá</th>
                                                         <th>Trạng thái</th>
+                                                        <th>
+                                                            Tải lên
+                                                        </th>
                                                         <th>Hành động</th>
                                                     </tr>
                                                 </thead>
@@ -75,6 +78,23 @@
                                                                 @endif
                                                             </td>
                                                             <td>
+                                                                <form method="post"
+                                                                    action="{{ route('admin.product.image', $product->pro_id) }}"
+                                                                    enctype="multipart/form-data" id="images-product">
+                                                                    @csrf
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <input type="file" class="custom-file-input"
+                                                                                name="pro_avatar"
+                                                                                aria-describedby="inputGroupFileAddon04">
+                                                                            <label class="custom-file-label"
+                                                                                for="inputGroupFile04">Chọn ảnh</label>
+                                                                        </div>
+                                                                        <button class="btn btn-primary">Upload</button>
+                                                                    </div>
+                                                                </form>
+                                                            </td>
+                                                            <td>
                                                                 <a href="{{ route('admin.product.update', $product->pro_id) }}"
                                                                     class="btn btn-primary btn-sm text-white">
                                                                     <i class="fa fa-edit"></i>
@@ -92,6 +112,7 @@
                                                                     class="btn btn-warning btn-sm text-white">
                                                                     <i class="fa fa-percent"></i>
                                                                 </a>
+
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -133,8 +154,8 @@
                                     @endif
                                     <div class="form-group mt-4">
                                         <label for="pro_price">Giá</label>
-                                        <input type="number" placeholder="Nhập giá" name="pro_price" class="form-control"
-                                            id="pro_price">
+                                        <input type="number" placeholder="Nhập giá" name="pro_price"
+                                            class="form-control" id="pro_price">
                                     </div>
                                     @if ($errors->has('pro_price'))
                                         <span class="text-danger">{{ $errors->first('pro_price') }}</span>
