@@ -80,7 +80,7 @@ class BrandController extends Controller
             $request,
             [
                 'b_name' => 'required|',
-                'b_category_id' => 'required|unique:brands,b_category_id,' . $id . ',b_id',
+                'b_category_id' => 'required|',
             ],
             [
                 'b_name.required' => 'Tên danh mục không được để trống',
@@ -93,8 +93,8 @@ class BrandController extends Controller
             $data['b_name'] = $request->b_name;
             $data['b_slug'] = Str::slug($request->b_name);
             $data['b_category_id'] = $request->b_category_id;
-            if ($request->file('c_banner')) {
-                $file = $request->file('c_banner');
+            if ($request->file('b_banner')) {
+                $file = $request->file('b_banner');
                 $fileName = $this->brandRepository->uploadFile($file, 'brands');
                 $data['b_banner'] = $fileName;
             }

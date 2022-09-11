@@ -155,14 +155,24 @@ class ProductController extends Controller
         return redirect()->back()->with('error', 'Cập nhật thất bại');
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        $product = $this->productRepository->findOne($id);
-        if ($product) {
-            $product->delete();
-            return redirect()->back()->with('success', 'Xóa thành công');
+        if ($request->ajax()) {
+            $product = $this->productRepository->findOne(
+                $request->id,
+            );
+            if ($product) {
+                $product->delete();
+                return response()->json([
+                    'code' => 200,
+                    'message' => 'success',
+                ], 200);
+            }
+            return response()->json([
+                'code' => 500,
+                'message' => 'error',
+            ], 500);
         }
-        return redirect()->back()->with('error', 'Xóa thất bại');
     }
 
     public function detail($id)

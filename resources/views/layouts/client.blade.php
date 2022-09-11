@@ -371,7 +371,7 @@
                                     <div class="sub-container">
                                         <div class="sub">
                                             <div class="menu g1">
-                                                <h4><a href="/dien-thoai-di-dong">Hãng sản xuất
+                                                <h4><a href="{{ $category->c_slug }}">Hãng sản xuất
                                                     </a></h4>
                                                 <ul class="display-column format_3">
                                                     @foreach ($category->brand as $brand)

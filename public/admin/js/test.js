@@ -109,3 +109,34 @@ $(".js-delete-event").click(function (e) {
         }
     });
 });
+
+$(".delete_product").click(function (e) {
+    e.preventDefault();
+    let url = $(this).attr("data-url");
+    Swal.fire({
+        title: "Bạn có chắc chắn muốn xóa?",
+        text: "Bạn sẽ không thể khôi phục lại dữ liệu này!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Có, xóa nó!",
+        cancelButtonText: "Hủy",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: url,
+                data: {
+                    id: $(this).attr("data-id"),
+                },
+                type: "GET",
+                success: function (data) {
+                    if (data.code == 200) {
+                        Swal.fire("Đã xóa!", "Dữ liệu đã được xóa.", "success");
+                    }
+                },
+                error: function () {},
+            });
+        }
+    });
+});

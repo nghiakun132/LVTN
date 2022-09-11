@@ -99,9 +99,9 @@
                                                                     class="btn btn-primary btn-sm text-white">
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
-                                                                <a href="{{ route('admin.product.delete', $product->pro_id) }}"
-                                                                    class="btn btn-danger btn-sm text-white"
-                                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
+                                                                <a class="btn btn-danger btn-sm text-white delete_product"
+                                                                    data-id="{{ $product->pro_id }}"
+                                                                    data-url="{{ route('admin.product.delete') }}">
                                                                     <i class="fa fa-trash"></i>
                                                                 </a>
                                                                 <a href="{{ route('admin.product.detail', $product->pro_id) }}"

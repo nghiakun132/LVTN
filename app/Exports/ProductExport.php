@@ -45,7 +45,7 @@ class ProductExport implements WithHeadings, FromCollection
                 'pro_sale' => $product->pro_sale,
                 'pro_quantity' => $product->pro_quantity,
                 'color' => $product->color,
-                'group_id' => $product->group->name,
+                'group' => $product->group->name ?? '',
             ];
         }
         return collect($data);

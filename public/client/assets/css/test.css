@@ -985,3 +985,16 @@ section .news-home .item p a:visited {
         display: none;
     }
 }
+.sticker-left {
+    left: 5px;
+    text-align: left;
+}
+.sticker {
+    position: absolute;
+    top: -4px;
+    display: flex;
+    flex-direction: column;
+}
+.sticker span {
+    display: block;
+}

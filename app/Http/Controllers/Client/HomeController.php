@@ -35,10 +35,42 @@ class HomeController extends Controller
             ])->first();
         }
 
+        $laptops = Product::where('pro_category_id', 2)
+            ->with([
+                'sales' => function ($query) {
+                    $query->with([
+                        'sales'
+                    ]);
+                }
+            ])
+            ->orderBy('pro_view', 'DESC')->limit(20)->get();
+        $phones = Product::where('pro_category_id', 1)
+            ->with([
+                'sales' => function ($query) {
+                    $query->with([
+                        'sales'
+                    ]);
+                }
+            ])
+            ->orderBy('pro_view', 'DESC')->limit(20)->get();
+
+        $watchs = Product::where('pro_category_id', 11)
+            ->with([
+                'sales' => function ($query) {
+                    $query->with([
+                        'sales'
+                    ]);
+                }
+            ])
+            ->orderBy('pro_view', 'DESC')->limit(20)->get();
+
         $data = [
             'apple' => $apple,
             'end' => $end,
             'detail' => $detail,
+            'laptops' => $laptops,
+            'phones' => $phones,
+            'watchs' => $watchs,
         ];
         return view('client.home.index', $data);
     }

@@ -40,7 +40,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::post('', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('admin.product.store');
             Route::get('/{id}/edit', [App\Http\Controllers\Admin\ProductController::class, 'show'])->name('admin.product.show');
             Route::post('/{id}/edit', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('admin.product.update');
-            Route::get('/{id}/delete', [App\Http\Controllers\Admin\ProductController::class, 'delete'])->name('admin.product.delete');
+            Route::get('/delete', [App\Http\Controllers\Admin\ProductController::class, 'delete'])->name('admin.product.delete');
             Route::get('/{id}/change-status', [App\Http\Controllers\Admin\ProductController::class, 'changeStatus'])->name('admin.product.changeStatus');
             Route::get('/{id}/detail', [App\Http\Controllers\Admin\ProductController::class, 'detail'])->name('admin.product.detail');
             Route::post('/{id}/detail', [App\Http\Controllers\Admin\ProductController::class, 'detailPost'])->name('admin.product.detailPost');
