@@ -364,7 +364,7 @@
                         <ul class="root clone-main-menu" data-menuname="Danh mục" id="mercado_main">
                             @foreach ($categoriesGlobal as $category)
                                 <li class="menu-item">
-                                    <a href="#" target="_self">
+                                    <a href="{{ route('client.category', $category->c_slug) }}" target="_self">
                                         <?php echo $category->c_icon; ?>
                                         <span>{{ $category->c_name }}</span>
                                     </a>

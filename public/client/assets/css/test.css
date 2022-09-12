@@ -449,8 +449,8 @@
 
 #button-search-top {
     box-shadow: 0 4px 6px #ccc;
-    background: #00483d;
-    background-image: linear-gradient(#00917a, #00483d);
+    background: #763804;
+    background-image: linear-gradient(#62330b, #e47415);
     border: none;
     border-radius: 17px;
     outline: none;
@@ -460,7 +460,7 @@
 
 #btnCheckOrder {
     display: block;
-    background: #00483e;
+    background: #763804;
     border-radius: 10px;
     padding: 6px 8px;
     box-shadow: 0 4px 6px #ccc;
@@ -477,7 +477,7 @@
     left: 7px;
 }
 #btnCheckOrder:hover {
-    background: #00483e;
+    background: #7ee30a;
     background-image: linear-gradient(#00917a, #00483d);
 }
 
@@ -488,7 +488,7 @@
 }
 
 .cart-cart:hover i {
-    color: #00483d !important;
+    color: #f70d8a !important;
 }
 
 .nav {
@@ -770,7 +770,7 @@ section .news-home .item p a:visited {
     box-shadow: rgb(0 0 0 / 16%) 0px 4px 6px;
     margin: 3px;
     position: absolute;
-    top: 0;
+    top: 35px;
     display: none;
     opacity: 0;
     visibility: hidden;

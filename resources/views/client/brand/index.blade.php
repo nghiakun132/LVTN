@@ -38,40 +38,45 @@
                         </label>
                         <div class="sub2">
                             <ul>
-                                <li><a href="{{ route('client.category', $category->c_slug) }}">
-                                        Mặc định</a></li>
                                 <li><a
-                                        href="{{ request()->fullUrlWithQuery(['gia_tu' => '0', 'gia_den' => '3000000']) }}">
-                                        Dưới 3 triệu
-                                        <i class="total"></i></a></li>
+                                        href="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;T100t&quot;}&amp;search=true">Trên
+                                        100 triệu <i class="total">(8)</i></a></li>
                                 <li><a
-                                        href="{{ request()->fullUrlWithQuery(['gia_tu' => '3000000', 'gia_den' => '5000000']) }}">
-                                        Từ 3 triệu - 5 triệu
-                                        <i class="total"></i></a></li>
+                                        href="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;1t&quot;}&amp;search=true">Dưới
+                                        1 triệu <i class="total">(20)</i></a></li>
                                 <li><a
-                                        href="{{ request()->fullUrlWithQuery(['gia_tu' => '5000000', 'gia_den' => '7000000']) }}">
-                                        Từ 5 triệu - 7 triệu
-                                        <i class="total"></i></a></li>
+                                        href="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;1t-2t&quot;}&amp;search=true">1
+                                        đến 2 triệu <i class="total">(5)</i></a></li>
                                 <li><a
-                                        href="{{ request()->fullUrlWithQuery(['gia_tu' => '7000000', 'gia_den' => '10000000']) }}">
-                                        Từ 7 triệu - 10 triệu
-                                        <i class="total"></i></a></li>
+                                        href="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;2t-3t&quot;}&amp;search=true">2
+                                        đến 3 triệu <i class="total">(19)</i></a></li>
                                 <li><a
-                                        href="{{ request()->fullUrlWithQuery(['gia_tu' => '10000000', 'gia_den' => '15000000']) }}">
-                                        Từ 10 triệu - 15 triệu
-                                        <i class="total"></i></a></li>
+                                        href="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;3t-4t&quot;}&amp;search=true">3
+                                        đến 4 triệu <i class="total">(20)</i></a></li>
                                 <li><a
-                                        href="{{ request()->fullUrlWithQuery(['gia_tu' => '15000000', 'gia_den' => '20000000']) }}">
-                                        Từ 15 triệu - 20 triệu
-                                        <i class="total"></i></a></li>
+                                        href="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;4t-5t&quot;}&amp;search=true">4
+                                        đến 5 triệu <i class="total">(11)</i></a></li>
                                 <li><a
-                                        href="{{ request()->fullUrlWithQuery(['gia_tu' => '20000000', 'gia_den' => '50000000']) }}">
-                                        Từ 20 triệu - 50 triệu
-                                        <i class="total"></i></a></li>
+                                        href="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;5t-6t&quot;}&amp;search=true">5
+                                        đến 6 triệu <i class="total">(16)</i></a></li>
                                 <li><a
-                                        href="{{ request()->fullUrlWithQuery(['gia_tu' => '50000000', 'gia_den' => '100000000']) }}">
-                                        Từ 50 triệu - 100 triệu
-                                        <i class="total"></i></a></li>
+                                        href="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;6t-8t&quot;}&amp;search=true">6
+                                        đến 8 triệu <i class="total">(13)</i></a></li>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;8t-10t&quot;}&amp;search=true">8
+                                        đến 10 triệu <i class="total">(6)</i></a></li>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;10t-12t&quot;}&amp;search=true">10
+                                        đến 12 triệu <i class="total">(9)</i></a></li>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;12t-15t&quot;}&amp;search=true">12
+                                        đến 15 triệu <i class="total">(5)</i></a></li>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;15t-20t&quot;}&amp;search=true">15
+                                        đến 20 triệu <i class="total">(16)</i></a></li>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;20t-100tr&quot;}&amp;search=true">20
+                                        đến 100 triệu <i class="total">(26)</i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -82,32 +87,42 @@
                         <label>Sắp xếp <i class="icon-rightar"></i></label>
                         <div class="sub2">
                             <ul>
-                                <li><a href="{{ route('client.category', $category->c_slug) }}"></span>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;12&quot;}&amp;search=true"></span>
                                         Mặc định</a></li>
-                                <li><a href="{{ request()->fullUrlWithQuery(['sort' => 'price_asc']) }}"></span>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;1&quot;}&amp;search=true"></span>
+                                        Sản phẩm mới - cũ</a></li>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;2&quot;}&amp;search=true"></span>
                                         Giá thấp đến cao</a></li>
-                                <li><a href="{{ request()->fullUrlWithQuery(['sort' => 'price_desc']) }}"></span>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;3&quot;}&amp;search=true"></span>
                                         Giá cao đến thấp</a></li>
-                                <li>
-                                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'name_asc']) }}"></span>
-                                        Tên: A - Z</a>
-                                </li>
-                                <li>
-                                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'name_desc']) }}"></span>
-                                        Tên: Z - A</a>
-                                </li>
-                                <li>
-                                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'view']) }}"></span>
-                                        Xem nhiều nhất</a>
-                                </li>
-                                <li>
-                                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'new']) }}"></span>
-                                        Mới nhất</a>
-                                </li>
-                                <li>
-                                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'old']) }}"></span>
-                                        Cũ nhất</a>
-                                </li>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;4&quot;}&amp;search=true"></span>
+                                        Mới cập nhật</a></li>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;5&quot;}&amp;search=true"></span>
+                                        Sản phẩm cũ</a></li>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;6&quot;}&amp;search=true"></span>
+                                        Xem nhiều hôm nay</a></li>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;7&quot;}&amp;search=true"></span>
+                                        Xem nhiều tuần này</a></li>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;8&quot;}&amp;search=true"></span>
+                                        Xem nhiều tháng này</a></li>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;10&quot;}&amp;search=true"></span>
+                                        Xem nhiều năm nay</a></li>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;9&quot;}&amp;search=true"></span>
+                                        Xem nhiều nhất</a></li>
+                                <li><a
+                                        href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;11&quot;}&amp;search=true"></span>
+                                        Kết quả tìm kiếm</a></li>
                             </ul>
                         </div>
                     </div>
@@ -156,15 +171,19 @@
                             Nokia (12)</option>
                         <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;82&quot;}&amp;search=true">
                             realme (12)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;214&quot;}&amp;search=true">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;214&quot;}&amp;search=true">
                             TECNO (8)</option>
                         <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;76&quot;}&amp;search=true">
                             Energizer (5)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;114&quot;}&amp;search=true">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;114&quot;}&amp;search=true">
                             Itel (4)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;115&quot;}&amp;search=true">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;115&quot;}&amp;search=true">
                             Hoanghamobile (3)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;240&quot;}&amp;search=true">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;240&quot;}&amp;search=true">
                             Nubia (3)</option>
                         <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;6&quot;}&amp;search=true">
                             ZTE (2)</option>
@@ -184,31 +203,43 @@
                     <label>Giá</label>
                     <select onchange="window.location = this.value;">
                         <option>Chọn Giá</option>
-                        <option value="">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;T100t&quot;}&amp;search=true">
                             Trên 100 triệu (8)</option>
-                        <option value="#">
+                        <option value="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;1t&quot;}&amp;search=true">
                             Dưới 1 triệu (20)</option>
-                        <option value="#">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;1t-2t&quot;}&amp;search=true">
                             1 đến 2 triệu (5)</option>
-                        <option value="#">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;2t-3t&quot;}&amp;search=true">
                             2 đến 3 triệu (19)</option>
-                        <option value="#">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;3t-4t&quot;}&amp;search=true">
                             3 đến 4 triệu (20)</option>
-                        <option value="#">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;4t-5t&quot;}&amp;search=true">
                             4 đến 5 triệu (11)</option>
-                        <option value="#">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;5t-6t&quot;}&amp;search=true">
                             5 đến 6 triệu (16)</option>
-                        <option value="#">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;6t-8t&quot;}&amp;search=true">
                             6 đến 8 triệu (13)</option>
-                        <option value="#">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;8t-10t&quot;}&amp;search=true">
                             8 đến 10 triệu (6)</option>
-                        <option value="#">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;10t-12t&quot;}&amp;search=true">
                             10 đến 12 triệu (9)</option>
-                        <option value="#">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;12t-15t&quot;}&amp;search=true">
                             12 đến 15 triệu (5)</option>
-                        <option value="#">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;15t-20t&quot;}&amp;search=true">
                             15 đến 20 triệu (16)</option>
-                        <option value="#">
+                        <option
+                            value="/dien-thoai-di-dong?filters={&quot;price&quot;:&quot;20t-100tr&quot;}&amp;search=true">
                             20 đến 100 triệu (26)</option>
                     </select>
                 </div>
@@ -216,9 +247,9 @@
                     <label>Sắp xếp</label>
                     <select onchange="window.location = this.value;">
                         <option>Chọn cách sắp xếp</option>
-                        <option value="#">
+                        <option value="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;12&quot;}&amp;search=true">
                             Mặc định</option>
-                        <option value="#">
+                        <option value="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;1&quot;}&amp;search=true">
                             Sản phẩm mới - cũ</option>
                         <option value="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;2&quot;}&amp;search=true">
                             Giá thấp đến cao</option>
@@ -286,8 +317,7 @@
                                     <span class="price">
                                         <strong>{{ number_format($product->pro_price - $product->pro_price * ($product->pro_sale / 100), 0, ',', '.') }}đ</strong>
                                         @if ($product->pro_sale > 0)
-                                            <strike>{{ number_format($product->pro_price, 0, ',', '.') }}
-                                                ₫</strike>
+                                            <strike>{{ number_format($product->pro_price, 0, ',', '.') }} ₫</strike>
                                         @endif
                                     </span>
 
@@ -297,8 +327,7 @@
                                         <a href="/dien-thoai-di-dong/oppo-reno6-z-5g-chinh-hang">
                                             <ul>
                                                 @foreach ($product->sales as $sale)
-                                                    <li><span class="bag">KM</span>
-                                                        {{ $sale->sales->s_name }}</li>
+                                                    <li><span class="bag">KM</span> {{ $sale->sales->s_name }}</li>
                                                 @endforeach
                                             </ul>
                                         </a>

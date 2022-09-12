@@ -2,7 +2,7 @@ header nav {
     width: 100%;
 }
 header nav ul.root {
-    background: #00483d;
+    background: #763804;
     box-shadow: 0 4px 6px #ccc;
     border-radius: 5px;
     list-style: none;
@@ -42,7 +42,7 @@ header nav ul.root li a:after {
     height: 4px;
     content: " ";
     border-radius: 2px;
-    background: #00483d;
+    background: #fff;
 }
 header nav ul.root li.actived a:after,
 header nav ul.root li:hover a:after {

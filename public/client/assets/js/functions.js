@@ -10,7 +10,7 @@
     // }
     var MERCADO_JS = {
         init: function () {
-            this.mercado_chosen();
+            // this.mercado_chosen();
             this.mercado_clone_all_zan_menus();
             this.mercado_control_mobile_menu();
             this.mercado_control_panel();

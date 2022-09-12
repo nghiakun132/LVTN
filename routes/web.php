@@ -47,5 +47,7 @@ Route::group(['namespace' => 'Client'], function () {
     Route::group([], function () {
         Route::get('{slug}', [App\Http\Controllers\Client\CategoryController::class, 'index'])->name('client.category');
         Route::get('{slug}/{slug_product}', [App\Http\Controllers\Client\ProductController::class, 'index'])->name('client.product');
+        Route::get('/{slug}/hang-san-xuat/{slug_brand}', [App\Http\Controllers\Client\BrandController::class, 'index'])->name('client.brand');
+        Route::get('/{slug}/{slug_brand}', [App\Http\Controllers\Client\ProductController::class, 'index'])->name('client.product2');
     });
 });
