@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             },
             'brand' => function ($query) {
-                $query->select('b_id', 'b_name', 'b_category_id');
+                $query->select('b_id', 'b_name', 'b_category_id', 'b_slug');
             },
         ])->where('parent_id', 0)
             ->where('c_status', 1)

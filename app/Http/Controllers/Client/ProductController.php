@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index($category, $brand, $product)
     {
+        dd($category, $brand, $product);
         return view('client.detail.index');
     }
 }

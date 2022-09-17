@@ -2,7 +2,7 @@ header nav {
     width: 100%;
 }
 header nav ul.root {
-    background: #763804;
+    background: #1362a6;
     box-shadow: 0 4px 6px #ccc;
     border-radius: 5px;
     list-style: none;
@@ -314,7 +314,7 @@ header nav .sub .g6 {
     }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+/* @media screen and (min-width: 768px) and (max-width: 1024px) {
     .lts-product .item {
         width: 230px !important;
     }
@@ -333,7 +333,7 @@ header nav .sub .g6 {
     .lts-product .item {
         width: 100% !important;
     }
-}
+} */
 .ilGfdX .heading {
     font-size: 19px;
     line-height: 21px;

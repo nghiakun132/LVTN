@@ -386,7 +386,7 @@ textarea {
 .topbar-menu-area {
     display: block;
     width: 100%;
-    background: #763804;
+    background: #1362a6;
     border-bottom: 1px solid #f2f2f2;
 }
 .topbar-menu-area .topbar-menu {
@@ -669,7 +669,7 @@ header.fill-color
     display: block;
     float: left;
     font-size: 35px;
-    color: #763804;
+    color: #1362a6;
     margin: 7px 8px 0 28px;
 }
 .main-info-area .right-section .wrap-icon-section .left-info {

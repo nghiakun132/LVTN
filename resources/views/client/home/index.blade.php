@@ -324,7 +324,12 @@
                 @foreach ($apple as $apple)
                     <div class="item">
                         <div class="img">
-                            <a href="#">
+                            <a
+                                href="{{ route('client.product', [
+                                    'slug' => $apple->category->c_slug,
+                                    'brand' => $apple->brand->b_slug,
+                                    'product' => $apple->pro_slug,
+                                ]) }}">
                                 <img src="{{ asset('images/products/' . $apple->pro_avatar) }}" alt=""
                                     style="height: 210px">
                             </a>
@@ -347,7 +352,12 @@
                             </span>
                         @endif
                         <div class="info">
-                            <a href="#" class="title"
+                            <a href="{{ route('client.product', [
+                                'slug' => $apple->category->c_slug,
+                                'brand' => $apple->brand->b_slug,
+                                'product' => $apple->pro_slug,
+                            ]) }}"
+                                class="title"
                                 title="Apple iPhone 12 - 64GB - chính hãng VN/A">{{ $apple->pro_name }}</a>
                             <span class="price">
                                 <strong>
@@ -382,26 +392,31 @@
                 </h3>
             </div>
 
-            <div class="col-content lts-product">
+            <div class="col-content lts-product col-product">
                 @foreach ($phones as $phone)
                     <div class="item">
                         <div class="img">
-                            <a href="">
-                                <img src="{{ asset('images/products/' . $phone->pro_avatar) }}" alt="">
+                            <a
+                                href="{{ route('client.product', [
+                                    'slug' => $phone->category->c_slug,
+                                    'brand' => $phone->brand->b_slug,
+                                    'product' => $phone->pro_slug,
+                                ]) }}">
+                                <img src="{{ asset('images/products/' . $phone->pro_avatar) }}" alt=""
+                                    style="height: 210px">
                             </a>
-                        </div>
-                        <div class="cover">
-                            <div
-                                style=" background: #00483D; margin: -95px 5px 0 52px; padding: 3px; border-radius: 6px; font-size: 11px; font-weight: 600;">
-
-                                ">
-                                <span style="color:white">Giảm tới 500k VNPAY</span><br>
-                                <span style="color:yellow">-600k Khi mở thẻ TP Bank EVO</span>
-                            </div>
                         </div>
                         <div class="sticker sticker-left">
                             <span><img src="{{ asset('images/bao-hanh-24t.png') }}" title="Chính hãng Apple"></span>
                         </div>
+                        {{-- <div class="cover">
+                            <div
+                                style="color: yellow;background: #00483D;margin: 25px 20px 15px 15px;padding: 3px;border-radius: 6px;font-size:14px;font-weight: 600;">
+                                <marquee behavior="alternate">
+                                    <span style="color:white">Tặng PMH 300.000đ</span><br>
+                                </marquee>
+                            </div>
+                        </div> --}}
                         @if ($phone->pro_sale > 0)
                             <span class="sales">
                                 <i class="icon-flash2"></i> Giảm
@@ -409,16 +424,21 @@
                             </span>
                         @endif
                         <div class="info">
-                            <a href="#" class="title"
+                            <a href="{{ route('client.product', [
+                                'slug' => $phone->category->c_slug,
+                                'brand' => $phone->brand->b_slug,
+                                'product' => $phone->pro_slug,
+                            ]) }}"
+                                class="title"
                                 title="Apple iPhone 12 - 64GB - chính hãng VN/A">{{ $phone->pro_name }}</a>
                             <span class="price">
-                                <strong>{{ number_format($phone->pro_price - ($phone->pro_price * $phone->pro_sale) / 100, 0, ',', '.') }}
+                                <strong>
+                                    {{ number_format($phone->pro_price - ($phone->pro_price * $phone->pro_sale) / 100, 0, ',', '.') }}
                                     ₫</strong>
                                 @if ($phone->pro_sale > 0)
                                     <strike>{{ number_format($phone->pro_price, 0, ',', '.') }}
                                         ₫</strike>
                                 @endif
-
                             </span>
                         </div>
                         @if (count($phone->sales) > 0)
@@ -444,26 +464,31 @@
                 </h3>
             </div>
 
-            <div class="col-content lts-product">
+            <div class="col-content lts-product col-product">
                 @foreach ($laptops as $laptop)
                     <div class="item">
                         <div class="img">
-                            <a href="">
-                                <img src="{{ asset('images/products/' . $laptop->pro_avatar) }}" alt="">
+                            <a
+                                href="{{ route('client.product', [
+                                    'slug' => $laptop->category->c_slug,
+                                    'brand' => $laptop->brand->b_slug,
+                                    'product' => $laptop->pro_slug,
+                                ]) }}">
+                                <img src="{{ asset('images/products/' . $laptop->pro_avatar) }}" alt=""
+                                    style="height: 210px">
                             </a>
-                        </div>
-                        <div class="cover">
-                            <div
-                                style=" background: #00483D; margin: -95px 5px 0 52px; padding: 3px; border-radius: 6px; font-size: 11px; font-weight: 600;">
-
-                                ">
-                                <span style="color:white">Giảm tới 500k VNPAY</span><br>
-                                <span style="color:yellow">-600k Khi mở thẻ TP Bank EVO</span>
-                            </div>
                         </div>
                         <div class="sticker sticker-left">
                             <span><img src="{{ asset('images/bao-hanh-24t.png') }}" title="Chính hãng Apple"></span>
                         </div>
+                        {{-- <div class="cover">
+                            <div
+                                style="color: yellow;background: #00483D;margin: 25px 20px 15px 15px;padding: 3px;border-radius: 6px;font-size:14px;font-weight: 600;">
+                                <marquee behavior="alternate">
+                                    <span style="color:white">Tặng PMH 300.000đ</span><br>
+                                </marquee>
+                            </div>
+                        </div> --}}
                         @if ($laptop->pro_sale > 0)
                             <span class="sales">
                                 <i class="icon-flash2"></i> Giảm
@@ -471,16 +496,21 @@
                             </span>
                         @endif
                         <div class="info">
-                            <a href="#" class="title"
+                            <a href="{{ route('client.product', [
+                                'slug' => $laptop->category->c_slug,
+                                'brand' => $laptop->brand->b_slug,
+                                'product' => $laptop->pro_slug,
+                            ]) }}"
+                                class="title"
                                 title="Apple iPhone 12 - 64GB - chính hãng VN/A">{{ $laptop->pro_name }}</a>
                             <span class="price">
-                                <strong>{{ number_format($laptop->pro_price - ($laptop->pro_price * $laptop->pro_sale) / 100, 0, ',', '.') }}
+                                <strong>
+                                    {{ number_format($laptop->pro_price - ($laptop->pro_price * $laptop->pro_sale) / 100, 0, ',', '.') }}
                                     ₫</strong>
                                 @if ($laptop->pro_sale > 0)
                                     <strike>{{ number_format($laptop->pro_price, 0, ',', '.') }}
                                         ₫</strike>
                                 @endif
-
                             </span>
                         </div>
                         @if (count($laptop->sales) > 0)

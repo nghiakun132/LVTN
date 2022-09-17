@@ -86,7 +86,7 @@
     input[type="radio"]:checked
     + span::before,
 .main-info-area .right-section .wrap-icon-section.minicart .index {
-    background: #763804;
+    background: #1362a6;
 }
 .has-child-cate .toggle-control:hover::after,
 .has-child-cate .toggle-control:hover::before,

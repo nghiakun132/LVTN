@@ -20,7 +20,9 @@ class HomeController extends Controller
                     $query->with([
                         'sales'
                     ]);
-                }
+                },
+                'brand',
+                'category'
             ])
             ->orderBy('pro_id', 'DESC')->limit(20)->get();
         $event = Events::where('status', 0)->first();
@@ -41,7 +43,9 @@ class HomeController extends Controller
                     $query->with([
                         'sales'
                     ]);
-                }
+                },
+                'brand',
+                'category'
             ])
             ->orderBy('pro_view', 'DESC')->limit(20)->get();
         $phones = Product::where('pro_category_id', 1)
@@ -50,7 +54,9 @@ class HomeController extends Controller
                     $query->with([
                         'sales'
                     ]);
-                }
+                },
+                'brand',
+                'category'
             ])
             ->orderBy('pro_view', 'DESC')->limit(20)->get();
 
@@ -60,7 +66,9 @@ class HomeController extends Controller
                     $query->with([
                         'sales'
                     ]);
-                }
+                },
+                'brand',
+                'category'
             ])
             ->orderBy('pro_view', 'DESC')->limit(20)->get();
 
@@ -73,5 +81,20 @@ class HomeController extends Controller
             'watchs' => $watchs,
         ];
         return view('client.home.index', $data);
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->search;
+        $products = Product::where('pro_name', 'LIKE', '%' . $keyword . '%')
+            ->with([
+                'sales' => function ($query) {
+                    $query->with([
+                        'sales'
+                    ]);
+                }
+            ])
+            ->orderBy('pro_id', 'DESC')->paginate(10);
+        dd($products->toArray());
     }
 }

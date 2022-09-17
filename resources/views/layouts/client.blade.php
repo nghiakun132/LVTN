@@ -23,6 +23,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/test2.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/color-01.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/login.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/responsive.css') }}" />
 </head>
 <style>
     .modal {
@@ -314,13 +315,15 @@
 
                         <div class="wrap-search center-section">
                             <div class="wrap-search-form">
-                                <form action="#" id="form-search-top" name="form-search-top">
+                                <form action="{{ route('client.search') }}" id="form-search-top"
+                                    name="form-search-top" method="GET">
                                     <input type="text" name="search" class="search_input" id="output"
                                         placeholder="Tìm kiếm ..." title="Tìm kiếm bằng văn bản">
-                                    <button id="button-search-top" type="button">
+                                    <button id="button-search-top" type="submit">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
-                                    <a href="#" class="wrap-list-cate" style="display: block"
+
+                                    <a href="#" class="wrap-list-cate2" style="display: block"
                                         onclick="runSpeechRecognition()"><i class="fa fa-microphone"
                                             aria-hidden="true"></i></a>
                                 </form>
@@ -365,7 +368,7 @@
                             @foreach ($categoriesGlobal as $category)
                                 <li class="menu-item">
                                     <a href="{{ route('client.category', $category->c_slug) }}" target="_self">
-                                        <?php echo $category->c_icon; ?>
+                                        <span><?php echo $category->c_icon; ?></span>
                                         <span>{{ $category->c_name }}</span>
                                     </a>
                                     <div class="sub-container">
@@ -375,16 +378,26 @@
                                                     </a></h4>
                                                 <ul class="display-column format_3">
                                                     @foreach ($category->brand as $brand)
-                                                        <li><a href="#">{{ $brand->b_name }}</a>
+                                                        <li><a
+                                                                href="{{ route('client.brand', [
+                                                                    'slug' => $category->c_slug,
+                                                                    'brand' => $brand->b_slug,
+                                                                ]) }}">{{ $brand->b_name }}</a>
                                                         </li>
                                                     @endforeach
                                                 </ul>
                                                 <ul class="display-row format_1">
                                                     @foreach ($category->parent as $brand)
-                                                        <h4><a href="/dien-thoai-cao-cap">{{ $brand->c_name }}</a>
+                                                        <h4><a
+                                                                href="{{ route('client.category', $brand->c_slug) }}">{{ $brand->c_name }}</a>
                                                         </h4>
                                                         @foreach ($brand->brand as $value)
-                                                            <li><a href="#">{{ $value->b_name }}</a>
+                                                            <li><a
+                                                                    href="
+                                                                {{ route('client.brand', [
+                                                                    'slug' => $brand->c_slug,
+                                                                    'brand' => $value->b_slug,
+                                                                ]) }}">{{ $value->b_name }}</a>
                                                             </li>
                                                         @endforeach
                                                     @endforeach
@@ -786,6 +799,7 @@
     <script src="{{ asset('client/assets/js/jquery.countdown.min.js') }}"></script>
     <script src="{{ asset('client/assets/js/jquery.sticky.js') }}"></script>
     <script src="{{ asset('client/assets/js/functions.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 

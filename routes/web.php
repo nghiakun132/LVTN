@@ -29,6 +29,10 @@ Route::group(['namespace' => 'Client'], function () {
     Route::get('xac-thuc-tai-khoan', [App\Http\Controllers\Client\AuthController::class, 'verifyAccount'])->name('client.verify.account');
     Route::post('xac-thuc-tai-khoan', [App\Http\Controllers\Client\AuthController::class, 'verifyAccountPost'])->name('client.verify.account.token');
     Route::get('dang-nhap/facebook', [App\Http\Controllers\Client\AuthController::class, 'redirectToFacebook'])->name('client.login.facebook');
+
+    Route::get('/search', [App\Http\Controllers\Client\HomeController::class, 'search'])->name('client.search');
+
+
     Route::group(['prefix' => 'tai-khoan', 'middleware' => ['user']],   function () {
         Route::get('', [App\Http\Controllers\Client\UserController::class, 'index'])->name('client.user.index');
         Route::post('thay-doi-thong-tin', [App\Http\Controllers\Client\UserController::class, 'changeInformation'])->name('client.user.change_information');
@@ -46,8 +50,7 @@ Route::group(['namespace' => 'Client'], function () {
 
     Route::group([], function () {
         Route::get('{slug}', [App\Http\Controllers\Client\CategoryController::class, 'index'])->name('client.category');
-        Route::get('{slug}/{slug_product}', [App\Http\Controllers\Client\ProductController::class, 'index'])->name('client.product');
-        Route::get('/{slug}/hang-san-xuat/{slug_brand}', [App\Http\Controllers\Client\BrandController::class, 'index'])->name('client.brand');
-        Route::get('/{slug}/{slug_brand}', [App\Http\Controllers\Client\ProductController::class, 'index'])->name('client.product2');
+        Route::get('/{slug}/{brand}', [App\Http\Controllers\Client\CategoryController::class, 'brand'])->name('client.brand');
+        Route::get('/{slug}/{brand}/{product}', [App\Http\Controllers\Client\ProductController::class, 'index'])->name('client.product');
     });
 });

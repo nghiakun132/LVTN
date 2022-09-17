@@ -15,21 +15,23 @@
         </div>
         <section id="quick">
             <div class="lst-quickfilter q-manu">
-                @foreach ($brands as $brand)
+                @foreach ($brands as $value)
                     <a href="{{ route('client.brand', [
                         'slug' => $category->c_slug,
-                        'brand' => $brand->b_slug,
+                        'brand' => $value->b_slug,
                     ]) }}"
                         class="box-quicklink__item bd-radius quicklink-logo">
-                        <img src="{{ asset('images/brands/' . $brand->b_banner) }}" width="30" class="no-text">
+                        <img src="{{ asset('images/brands/' . $value->b_banner) }}" width="30" class="no-text">
                     </a>
                 @endforeach
             </div>
         </section>
         <div class="wrap-breadcrumb">
             <ul>
-                <li class="item-link"><a href="#" class="link">Trang chủ</a></li>
-                <li class="item-link"><span>{{ $category->c_name }}</span></li>
+                <li class="item-link"><a href="{{ route('client.home') }}" class="link">Trang chủ</a></li>
+                <li class="item-link"><a
+                        href="{{ route('client.category', $category->c_slug) }}">{{ $category->c_name }}</a></li>
+                <li class="item-link"><span>{{ $brand->b_name }}</span></li>
             </ul>
         </div>
         <section id="filter-laptop">
@@ -256,7 +258,7 @@
                         @foreach ($products as $product)
                             <div class="item">
                                 <div class="img">
-                                    <a href="#" title="{{ $product->pro_name }}">
+                                    <a href="{{ route('') }}" title="{{ $product->pro_name }}">
                                         <img src="{{ asset('images/products/' . $product->pro_avatar) }}"
                                             alt="{{ $product->pro_name }}" title="{{ $product->pro_name }}">
                                     </a>
