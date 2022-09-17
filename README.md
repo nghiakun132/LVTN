@@ -66,6 +66,7 @@ if ($request->ajax()) {
         }
 </code>
     
+Tạo popup sau khi click nói chuyện.
  
  
  
