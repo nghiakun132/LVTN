@@ -48,6 +48,9 @@ header nav ul.root li.actived a:after,
 header nav ul.root li:hover a:after {
     background: #f7941e;
 }
+header nav ul.root li:hover .icon-category {
+    color: #f7941e;
+}
 header nav ul.root li:hover .sub-container {
     display: block;
     visibility: visible;
@@ -614,4 +617,8 @@ header nav .sub .g6 {
 }
 .no-border {
     border: 0 !important;
+}
+body.no-scroll {
+    height: 100%;
+    overflow: hidden;
 }

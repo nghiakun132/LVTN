@@ -91,9 +91,53 @@ class HomeController extends Controller
                     $query->with([
                         'sales'
                     ]);
-                }
+                },
+                'brand',
+                'category'
             ])
             ->orderBy('pro_id', 'DESC')->paginate(10);
-        dd($products->toArray());
+        return view('client.home.search', compact('products', 'keyword'));
+    }
+    public function searchAjax(Request $request)
+    {
+        if ($request->ajax()) {
+            $output = '';
+            $products = Product::where('pro_name', 'LIKE', '%' . $request->search . '%')
+                ->with([
+                    'sales' => function ($query) {
+                        $query->with([
+                            'sales'
+                        ]);
+                    },
+                    'brand',
+                    'category',
+                    'group'
+                ])->limit(5)->get();
+
+            if ($products) {
+                foreach ($products as $key => $product) {
+                    $output .= '<div onmousedown="return false;" class="autocomplete-suggestion" data-index="' . $key . '">
+                        <div class="search-item" onclick="#">
+                            <div class="img"><img
+                                    src="' . asset('images/products/' . $product->pro_avatar) . '" />
+                            </div>
+                            <div class="info">
+                                <h2>
+                                    <a href="' . route('client.product', [
+                        'slug' => $product->category->c_slug,
+                        'brand' => $product->brand->b_slug,
+                        'product' => $product->pro_slug,
+                    ]) . '">' . $product->pro_name . '</a>
+                                </h2>
+                                <h3><strike></strike> ' . number_format($product->pro_price) . ' ₫</h3>
+                            </div>
+                        </div>
+                    </div>';
+                }
+                $output .= '<p class="more-results">
+                Nhấn Enter để xem tất cả kết quả cho <strong>' . $request->search . '</strong></p>';
+            }
+            return Response($output);
+        }
     }
 }

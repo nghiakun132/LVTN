@@ -63,3 +63,29 @@ $("document").ready(function () {
         window.scrollTo({ top: 0, behavior: "smooth" });
     });
 });
+
+$(".search_input").on("focus", function () {
+    $("body").css("overflow", "hidden");
+    $(".autocomplete-suggestions").css("display", "block");
+});
+
+$(".search_input").on("blur", function () {
+    $("body").css("overflow", "auto");
+    $(".autocomplete-suggestions").css("display", "none");
+});
+
+$(".search_input").keyup(function () {
+    var query = $(this).val();
+    if (query != "") {
+        // var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: "/searchAjax",
+            method: "GET",
+            data: { search: query },
+            success: function (data) {
+                $(".autocomplete-suggestions").fadeIn();
+                $(".autocomplete-suggestions").html(data);
+            },
+        });
+    }
+});

@@ -252,13 +252,14 @@
             <div class="container">
                 <div class="list-product">
                     <h3>{{ $category->c_name }}</h3>
-                    <div class="col-content lts-product">
+                    <div class="col-content lts-product col-product">
                         @foreach ($products as $product)
                             <div class="item">
                                 <div class="img">
                                     <a href="#" title="{{ $product->pro_name }}">
                                         <img src="{{ asset('images/products/' . $product->pro_avatar) }}"
-                                            alt="{{ $product->pro_name }}" title="{{ $product->pro_name }}">
+                                            style="height: 200px" alt="{{ $product->pro_name }}"
+                                            title="{{ $product->pro_name }}">
                                     </a>
                                 </div>
                                 @if ($product->pro_sale > 0)

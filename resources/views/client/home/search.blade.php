@@ -1,18 +1,18 @@
 @extends('layouts.client')
 @section('content')
-@section('title', 'Sản phẩm đã xem')
+@section('title', 'Tìm kiếm ' . $keyword)
 <main id="main" class="main-site" style="background-color: rgb(245, 245, 250);">
     <div class="container">
         <div class="wrap-breadcrumb">
             <ul>
                 <li class="item-link"><a href="{{ route('client.home') }}" class="link">Trang chủ</a></li>
-                <li class="item-link"><span>Sản phẩm đã xem</span></li>
+                <li class="item-link"><span>Tìm kiếm {{ $keyword }}</span></li>
             </ul>
         </div>
         <section>
             <div class="container">
                 <div class="list-product">
-                    <h3>Sản phẩm đã xem</h3>
+                    <h3>Tìm kiếm {{ $keyword }}</h3>
                     <div class="col-content lts-product col-product">
                         @foreach ($products as $product)
                             <div class="item">

@@ -49,6 +49,21 @@ class ProductController extends Controller
     }
     public function watched(Request $request)
     {
-        dd(Cookie::get('watched'));
+        $watched = Cookie::get('watched');
+        $products = Product::whereIn('pro_id', json_decode($watched))
+            ->with([
+                'sales' => function ($query) {
+                    $query->with([
+                        'sales'
+                    ]);
+                },
+                'brand',
+                'category',
+                'group'
+            ])->paginate(12);
+        $data = [
+            'products' => $products
+        ];
+        return view('client.detail.watched', $data);
     }
 }

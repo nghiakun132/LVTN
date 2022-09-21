@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Client'], function () {
     Route::get('dang-nhap/facebook', [App\Http\Controllers\Client\AuthController::class, 'redirectToFacebook'])->name('client.login.facebook');
 
     Route::get('/search', [App\Http\Controllers\Client\HomeController::class, 'search'])->name('client.search');
+    Route::get('/searchAjax', [App\Http\Controllers\Client\HomeController::class, 'searchAjax'])->name('client.searchAjax');
 
 
     Route::group(['prefix' => 'tai-khoan', 'middleware' => ['user']],   function () {

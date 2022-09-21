@@ -327,9 +327,11 @@
                                         onclick="runSpeechRecognition()"><i class="fa fa-microphone"
                                             aria-hidden="true"></i></a>
                                 </form>
+                                <div class="autocomplete-suggestions" style="">
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
                         <div class="wrap-icon right-section">
                             <div class="wrap-icon-section wishlist">
                                 <a id="btnCheckOrder" href="#">
@@ -368,8 +370,8 @@
                             @foreach ($categoriesGlobal as $category)
                                 <li class="menu-item">
                                     <a href="{{ route('client.category', $category->c_slug) }}" target="_self">
-                                        <span><?php echo $category->c_icon; ?></span>
-                                        <span>{{ $category->c_name }}</span>
+                                        <span class="icon-category"><?php echo $category->c_icon; ?></span>
+                                        <span class="icon-category">{{ $category->c_name }}</span>
                                     </a>
                                     <div class="sub-container">
                                         <div class="sub">

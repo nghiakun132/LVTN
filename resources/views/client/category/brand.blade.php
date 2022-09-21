@@ -253,26 +253,27 @@
         <section>
             <div class="container">
                 <div class="list-product">
-                    <h3>{{ $category->c_name }}</h3>
-                    <div class="col-content lts-product">
+                    <h3>{{ $category->c_name }} {{ $brand->b_name }}</h3>
+                    <div class="col-content lts-product col-product">
                         @foreach ($products as $product)
                             <div class="item">
                                 <div class="img">
                                     <a href="#" title="{{ $product->pro_name }}">
                                         <img src="{{ asset('images/products/' . $product->pro_avatar) }}"
-                                            alt="{{ $product->pro_name }}" title="{{ $product->pro_name }}">
+                                            style="height: 200px" alt="{{ $product->pro_name }}"
+                                            title="{{ $product->pro_name }}">
                                     </a>
                                 </div>
                                 @if ($product->pro_sale > 0)
                                     <div class="cover">
                                         <div
                                             style="color: yellow;
-                                        background: #00483D;
-                                        margin: 25px 20px 15px 15px;
-                                        padding: 3px;
-                                        border-radius: 6px;
-                                        font-size:6px
-                                        font-weight: 600;">
+                                                background: #00483D;
+                                                margin: 25px 20px 15px 15px;
+                                                padding: 3px;
+                                                border-radius: 6px;
+                                                font-size:6px
+                                                font-weight: 600;">
                                             <marquee behavior="alternate">
                                                 <marquee width="150">
                                                     <span style="color:white">Giảm tới
