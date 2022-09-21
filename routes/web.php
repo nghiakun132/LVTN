@@ -46,6 +46,7 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('dat-mat-dinh/{id}', [App\Http\Controllers\Client\UserController::class, 'setDefault'])->name('client.address.set_default');
     });
 
+    Route::get('/san-pham-da-xem', [App\Http\Controllers\Client\ProductController::class, 'watched'])->name('client.product.watched');
     //category
 
     Route::group([], function () {

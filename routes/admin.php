@@ -54,7 +54,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::get('/{id}/add-sales', [App\Http\Controllers\Admin\ProductController::class, 'addSales'])->name('admin.product.addSales');
             Route::post('/{id}/add-sales', [App\Http\Controllers\Admin\ProductController::class, 'addSalesPost'])->name('admin.product.addSalesPost');
             Route::get('/{id}/delete-sales', [App\Http\Controllers\Admin\ProductController::class, 'deleteSales'])->name('admin.product.deleteSale');
-            Route::post('/{id}/add-image', [App\Http\Controllers\Admin\ProductController::class, 'addImg'])->name('admin.product.image');
+            Route::post('/{id}/add-image', [App\Http\Controllers\Admin\ProductController::class, 'addImg'])->name('admin.product.add-image');
         });
 
         Route::group(['prefix' => 'coupon'], function () {

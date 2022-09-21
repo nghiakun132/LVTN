@@ -258,7 +258,7 @@
                         @foreach ($products as $product)
                             <div class="item">
                                 <div class="img">
-                                    <a href="{{ route('') }}" title="{{ $product->pro_name }}">
+                                    <a href="#" title="{{ $product->pro_name }}">
                                         <img src="{{ asset('images/products/' . $product->pro_avatar) }}"
                                             alt="{{ $product->pro_name }}" title="{{ $product->pro_name }}">
                                     </a>

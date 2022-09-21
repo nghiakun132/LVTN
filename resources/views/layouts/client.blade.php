@@ -254,8 +254,8 @@
                         </div>
                         <div class="topbar-menu right-menu">
                             <ul>
-                                <li class="menu-item"><a href="#" style="color: #fff"
-                                        title="Sản phẩm đã xem">Sản phẩm đã
+                                <li class="menu-item"><a href="{{ route('client.product.watched') }}"
+                                        style="color: #fff" title="Sản phẩm đã xem">Sản phẩm đã
                                         xem</a>
                                 </li>
                                 @if (Session::get('user'))

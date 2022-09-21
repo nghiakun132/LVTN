@@ -1,13 +1,13 @@
 @extends('layouts.client')
 @section('content')
 @section('title', 'Detail')
-<main id="main" class="main-site" style="background-color: rgb(245, 245, 250);">
+<main id="main" class="main-site">
     <div class="container">
-        <div class="wrap-breadcrumb khong-cach">
+        <div class="wrap-breadcrumb">
             <ul>
                 <li class="item-link"><a href="#" class="link">Trang chủ</a></li>
-                <li class="item-link"><a href="#" class="link">Sản phẩm</a></li>
-                <li class="item-link"><span>@yield('title')</span></li>
+                <li class="item-link"><a href="#" class="link">#</a></li>
+                <li class="item-link"><span>{{ $product->pro_name }}</span></li>
             </ul>
         </div>
         <div class="row">
@@ -16,21 +16,12 @@
                     <div class="detail-media">
                         <div class="product-gallery">
                             <ul class="slides">
-                                <li data-thumb="../images/banner/1.png">
-                                    <img src="../images/banner/1.png" />
-                                </li>
-                                <li data-thumb="../images/banner/3.png">
-                                    <img src="../images/banner/3.png" />
-                                </li>
-                                <li data-thumb="../images/banner/4.png">
-                                    <img src="../images/banner/4.png" />
-                                </li>
-                                <li data-thumb="../images/banner/5.jpg">
-                                    <img src="../images/banner/5.jpg" />
-                                </li>
-                                <li data-thumb="../images/banner/1.png">
-                                    <img src="../images/banner/1.png" />
-                                </li>
+                                @foreach ($images as $image)
+                                    <li data-thumb="{{ asset('images/products/' . $image->path) }}">
+                                        <img src="{{ asset('images/products/' . $image->path) }}"
+                                            alt="{{ $image->path }}" width="430" />
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -38,42 +29,48 @@
                         @csrf
                         <div class="detail-info">
                             <div class="product-rating">
-
-                                <a href="#" class="count-review">(3 đánh giá)</a>
+                                {{-- @for ($i = 1; $i <= $star; $i++)
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                @endfor --}}
+                                {{-- <a href="#" class="count-review">({{ $countComments }} đánh giá)</a> --}}
                             </div>
-                            <h2 class="product-name"></h2>
+                            <h2 class="product-name">{{ $product->pro_name }}</h2>
                             <div class="short-desc">
+                                <?php echo $product->pro_content; ?>
                             </div>
-                            <div class="wrap-price"><span class="product-price"></span><span class="product-price"> /
-                                </span></div>
+                            <div class="wrap-price"><span
+                                    class="product-price">{{ number_format($product->pro_price - $product->pro_price * $product->pro_sale, 0, ',', ',') . ' đồng' }}</span><span
+                                    class="product-price"> / {{ $product->pro_unit }}</span></div>
                             <div class="stock-info in-stock">
-                                {{-- @if ($product->pro_qty > 0)
-                                    <p class="availability">Số lượng có sẵn: <b>3</b></p>
+                                @if ($product->pro_qty > 0)
+                                    <p class="availability">Số lượng có sẵn: <b>{{ $product->pro_qty }}</b></p>
                                 @else
                                     <p class="availability">Số lượng có sẵn: <b>Hết hàng</b></p>
-                                @endif --}}
+                                @endif
                             </div>
                             <div class="quantity">
                                 <span>Số lượng: </span>
                                 <div class="quantity-input">
-                                    <input type="text" name="product_quatity" value="1" data-max="4"
-                                        pattern="[0-9]*">
+                                    <input type="text" name="product_quatity" value="1"
+                                        data-max="{{ $product->pro_qty }}" pattern="[0-9]*">
                                     <a class="btn btn-reduce" href="#"></a>
                                     <a class="btn btn-increase" href="#"></a>
                                 </div>
                             </div>
-                            <input type="hidden" name="pro_id" value="">
-                            <input type="hidden" name="pro_price" value="">
-                            <input type="hidden" name="pro_avatar" value="#">
+                            <input type="hidden" name="pro_id" value="{{ $product->pro_id }}">
+                            <input type="hidden" name="pro_price"
+                                value="{{ $product->pro_price - $product->pro_price * $product->pro_sale }}">
+                            <input type="hidden" name="pro_avatar" value="{{ $product->pro_avatar }}">
                             <div class="wrap-butons">
-                                {{-- @if ($product->pro_qty > 0)
+                                @if ($product->pro_qty > 0)
                                     <button class="btn add-to-cart">Thêm vào giỏ hàng</button>
                                 @else
                                     <button class="btn add-to-cart" disabled>Hết hàng</button>
-                                @endif --}}
+                                @endif
                                 <div class="wrap-btn">
                                     <a href="#" class="btn btn-compare">Add Compare</a>
-                                    {{-- <a href="{{ route('addWishlist', $product->pro_id) }}" class="btn btn-wishlist">Thêm
+                                    {{-- <a href="{{ route('addWishlist', $product->pro_id) }}"
+                                        class="btn btn-wishlist">Thêm
                                         vào Wishlist</a> --}}
                                 </div>
                             </div>
@@ -87,6 +84,7 @@
                         </div>
                         <div class="tab-contents">
                             <div class="tab-content-item active" id="description">
+                                <?php echo $product->pro_description; ?>
                             </div>
                             <div class="tab-content-item " id="add_infomation">
                                 <table class="shop_attributes">
@@ -102,16 +100,16 @@
                                 <div class="wrap-review-form">
                                     <div id="comments">
                                         <h2 class="woocommerce-Reviews-title"># đánh giá cho
-                                            {{-- <span>{{ $product->pro_name }}</span> --}}
+                                            <span>{{ $product->pro_name }}</span>
                                         </h2>
-                                        <ol class="commentlist">
-                                            {{-- @foreach ($comments as $cm)
+                                        {{-- <ol class="commentlist">
+                                            @foreach ($comments as $cm)
                                                 <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1"
                                                     id="li-comment-20">
                                                     <div id="comment-20" class="comment_container">
                                                         @if ($cm->type == 'Google')
-                                                            <img alt="" src="{{ $cm->avatar }}" height="80"
-                                                                width="80">
+                                                            <img alt="" src="{{ $cm->avatar }}"
+                                                                height="80" width="80">
                                                         @else
                                                             @if ($cm->avatar == null)
                                                                 <img alt=""
@@ -143,8 +141,8 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                            @endforeach --}}
-                                        </ol>
+                                            @endforeach
+                                        </ol> --}}
                                         <div>
                                             <div class="woocommerce-pagination">
                                                 {{-- {{ $comments->links() }} --}}
@@ -189,11 +187,11 @@
                                                         </label>
                                                         <textarea id="comment" name="comment" cols="45" rows="8"></textarea>
                                                     </p>
-                                                    {{-- @if ($errors->has('comment'))
+                                                    @if ($errors->has('comment'))
                                                         <div class="alert alert-danger">
                                                             <strong>{{ $errors->first('comment') }}</strong>
                                                         </div>
-                                                    @endif --}}
+                                                    @endif
 
                                                     <p class="form-submit">
                                                         <input name="submit" type="submit" id="submit"

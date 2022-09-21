@@ -612,3 +612,6 @@ header nav .sub .g6 {
         width: 100%;
     }
 }
+.no-border {
+    border: 0 !important;
+}

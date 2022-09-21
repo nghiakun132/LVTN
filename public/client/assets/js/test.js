@@ -4,15 +4,38 @@ function runSpeechRecognition() {
     var recognition = new SpeechRecognition();
     recognition.lang = "vi-VN";
     recognition.onstart = function () {
-        output.setAttribute("value", "Đang nhận dạng...");
+        // output.setAttribute("value", "Đang nhận dạng...");
+        return Swal.fire({
+            title: "Mời bạn nói..............",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "question",
+            iconHtml:
+                '<img src="https://img.icons8.com/color/96/000000/microphone.png" style="width: 100px; height:80px"/>',
+            allowOutsideClick: false,
+            customClass: {
+                icon: "no-border",
+            },
+            width: "300px",
+            padding: "3em",
+        });
     };
     recognition.onspeechend = function () {
         recognition.stop();
     };
+
     recognition.onresult = function (event) {
         var transcript = event.results[0][0].transcript;
+        Swal.fire({
+            title: transcript,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000,
+        });
         output.setAttribute("value", transcript);
-        $("#form-search-top").submit();
+        setTimeout(() => {
+            $("#form-search-top").submit();
+        }, 2000);
     };
     recognition.start();
 }

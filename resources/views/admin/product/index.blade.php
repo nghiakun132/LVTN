@@ -79,7 +79,7 @@
                                                             </td>
                                                             <td>
                                                                 <form method="post"
-                                                                    action="{{ route('admin.product.image', $product->pro_id) }}"
+                                                                    action="{{ route('admin.product.add-image', $product->pro_id) }}"
                                                                     enctype="multipart/form-data" id="images-product">
                                                                     @csrf
                                                                     <div class="input-group">

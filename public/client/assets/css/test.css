@@ -611,7 +611,7 @@
     top: 10px;
 } */
 .header-title {
-    background: #009981;
+    background: #6fabde;
     margin-bottom: 20px;
     display: inline-block;
     height: 30px;
@@ -621,7 +621,7 @@
 .header-title h3 {
     padding: 6px 60px 6px 35px;
     margin: 0 0 0 60px;
-    background: #00483d;
+    background: #1362a6;
     color: #fff;
     font-size: 16px;
     text-transform: uppercase;
@@ -633,8 +633,8 @@
 
 .header-title::after {
     content: " ";
-    border-top: 30px solid #00483d;
-    border-left: 30px solid #009981;
+    border-top: 30px solid #1362a6;
+    border-left: 30px solid #6fabde;
     margin-left: 45px;
 }
 
