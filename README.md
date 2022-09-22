@@ -66,7 +66,8 @@ if ($request->ajax()) {
         }
 </code>
     
-Tạo popup sau khi click nói chuyện.
+Tạo popup sau khi click nói chuyện. Xong
+Check order của từng user tức chỉ admin hoặc user mua hàng mới coi được đơn hàng đó
  
  
  
