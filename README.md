@@ -68,7 +68,8 @@ if ($request->ajax()) {
     
 Tạo popup sau khi click nói chuyện. Xong
 Check order của từng user tức chỉ admin hoặc user mua hàng mới coi được đơn hàng đó
- 
- 
+Email resest password
+Thông tin đăng nhập không đúng khi nhập sai email hoặc pass
+Hạn chế số lần đăng nhập sai
  
  
