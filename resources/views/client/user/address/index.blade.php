@@ -43,11 +43,15 @@
                                     <div class="action">
                                         <a class="edit" href="{{ route('client.address.edit', $address->id) }}">Chỉnh
                                             sửa</a>
+
                                         @if ($address->default == 0)
                                             <a class="edit"
                                                 href="{{ route('client.address.set_default', $address->id) }}">Địa
                                                 chỉ mặc định</a>
+                                            <a class="edit"
+                                                href="{{ route('client.address.delete', $address->id) }}">Xóa</a>
                                         @endif
+
                                     </div>
                                 </div>
                             @endforeach

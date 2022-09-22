@@ -148,4 +148,10 @@ class UserController extends Controller
         $address->save();
         return redirect()->route('client.address')->with('success', 'Cập nhật thành công');
     }
+
+    public function deleteAddress($id)
+    {
+        Address::find($id)->delete();
+        return redirect()->route('client.address')->with('success', 'Xóa thành công');
+    }
 }

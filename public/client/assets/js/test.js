@@ -89,3 +89,50 @@ $(".search_input").keyup(function () {
         });
     }
 });
+
+$("#forgot-password").click(function (e) {
+    e.preventDefault();
+    let email = $("#email3").val();
+    if (validateForm(email)) {
+        $.ajax({
+            url: "/quen-mat-khau",
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            data: { email: email },
+            success: function (data) {
+                if (data.code == 200) {
+                    Swal.fire({
+                        title: "Đã gửi tới email của bạn",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Email không tồn tại",
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+                }
+                console.log(data);
+            },
+        });
+    }
+});
+
+function validateForm(email) {
+    if (email == "") {
+        alert("Email must be filled out");
+        return false;
+    }
+
+    if (email.indexOf("@") == -1) {
+        alert("Email invalid");
+        return false;
+    }
+
+    return true;
+}

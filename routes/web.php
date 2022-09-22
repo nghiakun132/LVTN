@@ -24,11 +24,14 @@ Route::group(['namespace' => 'Client'], function () {
     Route::get('dang-nhap', [App\Http\Controllers\Client\AuthController::class, 'loginUser'])->name('client.loginUser');
     Route::post('dang-ky', [App\Http\Controllers\Client\AuthController::class, 'register'])->name('client.register');
     Route::get('dang-xuat', [App\Http\Controllers\Client\AuthController::class, 'logout'])->name('client.logout');
+    Route::post('/quen-mat-khau', [App\Http\Controllers\Client\AuthController::class, 'forgotPassword'])->name('client.forgotPassword');
+
     Route::get('dang-nhap/google/', [App\Http\Controllers\Client\AuthController::class, 'redirectToGoogle'])->name('client.login.google');
     Route::get('dang-nhap/google/callback/', [App\Http\Controllers\Client\AuthController::class, 'googleCallback'])->name('client.login.google.callback');
     Route::get('xac-thuc-tai-khoan', [App\Http\Controllers\Client\AuthController::class, 'verifyAccount'])->name('client.verify.account');
     Route::post('xac-thuc-tai-khoan', [App\Http\Controllers\Client\AuthController::class, 'verifyAccountPost'])->name('client.verify.account.token');
     Route::get('dang-nhap/facebook', [App\Http\Controllers\Client\AuthController::class, 'redirectToFacebook'])->name('client.login.facebook');
+
 
     Route::get('/search', [App\Http\Controllers\Client\HomeController::class, 'search'])->name('client.search');
     Route::get('/searchAjax', [App\Http\Controllers\Client\HomeController::class, 'searchAjax'])->name('client.searchAjax');
@@ -45,6 +48,7 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('so-dia-chi/{id}/sua', [App\Http\Controllers\Client\UserController::class, 'editAddress'])->name('client.address.edit');
         Route::post('so-dia-chi/{id}/sua', [App\Http\Controllers\Client\UserController::class, 'updateAddress'])->name('client.address.update');
         Route::get('dat-mat-dinh/{id}', [App\Http\Controllers\Client\UserController::class, 'setDefault'])->name('client.address.set_default');
+        Route::get('so-dia-chi/{id}/xoa', [App\Http\Controllers\Client\UserController::class, 'deleteAddress'])->name('client.address.delete');
     });
 
     Route::get('/san-pham-da-xem', [App\Http\Controllers\Client\ProductController::class, 'watched'])->name('client.product.watched');

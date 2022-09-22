@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@yield('title') | Nghiakun.online</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/images/2.png') }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link
         href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic,900,900italic&amp;subset=latin,latin-ext"
         rel="stylesheet" />
@@ -132,14 +133,17 @@
                         <div>
                             <p class="no-account">Bạn chưa có tài khoản? <a data-target="#register"
                                     data-toggle="modal">Đăng ký</a></p>
+
+                            <p class="no-account"><a href="#" data-target="#forget-password"
+                                    data-toggle="modal">Quên mật khẩu?</a></p>
                             <div class="social">
                                 <p class="social-heading">
                                     <span>Hoặc đăng nhập bằng</span>
                                 </p>
                                 <ul class="social__items">
-                                    {{-- <li class="social__item">
+                                    <li class="social__item">
                                         <a href="#"><img src="{{ asset('images/fb.png') }}" alt=""></a>
-                                    </li> --}}
+                                    </li>
                                     <li class="social__item">
                                         <a href="{{ route('client.login.google') }}"><img
                                                 src="{{ asset('images/gg.png') }}" alt=""></a>
@@ -156,8 +160,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times text-danger"
-                                aria-hidden="true"></i></button>
+                        <button type="button" class="close" data-dismiss="modal"><i
+                                class="fa fa-times text-danger" aria-hidden="true"></i></button>
                         <h4 class="modal-title">Đăng ký thành viên</h4>
                     </div>
                     <div class="modal-body">
@@ -229,6 +233,33 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+        <div id="forget-password" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i
+                                class="fa fa-times text-danger" aria-hidden="true"></i></button>
+                        <h4 class="modal-title">Quên mật khẩu</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="email3">Email</label>
+                                <input type="email" class="form-control" name="email" id="email3">
+                            </div>
+                            @if ($errors->has('email'))
+                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                            @endif
+                            <div>
+                                <button type="submit" id="forgot-password" class="btn btn-success">Gửi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -406,45 +437,53 @@
                                                 </ul>
                                             </div>
                                             <div class="menu g2">
-                                                <h4><a href="/dien-thoai-duoi-1-trieu">Mức giá</a></h4>
+                                                <h4><a href="#">Mức giá</a></h4>
                                                 <ul class="display-row format_2">
                                                     <li><a
-                                                            href="/dien-thoai-di-dong?filters={%22price%22:%22T100t%22}&amp;search=true">Trên
-                                                            100 triệu</a></li>
+                                                            href=" {{ $category->c_slug . '?gia_tu=0&gia_den=3000000' }}">
+                                                            Dưới 3 triệu
+                                                            <i class="total"></i></a>
+                                                    </li>
                                                     <li><a
-                                                            href="/dien-thoai-di-dong?=&amp;filters={&quot;sort&quot;:&quot;10&quot;,&quot;price&quot;:&quot;1t&quot;}">Dưới
-                                                            1 triệu</a></li>
+                                                            href="{{ $category->c_slug . '?gia_tu=3000000&gia_den=5000000' }}">
+                                                            Từ 3 triệu - 5 triệu
+                                                            <i class="total"></i></a></li>
                                                     <li><a
-                                                            href="/dien-thoai-di-dong?=&amp;filters={&quot;sort&quot;:&quot;10&quot;,&quot;price&quot;:&quot;2t-3t&quot;}">Từ
-                                                            2 đến 3 triệu</a></li>
+                                                            href="{{ $category->c_slug . '?gia_tu=5000000&gia_den=7000000' }}">
+                                                            Từ 5 triệu - 7 triệu
+                                                            <i class="total"></i></a></li>
                                                     <li><a
-                                                            href="/dien-thoai-di-dong?=&amp;filters={&quot;sort&quot;:&quot;10&quot;,&quot;price&quot;:&quot;3t-4t&quot;}">Từ
-                                                            3 đến 4 triệu</a></li>
+                                                            href="{{ $category->c_slug . '?gia_tu=7000000&gia_den=10000000' }}">
+                                                            Từ 7 triệu - 10 triệu
+                                                            <i class="total"></i></a></li>
                                                     <li><a
-                                                            href="/dien-thoai-di-dong?=&amp;filters={&quot;price&quot;:&quot;6t-8t&quot;}">Từ
-                                                            6 đến 8 triệu</a></li>
+                                                            href="{{ $category->c_slug . '?gia_tu=10000000&gia_den=15000000' }}">
+                                                            Từ 10 triệu - 15 triệu
+                                                            <i class="total"></i></a></li>
                                                     <li><a
-                                                            href="/dien-thoai-di-dong?=&amp;filters={&quot;price&quot;:&quot;15t-20t&quot;}">Từ
-                                                            15 đến 20 triệu</a></li>
+                                                            href="{{ $category->c_slug . '?gia_tu=15000000&gia_den=20000000' }}">
+                                                            Từ 15 triệu - 20 triệu
+                                                            <i class="total"></i></a></li>
                                                     <li><a
-                                                            href="/dien-thoai-di-dong?search=true&amp;filters={%22price%22:%2220t-100tr%22}&amp;search=true">Từ
-                                                            20 đến 100 triệu</a></li>
+                                                            href="{{ $category->c_slug . '?gia_tu=20000000&gia_den=50000000' }}">
+                                                            Từ 20 triệu - 50 triệu
+                                                            <i class="total"></i></a></li>
+                                                    <li><a
+                                                            href="{{ $category->c_slug . '?gia_tu=50000000&gia_den=100000000' }}">
+                                                            Từ 50 triệu - 100 triệu
+                                                            <i class="total"></i></a></li>
                                                 </ul>
                                             </div>
                                             <div class="menu g3">
                                                 <h4><a>Quan tâm nhất</a></h4>
                                                 <ul class="display-row format_2">
-                                                    <li><a
-                                                            href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;6&quot;}">Hôm
+                                                    <li><a href="#">Hôm
                                                             nay</a></li>
-                                                    <li><a
-                                                            href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;7&quot;}">Tuần
+                                                    <li><a href="#">Tuần
                                                             này</a></li>
-                                                    <li><a
-                                                            href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;8&quot;}">Tháng
+                                                    <li><a href="#">Tháng
                                                             này</a></li>
-                                                    <li><a
-                                                            href="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;10&quot;}">Năm
+                                                    <li><a href="#">Năm
                                                             nay</a></li>
                                                 </ul>
                                             </div>
@@ -505,101 +544,6 @@
 
             <div class="main-footer-content">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
-                            <div class="wrap-footer-item">
-                                <h3 class="item-header">Contact Details</h3>
-                                <div class="item-content">
-                                    <div class="wrap-contact-detail">
-                                        <ul>
-                                            <li>
-                                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                                <p class="contact-txt">45 Grand Central Terminal New York,NY 1017
-                                                    United State USA</p>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-phone" aria-hidden="true"></i>
-                                                <p class="contact-txt">0776585055 - (+123) 666 888</p>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                <p class="contact-txt">Contact@yourcompany.com</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
-                            <div class="wrap-footer-item">
-                                <h3 class="item-header">Hot Line</h3>
-                                <div class="item-content">
-                                    <div class="wrap-hotline-footer">
-                                        <span class="desc">Call Us toll Free</span>
-                                        <b class="phone-number">0776585055 - (+123) 666 888</b>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="wrap-footer-item footer-item-second">
-                                <h3 class="item-header">Sign up for newsletter</h3>
-                                <div class="item-content">
-                                    <div class="wrap-newletter-footer">
-                                        <form action="#" class="frm-newletter" id="frm-newletter">
-                                            <input type="email" class="input-email" name="email" value=""
-                                                placeholder="Enter your email address" />
-                                            <button class="btn-submit">Subscribe</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 box-twin-content">
-                            <div class="row">
-                                <div class="wrap-footer-item twin-item">
-                                    <h3 class="item-header">My Account</h3>
-                                    <div class="item-content">
-                                        <div class="wrap-vertical-nav">
-                                            <ul>
-                                                <li class="menu-item"><a href="#" class="link-term">My
-                                                        Account</a></li>
-                                                <li class="menu-item"><a href="#" class="link-term">Brands</a>
-                                                </li>
-                                                <li class="menu-item"><a href="#" class="link-term">Gift
-                                                        Certificates</a></li>
-                                                <li class="menu-item"><a href="#"
-                                                        class="link-term">Affiliates</a></li>
-                                                <li class="menu-item"><a href="#" class="link-term">Wish
-                                                        list</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="wrap-footer-item twin-item">
-                                    <h3 class="item-header">Infomation</h3>
-                                    <div class="item-content">
-                                        <div class="wrap-vertical-nav">
-                                            <ul>
-                                                <li class="menu-item"><a href="#" class="link-term">Contact
-                                                        Us</a></li>
-                                                <li class="menu-item"><a href="#" class="link-term">Returns</a>
-                                                </li>
-                                                <li class="menu-item"><a href="#" class="link-term">Site
-                                                        Map</a></li>
-                                                <li class="menu-item"><a href="#"
-                                                        class="link-term">Specials</a></li>
-                                                <li class="menu-item"><a href="#" class="link-term">Order
-                                                        History</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="row">
                         <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                             <div class="wrap-footer-item">
@@ -676,85 +620,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="wrap-back-link">
-                    <div class="container">
-                        <div class="back-link-box">
-                            <h3 class="backlink-title">Quick Links</h3>
-                            <div class="back-link-row">
-                                <ul class="list-back-link">
-                                    <li><span class="row-title">Mobiles:</span></li>
-                                    <li><a href="#" class="redirect-back-link" title="mobile">Mobiles</a>
-                                    </li>
-                                    <li><a href="#" class="redirect-back-link" title="yphones">YPhones</a>
-                                    </li>
-                                    <li><a href="#" class="redirect-back-link" title="Gianee Mobiles GL">Gianee
-                                            Mobiles GL</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Mobiles Karbonn">Mobiles
-                                            Karbonn</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Mobiles Viva">Mobiles
-                                            Viva</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Mobiles Intex">Mobiles
-                                            Intex</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Mobiles Micrumex">Mobiles
-                                            Micrumex</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Mobiles Bsus">Mobiles
-                                            Bsus</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Mobiles Samsyng">Mobiles
-                                            Samsyng</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Mobiles Lenova">Mobiles
-                                            Lenova</a></li>
-                                </ul>
-
-                                <ul class="list-back-link">
-                                    <li><span class="row-title">Tablets:</span></li>
-                                    <li><a href="#" class="redirect-back-link" title="Plesc YPads">Plesc
-                                            YPads</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Samsyng Tablets">Samsyng
-                                            Tablets</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Qindows Tablets">Qindows
-                                            Tablets</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Calling Tablets">Calling
-                                            Tablets</a></li>
-                                    <li><a href="#" class="redirect-back-link"
-                                            title="Micrumex Tablets">Micrumex Tablets</a></li>
-                                    <li><a href="#" class="redirect-back-link"
-                                            title="Lenova Tablets Bsus">Lenova Tablets Bsus</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Tablets iBall">Tablets
-                                            iBall</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Tablets Swipe">Tablets
-                                            Swipe</a></li>
-                                    <li><a href="#" class="redirect-back-link"
-                                            title="Tablets TVs, Audio">Tablets TVs, Audio</a></li>
-                                </ul>
-
-                                <ul class="list-back-link">
-                                    <li><span class="row-title">Fashion:</span></li>
-                                    <li><a href="#" class="redirect-back-link" title="Sarees Silk">Sarees
-                                            Silk</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="sarees Salwar">sarees
-                                            Salwar</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Suits Lehengas">Suits
-                                            Lehengas</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Biba Jewellery">Biba
-                                            Jewellery</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Rings Earrings">Rings
-                                            Earrings</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Diamond Rings">Diamond
-                                            Rings</a></li>
-                                    <li><a href="#" class="redirect-back-link"
-                                            title="Loose Diamond Shoes">Loose Diamond Shoes</a></li>
-                                    <li><a href="#" class="redirect-back-link"
-                                            title="BootsMen Watches">BootsMen Watches</a></li>
-                                    <li><a href="#" class="redirect-back-link" title="Women Watches">Women
-                                            Watches</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-
             <div class="coppy-right-box">
                 <div class="container">
                     <div class="coppy-right-item item-left">
@@ -778,18 +644,6 @@
             </div>
         </div>
     </footer>
-    <?php
-    $error = Session::get('error');
-    $success = Session::get('success');
-    if ($error) {
-        echo '<script>alert("' . $error . '")</script>';
-        Session::forget('error');
-    }
-    if ($success) {
-        echo '<script>alert("' . $success . '")</script>';
-        Session::forget('success');
-    }
-    ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     {{-- <script src="{{ asset('client/assets/js/jquery-ui-1.12.4.minb8ff.js') }}"></script>
@@ -802,7 +656,10 @@
     <script src="{{ asset('client/assets/js/jquery.sticky.js') }}"></script>
     <script src="{{ asset('client/assets/js/functions.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    @include('components.toastr')
 </body>
 
 </html>

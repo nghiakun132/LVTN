@@ -77,11 +77,11 @@ class CategoryController extends Controller
         return view('client.category.index', $data);
     }
 
-    public function brand(Request $request, $category, $brand)
+    public function brand(Request $request, $categorySlug, $brandSlug)
     {
-        $category = Category::where('c_slug', $category)->first();
+        $category = Category::where('c_slug', $categorySlug)->first();
         $brands = Brands::where('b_category_id', $category->c_id)->get();
-        $brand = Brands::where('b_slug', $brand)->first();
+        $brand = Brands::where('b_slug', $brandSlug)->first();
         $products = Product::where('pro_brand_id', $brand->b_id)
             ->with([
                 'sales' => function ($query) {
@@ -95,6 +95,7 @@ class CategoryController extends Controller
         $sort = $request->sort;
         if (isset($giaTu) && isset($giaDen)) {
             $products = Product::where('pro_category_id', $category->c_id)
+                ->where('pro_brand_id', $brand->b_id)
                 ->where('pro_price', '>=', $giaTu)
                 ->where('pro_price', '<=', $giaDen)
                 ->with([

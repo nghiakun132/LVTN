@@ -3,16 +3,17 @@
 @section('title', $category->c_name)
 <main id="main" class="main-site" style="background-color: rgb(245, 245, 250);">
     <div class="container">
-        <div class="top-category-ads">
-            <div class="ads-container">
-                <div class="full item">
-                    <a href="https://hoanghamobile.com/dien-thoai-di-dong/xiaomi-11t-pro-5g-12gb-256gb-chinh-hang-dgw?utm_source=web&amp;utm_medium=Homebanner&amp;utm_content=1108_xiaomi11Tpro&amp;utm_campaign=xiaomi11Tpro"
-                        target="_top"><img
-                            src="https://cdn.hoanghamobile.com/i/home/Uploads/2022/08/11/xiaomi-11-t-pro-1200x200_637958271379689466.jpg"
-                            class="img-responsive img-border-radius"></a>
+        @if ($category->c_banner)
+            <div class="top-category-ads">
+                <div class="ads-container">
+                    <div class="full item">
+                        <a href="#" target="_top"><img src="{{ 'images/categories/' . $category->c_banner }}"
+                                class="img-responsive img-border-radius"></a>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
+
         <section id="quick">
             <div class="lst-quickfilter q-manu">
                 @foreach ($brands as $brand)

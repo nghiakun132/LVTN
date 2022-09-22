@@ -8,6 +8,7 @@ use App\Models\Address;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
@@ -133,5 +134,33 @@ class AuthController extends Controller
         Session()->forget('temp_user');
         Session()->put('user', $user);
         return redirect()->route('client.home');
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        if ($request->ajax()) {
+            //send mail
+            $user = User::where('email', $request->email)->first();
+            if ($user) {
+                $code = rand(100000, 999999);
+                $user->code = $code;
+                $user->save();
+                $data = [
+                    'route' => route('client.reset.password', ['code' => $code, 'email' => $request->email]),
+                ];
+                Mail::send('client.email.forgot-password', $data, function ($message) use ($request) {
+                    $message->to($request->email, 'Visitor')->subject('Reset Password');
+                });
+                return response()->json([
+                    'code' => 200,
+                    'message' => 'success'
+                ], 200);
+            } else {
+                return response()->json([
+                    'code' => 500,
+                    'message' => 'Email không tồn tại'
+                ], 500);
+            }
+        }
     }
 }

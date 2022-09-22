@@ -1,9 +1,14 @@
 @extends('layouts.client')
 @section('content')
-@section('title', $category->c_name)
+@section('title', $category->c_name . ' ' . $brand->b_name)
+<style>
+    .active-brand {
+        border: 1px solid rgb(246, 13, 13);
+    }
+</style>
 <main id="main" class="main-site" style="background-color: rgb(245, 245, 250);">
     <div class="container">
-        <div class="top-category-ads">
+        {{-- <div class="top-category-ads">
             <div class="ads-container">
                 <div class="full item">
                     <a href="https://hoanghamobile.com/dien-thoai-di-dong/xiaomi-11t-pro-5g-12gb-256gb-chinh-hang-dgw?utm_source=web&amp;utm_medium=Homebanner&amp;utm_content=1108_xiaomi11Tpro&amp;utm_campaign=xiaomi11Tpro"
@@ -12,7 +17,7 @@
                             class="img-responsive img-border-radius"></a>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <section id="quick">
             <div class="lst-quickfilter q-manu">
                 @foreach ($brands as $value)
@@ -20,7 +25,7 @@
                         'slug' => $category->c_slug,
                         'brand' => $value->b_slug,
                     ]) }}"
-                        class="box-quicklink__item bd-radius quicklink-logo">
+                        class="box-quicklink__item bd-radius quicklink-logo {{ $value->b_name == $brand->b_name ? 'active-brand' : '' }}">
                         <img src="{{ asset('images/brands/' . $value->b_banner) }}" width="30" class="no-text">
                     </a>
                 @endforeach
