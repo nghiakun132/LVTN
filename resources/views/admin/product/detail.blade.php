@@ -90,7 +90,6 @@
                                                                 <td class="item-detail">{{ $item }}</td>
                                                             </tr>
                                                         @endforeach
-
                                                     </table>
                                                 </div>
                                             </div>

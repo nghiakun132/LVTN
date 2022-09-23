@@ -136,3 +136,16 @@ function validateForm(email) {
 
     return true;
 }
+
+$("#view-more").click(function (e) {
+    let des = $("#description");
+    if (des[0].children[0].classList.contains("description-block")) {
+        des[0].children[0].classList.remove("description-block");
+        des[0].children[1].classList.add("description-block-full");
+        $("#view-more").text("Thu gọn");
+    } else {
+        des[0].children[0].classList.add("description-block");
+        des[0].children[1].classList.remove("description-block-full");
+        $("#view-more").text("Xem thêm");
+    }
+});

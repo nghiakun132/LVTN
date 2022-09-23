@@ -24,7 +24,6 @@ Route::group(['namespace' => 'Client'], function () {
     Route::get('dang-nhap', [App\Http\Controllers\Client\AuthController::class, 'loginUser'])->name('client.loginUser');
     Route::post('dang-ky', [App\Http\Controllers\Client\AuthController::class, 'register'])->name('client.register');
     Route::get('dang-xuat', [App\Http\Controllers\Client\AuthController::class, 'logout'])->name('client.logout');
-    Route::post('/quen-mat-khau', [App\Http\Controllers\Client\AuthController::class, 'forgotPassword'])->name('client.forgotPassword');
 
     Route::get('dang-nhap/google/', [App\Http\Controllers\Client\AuthController::class, 'redirectToGoogle'])->name('client.login.google');
     Route::get('dang-nhap/google/callback/', [App\Http\Controllers\Client\AuthController::class, 'googleCallback'])->name('client.login.google.callback');
@@ -57,6 +56,7 @@ Route::group(['namespace' => 'Client'], function () {
     Route::group([], function () {
         Route::get('{slug}', [App\Http\Controllers\Client\CategoryController::class, 'index'])->name('client.category');
         Route::get('/{slug}/{brand}', [App\Http\Controllers\Client\CategoryController::class, 'brand'])->name('client.brand');
+        Route::get('/{slug}/{brand}/group/{group}', [App\Http\Controllers\Client\CategoryController::class, 'group'])->name('client.group');
         Route::get('/{slug}/{brand}/{product}', [App\Http\Controllers\Client\ProductController::class, 'index'])->name('client.product');
     });
 });

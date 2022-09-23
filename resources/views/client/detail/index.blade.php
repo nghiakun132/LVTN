@@ -6,7 +6,17 @@
         <div class="wrap-breadcrumb">
             <ul>
                 <li class="item-link"><a href="#" class="link">Trang chủ</a></li>
-                <li class="item-link"><a href="#" class="link">#</a></li>
+                <li class="item-link"><a href="#" class="link">{{ $product->category->c_name }}</a></li>
+                <li class="item-link"><a href="#" class="link">{{ $product->brand->b_name }}</a></li>
+                @if ($product->group)
+                    <li class="item-link"><a
+                            href="{{ route('client.group', [
+                                'slug' => $product->category->c_slug,
+                                'brand' => $product->brand->b_slug,
+                                'group' => $product->group->slug,
+                            ]) }}"
+                            class="link">{{ $product->group->name }}</a></li>
+                @endif
                 <li class="item-link"><span>{{ $product->pro_name }}</span></li>
             </ul>
         </div>
@@ -79,130 +89,27 @@
                     <div class="advance-info">
                         <div class="tab-control normal">
                             <a href="#description" class="tab-control-item active">Mô tả</a>
-                            <a href="#add_infomation" class="tab-control-item">Thông tin thêm</a>
-                            <a href="#review" class="tab-control-item">Bình luận && Đánh giá</a>
+                            <a href="#add_infomation" class="tab-control-item">Thông tin kỹ thuật</a>
                         </div>
                         <div class="tab-contents">
                             <div class="tab-content-item active" id="description">
-                                <?php echo $product->pro_description; ?>
+                                <div class=" description-block">
+                                    <?php echo $product->pro_description; ?>
+                                </div>
+                                <div class="view-more">
+                                    <a class="btn" id="view-more">Xem thêm</a>
+                                </div>
                             </div>
                             <div class="tab-content-item " id="add_infomation">
-                                <table class="shop_attributes">
-                                    <tbody>
-                                        <tr>
-                                            <th>Weight</th>
-                                            <td class="product_weight">1 kg</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="tab-content-item " id="review">
-                                <div class="wrap-review-form">
-                                    <div id="comments">
-                                        <h2 class="woocommerce-Reviews-title"># đánh giá cho
-                                            <span>{{ $product->pro_name }}</span>
-                                        </h2>
-                                        {{-- <ol class="commentlist">
-                                            @foreach ($comments as $cm)
-                                                <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1"
-                                                    id="li-comment-20">
-                                                    <div id="comment-20" class="comment_container">
-                                                        @if ($cm->type == 'Google')
-                                                            <img alt="" src="{{ $cm->avatar }}"
-                                                                height="80" width="80">
-                                                        @else
-                                                            @if ($cm->avatar == null)
-                                                                <img alt=""
-                                                                    src="{{ asset('uploads/avatar/default.png') }}"
-                                                                    height="80">
-                                                            @else
-                                                                <img alt=""
-                                                                    src="{{ asset('uploads/avatar/' . $cm->avatar) }}"
-                                                                    height="80" width="80">
-                                                            @endif
-                                                        @endif
-                                                        <div class="comment-text">
-                                                            <div class="star-rating">
-                                                                <span
-                                                                    class="width-{{ $cm->cm_star * 20 }}-percent">Rated
-                                                                    <strong class="rating">5</strong> out of
-                                                                    5</span>
-                                                            </div>
-                                                            <p class="meta">
-                                                                <strong
-                                                                    class="woocommerce-review__author">{{ $cm->name }}</strong>
-                                                                <span class="woocommerce-review__dash">–</span>
-                                                                <time class="woocommerce-review__published-date"
-                                                                    datetime="2008-02-14 20:00">{{ $cm->created_at }}</time>
-                                                            </p>
-                                                            <div class="description">
-                                                                <p>{{ $cm->cm_content }}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            @endforeach
-                                        </ol> --}}
-                                        <div>
-                                            <div class="woocommerce-pagination">
-                                                {{-- {{ $comments->links() }} --}}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <br>
-                                    <div id="review_form_wrapper">
-                                        <div id="review_form">
-                                            <div id="respond" class="comment-respond">
-                                                <form action="#" method="post" id="commentform"
-                                                    class="comment-form" novalidate="">
-                                                    @csrf
-                                                    <h4 class="comment-notes">
-                                                        Để lại đánh giá của bạn, vui lòng điền đầy đủ thông tin bên
-                                                        dưới.
-                                                    </h4>
-                                                    <div class="comment-form-rating">
-                                                        <span>Đánh giá của bạn: </span>
-                                                        <p class="stars">
-                                                            <label for="rated-1"></label>
-                                                            <input type="radio" id="rated-1" name="rating"
-                                                                value="1">
-                                                            <label for="rated-2"></label>
-                                                            <input type="radio" id="rated-2" name="rating"
-                                                                value="2">
-                                                            <label for="rated-3"></label>
-                                                            <input type="radio" id="rated-3" name="rating"
-                                                                value="3">
-                                                            <label for="rated-4"></label>
-                                                            <input type="radio" id="rated-4" name="rating"
-                                                                value="4">
-                                                            <label for="rated-5"></label>
-                                                            <input type="radio" id="rated-5" name="rating"
-                                                                value="5" checked="checked">
-                                                        </p>
-                                                    </div>
-                                                    <p class="comment-form-comment">
-                                                        <label for="comment">Bình luận của bạn <span
-                                                                class="required">*</span>
-                                                        </label>
-                                                        <textarea id="comment" name="comment" cols="45" rows="8"></textarea>
-                                                    </p>
-                                                    @if ($errors->has('comment'))
-                                                        <div class="alert alert-danger">
-                                                            <strong>{{ $errors->first('comment') }}</strong>
-                                                        </div>
-                                                    @endif
-
-                                                    <p class="form-submit">
-                                                        <input name="submit" type="submit" id="submit"
-                                                            class="submit" value="Bình luận">
-                                                    </p>
-                                                </form>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                <div class="table-responsive mt-4">
+                                    <table class="table table-bordered table-hover">
+                                        @foreach ($tt as $key => $item)
+                                            <tr>
+                                                <th>{{ $key }}</th>
+                                                <td class="item-detail">{{ $item }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
                                 </div>
                             </div>
                         </div>

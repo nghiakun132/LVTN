@@ -134,8 +134,6 @@
                             <p class="no-account">Bạn chưa có tài khoản? <a data-target="#register"
                                     data-toggle="modal">Đăng ký</a></p>
 
-                            <p class="no-account"><a href="#" data-target="#forget-password"
-                                    data-toggle="modal">Quên mật khẩu?</a></p>
                             <div class="social">
                                 <p class="social-heading">
                                     <span>Hoặc đăng nhập bằng</span>
@@ -233,33 +231,6 @@
                     </div>
                 </div>
 
-            </div>
-        </div>
-
-        <div id="forget-password" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><i
-                                class="fa fa-times text-danger" aria-hidden="true"></i></button>
-                        <h4 class="modal-title">Quên mật khẩu</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form action="#" method="POST">
-                            @csrf
-                            <div class="form-group">
-                                <label for="email3">Email</label>
-                                <input type="email" class="form-control" name="email" id="email3">
-                            </div>
-                            @if ($errors->has('email'))
-                                <span class="text-danger">{{ $errors->first('email') }}</span>
-                            @endif
-                            <div>
-                                <button type="submit" id="forgot-password" class="btn btn-success">Gửi</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

@@ -11,75 +11,79 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $detail = [];
-        $end = '';
-        $apple = Product::where('pro_category_id', 1)->where('pro_brand_id', 2)
-            ->with([
-                'sales' => function ($query) {
-                    $query->with([
-                        'sales'
-                    ]);
-                },
-                'brand',
-                'category'
-            ])
-            ->orderBy('pro_id', 'DESC')->limit(20)->get();
-        $event = Events::where('status', 0)->first();
-        if ($event) {
-            $end = date('Y/m/d H:i:s', strtotime($event->end_date));
-            $detail = $event->with([
-                'event_details' => function ($query) {
-                    $query->with([
-                        'products'
-                    ]);
-                }
-            ])->first();
+        try {
+            $detail = [];
+            $end = '';
+            $apple = Product::where('pro_category_id', 1)->where('pro_brand_id', 2)
+                ->with([
+                    'sales' => function ($query) {
+                        $query->with([
+                            'sales'
+                        ]);
+                    },
+                    'brand',
+                    'category'
+                ])
+                ->orderBy('pro_id', 'DESC')->limit(20)->get();
+            $event = Events::where('status', 0)->first();
+            if ($event) {
+                $end = date('Y/m/d H:i:s', strtotime($event->end_date));
+                $detail = $event->with([
+                    'event_details' => function ($query) {
+                        $query->with([
+                            'products'
+                        ]);
+                    }
+                ])->first();
+            }
+
+            $laptops = Product::where('pro_category_id', 2)
+                ->with([
+                    'sales' => function ($query) {
+                        $query->with([
+                            'sales'
+                        ]);
+                    },
+                    'brand',
+                    'category'
+                ])
+                ->orderBy('pro_view', 'DESC')->limit(20)->get();
+            $phones = Product::where('pro_category_id', 1)
+                ->with([
+                    'sales' => function ($query) {
+                        $query->with([
+                            'sales'
+                        ]);
+                    },
+                    'brand',
+                    'category'
+                ])
+                ->orderBy('pro_view', 'DESC')->limit(20)->get();
+
+            $watchs = Product::where('pro_category_id', 11)
+                ->with([
+                    'sales' => function ($query) {
+                        $query->with([
+                            'sales'
+                        ]);
+                    },
+                    'brand',
+                    'category'
+                ])
+                ->orderBy('pro_view', 'DESC')->limit(20)->get();
+
+            $data = [
+                'apple' => $apple,
+                'end' => $end,
+                'detail' => $detail,
+                'laptops' => $laptops,
+                'phones' => $phones,
+                'watchs' => $watchs,
+            ];
+            return view('client.home.index', $data);
+        } catch (\Exception $e) {
+            return view('errors.404');
         }
-
-        $laptops = Product::where('pro_category_id', 2)
-            ->with([
-                'sales' => function ($query) {
-                    $query->with([
-                        'sales'
-                    ]);
-                },
-                'brand',
-                'category'
-            ])
-            ->orderBy('pro_view', 'DESC')->limit(20)->get();
-        $phones = Product::where('pro_category_id', 1)
-            ->with([
-                'sales' => function ($query) {
-                    $query->with([
-                        'sales'
-                    ]);
-                },
-                'brand',
-                'category'
-            ])
-            ->orderBy('pro_view', 'DESC')->limit(20)->get();
-
-        $watchs = Product::where('pro_category_id', 11)
-            ->with([
-                'sales' => function ($query) {
-                    $query->with([
-                        'sales'
-                    ]);
-                },
-                'brand',
-                'category'
-            ])
-            ->orderBy('pro_view', 'DESC')->limit(20)->get();
-
-        $data = [
-            'apple' => $apple,
-            'end' => $end,
-            'detail' => $detail,
-            'laptops' => $laptops,
-            'phones' => $phones,
-            'watchs' => $watchs,
-        ];
-        return view('client.home.index', $data);
     }
 
     public function search(Request $request)

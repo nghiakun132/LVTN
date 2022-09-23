@@ -4390,6 +4390,7 @@ article.single-post blockquote p:last-child::after {
     text-align: left;
     position: relative;
     padding-right: 3px;
+    width: 100%;
 }
 .flex-direction-nav {
     display: none;
