@@ -32,6 +32,12 @@ class checkEvent extends Command
         if ($event->end_date < date('Y-m-d H:i:s')) {
             $event->status = 1;
             $event->save();
+            $event_details = $event->event_details;
+            foreach ($event_details as $event_detail) {
+                $product = $event_detail->products;
+                $product->pro_sale = 0;
+                $product->save();
+            }
         }
     }
 }

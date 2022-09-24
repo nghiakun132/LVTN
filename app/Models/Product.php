@@ -56,4 +56,20 @@ class Product extends Model
     {
         return $this->hasMany(sales_products::class, 'product_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comments::class, 'product_id');
+    }
+
+    public function event_details()
+    {
+        return $this->hasMany(Event_details::class, 'product_id');
+    }
+
+    //booted
+    protected static function booted()
+    {
+        static::addGlobalScope(new \App\Models\Scopes\StatusScope);
+    }
 }

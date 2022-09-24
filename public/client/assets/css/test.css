@@ -881,3 +881,90 @@
     font-size: 15px;
     color: #00483d;
 }
+
+.product-promotion {
+    margin-bottom: 20px;
+}
+.product-promotion .label {
+    font-size: 16px;
+    color: red;
+    line-height: 28px;
+    padding: 0;
+}
+.product-promotion ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.product-promotion ul li {
+    margin-bottom: 5px;
+}
+.product-promotion ul li .bag {
+    display: inline-block;
+    background: #f7941e 0% 0% no-repeat padding-box;
+    box-shadow: 0 4px 6px #00000029;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 5px;
+}
+
+.product-action {
+    display: flex;
+    margin-top: 5px;
+    padding: 0;
+    justify-items: stretch;
+}
+.product-action .btn-red {
+    background: transparent linear-gradient(180deg, #fc5d6d 0%, #bf1e2d 100%) 0%
+        0% no-repeat padding-box;
+    box-shadow: 0 4px 6px #00000029;
+    border-radius: 3px;
+}
+.product-action .btnbuy {
+    margin-right: 6px;
+    display: block;
+    text-align: center;
+    color: #fff;
+    padding: 4px 4px;
+    flex-grow: 2;
+}
+.product-action .btnbuy strong {
+    display: block;
+}
+.product-action .btnbuy span {
+    font-size: 11px;
+}
+.product-action .btn-green {
+    background: transparent linear-gradient(180deg, #00917a 0%, #00483d 100%) 0%
+        0% no-repeat padding-box;
+    box-shadow: 0 4px 6px #00000029;
+    border-radius: 3px;
+}
+.product-action .btn-orange {
+    background: transparent linear-gradient(180deg, #ff990e 0%, #ff6801 100%) 0%
+        0% no-repeat padding-box;
+    box-shadow: 0 4px 6px #00000029;
+}
+.product-action .btn-icon {
+    border-radius: 4px;
+    padding: 5px 3px 5px 0;
+    font-size: 22px;
+    position: relative;
+    width: 10px;
+    max-width: 40px;
+    min-width: 40px;
+    width: 40px;
+    flex-grow: 1;
+}
+
+.product-action .btn-orange:hover {
+    background: transparent linear-gradient(0deg, #ff990e 0%, #ff6801 100%) 0%
+        0% no-repeat padding-box;
+    cursor: pointer;
+}
+.product-action .btn-red:hover {
+    background: transparent linear-gradient(0deg, #fd475a 0%, #bf1e2d 100%) 0%
+        0% no-repeat padding-box;
+    cursor: pointer;
+}

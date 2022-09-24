@@ -246,6 +246,9 @@
     }
 }
 @media screen and (min-width: 769px) and (max-width: 1200px) {
+    .product-thumnail.product-thumnail2 {
+        left: 12px;
+    }
     .lts-product {
         display: flex;
         animation: append 0.2s ease-in-out;
@@ -516,7 +519,10 @@
     }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 426px) {
+    .product-thumnail3 {
+        left: 80px;
+    }
     .col-product {
         display: grid;
         grid-template-columns: 50% 50%;

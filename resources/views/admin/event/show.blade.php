@@ -82,7 +82,7 @@
                                                                                 <tbody>
                                                                                     @foreach ($event->event_details as $event)
                                                                                         <tr>
-                                                                                            <td>{{ $event->id }}</td>
+                                                                                            <td>{{ $loop->index + 1 }}</td>
                                                                                             <td>{{ $event->products->pro_name }}
                                                                                             </td>
                                                                                             {{-- <td>{{ $event->quantity }}</td> --}}

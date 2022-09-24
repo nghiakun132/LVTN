@@ -149,3 +149,11 @@ $("#view-more").click(function (e) {
         $("#view-more").text("Xem thêm");
     }
 });
+
+$("#quick-buy").click(function (e) {
+    console.log("click");
+});
+
+$("#add-to-cart").click(function (e) {
+    console.log("click2");
+});

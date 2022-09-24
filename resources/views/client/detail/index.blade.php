@@ -5,9 +5,15 @@
     <div class="container">
         <div class="wrap-breadcrumb">
             <ul>
-                <li class="item-link"><a href="#" class="link">Trang chủ</a></li>
-                <li class="item-link"><a href="#" class="link">{{ $product->category->c_name }}</a></li>
-                <li class="item-link"><a href="#" class="link">{{ $product->brand->b_name }}</a></li>
+                <li class="item-link"><a href="{{ route('client.home') }}" class="link">Trang chủ</a></li>
+                <li class="item-link"><a href="{{ route('client.category', $product->category->c_slug) }}"
+                        class="link">{{ $product->category->c_name }}</a></li>
+                <li class="item-link"><a
+                        href="{{ route('client.brand', [
+                            'slug' => $product->category->c_slug,
+                            'brand' => $product->brand->b_slug,
+                        ]) }}"
+                        class="link">{{ $product->brand->b_name }}</a></li>
                 @if ($product->group)
                     <li class="item-link"><a
                             href="{{ route('client.group', [
@@ -35,57 +41,72 @@
                             </ul>
                         </div>
                     </div>
-                    <form action="#" method="post">
-                        @csrf
-                        <div class="detail-info">
-                            <div class="product-rating">
-                                {{-- @for ($i = 1; $i <= $star; $i++)
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                @endfor --}}
-                                {{-- <a href="#" class="count-review">({{ $countComments }} đánh giá)</a> --}}
-                            </div>
-                            <h2 class="product-name">{{ $product->pro_name }}</h2>
-                            <div class="short-desc">
-                                <?php echo $product->pro_content; ?>
-                            </div>
-                            <div class="wrap-price"><span
-                                    class="product-price">{{ number_format($product->pro_price - $product->pro_price * $product->pro_sale, 0, ',', ',') . ' đồng' }}</span><span
-                                    class="product-price"> / {{ $product->pro_unit }}</span></div>
-                            <div class="stock-info in-stock">
-                                @if ($product->pro_qty > 0)
-                                    <p class="availability">Số lượng có sẵn: <b>{{ $product->pro_qty }}</b></p>
-                                @else
-                                    <p class="availability">Số lượng có sẵn: <b>Hết hàng</b></p>
-                                @endif
-                            </div>
-                            <div class="quantity">
-                                <span>Số lượng: </span>
-                                <div class="quantity-input">
-                                    <input type="text" name="product_quatity" value="1"
-                                        data-max="{{ $product->pro_qty }}" pattern="[0-9]*">
-                                    <a class="btn btn-reduce" href="#"></a>
-                                    <a class="btn btn-increase" href="#"></a>
-                                </div>
-                            </div>
-                            <input type="hidden" name="pro_id" value="{{ $product->pro_id }}">
-                            <input type="hidden" name="pro_price"
-                                value="{{ $product->pro_price - $product->pro_price * $product->pro_sale }}">
-                            <input type="hidden" name="pro_avatar" value="{{ $product->pro_avatar }}">
-                            <div class="wrap-butons">
-                                @if ($product->pro_qty > 0)
-                                    <button class="btn add-to-cart">Thêm vào giỏ hàng</button>
-                                @else
-                                    <button class="btn add-to-cart" disabled>Hết hàng</button>
-                                @endif
-                                <div class="wrap-btn">
-                                    <a href="#" class="btn btn-compare">Add Compare</a>
-                                    {{-- <a href="{{ route('addWishlist', $product->pro_id) }}"
-                                        class="btn btn-wishlist">Thêm
-                                        vào Wishlist</a> --}}
-                                </div>
+                    <div class="detail-info">
+                        <div class="product-rating">
+                            @for ($i = 1; $i <= 5; $i++)
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            @endfor
+                            {{-- <a href="#" class="count-review">({{ $countComments }} đánh giá)</a> --}}
+                        </div>
+                        <h2 class="product-name">{{ $product->pro_name }}</h2>
+                        <div class="short-desc">
+                            <?php echo $product->pro_content; ?>
+                        </div>
+                        <div class="wrap-price"><span
+                                class="product-price">{{ number_format($product->pro_price - ($product->pro_price * $product->pro_sale) / 100, 0, ',', ',') . ' đ' }}</span>
+                            @if ($product->pro_sale)
+                                <del>
+                                    <p class="product-price">
+                                        {{ number_format($product->pro_price, 0, ',', ',') . ' đ' }}</p>
+                                </del>
+                            @endif
+                        </div>
+                        <div class="stock-info in-stock">
+                            @if ($product->pro_quantity > 0)
+                                <p class="availability">Còn hàng</b></p>
+                            @else
+                                <p class="availability"><b>Hết hàng</b></p>
+                            @endif
+                        </div>
+                        <div class="product-promotion">
+                            <strong class="label">KHUYẾN MÃI</strong>
+                            <ul>
+                                @foreach ($product->sales as $sales)
+                                    <li><span class="bag">KM {{ $loop->index + 1 }}
+                                        </span></li>
+                                    <li>
+                                        {{ $sales->sales->s_name }}
+                                    </li>
+                                @endforeach
+
+                            </ul>
+                        </div>
+                        <div class="quantity">
+                            <span>Số lượng: </span>
+                            <div class="quantity-input">
+                                <input type="text" name="product_quatity" value="1"
+                                    data-max="{{ $product->pro_quantity }}" pattern="[0-9]*">
+                                <a class="btn btn-reduce" href="#"></a>
+                                <a class="btn btn-increase" href="#"></a>
                             </div>
                         </div>
-                    </form>
+                        <input type="hidden" name="pro_id" value="{{ $product->pro_id }}">
+                        <input type="hidden" name="pro_price"
+                            value="{{ $product->pro_price - ($product->pro_price * $product->pro_sale) / 100 }}">
+                        <input type="hidden" name="pro_avatar" value="{{ $product->pro_avatar }}">
+
+                        <div class="product-action">
+                            <a title="Mua ngay" id="quick-buy" class="btn-red btnQuickOrder btnbuy"><strong>MUA
+                                    NGAY</strong><span> Giao tận nhà (COD) <br>Hoặc Nhận tại cửa hàng</span></a>
+
+                            <a style="width:120px; display:flex; flex-direction:column; max-width:100%; padding:5px;"
+                                id="add-to-cart" title="Thêm vào giỏ hàng"
+                                class="add-cart btn-orange btnbuy btn-icon"><i class="fa fa-cart-arrow-down mt-4"
+                                    style="margin-top:10px" aria-hidden="true"></i><label style="font-size:11px;">Thêm
+                                    giỏ
+                                    hàng</label></a>
+                        </div>
+                    </div>
                     <div class="advance-info">
                         <div class="tab-control normal">
                             <a href="#description" class="tab-control-item active">Mô tả</a>

@@ -12,7 +12,7 @@ class HomeController extends Controller
     public function index()
     {
         try {
-            $detail = [];
+            $details = [];
             $end = '';
             $apple = Product::where('pro_category_id', 1)->where('pro_brand_id', 2)
                 ->with([
@@ -28,16 +28,10 @@ class HomeController extends Controller
             $event = Events::where('status', 0)->first();
             if ($event) {
                 $end = date('Y/m/d H:i:s', strtotime($event->end_date));
-                $detail = $event->with([
-                    'event_details' => function ($query) {
-                        $query->with([
-                            'products'
-                        ]);
-                    }
-                ])->first();
+                $details = $event->event_details->load(['products', 'products.brand', 'products.category']);
             }
-
             $laptops = Product::where('pro_category_id', 2)
+                ->inRandomOrder()
                 ->with([
                     'sales' => function ($query) {
                         $query->with([
@@ -49,6 +43,7 @@ class HomeController extends Controller
                 ])
                 ->orderBy('pro_view', 'DESC')->limit(20)->get();
             $phones = Product::where('pro_category_id', 1)
+                ->inRandomOrder()
                 ->with([
                     'sales' => function ($query) {
                         $query->with([
@@ -61,6 +56,7 @@ class HomeController extends Controller
                 ->orderBy('pro_view', 'DESC')->limit(20)->get();
 
             $watchs = Product::where('pro_category_id', 11)
+                ->inRandomOrder()
                 ->with([
                     'sales' => function ($query) {
                         $query->with([
@@ -75,7 +71,7 @@ class HomeController extends Controller
             $data = [
                 'apple' => $apple,
                 'end' => $end,
-                'detail' => $detail,
+                'details' => $details,
                 'laptops' => $laptops,
                 'phones' => $phones,
                 'watchs' => $watchs,

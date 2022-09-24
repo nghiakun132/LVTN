@@ -24,11 +24,17 @@ class ProductController extends Controller
                             'sales'
                         ]);
                     },
+                    'event_details' => function ($query) {
+                        $query->with([
+                            'events'
+                        ]);
+                    },
                     'brand',
                     'category',
                     'group'
                 ])
                 ->first();
+            // dd($product);
             $file = $product->pro_detail;
             $tt = [];
             if (!empty($file)) {
