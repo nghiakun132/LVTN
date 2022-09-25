@@ -155,5 +155,32 @@ $("#quick-buy").click(function (e) {
 });
 
 $("#add-to-cart").click(function (e) {
-    console.log("click2");
+    if (
+        $("#product-quantity").val() == 0 ||
+        $("#product-quantity").val() == ""
+    ) {
+        Swal.fire({
+            title: "Số lượng phải lớn hơn 0",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    }
+    if ($("#product-quantity").val() > $("#product-quantity").data("max")) {
+        Swal.fire({
+            title:
+                "Số lượng không được lớn hơn " +
+                $("#product-quantity").attr("max"),
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    }
+    if ($("#add-to-cart").data("id") == 0) {
+        $("#login").modal({
+            backdrop: "static",
+            keyboard: false,
+        });
+    }
+    console.log($("#product-quantity").val());
 });

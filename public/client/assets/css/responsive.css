@@ -623,3 +623,26 @@
         animation: 1s ease 0s 1 normal none running fade;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .krSXKE {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        background-color: rgb(255, 255, 255);
+        margin-bottom: 8px;
+        position: sticky;
+        top: 56px;
+        z-index: 1;
+    }
+    .order-status {
+        flex-shrink: 0;
+        padding: 14px 12px;
+        border-bottom: none;
+    }
+    .order-active {
+        flex-shrink: 0;
+        padding: 14px 12px;
+        border-bottom: 2px solid rgb(13, 92, 182);
+    }
+}

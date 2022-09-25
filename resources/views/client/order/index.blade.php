@@ -16,100 +16,25 @@
                 @include('components.aside')
                 <div class="infomation">
                     <div class="account-info">Quản lý đơn hàng</div>
-                    <div class="wrap-product-detail">
-                        <div class="advance-info khong-cach">
-                            <div class="tab-control normal">
-                                <a href="#orders" class="tab-control-item active">Tất cả đơn hàng</a>
-                                <a href="#wait" class="tab-control-item">Đang chờ duyệt</a>
-                                <a href="#confirmed" class="tab-control-item">Đã xác nhận</a>
-                                <a href="#delivered" class="tab-control-item">Đã giao hàng</a>
-                                <a href="#cancel" class="tab-control-item">Đã hủy</a>
-                            </div>
-                            <div class="tab-contents">
-                                <div class="tab-content-item active" id="orders">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="myTable" width="100%"
-                                            cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID đơn hàng</th>
-                                                    <th>Tổng tiền</th>
-                                                    <th>Ngày đặt</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Mã giảm giá (Nếu có)</th>
-                                                    <th>Hình thức thanh toán</th>
-                                                    <th>Chi tiết</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-content-item " id="wait">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="myTable" width="100%"
-                                            cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID đơn hàng</th>
-                                                    <th>Tổng tiền</th>
-                                                    <th>Ngày đặt</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Mã giảm giá (Nếu có)</th>
-                                                    <th>Hình thức thanh toán</th>
-                                                    <th>Chi tiết</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-content-item " id="delivered">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="myTable" width="100%"
-                                            cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID đơn hàng</th>
-                                                    <th>Tổng tiền</th>
-                                                    <th>Ngày đặt</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Mã giảm giá (Nếu có)</th>
-                                                    <th>Hình thức thanh toán</th>
-                                                    <th>Chi tiết</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-content-item " id="cancel">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="myTable" width="100%"
-                                            cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID đơn hàng</th>
-                                                    <th>Tổng tiền</th>
-                                                    <th>Ngày đặt</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Mã giảm giá (Nếu có)</th>
-                                                    <th>Hình thức thanh toán</th>
-                                                    <th>Chi tiết</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="styles__StyledTab-sc-e27b7w-2 krSXKE">
+                        <div width="16.666666666666668%" class="order-active"><a href="">Tất
+                                cả đơn</a></div>
+                        <div width="16.666666666666668%" class="order-status" data-status="pending"><a
+                                href="{{ request()->fullUrlWithQuery(['status' => 'pending']) }}">Chờ
+                                thanh toán</a></div>
+                        <div width="16.666666666666668%" class="order-status" data-status="processing"><a
+                                href="{{ request()->fullUrlWithQuery(['status' => 'processing']) }}">Đang
+                                xử
+                                lý</a></div>
+                        <div width="16.666666666666668%" class="order-status" data-status="shipping"><a
+                                href="{{ request()->fullUrlWithQuery(['status' => 'shipping']) }}">Đang
+                                vận chuyển</a></div>
+                        <div width="16.666666666666668%" class="order-status" data-status="shipped"><a
+                                href="{{ request()->fullUrlWithQuery(['status' => 'shipped']) }}">Đã
+                                giao</a></div>
+                        <div width="16.666666666666668%" class="order-status" data-status="canceled"><a
+                                href="{{ request()->fullUrlWithQuery(['status' => 'canceled']) }}">Đã
+                                huỷ</a></div>
                     </div>
                 </div>
             </div>

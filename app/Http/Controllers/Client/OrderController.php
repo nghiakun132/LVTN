@@ -9,10 +9,9 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
-        $test = 1;
-        if (isset($request->id)) {
-            $test = $request->id;
+        if (isset($request->status)) {
+            return view('client.order.index');
         }
-        return view('client.order.index', compact('test'));
+        return view('client.order.index');
     }
 }

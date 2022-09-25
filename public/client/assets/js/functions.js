@@ -17,6 +17,7 @@
             this.mercado_tabs();
             this.mercado_countdown();
             this.mercado_better_equal_elems();
+            this.mercado_price_quantity();
             this.mercado_toggle_slide_menu();
             this.mercado_product_slider();
             this.mercado_toggle_vertical_main_menu();
@@ -648,6 +649,31 @@
                         /* Act on the event */
                     }
                 );
+            }
+        },
+        mercado_price_quantity: function () {
+            if ($(".quantity-input").length > 0) {
+                $(".quantity-input").on("click", ".btn", function (event) {
+                    event.preventDefault();
+                    var _this = $(this),
+                        _input = _this.siblings("input[name=product_quantity]"),
+                        _current_value = _this
+                            .siblings("input[name=product_quantity]")
+                            .val(),
+                        _max_value = _this
+                            .siblings("input[name=product_quantity]")
+                            .attr("data-max");
+                    if (_this.hasClass("btn-reduce")) {
+                        if (parseInt(_current_value, 10) > 1)
+                            _input.val(parseInt(_current_value, 10) - 1);
+                    } else {
+                        if (
+                            parseInt(_current_value, 10) <
+                            parseInt(_max_value, 10)
+                        )
+                            _input.val(parseInt(_current_value, 10) + 1);
+                    }
+                });
             }
         },
 

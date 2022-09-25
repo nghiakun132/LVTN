@@ -84,7 +84,8 @@
                         <div class="quantity">
                             <span>Số lượng: </span>
                             <div class="quantity-input">
-                                <input type="text" name="product_quatity" value="1"
+                                <input type="number" name="product_quantity" value="1" id="product-quantity"
+                                    max="{{ $product->pro_quantity }}" min="1"
                                     data-max="{{ $product->pro_quantity }}" pattern="[0-9]*">
                                 <a class="btn btn-reduce" href="#"></a>
                                 <a class="btn btn-increase" href="#"></a>
@@ -101,6 +102,7 @@
 
                             <a style="width:120px; display:flex; flex-direction:column; max-width:100%; padding:5px;"
                                 id="add-to-cart" title="Thêm vào giỏ hàng"
+                                data-id="{{ Session::get('user')->id ?? 0 }}"
                                 class="add-cart btn-orange btnbuy btn-icon"><i class="fa fa-cart-arrow-down mt-4"
                                     style="margin-top:10px" aria-hidden="true"></i><label style="font-size:11px;">Thêm
                                     giỏ

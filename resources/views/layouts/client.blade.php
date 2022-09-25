@@ -411,36 +411,36 @@
                                                 <h4><a href="#">Mức giá</a></h4>
                                                 <ul class="display-row format_2">
                                                     <li><a
-                                                            href=" {{ $category->c_slug . '?gia_tu=0&gia_den=3000000' }}">
+                                                            href=" {{ '../' . $category->c_slug . '?gia_tu=0&gia_den=3000000' }}">
                                                             Dưới 3 triệu
                                                             <i class="total"></i></a>
                                                     </li>
                                                     <li><a
-                                                            href="{{ $category->c_slug . '?gia_tu=3000000&gia_den=5000000' }}">
+                                                            href="{{ '../' . $category->c_slug . '?gia_tu=3000000&gia_den=5000000' }}">
                                                             Từ 3 triệu - 5 triệu
                                                             <i class="total"></i></a></li>
                                                     <li><a
-                                                            href="{{ $category->c_slug . '?gia_tu=5000000&gia_den=7000000' }}">
+                                                            href="{{ '../' . $category->c_slug . '?gia_tu=5000000&gia_den=7000000' }}">
                                                             Từ 5 triệu - 7 triệu
                                                             <i class="total"></i></a></li>
                                                     <li><a
-                                                            href="{{ $category->c_slug . '?gia_tu=7000000&gia_den=10000000' }}">
+                                                            href="{{ '../' . $category->c_slug . '?gia_tu=7000000&gia_den=10000000' }}">
                                                             Từ 7 triệu - 10 triệu
                                                             <i class="total"></i></a></li>
                                                     <li><a
-                                                            href="{{ $category->c_slug . '?gia_tu=10000000&gia_den=15000000' }}">
+                                                            href="{{ '../' . $category->c_slug . '?gia_tu=10000000&gia_den=15000000' }}">
                                                             Từ 10 triệu - 15 triệu
                                                             <i class="total"></i></a></li>
                                                     <li><a
-                                                            href="{{ $category->c_slug . '?gia_tu=15000000&gia_den=20000000' }}">
+                                                            href="{{ '../' . $category->c_slug . '?gia_tu=15000000&gia_den=20000000' }}">
                                                             Từ 15 triệu - 20 triệu
                                                             <i class="total"></i></a></li>
                                                     <li><a
-                                                            href="{{ $category->c_slug . '?gia_tu=20000000&gia_den=50000000' }}">
+                                                            href="{{ '../' . $category->c_slug . '?gia_tu=20000000&gia_den=50000000' }}">
                                                             Từ 20 triệu - 50 triệu
                                                             <i class="total"></i></a></li>
                                                     <li><a
-                                                            href="{{ $category->c_slug . '?gia_tu=50000000&gia_den=100000000' }}">
+                                                            href="{{ '../' . $category->c_slug . '?gia_tu=50000000&gia_den=100000000' }}">
                                                             Từ 50 triệu - 100 triệu
                                                             <i class="total"></i></a></li>
                                                 </ul>
