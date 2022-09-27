@@ -17,22 +17,28 @@
                 <div class="infomation">
                     <div class="account-info">Quản lý đơn hàng</div>
                     <div class="styles__StyledTab-sc-e27b7w-2 krSXKE">
-                        <div width="16.666666666666668%" class="order-active"><a href="">Tất
+                        <div width="16.666666666666668%" class="order-active"><a style="padding: 10px"
+                                href="">Tất
                                 cả đơn</a></div>
                         <div width="16.666666666666668%" class="order-status" data-status="pending"><a
+                                style="padding: 10px"
                                 href="{{ request()->fullUrlWithQuery(['status' => 'pending']) }}">Chờ
                                 thanh toán</a></div>
                         <div width="16.666666666666668%" class="order-status" data-status="processing"><a
+                                style="padding: 10px"
                                 href="{{ request()->fullUrlWithQuery(['status' => 'processing']) }}">Đang
                                 xử
                                 lý</a></div>
                         <div width="16.666666666666668%" class="order-status" data-status="shipping"><a
+                                style="padding: 10px"
                                 href="{{ request()->fullUrlWithQuery(['status' => 'shipping']) }}">Đang
                                 vận chuyển</a></div>
                         <div width="16.666666666666668%" class="order-status" data-status="shipped"><a
+                                style="padding: 10px"
                                 href="{{ request()->fullUrlWithQuery(['status' => 'shipped']) }}">Đã
                                 giao</a></div>
                         <div width="16.666666666666668%" class="order-status" data-status="canceled"><a
+                                style="padding: 10px"
                                 href="{{ request()->fullUrlWithQuery(['status' => 'canceled']) }}">Đã
                                 huỷ</a></div>
                     </div>

@@ -75,7 +75,7 @@
                         @endforeach
                     </div>
                     <ul class="pagination pagination-lg">
-                        {!! $products->appends(Request::all())->links() !!}
+                        {{ $products ? $products->appends(Request::all())->links() : '' }}
                     </ul>
                 </div>
             </div>

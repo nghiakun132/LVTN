@@ -182,5 +182,108 @@ $("#add-to-cart").click(function (e) {
             keyboard: false,
         });
     }
-    console.log($("#product-quantity").val());
+});
+
+$("#comment-form").submit(function (e) {
+    e.preventDefault();
+    const check = $("#btn-submit").data("check");
+    if (check == 0) {
+        $("#login").modal({
+            backdrop: "static",
+            keyboard: false,
+        });
+    }
+    if ($("#content").val() == "") {
+        return Swal.fire({
+            title: "Nội dung không được để trống",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    }
+    const data = $("#comment-form").serialize();
+
+    $.ajax({
+        url: $("#comment-form").attr("action"),
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        data: data,
+        success: function (data) {
+            if (data.code == 200) {
+                Swal.fire({
+                    title: "Đã gửi bình luận chờ duyệt",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            } else {
+                Swal.fire({
+                    title: "Đã có lỗi xảy ra",
+                    icon: "error",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            }
+        },
+    });
+});
+
+$(".item-comment").mouseover(function (e) {
+    $(this).find(".replyCommentHolder").css("display", "block");
+});
+
+$(".item-comment").mouseout(function (e) {
+    $(this).find(".replyCommentHolder").css("display", "none");
+});
+
+$(".btnReplyComment").click(function (e) {
+    e.preventDefault();
+    const check = $(".btnReplyComment").data("check");
+    if (check == 0) {
+        $("#login").modal({
+            backdrop: "static",
+            keyboard: false,
+        });
+    }
+
+    if ($(".replyComment" + $(this).data("id")).val() == "") {
+        return Swal.fire({
+            title: "Nội dung không được để trống",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    }
+
+    const data = {
+        content: $(".replyComment" + $(this).data("id")).val(),
+        parent_id: $(this).data("id"),
+    };
+    $.ajax({
+        url: $("#comment-form").attr("action"),
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        data: data,
+        success: function (data) {
+            if (data.code == 200) {
+                Swal.fire({
+                    title: "Đã gửi bình luận chờ duyệt",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            } else {
+                Swal.fire({
+                    title: "Đã có lỗi xảy ra",
+                    icon: "error",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            }
+        },
+    });
 });

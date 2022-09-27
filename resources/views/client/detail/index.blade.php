@@ -43,7 +43,7 @@
                     </div>
                     <div class="detail-info">
                         <div class="product-rating">
-                            @for ($i = 1; $i <= 5; $i++)
+                            @for ($i = 1; $i <= $stars; $i++)
                                 <i class="fa fa-star" aria-hidden="true"></i>
                             @endfor
                             {{-- <a href="#" class="count-review">({{ $countComments }} đánh giá)</a> --}}
@@ -250,8 +250,126 @@
                         </div>
                     </div>
                 </div>
+                <div class="full-width-content">
+                    <form id="comment-form"
+                        action="{{ route('client.product.comment', [
+                            'slug' => $product->category->c_slug,
+                            'brand' => $product->brand->b_slug,
+                            'product' => $product->pro_slug,
+                        ]) }}">
+                        <div class="heading3">
+                            <h3>Có {{ count($comments) }} bình luận về {{ $product->pro_name }} </h3>
+                        </div>
+                        <div class="comment-form-rating">
+                            <span>Đánh giá của bạn: </span>
+                            <p class="stars">
+                                <label for="rated-1"></label>
+                                <input type="radio" id="rated-1" name="rating" value="1">
+                                <label for="rated-2"></label>
+                                <input type="radio" id="rated-2" name="rating" value="2">
+                                <label for="rated-3"></label>
+                                <input type="radio" id="rated-3" name="rating" value="3">
+                                <label for="rated-4"></label>
+                                <input type="radio" id="rated-4" name="rating" value="4">
+                                <label for="rated-5"></label>
+                                <input type="radio" id="rated-5" name="rating" value="5"
+                                    checked="checked">
+                            </p>
+                        </div>
+                        <div class="rc-form review-form">
+                            <div class="rc-form comment-form">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="control">
+                                            <textarea title="Nội dung" placeholder="Nội dung. Tối thiểu 15 ký tự *" name="content" id="content"
+                                                style="height: 52px; overflow-y: hidden;"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="note">Để gửi bình luận, bạn cần đăng nhập hoặc đăng ký tài khoản.
+                                        </p>
+                                    </div>
+                                    <div class="col col-end">
+                                        <button id="btn-submit" type="submit"
+                                            data-check={{ Session::get('user')->id ?? 0 }}></i> Gửi
+                                            bình
+                                            luận</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    @foreach ($comments as $comment)
+                        <div class="item-comment">
+                            <div class="avt">
+                                @if ($comment->user->type != 0)
+                                    <img src="{{ $comment->user->avatar }}">
+                                @else
+                                    <img src="{{ asset('images/default.png') }}">
+                                @endif
+                            </div>
+                            <div class="info">
+                                <p>
+                                    <strong class="name">{{ $comment->user->name }}</strong>
+                                </p>
+                                <p><label><i>{{ $comment->getDiffedTimeAttribute() }}</i></label></p>
+                                <div class="content">
+                                    <div class="stars-comment">
+                                        @for ($i = 1; $i <= $comment->star; $i++)
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        @endfor
+                                    </div>
+                                    {{ $comment->content }}
+                                </div>
+                                <div class="childs">
+                                    @foreach ($comment->replies as $reply)
+                                        <div class="comment-list">
+                                            <div class="item-comment">
+                                                <div class="avt">
+                                                    @if ($reply->user->type != 0)
+                                                        <img src="{{ $reply->user->avatar }}">
+                                                    @else
+                                                        <img src="{{ asset('images/default.png') }}">
+                                                    @endif
+                                                </div>
+                                                <div class="info">
+                                                    <p>
+                                                        <strong class="name">{{ $reply->user->name }}</strong>
+                                                    </p>
+                                                    <p><label><i>{{ $reply->getDiffedTimeAttribute() }}</i></label>
+                                                    </p>
+                                                    <div class="content">
+                                                        <div class="stars-comment">
+                                                            @for ($i = 1; $i <= $reply->star; $i++)
+                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                            @endfor
+                                                        </div>
+                                                        {{ $reply->content }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div class="replyHolder replyCommentHolder" style="display: none;">
+                                    <input type="text" placeholder="Nhập bình luận của bạn" name="content"
+                                        data-id="{{ $comment->id }}" class="replyComment{{ $comment->id }}">
+                                    <button class="btnReplyComment" data-id="{{ $comment->id }}"
+                                        data-check={{ Session::get('user')->id ?? 0 }}>Gửi</button>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    <ol class="pagination">
+                        {{ $comments->links() }}
+                    </ol>
+                </div>
             </div>
         </div>
+
+    </div>
     </div>
 </main>
 @stop

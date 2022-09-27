@@ -58,5 +58,6 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('/{slug}/{brand}', [App\Http\Controllers\Client\CategoryController::class, 'brand'])->name('client.brand');
         Route::get('/{slug}/{brand}/group/{group}', [App\Http\Controllers\Client\CategoryController::class, 'group'])->name('client.group');
         Route::get('/{slug}/{brand}/{product}', [App\Http\Controllers\Client\ProductController::class, 'index'])->name('client.product');
+        Route::post('/{slug}/{brand}/{product}/comment', [App\Http\Controllers\Client\ProductController::class, 'comment'])->name('client.product.comment');
     });
 });
