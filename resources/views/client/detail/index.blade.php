@@ -68,19 +68,21 @@
                                 <p class="availability"><b>Hết hàng</b></p>
                             @endif
                         </div>
-                        <div class="product-promotion">
-                            <strong class="label">KHUYẾN MÃI</strong>
-                            <ul>
-                                @foreach ($product->sales as $sales)
-                                    <li><span class="bag">KM {{ $loop->index + 1 }}
-                                        </span></li>
-                                    <li>
-                                        {{ $sales->sales->s_name }}
-                                    </li>
-                                @endforeach
+                        @if (count($product->sales) > 0)
+                            <div class="product-promotion">
+                                <strong class="label">KHUYẾN MÃI</strong>
+                                <ul>
+                                    @foreach ($product->sales as $sales)
+                                        <li><span class="bag">KM {{ $loop->index + 1 }}
+                                            </span></li>
+                                        <li>
+                                            {{ $sales->sales->s_name }}
+                                        </li>
+                                    @endforeach
 
-                            </ul>
-                        </div>
+                                </ul>
+                            </div>
+                        @endif
                         <div class="quantity">
                             <span>Số lượng: </span>
                             <div class="quantity-input">
