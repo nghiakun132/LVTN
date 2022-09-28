@@ -38,7 +38,6 @@
                                                         <th style="width:50px">ID</th>
                                                         <th style="width:100px"> Tên</th>
                                                         <th style="width:80px">Danh mục cha</th>
-                                                        <th style="width:80px">Icon</th>
                                                         <th style="width:400px">Banner</th>
                                                         <th style="width:50px">Trạng thái</th>
                                                         <th style="width:50px">Thao tác </th>
@@ -51,8 +50,6 @@
                                                             <td>{{ $category->c_id }}</td>
                                                             <td>{{ $category->c_name }}</td>
                                                             <td>{{ $category->parent_id == 0 ? 'Danh mục cha' : $category->parent_id }}
-                                                            </td>
-                                                            <td><?php echo $category->c_icon; ?></td>
                                                             </td>
 
                                                             <td>
@@ -128,11 +125,6 @@
                                             <option value="0">Chọn danh mục cha</option>
                                             <?php echo $showSelect; ?>
                                         </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Icon</label>
-                                        <input type="text" placeholder="Nhập icon" name="c_icon" class="form-control"
-                                            id="c_icon">
                                     </div>
                                     <div class="input-group">
                                         <input type="file" class="form-control" id="inputGroupFile04" name="c_banner">

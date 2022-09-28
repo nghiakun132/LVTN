@@ -50,7 +50,6 @@ class CategoryController extends Controller
             $data['c_name'] = $request->c_name;
             $data['c_slug'] = Str::slug($request->c_name);
             $data['parent_id'] = $request->parent_id;
-            $data['c_icon'] = $request->c_icon;
             if ($request->file('c_banner')) {
                 $file = $request->file('c_banner');
                 $fileName = $this->categoryRepository->uploadFile($file, 'categories');
@@ -99,7 +98,6 @@ class CategoryController extends Controller
             $data['c_name'] = $request->c_name;
             $data['c_slug'] = Str::slug($request->c_name);
             $data['parent_id'] = $request->parent_id;
-            $data['c_icon'] = $request->c_icon;
             if ($request->file('c_banner')) {
                 $file = $request->file('c_banner');
                 $fileName = $file->getClientOriginalName();

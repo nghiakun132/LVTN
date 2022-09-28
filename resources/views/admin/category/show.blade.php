@@ -55,11 +55,6 @@
                                                                 <?php echo $showSelect; ?>
                                                             </select>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="">Icon</label>
-                                                            <input type="text" placeholder="Nhập icon" name="c_icon"
-                                                                value="{{ $category->c_icon }}" class="form-control">
-                                                        </div>
                                                         <div class="input-group">
                                                             <input type="file" class="form-control" id="inputGroupFile04"
                                                                 name="c_banner">

@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->string('c_icon')->nullable();
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('sku')->after('pro_id')->nullable();
+            $table->unique(['sku', 'pro_category_id']);
         });
     }
 
@@ -25,7 +26,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('categories', function (Blueprint $table) {
+        Schema::table('products', function (Blueprint $table) {
             //
         });
     }

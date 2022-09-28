@@ -51,7 +51,7 @@
                                                             <td>{{ $brand->category->c_name }}</td>
                                                             <td>
                                                                 <img src="{{ asset('images/brands/' . $brand->b_banner) }}"
-                                                                    alt="">
+                                                                    alt="" height="100" width="100">
                                                             </td>
                                                             <td>
                                                                 @if ($brand->b_status == 1)

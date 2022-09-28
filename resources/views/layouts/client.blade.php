@@ -372,7 +372,6 @@
                             @foreach ($categoriesGlobal as $category)
                                 <li class="menu-item">
                                     <a href="{{ route('client.category', $category->c_slug) }}" target="_self">
-                                        <span class="icon-category"><?php echo $category->c_icon; ?></span>
                                         <span class="icon-category">{{ $category->c_name }}</span>
                                     </a>
                                     <div class="sub-container">

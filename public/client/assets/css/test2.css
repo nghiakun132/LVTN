@@ -60,7 +60,7 @@ header nav ul.root li:hover .sub-container {
 header nav .sub-container {
     position: absolute;
     left: 0;
-    top: 55px;
+    top: 18px;
     z-index: 199;
     padding-top: 15px;
     display: none;
