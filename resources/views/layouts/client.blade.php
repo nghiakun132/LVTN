@@ -377,18 +377,20 @@
                                     <div class="sub-container">
                                         <div class="sub">
                                             <div class="menu g1">
-                                                <h4><a href="{{ $category->c_slug }}">Hãng sản xuất
-                                                    </a></h4>
-                                                <ul class="display-column format_3">
-                                                    @foreach ($category->brand as $brand)
-                                                        <li><a
-                                                                href="{{ route('client.brand', [
-                                                                    'slug' => $category->c_slug,
-                                                                    'brand' => $brand->b_slug,
-                                                                ]) }}">{{ $brand->b_name }}</a>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
+                                                @if (count($category->parent) == 0)
+                                                    <h4><a href="{{ $category->c_slug }}">Hãng sản xuất
+                                                        </a></h4>
+                                                    <ul class="display-column format_3">
+                                                        @foreach ($category->brand as $brand)
+                                                            <li><a
+                                                                    href="{{ route('client.brand', [
+                                                                        'slug' => $category->c_slug,
+                                                                        'brand' => $brand->b_slug,
+                                                                    ]) }}">{{ $brand->b_name }}</a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
                                                 <ul class="display-row format_1">
                                                     @foreach ($category->parent as $brand)
                                                         <h4><a
@@ -396,11 +398,10 @@
                                                         </h4>
                                                         @foreach ($brand->brand as $value)
                                                             <li><a
-                                                                    href="
-                                                                {{ route('client.brand', [
-                                                                    'slug' => $brand->c_slug,
-                                                                    'brand' => $value->b_slug,
-                                                                ]) }}">{{ $value->b_name }}</a>
+                                                                    href="{{ route('client.brand', [
+                                                                        'slug' => $brand->c_slug,
+                                                                        'brand' => $value->b_slug,
+                                                                    ]) }}">{{ $value->b_name }}</a>
                                                             </li>
                                                         @endforeach
                                                     @endforeach
@@ -456,8 +457,6 @@
                                                     <li><a href="#">Năm
                                                             nay</a></li>
                                                 </ul>
-                                            </div>
-                                            <div class="menu ads" style="width:400px">
                                             </div>
                                         </div>
                                     </div>

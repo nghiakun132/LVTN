@@ -37,7 +37,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
 
         Route::group(['prefix' => 'product'], function () {
             Route::get('', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('admin.product.index');
-            Route::post('', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('admin.product.store');
+            Route::get('/create', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('admin.product.create');
+            Route::post('/create', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('admin.product.store');
             Route::get('/{id}/edit', [App\Http\Controllers\Admin\ProductController::class, 'show'])->name('admin.product.show');
             Route::post('/{id}/edit', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('admin.product.update');
             Route::get('/delete', [App\Http\Controllers\Admin\ProductController::class, 'delete'])->name('admin.product.delete');

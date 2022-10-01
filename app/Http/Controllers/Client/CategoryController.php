@@ -85,10 +85,11 @@ class CategoryController extends Controller
     public function brand(Request $request, $categorySlug, $brandSlug)
     {
         try {
-
             $category = Category::where('c_slug', $categorySlug)->first();
             $brands = Brands::where('b_category_id', $category->c_id)->get();
-            $brand = Brands::where('b_slug', $brandSlug)->first();
+            $brand = Brands::where('b_slug', $brandSlug)
+                ->where('b_category_id', $category->c_id)
+                ->first();
             $products = Product::where('pro_brand_id', $brand->b_id)
                 ->with([
                     'sales' => function ($query) {

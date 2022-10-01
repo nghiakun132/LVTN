@@ -16,7 +16,7 @@ header nav ul.root {
     max-width: 1200px;
 }
 header nav ul.root li {
-    margin: 8px 16px 4px 16px;
+    margin: 8px 16px 9px 16px;
     display: inline-flex;
 }
 header nav ul.root li a,
@@ -34,7 +34,7 @@ header nav ul.root li a .icon {
 header nav ul.root li a span {
     display: block;
     text-transform: uppercase;
-    font-size: 10px;
+    font-size: 13px;
     white-space: nowrap;
 }
 header nav ul.root li a:after {
@@ -60,7 +60,7 @@ header nav ul.root li:hover .sub-container {
 header nav .sub-container {
     position: absolute;
     left: 0;
-    top: 18px;
+    top: 26px;
     z-index: 199;
     padding-top: 15px;
     display: none;

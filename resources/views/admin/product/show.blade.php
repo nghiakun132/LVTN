@@ -112,21 +112,6 @@
                                                                 @endforeach
                                                             </select>
                                                         </div>
-                                                        <div class=" input-group mb-3" style="top:32px">
-                                                            <div class="input-group-prepend">
-                                                                <a href="#" class="btn btn-outline-primary"
-                                                                    data-toggle="modal" data-target="#addColor">Thêm màu</a>
-                                                            </div>
-                                                            <select class="custom-select" id="colors" name="color">
-                                                                <option selected>Chọn màu</option>
-                                                                @foreach ($colorGlobal as $colorGlobal)
-                                                                    <option value="{{ $colorGlobal->color }}"
-                                                                        {{ $colorGlobal->color == $product->color ? 'selected' : '' }}>
-                                                                        {{ $colorGlobal->color }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
                                                     </div>
                                                     @if ($errors->has('pro_category_id'))
                                                         <span
@@ -204,37 +189,5 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="addColor" tabindex="-1" aria-labelledby="addColorLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Thêm màu sản phẩm</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="addColorForm" method="post" action="{{ route('admin.product.addColor') }}"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="pro_name">Tên</label>
-                                        <input type="text" placeholder="Nhập màu" name="color" class="form-control"
-                                            id="color_name">
-                                    </div>
-                                    @if ($errors->has('color'))
-                                        <span class="text-danger">{{ $errors->first('color') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="submitFormAddColor">Thêm</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
 @endsection

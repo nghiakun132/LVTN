@@ -9,7 +9,9 @@ use App\Imports\ProductImport;
 use App\Models\Colors;
 use App\Models\Groups;
 use App\Models\Images;
+use App\Models\import_details;
 use App\Models\sales_products;
+use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Import\ImportRepository;
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\Sale\SaleRepository;
@@ -23,15 +25,18 @@ class ProductController extends Controller
     protected $productRepository;
     protected $importRepository;
     protected $saleRepository;
+    protected $categoryRepository;
     public function __construct(
         ProductRepository $productRepository,
         ImportRepository $importRepository,
-        SaleRepository $saleRepository
+        SaleRepository $saleRepository,
+        CategoryRepository $categoryRepository
 
     ) {
         $this->productRepository = $productRepository;
         $this->importRepository = $importRepository;
         $this->saleRepository = $saleRepository;
+        $this->categoryRepository = $categoryRepository;
     }
     public function index()
     {
@@ -46,42 +51,61 @@ class ProductController extends Controller
                 $query->select('group_id', 'name', 'slug');
             },
         ]);
-        return view('admin.product.index', compact('products'));
+        $data = [
+            'products' => $products,
+        ];
+        return view('admin.product.index', $data);
+    }
+    public function create()
+    {
+        $imports = $this->importRepository->getAll();
+        $categories = $this->categoryRepository->getWithRelationship([
+            'parent'
+        ]);
+        $arr = $categories->toArray();
+        $child = $this->categoryRepository->show($arr, 0);
+        $showSelect = $this->categoryRepository->showSelect($child, 0);
+        $data = [
+            'showSelect' => $showSelect,
+            'imports' => $imports,
+        ];
+        return view('admin.product.create', $data);
     }
 
     public function store(ProductRequest $request)
     {
-        $data = [
-            'pro_name' => $request->pro_name,
-            'pro_slug' => Str::slug($request->pro_name),
-            'pro_category_id' => $request->pro_category_id,
-            'pro_brand_id' => $request->pro_brand_id,
-            'pro_price' => $request->pro_price,
-            'pro_sale' => $request->pro_sale / 100,
-            'pro_quantity' => $request->pro_quantity,
-            'pro_content' => $request->pro_content,
-            'pro_description' => $request->pro_description,
-            'group_id' => $request->group_id,
-            'color' => $request->color,
-        ];
+        DB::beginTransaction();
+        $data = $request->except('_token', 'pro_avatar', 'import_id');
+        $data['pro_slug'] = Str::slug($request->pro_name);
 
         try {
-            DB::beginTransaction();
-
+            if ($request->file('pro_avatar')) {
+                $file = $request->file('pro_avatar');
+                $fileName = $this->productRepository->uploadFile($file, 'products');
+                $data['pro_avatar'] = $fileName;
+            }
             $product = $this->productRepository->insertGetId($data);
+            if ($request->import_id == 0) {
+                $import = $this->importRepository->insertGetId([
+                    'i_code' => Str::random(10),
+                    'i_admin_id' => session()->get('admin')->id,
+                    'i_status' => 1,
+                    'i_total' => $request->pro_price * $request->pro_quantity,
+                ]);
 
-            // $this->importRepository->create([
-            //     'i_product_id' => $product,
-            //     'i_price' => $request->pro_price,
-            //     'i_quantity' => $request->pro_quantity,
-            //     'i_status' => 1,
-            // ]);
+                $importDetail = new import_details();
+                $importDetail->import_id = $import;
+                $importDetail->product_id = $product;
+                $importDetail->quantity = $request->pro_quantity;
+                $importDetail->price = $request->pro_price;
+                $importDetail->save();
+            }
 
             DB::commit();
-            return redirect()->back();
+            return redirect()->route('admin.product.index')->with('success', 'Thêm mới thành công');
         } catch (\Exception $exception) {
             DB::rollBack();
-            return redirect()->back();
+            return redirect()->back()->with('error', 'Thêm mới thất bại');
         }
     }
 
@@ -114,7 +138,6 @@ class ProductController extends Controller
             'pro_content' => $request->pro_content,
             'pro_description' => $request->pro_description,
             'group_id' => $request->group_id,
-            'color' => $request->color,
         ];
 
         if ($request->file('pro_avatar')) {
@@ -251,19 +274,6 @@ class ProductController extends Controller
             return [
                 'data' => $result
             ];
-        }
-    }
-
-    public function addColor(Request $request)
-    {
-        if ($request->ajax()) {
-            $result = Colors::create([
-                'color' => $request->color,
-            ]);
-            if ($result) {
-                return response()->json(['status' => true, 'message' => 'Thêm thành công']);
-            }
-            return response()->json(['status' => false, 'message' => 'Thêm thất bại']);
         }
     }
 

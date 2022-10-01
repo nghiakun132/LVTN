@@ -72,4 +72,9 @@ abstract class BaseRepository implements RepositoryInterface
         $file->move('images/' . $path, $fileName);
         return $fileName;
     }
+
+    public function insertGetId($attributes = [])
+    {
+        return $this->model->insertGetId($attributes);
+    }
 }

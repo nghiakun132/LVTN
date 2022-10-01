@@ -49,28 +49,28 @@ $("#submitFormAddGroup").click(function (e) {
     });
 });
 
-$("#submitFormAddColor").click(function (e) {
-    e.preventDefault();
-    let color = $("#color_name").val();
-    $.ajax({
-        url: "/panel/product/add-color-product",
-        type: "POST",
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-        data: {
-            color: color,
-        },
-        success: function (data) {
-            if (data.status == true) {
-                $("#addColor").modal("hide");
-                $("#colors").append(
-                    '<option value="' + data.color + '">' + color + "</option>"
-                );
-            }
-        },
-    });
-});
+// $("#submitFormAddColor").click(function (e) {
+//     e.preventDefault();
+//     let color = $("#color_name").val();
+//     $.ajax({
+//         url: "/panel/product/add-color-product",
+//         type: "POST",
+//         headers: {
+//             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+//         },
+//         data: {
+//             color: color,
+//         },
+//         success: function (data) {
+//             if (data.status == true) {
+//                 $("#addColor").modal("hide");
+//                 $("#colors").append(
+//                     '<option value="' + data.color + '">' + color + "</option>"
+//                 );
+//             }
+//         },
+//     });
+// });
 
 let itemDetail = document.querySelectorAll(".item-detail");
 

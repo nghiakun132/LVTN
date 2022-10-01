@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('pro_id');
+            $table->string('sku', 50);
             $table->string('pro_name');
             $table->string('pro_slug');
             $table->integer('pro_category_id');
@@ -25,9 +26,8 @@ return new class extends Migration
             $table->text('pro_description')->nullable();
             $table->text('pro_content')->nullable();
             $table->string('pro_avatar');
-            $table->integer('color_id');
             $table->integer('pro_view')->default(0);
-            $table->string('pro_detail')->nullable();
+            $table->longText('pro_detail')->nullable();
             $table->tinyInteger('group_id')->default(0);
             $table->tinyInteger('pro_active')->default(1);
             $table->tinyInteger('pro_hot')->default(0);

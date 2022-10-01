@@ -27,7 +27,7 @@
             </ul>
         </div>
         <div class="row">
-            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-content-area">
                 <div class="wrap-product-detail">
                     <div class="detail-media">
                         <div class="product-gallery">
@@ -35,7 +35,7 @@
                                 @foreach ($images as $image)
                                     <li data-thumb="{{ asset('images/products/' . $image->path) }}">
                                         <img src="{{ asset('images/products/' . $image->path) }}"
-                                            alt="{{ $image->path }}" width="430" />
+                                            alt="{{ $image->path }}" />
                                     </li>
                                 @endforeach
                             </ul>
@@ -141,7 +141,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 sitebar">
+            {{-- <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 sitebar">
                 <div class="widget widget-our-services ">
                     <div class="widget-content">
                         <ul class="our-services">
@@ -181,7 +181,7 @@
                     <h2 class="widget-title">Sản phẩm phổ biến</h2>
                     <div class="widget-content">
                         <ul class="products">
-                            {{-- @foreach ($popularProducts as $popularProducts)
+                             @foreach ($popularProducts as $popularProducts)
                                 <li class="product-item">
                                     <div class="product product-widget-style">
                                         <div class="thumbnnail">
@@ -206,11 +206,11 @@
                                         </div>
                                     </div>
                                 </li>
-                            @endforeach --}}
+                            @endforeach
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="single-advance-box col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="wrap-show-advance-info-box style-1 box-in-site">
                     <h3 class="title-box">Sản phẩm tương tự</h3>

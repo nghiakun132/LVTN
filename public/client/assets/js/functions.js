@@ -47,6 +47,7 @@
                     nav: true,
                     dots: false,
                     loop: false,
+                    autoplay: true,
                     navText: [
                         '<i class="fa fa-angle-left"></i>',
                         '<i class="fa fa-angle-right"></i>',

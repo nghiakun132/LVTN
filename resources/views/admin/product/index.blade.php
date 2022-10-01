@@ -25,8 +25,8 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <a class="btn btn-outline-warning btn-sm text-muted" data-toggle="modal"
-                                            data-target="#addProduct">
+                                        <a class="btn btn-outline-warning btn-sm text-muted"
+                                            href="{{ route('admin.product.create') }}">
                                             <i class="fa fa-user-circle " aria-hidden="true"></i> Thêm mới
                                         </a>
                                         <a href="{{ route('admin.product.export') }}"
@@ -128,7 +128,7 @@
             </div>
         </div>
     </div>
-    <div class="modal" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    {{-- <div class="modal" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -182,16 +182,15 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="pro_name">Danh mục</label>
-                                        <select class="form-control form-control-xl" name="pro_category_id"
+                                        <select class="custom-select custom-select-md mb-3" name="pro_category_id"
                                             id="categories">
-                                            <option value="0" selected>Chọn danh mục</option>
-                                            @foreach ($categoriesGlobal as $categoriesGlobal)
-                                                <option value="{{ $categoriesGlobal->c_id }}">
-                                                    {{ $categoriesGlobal->c_name }}
-                                                </option>
-                                            @endforeach
+                                            <option value="0">Chọn danh mục cha</option>
+                                            <?php echo $showSelect; ?>
                                         </select>
                                     </div>
+                                    @if ($errors->has('pro_category_id'))
+                                        <span class="text-danger">{{ $errors->first('pro_category_id') }}</span>
+                                    @endif
                                     <div class="form-group mt-4">
                                         <label for="pro_name">Thương hiệu</label>
                                         <select class="form-control form-control-xl" name="pro_brand_id" id="brands">
@@ -215,21 +214,19 @@
                                     <div class=" input-group mb-3 mt-4" style="top:32px">
                                         <div class="input-group-prepend">
                                             <a href="#" class="btn btn-outline-primary" data-toggle="modal"
-                                                data-target="#addColor">Thêm màu</a>
+                                                data-target="#addGroup">Chọn
                                         </div>
-                                        <select class="custom-select" id="colors" name="color">
-                                            <option selected value="0">Chọn màu</option>
-                                            @foreach ($colorGlobal as $colorGlobal)
-                                                <option value="{{ $colorGlobal->color }}">
-                                                    {{ $colorGlobal->color }}
+                                        <select class="custom-select" id="groups" name="group_id" id="group">
+                                            <option selected value="0">Chọn nhóm</option>
+                                            @foreach ($groupGlobal as $groupGlobal)
+                                                <option value="{{ $groupGlobal->group_id }}">
+                                                    {{ $groupGlobal->name }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                @if ($errors->has('pro_category_id'))
-                                    <span class="text-danger">{{ $errors->first('pro_category_id') }}</span>
-                                @endif
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="pro_quantity">Số lượng</label>
@@ -257,73 +254,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="addGroup" tabindex="-1" aria-labelledby="addGroupLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Thêm nhóm sản phẩm</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="addGroupForm" method="post" action="{{ route('admin.product.addGroup') }}"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group mt-4">
-                                        <label for="pro_name">Tên</label>
-                                        <input type="text" placeholder="Nhập tên" name="name" class="form-control"
-                                            id="group_name">
-                                    </div>
-                                    @if ($errors->has('name'))
-                                        <span class="text-danger">{{ $errors->first('name') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="submitFormAddGroup">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="addColor" tabindex="-1" aria-labelledby="addColorLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Thêm màu sản phẩm</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="addColorForm" method="post" action="{{ route('admin.product.addColor') }}"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group mt-4">
-                                        <label for="pro_name">Tên</label>
-                                        <input type="text" placeholder="Nhập màu" name="color" class="form-control"
-                                            id="color_name">
-                                    </div>
-                                    @if ($errors->has('color'))
-                                        <span class="text-danger">{{ $errors->first('color') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="submitFormAddColor">Thêm</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    </div> --}}
     <div class="modal fade" id="import" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -352,4 +283,6 @@
             </div>
         </div>
     </div>
+
+
 @stop

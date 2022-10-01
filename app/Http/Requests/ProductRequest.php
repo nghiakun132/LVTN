@@ -30,6 +30,7 @@ class ProductRequest extends FormRequest
             'pro_category_id' => 'required',
             'pro_brand_id' => 'required',
             'pro_avatar' => 'image',
+            'sku' => 'required',
         ];
     }
     public function messages()
@@ -37,6 +38,7 @@ class ProductRequest extends FormRequest
         return [
             'pro_name.required' => 'Tên sản phẩm không được để trống',
             'pro_name.unique' => 'Tên sản phẩm đã tồn tại',
+            'sku.required' => 'SKU không được để trống',
             'pro_price.required' => 'Giá sản phẩm không được để trống',
             'pro_price.numeric' => 'Giá sản phẩm phải là số',
             'pro_quantity.required' => 'Số lượng sản phẩm không được để trống',

@@ -77,14 +77,14 @@
 
         <!--Latest Products-->
         <div class="wrap-show-advance-info-box style-1" id="LATESTPRODUCTS">
-            <div class="wrap-top-banner">
+            {{-- <div class="wrap-top-banner">
                 <a href="#" class="link-banner banner-effect-2">
                     <figure>
                         <img src="{{ asset('/images/banner/qrc.png') }}" width="1170" height="240"
                             alt="" />
                     </figure>
                 </a>
-            </div>
+            </div> --}}
             {{-- <h3 class="title-box title1"><span> Latest Products</span></h3> --}}
             <div class="title1">
                 <div id="wrap-text" class="ins-selectable-element ins-element-wrap ins-element-text">
@@ -356,14 +356,14 @@
             </div>
         </div>
         <div class="wrap-show-advance-info-box style-1">
-            <div class="wrap-top-banner">
+            {{-- <div class="wrap-top-banner">
                 <a href="#" class="link-banner banner-effect-2">
                     <figure>
                         <img src="{{ asset('/images/banner/qrc.png') }}" width="1170" height="240"
                             alt="" />
                     </figure>
                 </a>
-            </div>
+            </div> --}}
             <div class="title1">
                 <div id="wrap-text" class="ins-selectable-element ins-element-wrap ins-element-text">
                     <div id="text" class="ins-element-content ins-editable-text" not-sortable="true"
@@ -448,14 +448,14 @@
             </div>
         </div>
         <div class="wrap-show-advance-info-box style-1">
-            <div class="wrap-top-banner">
+            {{-- <div class="wrap-top-banner">
                 <a href="#" class="link-banner banner-effect-2">
                     <figure>
                         <img src="{{ asset('/images/banner/qrc.png') }}" width="1170" height="240"
                             alt="" />
                     </figure>
                 </a>
-            </div>
+            </div> --}}
             {{-- <h3 class="title-box title1"><span> Latest Products</span></h3> --}}
             <div class="title1">
                 <div id="wrap-text" class="ins-selectable-element ins-element-wrap ins-element-text">
@@ -509,14 +509,14 @@
             </div>
         </div>
         <div class="wrap-show-advance-info-box style-1">
-            <div class="wrap-top-banner">
+            {{-- <div class="wrap-top-banner">
                 <a href="#" class="link-banner banner-effect-2">
                     <figure>
                         <img src="{{ asset('/images/banner/qrc.png') }}" width="1170" height="240"
                             alt="" />
                     </figure>
                 </a>
-            </div>
+            </div> --}}
             {{-- <h3 class="title-box title1"><span> Latest Products</span></h3> --}}
             <div class="title1">
                 <div id="wrap-text" class="ins-selectable-element ins-element-wrap ins-element-text">

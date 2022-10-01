@@ -109,10 +109,6 @@
                                                             <td>{{ $product->pro_quantity }}</td>
                                                         </tr>
                                                         <tr>
-                                                            <th>Màu sắc</th>
-                                                            <td>{{ $product->color }}</td>
-                                                        </tr>
-                                                        <tr>
                                                             <th>Nhóm</th>
                                                             @if ($product->group_id == 0)
                                                                 <td>Không có</td>
