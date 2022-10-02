@@ -39,13 +39,13 @@ class ProductController extends Controller
             $stars = Comment::where('product_id', $product->pro_id)->where('parent_id', 0)->avg('star');
             $comment = Comment::where('product_id', $product->pro_id)
                 ->where('parent_id', 0)
-                ->where('status', 0)
+                ->where('status', 1)
                 ->with([
                     'user' => function ($query) {
                         $query->select('id', 'name', 'avatar', 'type');
                     },
                     'replies' => function ($query) {
-                        $query->where('status', 0)
+                        $query->where('status', 1)
                             ->with([
                                 'user'
                             ]);
@@ -58,15 +58,6 @@ class ProductController extends Controller
                     }
                 ])
                 ->paginate(10);
-            $file = $product->pro_detail;
-            $tt = [];
-            if (!empty($file)) {
-                $file = storage_path('app/public/products/' . $file);
-                $tt = Excel::toArray('', $file);
-                $key = $tt[0][0];
-                $value = $tt[0][1];
-                $tt = array_combine($key, $value);
-            }
 
             $watched = json_decode(Cookie::get('watched'));
             if ($watched) {
@@ -85,7 +76,7 @@ class ProductController extends Controller
                 'images' => $images,
                 'category' => $category,
                 'brand' => $brand,
-                'tt' => $tt,
+                // 'tt' => $tt,
                 'comments' => $comment,
                 'stars' => $stars,
 

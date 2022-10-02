@@ -48,7 +48,7 @@ return [
     ],
     [
         'name' => 'Bình luận',
-        'route' => 'admin.home',
+        'route' => 'admin.comment.index',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
     [

@@ -129,128 +129,69 @@
             <div>
                 <h3>Lọc danh sách:</h3>
                 <div class="facet">
-                    <label>Danh mục </label>
-                    <select onchange="window.location = this.value;">
-                        <option>Điện thoại</option>
-                        <option value="/dien-thoai-di-dong/iphone">&nbsp; &nbsp; &nbsp; Apple</option>
-                        <option value="/dien-thoai-di-dong/samsung">&nbsp; &nbsp; &nbsp; Samsung</option>
-                        <option value="/dien-thoai-di-dong/xiaomi">&nbsp; &nbsp; &nbsp; Xiaomi</option>
-                        <option value="/dien-thoai-di-dong/oppo">&nbsp; &nbsp; &nbsp; OPPO</option>
-                        <option value="/dien-thoai-di-dong/nokia">&nbsp; &nbsp; &nbsp; Nokia</option>
-                        <option value="/dien-thoai-di-dong/realme">&nbsp; &nbsp; &nbsp; Realme</option>
-                        <option value="/dien-thoai-di-dong/nubia">&nbsp; &nbsp; &nbsp; Nubia</option>
-                        <option value="/dien-thoai-di-dong/vivo">&nbsp; &nbsp; &nbsp; Vivo</option>
-                        <option value="/dien-thoai-di-dong/energizer">&nbsp; &nbsp; &nbsp; Energizer</option>
-                        <option value="/dien-thoai-di-dong/masstel">&nbsp; &nbsp; &nbsp; Masstel</option>
-                        <option value="/dien-thoai-di-dong/xor">&nbsp; &nbsp; &nbsp; XOR</option>
-                        <option value="/dien-thoai-di-dong/blackberry">&nbsp; &nbsp; &nbsp; Blackberry</option>
-                        <option value="/dien-thoai-di-dong/philips">&nbsp; &nbsp; &nbsp; Philips</option>
-                        <option value="/dien-thoai-di-dong/itel">&nbsp; &nbsp; &nbsp; Itel</option>
-                        <option value="/dien-thoai-di-dong/bphone">&nbsp; &nbsp; &nbsp; BPhone</option>
-                        <option value="/dien-thoai-di-dong/ngung-kinh-doanh">&nbsp; &nbsp; &nbsp; Ngừng kinh doanh
-                        </option>
-                        <option value="/dien-thoai-di-dong/tecno">&nbsp; &nbsp; &nbsp; TECNO</option>
-                        <option value="/dien-thoai-di-dong/zte">&nbsp; &nbsp; &nbsp; ZTE</option>
-                    </select>
-                </div>
-
-
-                <div class="facet">
-                    <label>Thương hiệu</label>
-                    <select onchange="window.location = this.value;">
-                        <option>Chọn Thương hiệu</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;12&quot;}&amp;search=true">
-                            Vivo (19)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;216&quot;}&amp;search=true">
-                            XOR (13)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;20&quot;}&amp;search=true">
-                            Nokia (12)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;82&quot;}&amp;search=true">
-                            realme (12)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;214&quot;}&amp;search=true">
-                            TECNO (8)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;76&quot;}&amp;search=true">
-                            Energizer (5)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;114&quot;}&amp;search=true">
-                            Itel (4)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;115&quot;}&amp;search=true">
-                            Hoanghamobile (3)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;240&quot;}&amp;search=true">
-                            Nubia (3)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;6&quot;}&amp;search=true">
-                            ZTE (2)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;24&quot;}&amp;search=true">
-                            Philips (2)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;1&quot;}&amp;search=true">
-                            Apple (24)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;4&quot;}&amp;search=true">
-                            Samsung (27)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;7&quot;}&amp;search=true">
-                            Oppo (18)</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;brand&quot;:&quot;3&quot;}&amp;search=true">
-                            Xiaomi (21)</option>
-                    </select>
-                </div>
-                <div class="facet">
                     <label>Giá</label>
                     <select onchange="window.location = this.value;">
                         <option>Chọn Giá</option>
-                        <option value="">
-                            Trên 100 triệu (8)</option>
-                        <option value="#">
-                            Dưới 1 triệu (20)</option>
-                        <option value="#">
-                            1 đến 2 triệu (5)</option>
-                        <option value="#">
-                            2 đến 3 triệu (19)</option>
-                        <option value="#">
-                            3 đến 4 triệu (20)</option>
-                        <option value="#">
-                            4 đến 5 triệu (11)</option>
-                        <option value="#">
-                            5 đến 6 triệu (16)</option>
-                        <option value="#">
-                            6 đến 8 triệu (13)</option>
-                        <option value="#">
-                            8 đến 10 triệu (6)</option>
-                        <option value="#">
-                            10 đến 12 triệu (9)</option>
-                        <option value="#">
-                            12 đến 15 triệu (5)</option>
-                        <option value="#">
-                            15 đến 20 triệu (16)</option>
-                        <option value="#">
-                            20 đến 100 triệu (26)</option>
+                        <option value="{{ route('client.category', $category->c_slug) }}"> Mặc định</option>
+                        <option value=" {{ request()->fullUrlWithQuery(['gia_tu' => '0', 'gia_den' => '3000000']) }}">
+                            Dưới 3 triệu
+                            </a>
+                        </option>
+                        <option
+                            value="{{ request()->fullUrlWithQuery(['gia_tu' => '3000000', 'gia_den' => '5000000']) }}">
+                            Từ 3 triệu - 5 triệu
+                        </option>
+                        <option
+                            value="{{ request()->fullUrlWithQuery(['gia_tu' => '5000000', 'gia_den' => '7000000']) }}">
+                            Từ 5 triệu - 7 triệu
+                        </option>
+                        <option
+                            value="{{ request()->fullUrlWithQuery(['gia_tu' => '7000000', 'gia_den' => '10000000']) }}">
+                            Từ 7 triệu - 10 triệu
+                        </option>
+                        <option
+                            value="{{ request()->fullUrlWithQuery(['gia_tu' => '10000000', 'gia_den' => '15000000']) }}">
+                            Từ 10 triệu - 15 triệu
+                        </option>
+                        <option
+                            value="{{ request()->fullUrlWithQuery(['gia_tu' => '15000000', 'gia_den' => '20000000']) }}">
+                            Từ 15 triệu - 20 triệu
+                        </option>
+                        <option
+                            value="{{ request()->fullUrlWithQuery(['gia_tu' => '20000000', 'gia_den' => '50000000']) }}">
+                            Từ 20 triệu - 50 triệu
+                        </option>
+                        <option
+                            value="{{ request()->fullUrlWithQuery(['gia_tu' => '50000000', 'gia_den' => '100000000']) }}">
+                            Từ 50 triệu - 100 triệu
+                        </option>
                     </select>
                 </div>
                 <div class="facet">
                     <label>Sắp xếp</label>
                     <select onchange="window.location = this.value;">
                         <option>Chọn cách sắp xếp</option>
-                        <option value="#">
+                        <option value="{{ route('client.category', $category->c_slug) }}">
                             Mặc định</option>
-                        <option value="#">
-                            Sản phẩm mới - cũ</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;2&quot;}&amp;search=true">
+                        <option value="{{ request()->fullUrlWithQuery(['sort' => 'price_asc']) }}">
                             Giá thấp đến cao</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;3&quot;}&amp;search=true">
+                        <option value="{{ request()->fullUrlWithQuery(['sort' => 'price_desc']) }}">
                             Giá cao đến thấp</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;4&quot;}&amp;search=true">
-                            Mới cập nhật</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;5&quot;}&amp;search=true">
-                            Sản phẩm cũ</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;6&quot;}&amp;search=true">
-                            Xem nhiều hôm nay</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;7&quot;}&amp;search=true">
-                            Xem nhiều tuần này</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;8&quot;}&amp;search=true">
-                            Xem nhiều tháng này</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;10&quot;}&amp;search=true">
-                            Xem nhiều năm nay</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;9&quot;}&amp;search=true">
-                            Xem nhiều nhất</option>
-                        <option value="/dien-thoai-di-dong?filters={&quot;sort&quot;:&quot;11&quot;}&amp;search=true">
-                            Kết quả tìm kiếm</option>
+                        <option value="{{ request()->fullUrlWithQuery(['sort' => 'name_asc']) }}">
+                            Tên: A - Z
+                        </option>
+                        <option value="{{ request()->fullUrlWithQuery(['sort' => 'name_desc']) }}">
+                            Tên: Z - A
+                        </option>
+                        <option value="{{ request()->fullUrlWithQuery(['sort' => 'view']) }}">
+                            Xem nhiều nhất
+                        </option>
+                        <option value="{{ request()->fullUrlWithQuery(['sort' => 'new']) }}">
+                            Mới nhất
+                        </option>
+                        <option value="{{ request()->fullUrlWithQuery(['sort' => 'old']) }}">
+                            Cũ nhất
+                        </option>
                     </select>
                 </div>
             </div>
@@ -263,7 +204,12 @@
                         @foreach ($products as $product)
                             <div class="item">
                                 <div class="img">
-                                    <a href="#" title="{{ $product->pro_name }}">
+                                    <a href="{{ route('client.product', [
+                                        'slug' => $product->category->c_slug,
+                                        'brand' => $product->brand->b_slug,
+                                        'product' => $product->pro_slug,
+                                    ]) }}"
+                                        title="{{ $product->pro_name }}">
                                         <img src="{{ asset('images/products/' . $product->pro_avatar) }}"
                                             style="height: 200px" alt="{{ $product->pro_name }}"
                                             title="{{ $product->pro_name }}">
@@ -293,8 +239,12 @@
                                             title="Chính hãng Apple"></span>
                                 </div>
                                 <div class="info">
-                                    <a href="#" class="title"
-                                        title="{{ $product->pro_name }}">{{ $product->pro_name }}</a>
+                                    <a href="{{ route('client.product', [
+                                        'slug' => $product->category->c_slug,
+                                        'brand' => $product->brand->b_slug,
+                                        'product' => $product->pro_slug,
+                                    ]) }}"
+                                        class="title" title="{{ $product->pro_name }}">{{ $product->pro_name }}</a>
                                     <span class="price">
                                         <strong>{{ number_format($product->pro_price - $product->pro_price * ($product->pro_sale / 100), 0, ',', '.') }}đ</strong>
                                         @if ($product->pro_sale > 0)

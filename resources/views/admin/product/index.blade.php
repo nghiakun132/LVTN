@@ -45,7 +45,7 @@
                                             <table id="example2" class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
+                                                        <th>STT</th>
                                                         <th>Tên</th>
                                                         <th>Ảnh</th>
                                                         <th>Giá</th>
@@ -59,7 +59,7 @@
                                                 <tbody>
                                                     @foreach ($products as $product)
                                                         <tr>
-                                                            <td>{{ $product->pro_id }}</td>
+                                                            <td>{{ $loop->iteration }}</td>
                                                             <td>{{ $product->pro_name }}</td>
                                                             <td>
                                                                 <img src="{{ asset('/images/products/' . $product->pro_avatar) }}"
@@ -128,133 +128,6 @@
             </div>
         </div>
     </div>
-    {{-- <div class="modal" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Thêm sản phẩm</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="quickForm" method="post" action="" enctype="multipart/form-data">
-                        @csrf
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="pro_name">Tên</label>
-                                        <input type="text" placeholder="Nhập tên" name="pro_name" class="form-control"
-                                            id="pro_name">
-                                    </div>
-                                    @if ($errors->has('pro_name'))
-                                        <span class="text-danger">{{ $errors->first('pro_name') }}</span>
-                                    @endif
-                                    <div class="form-group mt-4">
-                                        <label for="pro_price">Giá</label>
-                                        <input type="number" placeholder="Nhập giá" name="pro_price"
-                                            class="form-control" id="pro_price">
-                                    </div>
-                                    @if ($errors->has('pro_price'))
-                                        <span class="text-danger">{{ $errors->first('pro_price') }}</span>
-                                    @endif
-                                    <div class="form-group mt-4">
-                                        <label for="pro_sale">Giảm giá</label>
-                                        <input type="number" placeholder="Nhập giảm giá" name="pro_sale"
-                                            class="form-control" id="pro_sale">
-                                    </div>
-                                    @if ($errors->has('pro_sale'))
-                                        <span class="text-danger">{{ $errors->first('pro_sale') }}</span>
-                                    @endif
-
-                                    <div class="input-group">
-                                        <input type="file" class="form-control" id="inputGroupFile04"
-                                            name="pro_avatar">
-                                        <button class="btn btn-outline-secondary" type="button"
-                                            id="delete-img">Xóa</button>
-                                    </div>
-                                    @if ($errors->has('pro_avatar'))
-                                        <span class="text-danger">{{ $errors->first('pro_avatar') }}</span>
-                                    @endif
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="pro_name">Danh mục</label>
-                                        <select class="custom-select custom-select-md mb-3" name="pro_category_id"
-                                            id="categories">
-                                            <option value="0">Chọn danh mục cha</option>
-                                            <?php echo $showSelect; ?>
-                                        </select>
-                                    </div>
-                                    @if ($errors->has('pro_category_id'))
-                                        <span class="text-danger">{{ $errors->first('pro_category_id') }}</span>
-                                    @endif
-                                    <div class="form-group mt-4">
-                                        <label for="pro_name">Thương hiệu</label>
-                                        <select class="form-control form-control-xl" name="pro_brand_id" id="brands">
-                                            <option value="0" selected>Chọn thương hiệu</option>
-                                        </select>
-                                    </div>
-                                    <div class=" input-group mb-3 mt-4" style="top:32px">
-                                        <div class="input-group-prepend">
-                                            <a href="#" class="btn btn-outline-primary" data-toggle="modal"
-                                                data-target="#addGroup">Thêm nhóm</a>
-                                        </div>
-                                        <select class="custom-select" id="groups" name="group_id" id="group">
-                                            <option selected value="0">Chọn nhóm</option>
-                                            @foreach ($groupGlobal as $groupGlobal)
-                                                <option value="{{ $groupGlobal->group_id }}">
-                                                    {{ $groupGlobal->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class=" input-group mb-3 mt-4" style="top:32px">
-                                        <div class="input-group-prepend">
-                                            <a href="#" class="btn btn-outline-primary" data-toggle="modal"
-                                                data-target="#addGroup">Chọn
-                                        </div>
-                                        <select class="custom-select" id="groups" name="group_id" id="group">
-                                            <option selected value="0">Chọn nhóm</option>
-                                            @foreach ($groupGlobal as $groupGlobal)
-                                                <option value="{{ $groupGlobal->group_id }}">
-                                                    {{ $groupGlobal->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="pro_quantity">Số lượng</label>
-                                        <input type="text" placeholder="Nhập số lượng" name="pro_quantity"
-                                            class="form-control" id="pro_quantity">
-                                    </div>
-                                    @if ($errors->has('pro_quantity'))
-                                        <span class="text-danger">{{ $errors->first('pro_quantity') }}</span>
-                                    @endif
-
-
-                                    <div class="form-group mt-4">
-                                        <label for="pro_content">Nội dung</label>
-                                        <textarea name="pro_content" id="pro_content" cols="30" rows="2.5" class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group mt-4">
-                                        <label for="pro_description">Mô tả</label>
-                                        <textarea name="pro_description" id="pro_description" cols="30" rows="2" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Thêm mới</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class="modal fade" id="import" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

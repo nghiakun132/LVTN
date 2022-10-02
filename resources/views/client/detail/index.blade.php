@@ -1,7 +1,62 @@
 @extends('layouts.client')
 @section('content')
 @section('title', 'Detail')
+
 <main id="main" class="main-site">
+    <style>
+        .table-border,
+        .table-border th,
+        .table-border td {
+            border: 1px solid #dedede;
+            padding: 5px 8px;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .table-border {
+            border-collapse: collapse;
+        }
+
+        .table-border th {
+            color: #fff;
+            background: #1362a6;
+            text-align: center;
+        }
+
+        .table-border,
+        .table-border th,
+        .table-border td {
+            border: 1px solid #dedede;
+            padding: 5px 8px;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .f-16 {
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .table-gray {
+            background: #efefef;
+        }
+
+        .ol-specs {
+            padding: 0;
+            margin: 0 0 0 17px;
+            list-style: disc;
+        }
+
+        .ol-specs li {
+            padding-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .ol-specs li {
+            padding-bottom: 5px;
+            font-size: 14px;
+        }
+    </style>
     <div class="container">
         <div class="wrap-breadcrumb">
             <ul>
@@ -118,23 +173,31 @@
                         </div>
                         <div class="tab-contents">
                             <div class="tab-content-item active" id="description">
-                                <div class=" description-block">
-                                    <?php echo $product->pro_description; ?>
-                                </div>
-                                <div class="view-more">
-                                    <a class="btn" id="view-more">Xem thêm</a>
-                                </div>
+                                @if ($product->pro_description)
+                                    <div class=" description-block">
+                                        <?php echo $product->pro_description; ?>
+                                    </div>
+                                    <div class="view-more">
+                                        <a class="btn" id="view-more">Xem thêm</a>
+                                    </div>
+                                @else
+                                    <div>
+                                        <p>Chưa có mô tả cho sản phẩm này</p>
+                                    </div>
+                                @endif
+
                             </div>
                             <div class="tab-content-item " id="add_infomation">
                                 <div class="table-responsive mt-4">
-                                    <table class="table table-bordered table-hover">
+                                    {{-- <table class="table table-bordered table-hover">
                                         @foreach ($tt as $key => $item)
                                             <tr>
                                                 <th>{{ $key }}</th>
                                                 <td class="item-detail">{{ $item }}</td>
                                             </tr>
                                         @endforeach
-                                    </table>
+                                    </table> --}}
+                                    <?php echo $product->pro_detail; ?>
                                 </div>
                             </div>
                         </div>

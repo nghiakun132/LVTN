@@ -1,4 +1,6 @@
 <?php
+
+
 Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
     Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home')->middleware('admin');
     Route::get('/login', [App\Http\Controllers\Admin\HomeController::class, 'login'])->name('admin.login');
@@ -44,7 +46,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::get('/delete', [App\Http\Controllers\Admin\ProductController::class, 'delete'])->name('admin.product.delete');
             Route::get('/{id}/change-status', [App\Http\Controllers\Admin\ProductController::class, 'changeStatus'])->name('admin.product.changeStatus');
             Route::get('/{id}/detail', [App\Http\Controllers\Admin\ProductController::class, 'detail'])->name('admin.product.detail');
-            Route::post('/{id}/detail', [App\Http\Controllers\Admin\ProductController::class, 'detailPost'])->name('admin.product.detailPost');
+            // Route::post('/{id}/detail', [App\Http\Controllers\Admin\ProductController::class, 'detailPost'])->name('admin.product.detailPost');
             Route::post('/{id}/images', [App\Http\Controllers\Admin\ProductController::class, 'uploadImages'])->name('admin.product.image');
             Route::post('/import', [App\Http\Controllers\Admin\ProductController::class, 'import'])->name('admin.product.import');
             Route::get('/export', [App\Http\Controllers\Admin\ProductController::class, 'export'])->name('admin.product.export');
@@ -88,6 +90,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::get('/{id}/delete', [App\Http\Controllers\Admin\EventController::class, 'delete'])->name('admin.event.delete');
             Route::get('/check', [App\Http\Controllers\Admin\EventController::class, 'check'])->name('admin.event.check');
             Route::get('/delete-detail', [App\Http\Controllers\Admin\EventController::class, 'deleteDetail'])->name('admin.event.deleteDetail');
+        });
+
+        Route::group(['prefix' => 'comment'], function () {
+            Route::get('', [App\Http\Controllers\Admin\CommentController::class, 'index'])->name('admin.comment.index');
+            Route::get('/{id}/confirm', [App\Http\Controllers\Admin\CommentController::class, 'confirm'])->name('admin.comment.confirm');
+            Route::get('/{id}/delete', [App\Http\Controllers\Admin\CommentController::class, 'delete'])->name('admin.comment.delete');
+            Route::post('/confirm-all', [App\Http\Controllers\Admin\CommentController::class, 'confirmAll'])->name('admin.comment.confirmAll');
+            Route::post('/delete-all', [App\Http\Controllers\Admin\CommentController::class, 'deleteAll'])->name('admin.comment.deleteAll');
         });
     });
 });

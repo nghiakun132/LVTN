@@ -142,6 +142,10 @@
                                                                 {{ $product->pro_description }}
                                                             </textarea>
                                                         </div>
+                                                        <div class="form-group mt-4">
+                                                            <label for="pro_detail">Chi tiết</label>
+                                                            <textarea name="pro_detail" id="pro_detail" cols="30" rows="2" class="form-control">{{ $product->pro_detail }}</textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

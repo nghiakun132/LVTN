@@ -39,5 +39,7 @@ class checkEvent extends Command
                 $product->save();
             }
         }
+        $event->delete();
+
     }
 }

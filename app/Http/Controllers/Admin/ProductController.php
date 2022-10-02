@@ -127,25 +127,21 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = [
-            'pro_name' => $request->pro_name,
-            'pro_slug' => Str::slug($request->pro_name),
-            'pro_category_id' => $request->pro_category_id,
-            'pro_brand_id' => $request->pro_brand_id,
-            'pro_price' => $request->pro_price,
-            'pro_sale' => $request->pro_sale,
-            // 'pro_quantity' => $request->pro_quantity,
-            'pro_content' => $request->pro_content,
-            'pro_description' => $request->pro_description,
-            'group_id' => $request->group_id,
-        ];
+        // $data = [
+        //     'pro_name' => $request->pro_name,
+        //     'pro_slug' => Str::slug($request->pro_name),
+        //     'pro_category_id' => $request->pro_category_id,
+        //     'pro_brand_id' => $request->pro_brand_id,
+        //     'pro_price' => $request->pro_price,
+        //     'pro_sale' => $request->pro_sale,
+        //     // 'pro_quantity' => $request->pro_quantity,
+        //     'pro_content' => $request->pro_content,
+        //     'pro_description' => $request->pro_description,
+        //     'group_id' => $request->group_id,
+        // ];
 
-        if ($request->file('pro_avatar')) {
-            $file = $request->file('pro_avatar');
-            $fileName = $this->productRepository->uploadFile($file, 'products');
-            $data['pro_avatar'] = $fileName;
-        }
-
+        $data = $request->except('_token', 'pro_avatar', 'pro_quantity');
+        $data['pro_slug'] = Str::slug($request->pro_name);
         try {
             DB::beginTransaction();
             $product = $this->productRepository->findOne($id);
@@ -214,17 +210,17 @@ class ProductController extends Controller
                 $query->select('product_id', 'path');
             }
         ], $id);
-        $file = $product->pro_detail;
+        // $file = $product->pro_detail;
         $data = [];
-        if (!empty($file)) {
-            $file = storage_path('app/public/products/' . $file);
-            $data = Excel::toArray('', $file);
-            $key = $data[0][0];
-            $value = $data[0][1];
-            $data = array_combine($key, $value);
-        }
+        // if (!empty($file)) {
+        //     $file = storage_path('app/public/products/' . $file);
+        //     $data = Excel::toArray('', $file);
+        //     $key = $data[0][0];
+        //     $value = $data[0][1];
+        //     $data = array_combine($key, $value);
+        // }
 
-        return view('admin.product.detail', compact('data', 'product'));
+        return view('admin.product.detail', compact('product'));
     }
 
     public function uploadImages(Request $request, $id)
@@ -242,17 +238,17 @@ class ProductController extends Controller
         }
     }
 
-    public function detailPost(Request $request, $id)
-    {
-        $fileName = $this->productRepository->findOne($id)->pro_slug . '.xlsx';
-        if ($request->file('file')) {
-            $file = $request->file('file');
-            $file->storeAs('public/products', $fileName);
-            $this->productRepository->update(['pro_detail' => $fileName], $id);
-            return redirect()->back()->with('success', 'Cập nhật thành công');
-        }
-        return redirect()->back()->with('error', 'Cập nhật thất bại');
-    }
+    // public function detailPost(Request $request, $id)
+    // {
+    //     $fileName = $this->productRepository->findOne($id)->pro_slug . '.xlsx';
+    //     if ($request->file('file')) {
+    //         $file = $request->file('file');
+    //         $file->storeAs('public/products', $fileName);
+    //         $this->productRepository->update(['pro_detail' => $fileName], $id);
+    //         return redirect()->back()->with('success', 'Cập nhật thành công');
+    //     }
+    //     return redirect()->back()->with('error', 'Cập nhật thất bại');
+    // }
 
     public function addGroup(Request $request)
     {
@@ -290,16 +286,20 @@ class ProductController extends Controller
     public function addSalesPost(Request $request, $id)
     {
         $saleId = $request->sale_id;
-        foreach ($saleId as $item) {
-            $saleProduct = sales_products::where('product_id', $id)->where('sale_id', $item)->first();
-            if (!$saleProduct) {
-                sales_products::create([
-                    'product_id' => $id,
-                    'sale_id' => $item,
-                ]);
+        if ($saleId) {
+
+            foreach ($saleId as $item) {
+                $saleProduct = sales_products::where('product_id', $id)->where('sale_id', $item)->first();
+                if (!$saleProduct) {
+                    sales_products::create([
+                        'product_id' => $id,
+                        'sale_id' => $item,
+                    ]);
+                }
             }
+            return redirect()->back()->with('success', 'Thêm thành công');
         }
-        return redirect()->back()->with('success', 'Thêm thành công');
+        return redirect()->back()->with('error', 'Thêm thất bại');
     }
     public function deleteSales($id)
     {

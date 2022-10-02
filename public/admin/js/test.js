@@ -49,29 +49,6 @@ $("#submitFormAddGroup").click(function (e) {
     });
 });
 
-// $("#submitFormAddColor").click(function (e) {
-//     e.preventDefault();
-//     let color = $("#color_name").val();
-//     $.ajax({
-//         url: "/panel/product/add-color-product",
-//         type: "POST",
-//         headers: {
-//             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-//         },
-//         data: {
-//             color: color,
-//         },
-//         success: function (data) {
-//             if (data.status == true) {
-//                 $("#addColor").modal("hide");
-//                 $("#colors").append(
-//                     '<option value="' + data.color + '">' + color + "</option>"
-//                 );
-//             }
-//         },
-//     });
-// });
-
 let itemDetail = document.querySelectorAll(".item-detail");
 
 itemDetail.forEach((item) => {
@@ -139,4 +116,107 @@ $(".delete_product").click(function (e) {
             });
         }
     });
+});
+$("#checkAll").click(function () {
+    $("input:checkbox").not(this).prop("checked", this.checked);
+});
+
+$("#deleteAll").click(function (e) {
+    let checkbox = $('input[name="customCheckbox[]"]:checked');
+    let checkboxArr = [];
+    let _token = $('meta[name="csrf-token"]').attr("content");
+    for (let i = 0; i < checkbox.length; i++) {
+        checkboxArr.push(checkbox[i].value);
+    }
+    if (checkboxArr.length <= 0) {
+        alert("Vui lòng chọn dữ liệu để xóa");
+    } else {
+        Swal.fire({
+            title: "Bạn có chắc chắn muốn xóa?",
+            text: "Bạn sẽ không thể khôi phục lại dữ liệu này!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Có, xóa nó!",
+            cancelButtonText: "Hủy",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/panel/comment/delete-all",
+                    type: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                            "content"
+                        ),
+                    },
+                    data: {
+                        id: checkboxArr,
+                        _token: _token,
+                    },
+                    success: function (data) {
+                        if (data.code == 200) {
+                            Swal.fire(
+                                "Đã xóa!",
+                                "Dữ liệu đã được xóa.",
+                                "success"
+                            );
+                            location.reload();
+                        }
+                    },
+                    error: function () {},
+                });
+            }
+        });
+    }
+});
+
+$("#activeAll").click(function (e) {
+    let checkbox = $('input[name="customCheckbox[]"]:checked');
+    let checkboxArr = [];
+    let _token = $('meta[name="csrf-token"]').attr("content");
+    for (let i = 0; i < checkbox.length; i++) {
+        checkboxArr.push(checkbox[i].value);
+    }
+    if (checkboxArr.length <= 0) {
+        alert("Vui lòng chọn dữ liệu để xóa");
+    } else {
+        Swal.fire({
+            title: "Bạn có chắc chắn muốn duyệt?",
+            text: "Bạn sẽ không thể khôi phục lại dữ liệu này!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Có, duyệt nó!",
+            cancelButtonText: "Hủy",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/panel/comment/confirm-all",
+                    type: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                            "content"
+                        ),
+                    },
+                    data: {
+                        id: checkboxArr,
+                        _token: _token,
+                    },
+                    success: function (data) {
+                        if (data.code == 200) {
+                            Swal.fire(
+                                "Đã duyệt!",
+                                "Dữ liệu đã được duyệt.",
+                                "success"
+                            );
+                            location.reload();
+                        }
+                    },
+                    error: function () {},
+                });
+            }
+        });
+    }
 });

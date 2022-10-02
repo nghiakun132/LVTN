@@ -72,25 +72,17 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <form action="{{ route('admin.product.detailPost', $product->pro_id) }}"
-                                                    method="post" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <div class="form-group">
-                                                        <label for="">File excel </label>
-                                                        <input type="file" name="file" class="form-control"
-                                                            placeholder="" aria-describedby="helpId">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Thêm</button>
-                                                </form>
+                                                <h3>Thông tin sản phẩm</h3>
                                                 <div class="table-responsive mt-4">
-                                                    <table class="table table-bordered table-hover">
+                                                    {!! $product->pro_detail !!}
+                                                    {{-- <table class="table table-bordered table-hover">
                                                         @foreach ($data as $key => $item)
                                                             <tr>
                                                                 <th>{{ $key }}</th>
                                                                 <td class="item-detail">{{ $item }}</td>
                                                             </tr>
                                                         @endforeach
-                                                    </table>
+                                                    </table> --}}
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mt-4">

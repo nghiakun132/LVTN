@@ -10,8 +10,10 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                            <li class="breadcrumb-item active">Quản lý sản phẩm</li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.product.index') }}">Quản lý sản phẩm</a>
+                            </li>
+                            <li class="breadcrumb-item active">Thêm mới</li>
                         </ol>
                     </div>
                 </div>
@@ -137,6 +139,10 @@
                                             <div class="form-group mt-4">
                                                 <label for="pro_description">Mô tả</label>
                                                 <textarea name="pro_description" id="pro_description" cols="30" rows="2" class="form-control"></textarea>
+                                            </div>
+                                            <div class="form-group mt-4">
+                                                <label for="pro_detail">Chi tiết</label>
+                                                <textarea name="pro_detail" id="pro_detail" cols="30" rows="2" class="form-control"></textarea>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Thêm mới</button>

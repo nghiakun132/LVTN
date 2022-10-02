@@ -27,24 +27,21 @@ class ProductImport implements ToCollection
             $product = new Product();
             $product->pro_name = $row[0];
             $product->pro_slug = Str::slug($row[0]);
-            $product->pro_category_id = $row[1];
-            $product->pro_brand_id = $row[2];
-            $product->pro_price = $row[3];
-            $product->pro_sale = $row[4];
-            $product->pro_quantity = $row[5];
-            // $product->pro_description = $row[6];
-            // $product->pro_content = $row[7];
-            $product->color = $row[6];
-            $product->group_id = $row[7];
-            $product->pro_avatar = $row[8];
+            $product->sku = $row[1];
+            $product->pro_category_id = $row[2];
+            $product->pro_brand_id = $row[3];
+            $product->pro_price = $row[4];
+            $product->pro_sale = $row[5];
+            $product->pro_quantity = $row[6];
+            $product->pro_avatar = $row[7];
             $product->save();
 
-            $total += $row[3] * $row[5];
+            $total += $row[4] * $row[6];
             $importDetail = new import_details();
             $importDetail->import_id = $import->i_id;
             $importDetail->product_id = $product->pro_id;
-            $importDetail->quantity = $row[5];
-            $importDetail->price = $row[3];
+            $importDetail->quantity = $row[6];
+            $importDetail->price = $row[4];
             $importDetail->save();
         }
         $ip = imports::where('i_id', $import->i_id)->first();

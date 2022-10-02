@@ -15,6 +15,7 @@ class Product extends Model
     protected $primaryKey = 'pro_id';
     protected $fillable = [
         'pro_name',
+        'sku',
         'pro_slug',
         'pro_category_id',
         'pro_brand_id',
@@ -22,13 +23,11 @@ class Product extends Model
         'pro_sale',
         'pro_quantity',
         'pro_number',
-        'color',
         'pro_description',
         'pro_content',
         'pro_avatar',
         'pro_view',
         'pro_detail',
-        'group_id',
         'pro_active',
         'pro_hot',
     ];
