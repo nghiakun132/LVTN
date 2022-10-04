@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Event_details;
 use App\Models\Events;
 use Illuminate\Console\Command;
 
@@ -40,6 +41,6 @@ class checkEvent extends Command
             }
         }
         $event->delete();
-
+        Event_details::truncate();
     }
 }

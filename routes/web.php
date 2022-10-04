@@ -53,6 +53,18 @@ Route::group(['namespace' => 'Client'], function () {
     Route::get('/san-pham-da-xem', [App\Http\Controllers\Client\ProductController::class, 'watched'])->name('client.product.watched');
     //category
 
+    Route::group(['prefix' => 'gio-hang','middleware' => ['user']], function () {
+        Route::get('', [App\Http\Controllers\Client\CartController::class, 'index'])->name('client.cart');
+        Route::post('/them-gio-hang', [App\Http\Controllers\Client\CartController::class, 'store'])->name('client.cart.add');
+        Route::post('xoa/', [App\Http\Controllers\Client\CartController::class, 'destroy'])->name('client.cart.delete');
+        Route::post('xoa-tat-ca', [App\Http\Controllers\Client\CartController::class, 'clear'])->name('client.cart.deleteAll');
+        Route::post('cap-nhat', [App\Http\Controllers\Client\CartController::class, 'update'])->name('client.cart.update');
+        Route::post('cap-nhat-tat-ca', [App\Http\Controllers\Client\CartController::class, 'updateAll'])->name('client.cart.updateAll');
+        // Route::get('thanh-toan', [App\Http\Controllers\Client\CartController::class, 'checkout'])->name('client.cart.checkout');
+        // Route::post('thanh-toan', [App\Http\Controllers\Client\CartController::class, 'checkoutPost'])->name('client.cart.checkout.post');
+    });
+
+
     Route::group([], function () {
         Route::get('{slug}', [App\Http\Controllers\Client\CategoryController::class, 'index'])->name('client.category');
         Route::get('/{slug}/{brand}', [App\Http\Controllers\Client\CategoryController::class, 'brand'])->name('client.brand');

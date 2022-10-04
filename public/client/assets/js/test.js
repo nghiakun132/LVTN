@@ -165,6 +165,7 @@ $("#add-to-cart").click(function (e) {
             showConfirmButton: false,
             timer: 2000,
         });
+        return;
     }
     if ($("#product-quantity").val() > $("#product-quantity").data("max")) {
         Swal.fire({
@@ -175,6 +176,7 @@ $("#add-to-cart").click(function (e) {
             showConfirmButton: false,
             timer: 2000,
         });
+        return;
     }
     if ($("#add-to-cart").data("id") == 0) {
         $("#login").modal({
@@ -182,6 +184,176 @@ $("#add-to-cart").click(function (e) {
             keyboard: false,
         });
     }
+
+    $.ajax({
+        url: "/gio-hang/them-gio-hang",
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        data: {
+            product_id: $('input[name="pro_id"]').val(),
+            quantity: $("#product-quantity").val(),
+            price: $('input[name="pro_price"]').val(),
+        },
+        success: function (data) {
+            if (data.code == 200) {
+                Swal.fire({
+                    title: data.message,
+                    icon: "success",
+                    showConfirmButton: true,
+                    confirmButtonText: "Xem giỏ hàng",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/gio-hang";
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: data.message,
+                    icon: "error",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            }
+        },
+    });
+});
+
+$(".update_cart").click(function () {
+    const id = $(this).data("id");
+    const quantity = $(".pro_quantity" + id).val();
+    $.ajax({
+        url: "/gio-hang/cap-nhat",
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        data: {
+            id: id,
+            quantity: quantity,
+        },
+        success: function (data) {
+            Swal.fire({
+                title: data.message,
+                icon: "success",
+                showConfirmButton: false,
+                timer: 3000,
+            });
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
+        },
+        error: function (data) {
+            Swal.fire({
+                title: data.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        },
+    });
+});
+
+$(".delete-cart").click(function () {
+    const id = $(this).data("id");
+    $.ajax({
+        url: "/gio-hang/xoa",
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        data: {
+            id: id,
+        },
+        success: function (data) {
+            Swal.fire({
+                title: data.message,
+                icon: "success",
+                showConfirmButton: false,
+                timer: 3000,
+            });
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
+        },
+        error: function (data) {
+            Swal.fire({
+                title: data.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        },
+    });
+});
+
+$("#update-all").click(function () {
+    const cartId = [];
+    const id = $('input[name="cart_id"]');
+    id.each(function (index, value) {
+        cartId.push({
+            id: $(this).val(),
+            quantity: $(".pro_quantity" + $(this).val()).val(),
+        });
+    });
+    $.ajax({
+        url: "/gio-hang/cap-nhat-tat-ca",
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        data: {
+            cart: cartId,
+        },
+        success: function (data) {
+            Swal.fire({
+                title: data.message,
+                icon: "success",
+                showConfirmButton: false,
+                timer: 3000,
+            });
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
+        },
+        error: function (data) {
+            Swal.fire({
+                title: data.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        },
+    });
+});
+$("#delete-all").click(function () {
+    $.ajax({
+        url: "/gio-hang/xoa-tat-ca",
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        success: function (data) {
+            Swal.fire({
+                title: data.message,
+                icon: "success",
+                showConfirmButton: false,
+                timer: 3000,
+            });
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
+        },
+        error: function (data) {
+            Swal.fire({
+                title: data.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        },
+    });
 });
 
 $("#comment-form").submit(function (e) {

@@ -4231,8 +4231,9 @@ article.single-post blockquote p:last-child::after {
     float: right;
 }
 .summary .update-clear {
-    display: table-cell;
+    display: flex;
     vertical-align: middle;
+    justify-content: space-around;
 }
 .order-summary .summary-info.total-info {
     border-top: 1px solid #e6e6e6;
@@ -4313,10 +4314,7 @@ article.single-post blockquote p:last-child::after {
     display: block;
     width: 100%;
     max-width: 249px;
-    background-color: #f5f5f5;
     border-radius: 0;
-    border: 1px solid #e6e6e6;
-    color: #666666;
     font-size: 14px;
     line-height: 20px;
     font-weight: 600;

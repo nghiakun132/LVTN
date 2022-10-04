@@ -151,7 +151,6 @@
                         <input type="hidden" name="pro_id" value="{{ $product->pro_id }}">
                         <input type="hidden" name="pro_price"
                             value="{{ $product->pro_price - ($product->pro_price * $product->pro_sale) / 100 }}">
-                        <input type="hidden" name="pro_avatar" value="{{ $product->pro_avatar }}">
 
                         <div class="product-action">
                             <a title="Mua ngay" id="quick-buy" class="btn-red btnQuickOrder btnbuy"><strong>MUA
