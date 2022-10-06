@@ -64,6 +64,8 @@ Route::group(['namespace' => 'Client'], function () {
         // Route::post('thanh-toan', [App\Http\Controllers\Client\CartController::class, 'checkoutPost'])->name('client.cart.checkout.post');
     });
 
+    Route::get('/thanh-toan',[App\Http\Controllers\Client\CartController::class, 'checkout'])->name('client.cart.checkout');
+
 
     Route::group([], function () {
         Route::get('{slug}', [App\Http\Controllers\Client\CategoryController::class, 'index'])->name('client.category');

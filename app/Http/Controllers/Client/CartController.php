@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -161,5 +163,28 @@ class CartController extends Controller
                 'message' => 'Cập nhật giỏ hàng thất bại'
             ], 500);
         }
+    }
+
+    public function checkout(Request $request)
+    {
+        $user = User::where('id', session('user')->id)->with('address')
+            ->select('id', 'name', 'email', 'phone')
+            ->first();
+
+        $carts = Cart::where('user_id', session('user')->id)
+            ->with([
+                'products' => function ($query) {
+                    $query->with([
+                        'category',
+                        'brand'
+                    ]);
+                }
+            ])
+            ->get();
+        $data = [
+            'carts' => $carts,
+            'user' => $user
+        ];
+        return view('client.cart.checkout', $data);
     }
 }

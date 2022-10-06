@@ -22,11 +22,12 @@
                                 </figure>
                             </div>
                             <div class="product-name">
-                                <a class="link-to-product" href="{{route('client.product',[
-                                    'slug' => $cart->products->category->c_slug,
-                                    'brand' => $cart->products->brand->b_slug,
-                                    'product' => $cart->products->pro_slug
-                                ])}}">{{ $cart->products->pro_name }}</a>
+                                <a class="link-to-product"
+                                    href="{{ route('client.product', [
+                                        'slug' => $cart->products->category->c_slug,
+                                        'brand' => $cart->products->brand->b_slug,
+                                        'product' => $cart->products->pro_slug,
+                                    ]) }}">{{ $cart->products->pro_name }}</a>
                             </div>
                             <div class="price-field produtc-price">
                                 <p class="price">
@@ -77,7 +78,7 @@
                     </p>
                 </div>
                 <div class="checkout-info">
-                    <a class="btn btn-checkout" href="#">Thanh toán</a>
+                    <a class="btn btn-checkout" href="{{ route('client.cart.checkout') }}">Thanh toán</a>
                     {{-- @if ($countCart > 0)
                     @else
                     <a class="btn btn-checkout" id="disabled_btn" disabled href="#" onclick="return alert('Giỏ hàng đang rỗng, Hãy thêm gì đó vào giỏ hang !!!')">Check out</a>
@@ -127,16 +128,4 @@
         </div>
     </div>
 </main>
-<?php
-$success = Session::get('success');
-$error = Session::get('error');
-if ($success) {
-    echo '<script>alert("' . $success . '")</script>';
-    Session::forget('success');
-} elseif ($error) {
-    echo '<script>alert("' . $error . '")</script>';
-    Session::forget('error');
-}
-?>
-
 @stop

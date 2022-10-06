@@ -221,138 +221,195 @@ $("#add-to-cart").click(function (e) {
 });
 
 $(".update_cart").click(function () {
-    const id = $(this).data("id");
-    const quantity = $(".pro_quantity" + id).val();
-    $.ajax({
-        url: "/gio-hang/cap-nhat",
-        method: "POST",
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-        data: {
-            id: id,
-            quantity: quantity,
-        },
-        success: function (data) {
-            Swal.fire({
-                title: data.message,
-                icon: "success",
-                showConfirmButton: false,
-                timer: 3000,
+    Swal.fire({
+        title: "Bạn có chắc muốn cập nhật giỏ hàng?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Cập nhật",
+        cancelButtonText: "Hủy",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const id = $(this).data("id");
+            const quantity = $(".pro_quantity" + id).val();
+            $.ajax({
+                url: "/gio-hang/cap-nhat",
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                data: {
+                    id: id,
+                    quantity: quantity,
+                },
+                success: function (data) {
+                    Swal.fire({
+                        title: data.message,
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 3000,
+                    });
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                },
+                error: function (data) {
+                    Swal.fire({
+                        title: data.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+                },
             });
-            setTimeout(function () {
-                location.reload();
-            }, 2000);
-        },
-        error: function (data) {
-            Swal.fire({
-                title: data.responseJSON.message,
-                icon: "error",
-                showConfirmButton: false,
-                timer: 2000,
-            });
-        },
+        }
     });
 });
 
 $(".delete-cart").click(function () {
-    const id = $(this).data("id");
-    $.ajax({
-        url: "/gio-hang/xoa",
-        method: "POST",
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-        data: {
-            id: id,
-        },
-        success: function (data) {
-            Swal.fire({
-                title: data.message,
-                icon: "success",
-                showConfirmButton: false,
-                timer: 3000,
+    Swal.fire({
+        title: "Bạn có chắc muốn xóa sản phẩm này?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Xóa",
+        cancelButtonText: "Hủy",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const id = $(this).data("id");
+            $.ajax({
+                url: "/gio-hang/xoa",
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                data: {
+                    id: id,
+                },
+                success: function (data) {
+                    Swal.fire({
+                        title: data.message,
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 3000,
+                    });
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                },
+                error: function (data) {
+                    Swal.fire({
+                        title: data.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+                },
             });
-            setTimeout(function () {
-                location.reload();
-            }, 2000);
-        },
-        error: function (data) {
-            Swal.fire({
-                title: data.responseJSON.message,
-                icon: "error",
-                showConfirmButton: false,
-                timer: 2000,
-            });
-        },
+        }
     });
 });
 
 $("#update-all").click(function () {
-    const cartId = [];
-    const id = $('input[name="cart_id"]');
-    id.each(function (index, value) {
-        cartId.push({
-            id: $(this).val(),
-            quantity: $(".pro_quantity" + $(this).val()).val(),
-        });
-    });
-    $.ajax({
-        url: "/gio-hang/cap-nhat-tat-ca",
-        method: "POST",
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-        data: {
-            cart: cartId,
-        },
-        success: function (data) {
-            Swal.fire({
-                title: data.message,
-                icon: "success",
-                showConfirmButton: false,
-                timer: 3000,
+    Swal.fire({
+        title: "Bạn có chắc muốn cập nhật giỏ hàng không?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Cập nhật",
+        cancelButtonText: "Hủy",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const cartId = [];
+            const id = $('input[name="cart_id"]');
+            id.each(function (index, value) {
+                cartId.push({
+                    id: $(this).val(),
+                    quantity: $(".pro_quantity" + $(this).val()).val(),
+                });
             });
-            setTimeout(function () {
-                location.reload();
-            }, 2000);
-        },
-        error: function (data) {
-            Swal.fire({
-                title: data.responseJSON.message,
-                icon: "error",
-                showConfirmButton: false,
-                timer: 2000,
+            $.ajax({
+                url: "/gio-hang/cap-nhat-tat-ca",
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                data: {
+                    cart: cartId,
+                },
+                success: function (data) {
+                    Swal.fire({
+                        title: data.message,
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 3000,
+                    });
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                },
+                error: function (data) {
+                    Swal.fire({
+                        title: data.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+                },
             });
-        },
+        }
     });
 });
+
 $("#delete-all").click(function () {
-    $.ajax({
-        url: "/gio-hang/xoa-tat-ca",
-        method: "POST",
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-        success: function (data) {
-            Swal.fire({
-                title: data.message,
-                icon: "success",
-                showConfirmButton: false,
-                timer: 3000,
+    Swal.fire({
+        title: "Bạn có chắc chắn muốn xóa tất cả sản phẩm?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Xóa",
+        cancelButtonText: "Hủy",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "/gio-hang/xoa-tat-ca",
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                success: function (data) {
+                    Swal.fire({
+                        title: data.message,
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 3000,
+                    });
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                },
+                error: function (data) {
+                    Swal.fire({
+                        title: data.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+                },
             });
-            setTimeout(function () {
-                location.reload();
-            }, 2000);
-        },
-        error: function (data) {
-            Swal.fire({
-                title: data.responseJSON.message,
-                icon: "error",
-                showConfirmButton: false,
-                timer: 2000,
-            });
-        },
+        }
     });
 });
 

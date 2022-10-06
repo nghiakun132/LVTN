@@ -935,6 +935,9 @@
 .product-action .btnbuy span {
     font-size: 11px;
 }
+.update_cart {
+    text-transform: uppercase;
+}
 .product-action .btn-green {
     background: transparent linear-gradient(180deg, #00917a 0%, #00483d 100%) 0%
         0% no-repeat padding-box;
@@ -1165,9 +1168,4 @@
     color: #00483d;
     width: 20px;
     text-align: center;
-}
-
-
-.update_cart {
-    text-transform: uppercase;
 }

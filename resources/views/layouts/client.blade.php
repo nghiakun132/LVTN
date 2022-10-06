@@ -344,11 +344,11 @@
                                 </a>
                             </div>
                             <div class="wrap-icon-section minicart">
-                                <a href="{{route('client.cart')}}" class="link-direction cart-cart">
+                                <a href="{{ route('client.cart') }}" class="link-direction cart-cart">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     <div class="left-info">
-                                        <span class="index">4 items</span>
-                                        <span class="title">CART</span>
+                                        <span class="index">{{ $cartItem }} sp</span>
+                                        <span class="title">Giỏ hàng</span>
                                     </div>
                                 </a>
 

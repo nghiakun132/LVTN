@@ -636,6 +636,7 @@ header.fill-color .main-info-area .right-section .wrap-icon-section .title {
     text-transform: uppercase;
     font-weight: 600;
     display: block;
+    margin-top: 5px;
 }
 header.fill-color .main-info-area .right-section .wrap-icon-section .index {
     color: #ffffff;
