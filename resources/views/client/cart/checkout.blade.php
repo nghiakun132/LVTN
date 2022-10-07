@@ -71,12 +71,18 @@
                             </label>
                         </div>
                         <p class="summary-info grand-total"><span>Giảm giá</span> <span
-                                class="grand-total-price">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                333333333d
-                            </span>
+                                class="grand-total-price text-danger">&nbsp;&nbsp;
+
+
+                                {{ session('coupon') ? number_format($total * (session('coupon')['discount'] / 100), 0, ',', '.') . ' VND' : 0 }}</span>
                         </p>
-                        <p class="summary-info grand-total"><span>Thành tiền</span> <span
-                                class="grand-total-price">333333333</span>
+                        </span>
+                        </p>
+                        <p class="summary-info grand-total"><span>Thành tiền</span> <span class="grand-total-price">
+                                {{ session('coupon')
+                                    ? number_format($total - $total * (session('coupon')['discount'] / 100), 0, ',', '.') . ' VND'
+                                    : number_format($total, 0, ',', '.') . ' VND' }}
+                            </span>
                         </p>
                         <button class="btn btn-medium" name="redirect">Đặt hàng ngay</button>
                         {{-- @if ($countCart > 0)
@@ -106,7 +112,6 @@
                                         @foreach ($user->address as $address)
                                             <option value="{{ $address->id }}"
                                                 {{ $address->default == 1 ? 'selected' : '' }}>{{ $address->address }}
-
                                             </option>
                                         @endforeach
                                     </Select>
@@ -122,7 +127,8 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a href="#" id="myBtn" class="btn btn-info">Thêm địa chỉ</a>
+                                    <a href="{{ route('client.address.create') }}" id="myBtn"
+                                        class="btn btn-info">Thêm địa chỉ</a>
                                 </td>
                             </tr>
                         </table>
@@ -131,14 +137,19 @@
                 <br>
                 <div class="summary-item shipping-method">
                     <h4 class="title-box">Mã giảm giá</h4>
-                    <form action="#" method="post">
+                    <form action="{{ route('client.cart.applyCoupon') }}" method="POST">
                         @csrf
                         <p class="row-in-form">
                             <label for="coupon-code">Nhập mã giảm giá:</label>
-                            <input id="coupon-code2" type="text" name="coupon_code" placeholder="Nhập mã giảm giá">
-                            <button type="submit" class="btn btn-small">Áp mã giảm giá</button>
+                            <input id="coupon-code2" type="text" name="coupon_code" placeholder="Nhập mã giảm giá"
+                                value="{{ session('coupon') ? session('coupon')['name'] : '' }}"
+                                {{ session('coupon') ? 'disabled' : '' }}>
+                            <button type="submit" class="btn btn-small" {{ session('coupon') ? 'disabled' : '' }}>Áp
+                                dụng</button>
                         </p>
-                        <a href="#" class="btn btn-small">Hủy</a>
+                        <a href="#" class="btn btn-small btn-delete-coupon"
+                            {{ session('coupon') ? '' : 'disabled' }}>Xóa
+                            mã giảm giá</a>
                     </form>
                 </div>
             </div>

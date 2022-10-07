@@ -34,37 +34,40 @@ Route::group(['namespace' => 'Client'], function () {
 
     Route::get('/search', [App\Http\Controllers\Client\HomeController::class, 'search'])->name('client.search');
     Route::get('/searchAjax', [App\Http\Controllers\Client\HomeController::class, 'searchAjax'])->name('client.searchAjax');
+    Route::group(['middleware' => ['user']], function () {
+        Route::group(['prefix' => 'tai-khoan'],   function () {
+            Route::get('', [App\Http\Controllers\Client\UserController::class, 'index'])->name('client.user.index');
+            Route::post('thay-doi-thong-tin', [App\Http\Controllers\Client\UserController::class, 'changeInformation'])->name('client.user.change_information');
+            Route::post('doi-mat-khau', [App\Http\Controllers\Client\UserController::class, 'changePassword'])->name('client.user.change_password');
+            Route::get('don-hang-cua-toi', [App\Http\Controllers\Client\OrderController::class, 'index'])->name('client.order');
+            Route::get('so-dia-chi', [App\Http\Controllers\Client\UserController::class, 'address'])->name('client.address');
+            Route::get('so-dia-chi/them', [App\Http\Controllers\Client\UserController::class, 'addAddress'])->name('client.address.create');
+            Route::post('so-dia-chi/them', [App\Http\Controllers\Client\UserController::class, 'addAddressPost'])->name('client.address.store');
+            Route::get('so-dia-chi/{id}/sua', [App\Http\Controllers\Client\UserController::class, 'editAddress'])->name('client.address.edit');
+            Route::post('so-dia-chi/{id}/sua', [App\Http\Controllers\Client\UserController::class, 'updateAddress'])->name('client.address.update');
+            Route::get('dat-mat-dinh/{id}', [App\Http\Controllers\Client\UserController::class, 'setDefault'])->name('client.address.set_default');
+            Route::get('so-dia-chi/{id}/xoa', [App\Http\Controllers\Client\UserController::class, 'deleteAddress'])->name('client.address.delete');
+        });
 
+        Route::group(['prefix' => 'gio-hang'], function () {
+            Route::get('', [App\Http\Controllers\Client\CartController::class, 'index'])->name('client.cart');
+            Route::post('/them-gio-hang', [App\Http\Controllers\Client\CartController::class, 'store'])->name('client.cart.add');
+            Route::post('xoa/', [App\Http\Controllers\Client\CartController::class, 'destroy'])->name('client.cart.delete');
+            Route::post('xoa-tat-ca', [App\Http\Controllers\Client\CartController::class, 'clear'])->name('client.cart.deleteAll');
+            Route::post('cap-nhat', [App\Http\Controllers\Client\CartController::class, 'update'])->name('client.cart.update');
+            Route::post('cap-nhat-tat-ca', [App\Http\Controllers\Client\CartController::class, 'updateAll'])->name('client.cart.updateAll');
+        });
 
-    Route::group(['prefix' => 'tai-khoan', 'middleware' => ['user']],   function () {
-        Route::get('', [App\Http\Controllers\Client\UserController::class, 'index'])->name('client.user.index');
-        Route::post('thay-doi-thong-tin', [App\Http\Controllers\Client\UserController::class, 'changeInformation'])->name('client.user.change_information');
-        Route::post('doi-mat-khau', [App\Http\Controllers\Client\UserController::class, 'changePassword'])->name('client.user.change_password');
-        Route::get('don-hang-cua-toi', [App\Http\Controllers\Client\OrderController::class, 'index'])->name('client.order');
-        Route::get('so-dia-chi', [App\Http\Controllers\Client\UserController::class, 'address'])->name('client.address');
-        Route::get('so-dia-chi/them', [App\Http\Controllers\Client\UserController::class, 'addAddress'])->name('client.address.create');
-        Route::post('so-dia-chi/them', [App\Http\Controllers\Client\UserController::class, 'addAddressPost'])->name('client.address.store');
-        Route::get('so-dia-chi/{id}/sua', [App\Http\Controllers\Client\UserController::class, 'editAddress'])->name('client.address.edit');
-        Route::post('so-dia-chi/{id}/sua', [App\Http\Controllers\Client\UserController::class, 'updateAddress'])->name('client.address.update');
-        Route::get('dat-mat-dinh/{id}', [App\Http\Controllers\Client\UserController::class, 'setDefault'])->name('client.address.set_default');
-        Route::get('so-dia-chi/{id}/xoa', [App\Http\Controllers\Client\UserController::class, 'deleteAddress'])->name('client.address.delete');
+        Route::get('/thanh-toan', [App\Http\Controllers\Client\CartController::class, 'checkout'])->name('client.cart.checkout');
+        Route::post('/ap-ma-giam-gia', [App\Http\Controllers\Client\CartController::class, 'applyCoupon'])->name('client.cart.applyCoupon');
+        Route::post('/huy-ma-giam-gia', [App\Http\Controllers\Client\CartController::class, 'cancelCoupon'])->name('client.cart.cancelCoupon');
     });
+
 
     Route::get('/san-pham-da-xem', [App\Http\Controllers\Client\ProductController::class, 'watched'])->name('client.product.watched');
     //category
 
-    Route::group(['prefix' => 'gio-hang','middleware' => ['user']], function () {
-        Route::get('', [App\Http\Controllers\Client\CartController::class, 'index'])->name('client.cart');
-        Route::post('/them-gio-hang', [App\Http\Controllers\Client\CartController::class, 'store'])->name('client.cart.add');
-        Route::post('xoa/', [App\Http\Controllers\Client\CartController::class, 'destroy'])->name('client.cart.delete');
-        Route::post('xoa-tat-ca', [App\Http\Controllers\Client\CartController::class, 'clear'])->name('client.cart.deleteAll');
-        Route::post('cap-nhat', [App\Http\Controllers\Client\CartController::class, 'update'])->name('client.cart.update');
-        Route::post('cap-nhat-tat-ca', [App\Http\Controllers\Client\CartController::class, 'updateAll'])->name('client.cart.updateAll');
-        // Route::get('thanh-toan', [App\Http\Controllers\Client\CartController::class, 'checkout'])->name('client.cart.checkout');
-        // Route::post('thanh-toan', [App\Http\Controllers\Client\CartController::class, 'checkoutPost'])->name('client.cart.checkout.post');
-    });
 
-    Route::get('/thanh-toan',[App\Http\Controllers\Client\CartController::class, 'checkout'])->name('client.cart.checkout');
 
 
     Route::group([], function () {

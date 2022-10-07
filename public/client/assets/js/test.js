@@ -519,3 +519,34 @@ $(".btnReplyComment").click(function (e) {
         });
     }
 });
+$(".btn-delete-coupon").click(function (e) {
+    e.preventDefault();
+    $.ajax({
+        url: "/huy-ma-giam-gia",
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        success: function (data) {
+            if (data.code == 200) {
+                Swal.fire({
+                    title: data.message,
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
+            }
+        },
+        error: function (data) {
+            Swal.fire({
+                title: data.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        },
+    });
+});

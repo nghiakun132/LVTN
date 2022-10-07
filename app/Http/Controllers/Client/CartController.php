@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Cart;
+use App\Models\Coupons;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -181,10 +182,50 @@ class CartController extends Controller
                 }
             ])
             ->get();
+        $total = 0;
+        foreach ($carts as $cart) {
+            $total += $cart->price * $cart->quantity;
+        }
         $data = [
             'carts' => $carts,
-            'user' => $user
+            'user' => $user,
+            'total' => $total
         ];
         return view('client.cart.checkout', $data);
+    }
+
+    public function applyCoupon(Request $request)
+    {
+        try {
+            $coupon = Coupons::where('coupon_code', $request->coupon_code)
+                ->where('coupon_status', 1)
+                ->first();
+            if (!$coupon) {
+                return redirect()->back()->with('error', 'Mã giảm giá không tồn tại hoặc đã hết hạn');
+            }
+            session()->put('coupon', [
+                'name' => $coupon->coupon_code,
+                'discount' => $coupon->coupon_discount,
+            ]);
+            return redirect()->back()->with('success', 'Áp dụng mã giảm giá thành công');
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', 'Có lỗi xảy ra');
+        }
+    }
+
+    public function cancelCoupon(Request $request)
+    {
+        try {
+            session()->forget('coupon');
+            return response()->json([
+                'code' => 200,
+                'message' => 'Hủy mã giảm giá thành công'
+            ], 200);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'code' => 500,
+                'message' => 'Hủy mã giảm giá thất bại'
+            ], 500);
+        }
     }
 }
