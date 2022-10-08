@@ -61,6 +61,9 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('/thanh-toan', [App\Http\Controllers\Client\CartController::class, 'checkout'])->name('client.cart.checkout');
         Route::post('/ap-ma-giam-gia', [App\Http\Controllers\Client\CartController::class, 'applyCoupon'])->name('client.cart.applyCoupon');
         Route::post('/huy-ma-giam-gia', [App\Http\Controllers\Client\CartController::class, 'cancelCoupon'])->name('client.cart.cancelCoupon');
+        Route::post('/dat-hang', [App\Http\Controllers\Client\CartController::class, 'checkoutPost'])->name('client.cart.checkoutPost');
+        Route::get('/huy-paypal', [App\Http\Controllers\Client\CartController::class, 'cancelTransaction'])->name('cancelTransaction');
+        Route::get('/hoan-thanh-paypal', [App\Http\Controllers\Client\CartController::class, 'successTransaction'])->name('successTransaction');
     });
 
 

@@ -44,7 +44,7 @@
                 </ul>
             </div>
             <div class="summary summary-checkout">
-                <form action="#" method="post">
+                <form action="{{route('client.cart.checkoutPost')}}" method="post">
                     @csrf
                     <div class="summary-item payment-method">
                         <h4 class="title-box">Phương thức thanh toán</h4>
@@ -84,7 +84,7 @@
                                     : number_format($total, 0, ',', '.') . ' VND' }}
                             </span>
                         </p>
-                        <button class="btn btn-medium" name="redirect">Đặt hàng ngay</button>
+                        <button class="btn btn-medium btn-order">Đặt hàng ngay</button>
                         {{-- @if ($countCart > 0)
                             <button class="btn btn-medium" name="redirect">Đặt hàng ngay</button>
                         @else
@@ -108,13 +108,13 @@
                                     Địa chỉ :
                                 </th>
                                 <td>
-                                    <Select class="form-control select_add" name="address_user">
+                                    <select class="form-control select_add" name="address_user" id="address-user">
                                         @foreach ($user->address as $address)
                                             <option value="{{ $address->id }}"
                                                 {{ $address->default == 1 ? 'selected' : '' }}>{{ $address->address }}
                                             </option>
                                         @endforeach
-                                    </Select>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>

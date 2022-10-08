@@ -550,3 +550,53 @@ $(".btn-delete-coupon").click(function (e) {
         },
     });
 });
+
+// $(".btn-order").click(function (e) {
+//     e.preventDefault();
+//     const method = $('input[name="payment_method"]:checked').val();
+//     const address = $("#address-user").val();
+//     const coupon = $("input[name='coupon_code']").val();
+//     if (method == undefined) {
+//         return Swal.fire({
+//             title: "Bạn chưa chọn phương thức thanh toán",
+//             icon: "error",
+//             showConfirmButton: false,
+//             timer: 2000,
+//         });
+//     }
+
+//     const data = {
+//         payment_method: method,
+//         address: address,
+//         coupon_code: coupon,
+//     };
+//     $.ajax({
+//         url: "/dat-hang",
+//         method: "POST",
+//         headers: {
+//             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+//         },
+//         data: data,
+//         success: function (data) {
+//             if (data.code == 200) {
+//                 Swal.fire({
+//                     title: data.message,
+//                     icon: "success",
+//                     showConfirmButton: false,
+//                     timer: 2000,
+//                 });
+//                 setTimeout(function () {
+//                     location.href = "/cam-on";
+//                 }, 2000);
+//             }
+//         },
+//         error: function (data) {
+//             Swal.fire({
+//                 title: data.responseJSON.message,
+//                 icon: "error",
+//                 showConfirmButton: false,
+//                 timer: 2000,
+//             });
+//         },
+//     });
+// });

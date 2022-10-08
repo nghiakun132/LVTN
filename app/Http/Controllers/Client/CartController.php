@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Coupons;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class CartController extends Controller
 {
@@ -226,6 +228,106 @@ class CartController extends Controller
                 'code' => 500,
                 'message' => 'Hủy mã giảm giá thất bại'
             ], 500);
+        }
+    }
+
+    public function checkoutPost(Request $request)
+    {
+        session()->put('address_id',$request->address_id);
+        $user = session('user');
+        $carts = Cart::where('user_id', $user->id)->get();
+        $total = 0;
+        foreach ($carts as $cart) {
+            $total += $cart->price * $cart->quantity;
+        }
+        $coupon = $request->coupon_code;
+        if ($coupon) {
+            $cp = Coupons::where('coupon_code', $coupon)
+                ->where('coupon_status', 1)
+                ->first()->coupon_discount;
+            if ($cp) {
+                $total = $total - ($cp / 100 * $total);
+            }
+        }
+        switch ($request->payment_method) {
+            case 'Paypal':
+                $paypal = new PayPalClient();
+                $paypal->setApiCredentials(config('paypal'));
+                $paypalToken = $paypal->getAccessToken();
+                $response = $paypal->createOrder([
+                    "intent" => "CAPTURE",
+                    "application_context" => [
+                        "return_url" => route('successTransaction'),
+                        "cancel_url" => route('cancelTransaction'),
+                    ],
+                    "purchase_units" => [
+                        0 => [
+                            "amount" => [
+                                "currency_code" => "USD",
+                                "value" => round($total  / 22850, 2),
+                            ]
+                        ]
+                    ]
+                ]);
+                if (isset($response['id']) && $response['id'] != null) {
+                    foreach ($response['links'] as $links) {
+                        if ($links['rel'] == 'approve') {
+                            return redirect()->away($links['href']);
+                        }
+                    }
+                    return redirect()
+                        ->route('client.cart.checkout')
+                        ->with('error', 'Something went wrong.');
+                } else {
+                    return redirect()
+                        ->route('client.cart.checkout')
+                        ->with('error', $response['message'] ?? 'Something went wrong.');
+                }
+                break;
+            case 'COD':
+                break;
+            case 'MOMO':
+                break;
+            case 'VnPay':
+                break;
+            default:
+                break;
+        }
+    }
+
+    public function cancelTransaction()
+    {
+        return redirect()->route('client.cart.checkout')->with('error', 'Thanh toán thất bại');
+    }
+
+    public function successTransaction(Request $request)
+    {
+        $provider = new PayPalClient();
+        $provider->setApiCredentials(config('paypal'));
+        $provider->getAccessToken();
+        $response = $provider->capturePaymentOrder($request['token']);
+
+        if (isset($response['status']) && $response['status'] == 'COMPLETED') {
+            $carts =  Cart::where('user_id', session('user')->id)->get();
+            $total = 0;
+            foreach ($carts as $cart) {
+                $total += $cart->price * $cart->quantity;
+            }
+            if(session('coupon')) {
+                $coupon = Coupons::where('coupon_code', session('coupon')['name'])
+                    ->where('coupon_status', 1)
+                    ->first();
+                $total = $total - ($coupon->coupon_discount / 100 * $total);
+            }
+            $order = new Order();
+            $order->user_id = session('user')->id;
+            $order->total = $total;
+            $order->payment_method = 'Paypal';
+            $order->address_id = session('address_id');
+            $order->status = 1;
+            $order->save();
+        } else {
+            dd($response);
         }
     }
 }
