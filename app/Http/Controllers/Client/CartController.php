@@ -7,10 +7,12 @@ use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Coupons;
 use App\Models\Order;
+use App\Models\Order_details;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class CartController extends Controller
@@ -233,7 +235,7 @@ class CartController extends Controller
 
     public function checkoutPost(Request $request)
     {
-        session()->put('address_id',$request->address_id);
+        session()->put('address_id', $request->address_user);
         $user = session('user');
         $carts = Cart::where('user_id', $user->id)->get();
         $total = 0;
@@ -285,13 +287,86 @@ class CartController extends Controller
                 }
                 break;
             case 'COD':
-                break;
-            case 'MOMO':
+                $this->action($total, "COD");
+                return redirect()->route('client.cart.success');
                 break;
             case 'VnPay':
+                try {
+                    $vnp_TmnCode = config('order.VNPay.vnp_TmnCode');
+                    $vnp_HashSecret = config('order.VNPay.vnp_HashSecret');
+                    $vnp_Url = config('order.VNPay.vnp_Url');
+                    $vnp_Returnurl = config('order.VNPay.vnp_Returnurl');
+                    $vnp_apiUrl = config('order.VNPay.vnp_apiUrl');
+                    $vnp_TxnRef = 'test' . date('YmdHis');
+                    $vnp_OrderInfo = "Thanh toán đơn hàng";
+                    $vnp_OrderType = 'billpayment';
+                    $vnp_Amount = (int)($total * 100);
+                    $vnp_Locale = 'vn';
+                    $vnp_BankCode = 'NCB';
+                    $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+                    //Add Params of 2.0.1 Version
+                    // $vnp_ExpireDate = $expire->format('YmdHis');
+
+                    $inputData = array(
+                        "vnp_Version" => "2.1.0",
+                        "vnp_TmnCode" => $vnp_TmnCode,
+                        "vnp_Amount" => $vnp_Amount,
+                        "vnp_Command" => "pay",
+                        "vnp_CreateDate" => date('YmdHis'),
+                        "vnp_CurrCode" => "VND",
+                        "vnp_IpAddr" => $vnp_IpAddr,
+                        "vnp_Locale" => $vnp_Locale,
+                        "vnp_OrderInfo" => $vnp_OrderInfo,
+                        "vnp_OrderType" => $vnp_OrderType,
+                        "vnp_ReturnUrl" => $vnp_Returnurl,
+                        "vnp_TxnRef" => $vnp_TxnRef,
+                        // "vnp_ExpireDate" => $vnp_ExpireDate,
+                    );
+                    if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                        $inputData['vnp_BankCode'] = $vnp_BankCode;
+                    }
+                    if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+                        $inputData['vnp_Bill_State'] = $vnp_Bill_State;
+                    }
+
+                    ksort($inputData);
+                    $query = "";
+                    $i = 0;
+                    $hashdata = "";
+                    foreach ($inputData as $key => $value) {
+                        if ($i == 1) {
+                            $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+                        } else {
+                            $hashdata .= urlencode($key) . "=" . urlencode($value);
+                            $i = 1;
+                        }
+                        $query .= urlencode($key) . "=" . urlencode($value) . '&';
+                    }
+                    $vnp_Url = $vnp_Url . "?" . $query;
+                    if (isset($vnp_HashSecret)) {
+                        $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
+                        $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+                    }
+                    $returnData = array(
+                        'code' => '00', 'message' => 'success', 'data' => $vnp_Url
+                    );
+                    return redirect()->away($vnp_Url);
+                } catch (\Exception $exception) {
+                    return redirect()->back()->with('error', 'Có lỗi xảy ra');
+                }
                 break;
             default:
                 break;
+        }
+    }
+
+    public function vnpay()
+    {
+        if (isset($_GET['vnp_ResponseCode']) && $_GET['vnp_ResponseCode'] == '00') {
+            $this->action($_GET['vnp_Amount'] / 100, "Thanh toán qua VNPAY");
+            return redirect()->route('client.cart.success');
+        } else {
+            return redirect()->route('client.cart.checkout')->with('error', 'Thanh toán thất bại');
         }
     }
 
@@ -308,26 +383,101 @@ class CartController extends Controller
         $response = $provider->capturePaymentOrder($request['token']);
 
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
-            $carts =  Cart::where('user_id', session('user')->id)->get();
-            $total = 0;
-            foreach ($carts as $cart) {
-                $total += $cart->price * $cart->quantity;
+            try {
+                DB::beginTransaction();
+                $carts =  Cart::where('user_id', session('user')->id)->get();
+                $total = 0;
+                foreach ($carts as $cart) {
+                    $total += $cart->price * $cart->quantity;
+                }
+                if (session('coupon')) {
+                    $coupon = Coupons::where('coupon_code', session('coupon')['name'])
+                        ->where('coupon_status', 1)
+                        ->first();
+                    $total = $total - ($coupon->coupon_discount / 100 * $total);
+                }
+                $order = new Order();
+                $order->order_code = 'DH' . date('ymdHis') . strtoupper(Str::random(8));
+                $order->user_id = session('user')->id;
+                $order->total = $total;
+                $order->payment_method = 'Paypal';
+                $order->address_id = session('address_id');
+                $order->status = 1;
+                $order->save();
+
+                foreach ($carts as $cart) {
+                    $orderDetail = new Order_details();
+                    $orderDetail->order_id = $order->id;
+                    $orderDetail->product_id = $cart->product_id;
+                    $orderDetail->quantity = $cart->quantity;
+                    $orderDetail->price = $cart->price;
+                    $orderDetail->save();
+                }
+                if (session('coupon')) {
+                    $coupon = Coupons::where('coupon_code', session('coupon')['name'])
+                        ->where('coupon_status', 1)
+                        ->first();
+                    $coupon->coupon_status = 0;
+                    $coupon->save();
+                }
+                Cart::where('user_id', session('user')->id)->delete();
+                session()->forget('coupon');
+                session()->forget('address_id');
+                DB::commit();
+                return redirect()->route('client.cart.success');
+            } catch (\Exception $exception) {
+                DB::rollBack();
+                return redirect()->route('client.cart.checkout')->with('error', 'Thanh toán thất bại');
             }
-            if(session('coupon')) {
-                $coupon = Coupons::where('coupon_code', session('coupon')['name'])
-                    ->where('coupon_status', 1)
-                    ->first();
-                $total = $total - ($coupon->coupon_discount / 100 * $total);
-            }
+        } else {
+            return redirect()
+                ->route('client.cart.checkout')
+                ->with('error', $response['message'] ?? 'Something went wrong.');
+        }
+    }
+
+    public function success()
+    {
+        return view('client.cart.success');
+    }
+
+    public function action($amount, $method)
+    {
+        try {
+            $carts = Cart::where('user_id', session('user')->id)->get();
+            DB::beginTransaction();
             $order = new Order();
+            $order->order_code = 'DH' . date('ymdHis') . strtoupper(Str::random(8));
             $order->user_id = session('user')->id;
-            $order->total = $total;
-            $order->payment_method = 'Paypal';
+            $order->total = $amount;
+            $order->payment_method = $method;
             $order->address_id = session('address_id');
             $order->status = 1;
             $order->save();
-        } else {
-            dd($response);
+
+            foreach ($carts as $cart) {
+                $orderDetail = new Order_details();
+                $orderDetail->order_id = $order->id;
+                $orderDetail->product_id = $cart->product_id;
+                $orderDetail->quantity = $cart->quantity;
+                $orderDetail->price = $cart->price;
+                $orderDetail->save();
+            }
+            if (session('coupon')) {
+                $coupon = Coupons::where('coupon_code', session('coupon')['name'])
+                    ->where('coupon_status', 1)
+                    ->first();
+                $coupon->coupon_status = 0;
+                $coupon->save();
+            }
+            Cart::where('user_id', session('user')->id)->delete();
+            session()->forget('coupon');
+            session()->forget('address_id');
+            DB::commit();
+            return redirect()->route('client.cart.success');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return redirect()->route('client.cart.checkout')->with('error', 'Thanh toán thất bại');
         }
     }
 }

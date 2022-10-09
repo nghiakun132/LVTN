@@ -18,32 +18,87 @@
                     <div class="account-info">Quản lý đơn hàng</div>
                     <div class="styles__StyledTab-sc-e27b7w-2 krSXKE">
                         <div width="16.666666666666668%" class="order-active"><a style="padding: 10px"
-                                href="">Tất
+                                href="{{ route('client.order') }}">Tất
                                 cả đơn</a></div>
-                        <div width="16.666666666666668%" class="order-status" data-status="pending"><a
+                        <div width="16.666666666666668%" class="order-status" data-status="cho-xac-nhan"><a
                                 style="padding: 10px"
-                                href="{{ request()->fullUrlWithQuery(['status' => 'pending']) }}">Chờ
-                                thanh toán</a></div>
-                        <div width="16.666666666666668%" class="order-status" data-status="processing"><a
+                                href="{{ request()->fullUrlWithQuery(['status' => 'cho-xac-nhan']) }}">Chờ xác nhận
+                            </a></div>
+                        <div width="16.666666666666668%" class="order-status" data-status="da-xac-nhan"><a
                                 style="padding: 10px"
-                                href="{{ request()->fullUrlWithQuery(['status' => 'processing']) }}">Đang
-                                xử
-                                lý</a></div>
-                        <div width="16.666666666666668%" class="order-status" data-status="shipping"><a
+                                href="{{ request()->fullUrlWithQuery(['status' => 'da-xac-nhan']) }}">Đã xác nhận</a>
+                        </div>
+                        <div width="16.666666666666668%" class="order-status" data-status="dang-van-chuyen"><a
                                 style="padding: 10px"
-                                href="{{ request()->fullUrlWithQuery(['status' => 'shipping']) }}">Đang
+                                href="{{ request()->fullUrlWithQuery(['status' => 'dang-van-chuyen']) }}">Đang
                                 vận chuyển</a></div>
-                        <div width="16.666666666666668%" class="order-status" data-status="shipped"><a
+                        <div width="16.666666666666668%" class="order-status" data-status="da-giao"><a
                                 style="padding: 10px"
-                                href="{{ request()->fullUrlWithQuery(['status' => 'shipped']) }}">Đã
+                                href="{{ request()->fullUrlWithQuery(['status' => 'da-giao']) }}">Đã
                                 giao</a></div>
-                        <div width="16.666666666666668%" class="order-status" data-status="canceled"><a
+                        <div width="16.666666666666668%" class="order-status" data-status="da-huy"><a
                                 style="padding: 10px"
-                                href="{{ request()->fullUrlWithQuery(['status' => 'canceled']) }}">Đã
+                                href="{{ request()->fullUrlWithQuery(['status' => 'da-huy']) }}">Đã
                                 huỷ</a></div>
+                    </div>
+                    <div class="width-screen">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID đơn hàng</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Trạng thái</th>
+                                        <th>Hình thức thanh toán</th>
+                                        <th>Chi tiết</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (count($orders) > 0)
+                                        @foreach ($orders as $order)
+                                            <tr>
+                                                <td>#{{ $order->order_code }}</td>
+                                                <td>{{ number_format($order->total, 0, ',', ',') . 'đ' }}
+                                                </td>
+                                                <td>{{ $order->created_at }}</td>
+                                                <td>
+                                                    @if ($order->status == 1)
+                                                        <span class="label label-warning">Đang
+                                                            chờ</span>
+                                                    @elseif ($order->status == 2)
+                                                        <span class="label label-success">Đã xác
+                                                            nhận</span>
+                                                    @elseif ($order->status == 3)
+                                                        <span class="label label-danger">Đang
+                                                            vận chuyển</span>
+                                                    @elseif ($order->status == 4)
+                                                        <span class="label label-info">Đã giao
+                                                            hàng</span>
+                                                    @elseif ($order->status == 0)
+                                                        <span class="label label-danger">Đã hủy
+                                                            đơn</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    {{ $order->payment_method }}
+                                                </td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="7" style="text-align:center">Không có đơn
+                                                hàng
+                                                nào</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-@stop
+    @stop

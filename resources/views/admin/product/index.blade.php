@@ -94,25 +94,40 @@
                                                                     </div>
                                                                 </form>
                                                             </td>
-                                                            <td>
-                                                                <a href="{{ route('admin.product.update', $product->pro_id) }}"
-                                                                    class="btn btn-primary btn-sm text-white">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
-                                                                <a class="btn btn-danger btn-sm text-white delete_product"
-                                                                    data-id="{{ $product->pro_id }}"
-                                                                    data-url="{{ route('admin.product.delete') }}">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </a>
-                                                                <a href="{{ route('admin.product.detail', $product->pro_id) }}"
-                                                                    class="btn btn-success btn-sm text-white">
-                                                                    <i class="fa fa-eye"></i>
-                                                                </a>
-                                                                <a href="{{ route('admin.product.addSales', $product->pro_id) }}"
-                                                                    class="btn btn-warning btn-sm text-white">
-                                                                    <i class="fa fa-percent"></i>
-                                                                </a>
-
+                                                            <td align="center">
+                                                                <div class="btn-group">
+                                                                    <button class="btn btn-secondary btn-sm" type="button">
+                                                                        <i class="fa fa-cog" aria-hidden="true"></i>
+                                                                    </button>
+                                                                    <button type="button"
+                                                                        class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+                                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                                        aria-expanded="false">
+                                                                    </button>
+                                                                    <div class="dropdown-menu">
+                                                                        <a href="{{ route('admin.product.update', $product->pro_id) }}"
+                                                                            class="dropdown-item text-warning">
+                                                                            <i class="fa fa-edit"></i>
+                                                                            Sửa
+                                                                        </a>
+                                                                        <a class="delete_product dropdown-item text-danger"
+                                                                            data-id="{{ $product->pro_id }}"
+                                                                            data-url="{{ route('admin.product.delete') }}">
+                                                                            <i class="fa fa-trash"></i>
+                                                                            Xóa
+                                                                        </a>
+                                                                        <a href="{{ route('admin.product.detail', $product->pro_id) }}"
+                                                                            class="dropdown-item text-success">
+                                                                            <i class="fa fa-eye"></i>
+                                                                            Chi tiết
+                                                                        </a>
+                                                                        <a href="{{ route('admin.product.addSales', $product->pro_id) }}"
+                                                                            class="dropdown-item text-secondary">
+                                                                            <i class="fa fa-percent"></i>
+                                                                            Khuyến mãi
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                     @endforeach

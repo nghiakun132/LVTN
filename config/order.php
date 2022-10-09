@@ -9,7 +9,8 @@ return [
         'vnp_TmnCode' => env('vnp_TmnCode'),
         'vnp_HashSecret' => env('vnp_HashSecret'),
         'vnp_apiUrl' => env('vnp_apiUrl'),
-        'vnp_Returnurl' => env('APP_URL') . env('vnp_Returnurl')
+        'vnp_Returnurl' => env('APP_URL') . env('vnp_Returnurl'),
+        'vnp_Url' => env('vnp_Url')
     ],
     'momo' => [
         'partnerCode' => env('partnerCode'),

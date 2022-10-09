@@ -67,8 +67,8 @@ class Product extends Model
     }
 
     //booted
-    protected static function booted()
-    {
-        static::addGlobalScope(new \App\Models\Scopes\StatusScope);
-    }
+    // protected static function booted()
+    // {
+    //     static::addGlobalScope(new \App\Models\Scopes\StatusScope);
+    // }
 }

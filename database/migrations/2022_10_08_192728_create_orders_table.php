@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('user_id');
             $table->integer('address_id');
             $table->decimal('total', 18, 0);
-            $table->integer('coupon_id')->nullable();
             $table->string('payment_method')->nullable();
             $table->integer('status');
             $table->timestamps();
