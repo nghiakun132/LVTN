@@ -27,7 +27,7 @@ return [
     ],
     [
         'name' => 'Đơn hàng',
-        'route' => 'admin.home',
+        'route' => 'admin.order.index',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
     [

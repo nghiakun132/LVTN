@@ -99,5 +99,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::post('/confirm-all', [App\Http\Controllers\Admin\CommentController::class, 'confirmAll'])->name('admin.comment.confirmAll');
             Route::post('/delete-all', [App\Http\Controllers\Admin\CommentController::class, 'deleteAll'])->name('admin.comment.deleteAll');
         });
+
+        Route::group(['prefix' => 'order'], function () {
+            Route::get('', [App\Http\Controllers\Admin\OrderController::class, 'index'])->name('admin.order.index');
+            Route::get('/{id}/detail', [App\Http\Controllers\Admin\OrderController::class, 'detail'])->name('admin.order.detail');
+            Route::get('/{id}/delete', [App\Http\Controllers\Admin\OrderController::class, 'delete'])->name('admin.order.delete');
+            Route::get('/{id}/change-status', [App\Http\Controllers\Admin\OrderController::class, 'changeStatus'])->name('admin.order.confirm');
+            Route::get('/{id}/cancel', [App\Http\Controllers\Admin\OrderController::class, 'Cancel'])->name('admin.order.cancel');
+            Route::get('/{id}/print', [App\Http\Controllers\Admin\OrderController::class, 'print'])->name('admin.order.print');
+        });
     });
 });
