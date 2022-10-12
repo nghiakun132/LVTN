@@ -37,4 +37,28 @@ class OrderController extends Controller
         ];
         return view('client.order.index', $data);
     }
+
+    public function detail($id)
+    {
+        $order = Order::where('id', $id)->where('user_id', session('user')->id)
+            ->with([
+                'orderDetails' => function ($query) {
+                    $query->with('product');
+                },
+            ])
+            ->first();
+
+        $data = [
+            'order' => $order,
+        ];
+        return view('client.order.detail', $data);
+    }
+
+    public function cancel($id)
+    {
+        $order = Order::find($id);
+        $order->status = 0;
+        $order->save();
+        return redirect()->back()->with('success', 'Đã hủy đơn hàng');
+    }
 }

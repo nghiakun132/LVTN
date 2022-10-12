@@ -29,10 +29,12 @@
                                             href="{{ route('admin.order.index') }}">
                                             <i class="fa fa-user-circle " aria-hidden="true"></i> Quay lại
                                         </a>
-                                        <a href="{{route('admin.order.print',$order->id)}}" target="_blank" class="btn btn-primary btn-sm text-white float-right mr-2">
-                                            <i class="fa fa-print" aria-hidden="true"></i> In đơn hàng
-                                        </a>
-
+                                        @if (!$order->status == 0)
+                                            <a href="{{ route('admin.order.print', $order->id) }}" target="_blank"
+                                                class="btn btn-primary btn-sm text-white float-right mr-2">
+                                                <i class="fa fa-print" aria-hidden="true"></i> In đơn hàng
+                                            </a>
+                                        @endif
                                     </div>
                                     <div class="card-body">
                                         <div class="row">

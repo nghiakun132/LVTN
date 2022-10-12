@@ -44,7 +44,7 @@
                 </ul>
             </div>
             <div class="summary summary-checkout">
-                <form action="{{route('client.cart.checkoutPost')}}" method="post">
+                <form action="{{ route('client.cart.checkoutPost') }}" method="post">
                     @csrf
                     <div class="summary-item payment-method">
                         <h4 class="title-box">Phương thức thanh toán</h4>
@@ -84,6 +84,9 @@
                                     : number_format($total, 0, ',', '.') . ' VND' }}
                             </span>
                         </p>
+
+                        <textarea name="note" id="note" cols="10" class="form-control" rows="5" style="margin-bottom: 5px" placeholder="Ghi chú đơn hàng"></textarea>
+
                         <button class="btn btn-medium btn-order">Đặt hàng ngay</button>
                         {{-- @if ($countCart > 0)
                             <button class="btn btn-medium" name="redirect">Đặt hàng ngay</button>

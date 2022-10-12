@@ -110,6 +110,8 @@ class OrderController extends Controller
         $pdf = PDF::loadView('admin.order.print', [
             'order' => $order,
         ]);
-        return $pdf->stream('invoice.pdf')->header('Content-Type', 'application/pdf');
+        return $pdf->download(
+            'DH' . date('YmdHis') . '.pdf'
+        );
     }
 }

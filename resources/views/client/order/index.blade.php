@@ -17,27 +17,38 @@
                 <div class="infomation">
                     <div class="account-info">Quản lý đơn hàng</div>
                     <div class="styles__StyledTab-sc-e27b7w-2 krSXKE">
-                        <div width="16.666666666666668%" class="order-active"><a style="padding: 10px"
-                                href="{{ route('client.order') }}">Tất
-                                cả đơn</a></div>
-                        <div width="16.666666666666668%" class="order-status" data-status="cho-xac-nhan"><a
-                                style="padding: 10px"
+                        <div width="16.666666666666668%"
+                            class="
+                            {{ !request()->get('status') == 1 ? 'order-active' : 'order-status' }}
+                            ">
+                            <a style="padding: 10px" href="{{ route('client.order') }}">Tất
+                                cả đơn</a>
+                        </div>
+                        <div width="16.666666666666668%"
+                            class="
+                        {{ request()->get('status') == 'cho-xac-nhan' ? 'order-active' : 'order-status' }}
+                        "
+                            data-status="cho-xac-nhan"><a style="padding: 10px"
                                 href="{{ request()->fullUrlWithQuery(['status' => 'cho-xac-nhan']) }}">Chờ xác nhận
                             </a></div>
-                        <div width="16.666666666666668%" class="order-status" data-status="da-xac-nhan"><a
-                                style="padding: 10px"
+                        <div width="16.666666666666668%"
+                            class="{{ request()->get('status') == 'da-xac-nhan' ? 'order-active' : 'order-status' }}"
+                            data-status="da-xac-nhan"><a style="padding: 10px"
                                 href="{{ request()->fullUrlWithQuery(['status' => 'da-xac-nhan']) }}">Đã xác nhận</a>
                         </div>
-                        <div width="16.666666666666668%" class="order-status" data-status="dang-van-chuyen"><a
-                                style="padding: 10px"
+                        <div width="16.666666666666668%"
+                            class="{{ request()->get('status') == 'dang-van-chuyen' ? 'order-active' : 'order-status' }}"
+                            data-status="dang-van-chuyen"><a style="padding: 10px"
                                 href="{{ request()->fullUrlWithQuery(['status' => 'dang-van-chuyen']) }}">Đang
                                 vận chuyển</a></div>
-                        <div width="16.666666666666668%" class="order-status" data-status="da-giao"><a
-                                style="padding: 10px"
+                        <div width="16.666666666666668%"
+                            class="{{ request()->get('status') == 'da-giao' ? 'order-active' : 'order-status' }}"
+                            data-status="da-giao"><a style="padding: 10px"
                                 href="{{ request()->fullUrlWithQuery(['status' => 'da-giao']) }}">Đã
                                 giao</a></div>
-                        <div width="16.666666666666668%" class="order-status" data-status="da-huy"><a
-                                style="padding: 10px"
+                        <div width="16.666666666666668%"
+                            class="{{ request()->get('status') == 'da-huy' ? 'order-active' : 'order-status' }}"
+                            data-status="da-huy"><a style="padding: 10px"
                                 href="{{ request()->fullUrlWithQuery(['status' => 'da-huy']) }}">Đã
                                 huỷ</a></div>
                     </div>
@@ -84,6 +95,18 @@
                                                     {{ $order->payment_method }}
                                                 </td>
                                                 <td>
+                                                    <a href="{{ route('client.order.detail', $order->id) }}"
+                                                        class="btn btn-primary btn-sm">
+                                                        <i class="fa fa-eye" aria-hidden="true"></i>Chi tiết</a>
+                                                    @if ($order->status !== 0)
+                                                        <a href="{{ route('client.order.cancel', $order->id) }}">
+                                                            <button class="btn btn-danger btn-sm">
+                                                                <i class="fa fa-times" aria-hidden="true"></i> Hủy
+                                                            </button>
+                                                        </a>
+                                                    @endif
+                                                </td>
+
                                                 </td>
                                             </tr>
                                         @endforeach

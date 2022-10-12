@@ -236,6 +236,7 @@ class CartController extends Controller
     public function checkoutPost(Request $request)
     {
         session()->put('address_id', $request->address_user);
+        session()->put('note', $request->note);
         $user = session('user');
         $carts = Cart::where('user_id', $user->id)->get();
         $total = 0;
@@ -300,7 +301,7 @@ class CartController extends Controller
                     $vnp_TxnRef = 'test' . date('YmdHis');
                     $vnp_OrderInfo = "Thanh toán đơn hàng";
                     $vnp_OrderType = 'billpayment';
-                    $vnp_Amount = (int)($total * 100);
+                    $vnp_Amount = (int)($total) * 100;
                     $vnp_Locale = 'vn';
                     $vnp_BankCode = 'NCB';
                     $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
@@ -400,6 +401,7 @@ class CartController extends Controller
                 $order->order_code = 'DH' . date('ymdHis') . strtoupper(Str::random(8));
                 $order->user_id = session('user')->id;
                 $order->total = $total;
+                $order->note = session('note');
                 $order->payment_method = 'Paypal';
                 $order->address_id = session('address_id');
                 $order->status = 1;
@@ -450,6 +452,7 @@ class CartController extends Controller
             $order->order_code = 'DH' . date('ymdHis') . strtoupper(Str::random(8));
             $order->user_id = session('user')->id;
             $order->total = $amount;
+            $order->note = session('note');
             $order->payment_method = $method;
             $order->address_id = session('address_id');
             $order->status = 1;
