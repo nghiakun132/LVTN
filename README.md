@@ -72,4 +72,5 @@ Email resest password
 Thông tin đăng nhập không đúng khi nhập sai email hoặc pass
 Hạn chế số lần đăng nhập sai
 -https://igorlino.github.io/elevatezoom-plus/
+https://fabric.inc/wp-content/uploads/hubspot/ecommerce-platform-data-1.png;
  
