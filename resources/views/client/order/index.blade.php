@@ -98,7 +98,7 @@
                                                     <a href="{{ route('client.order.detail', $order->id) }}"
                                                         class="btn btn-primary btn-sm">
                                                         <i class="fa fa-eye" aria-hidden="true"></i>Chi tiết</a>
-                                                    @if ($order->status !== 0)
+                                                    @if ($order->status == 1)
                                                         <a href="{{ route('client.order.cancel', $order->id) }}">
                                                             <button class="btn btn-danger btn-sm">
                                                                 <i class="fa fa-times" aria-hidden="true"></i> Hủy

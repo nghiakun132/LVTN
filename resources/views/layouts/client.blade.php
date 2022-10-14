@@ -273,10 +273,10 @@
                                                     của tôi</a>
                                             </li>
                                             <li class="menu-item list_hover">
-                                                <a title="Đơn hàng" href="#">Đơn hàng</a>
+                                                <a title="Đơn hàng" href="{{route('client.order')}}">Đơn hàng</a>
                                             </li>
                                             <li class="menu-item list_hover">
-                                                <a title="Danh sách yêu thích" href="#">Danh
+                                                <a title="Danh sách yêu thích" href="">Danh
                                                     sách
                                                     yêu thích</a>
                                             </li>

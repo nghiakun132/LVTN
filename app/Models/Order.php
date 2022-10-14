@@ -39,4 +39,23 @@ class Order extends Model
     {
         return $this->belongsTo(Coupons::class, 'coupon_id');
     }
+
+    public function getStatus()
+    {
+        switch ($this->status) {
+            case 1:
+                return 'Đang chờ xác nhận';
+
+            case 2:
+                return 'Đã xác nhận';
+            case 3:
+                return 'Đang giao hàng';
+            case 4:
+                return 'Đã giao hàng';
+            case 0:
+                return 'Đã hủy';
+            default:
+                return 'Đang chờ xác nhận';
+        }
+    }
 }
