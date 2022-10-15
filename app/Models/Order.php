@@ -15,6 +15,7 @@ class Order extends Model
         'order_code',
         'user_id',
         'address_id',
+        'delivery_agent_id',
         'total',
         'payment_method',
         'status'
@@ -38,6 +39,11 @@ class Order extends Model
     public function coupon()
     {
         return $this->belongsTo(Coupons::class, 'coupon_id');
+    }
+
+    public function deliveryAgent()
+    {
+        return $this->belongsTo(DeliveryAgent::class, 'delivery_agent_id');
     }
 
     public function getStatus()

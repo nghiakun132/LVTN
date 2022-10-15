@@ -35,10 +35,13 @@
                             <div class="gQjSfs">
                                 <div class="title">Hình thức giao hàng</div>
                                 <div class="content">
-                                    <p class="name">Bùi Hữu Nghĩa</p>
-                                    <p class="address"><span>Địa chỉ: </span>132, Hàm Nghi, Phường Bến Thành, Quận 1, Hồ
-                                        Chí Minh, Việt Nam</p>
-                                    <p class="phone"><span>Điện thoại: </span>0776585055</p>
+                                    <p class="address"><span>Tên: </span>{{ $order->deliveryAgent->name }}</p>
+                                    <p class="address"><span>Thời gian giao hàng:
+                                        </span><b>
+                                            {{ $order->deliveryAgent->getTimeDelivery($order->deliveryAgent->created_at) }}</b>
+                                    </p>
+                                    <p class="phone"><span>Phí vận chuyển:
+                                        </span>{{ number_format($order->deliveryAgent->fee, 0, ',', '.') }}₫</p>
                                 </div>
                             </div>
                             <div class="gQjSfs">
@@ -97,12 +100,12 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4"><span>Phí vận chuyển</span></td>
-                                    <td>18.000 ₫</td>
+                                    <td>{{ number_format($order->deliveryAgent->fee, 0, ',', '.') }}₫</td>
                                 </tr>
                                 <tr>
                                     <td colspan="4"><span>Tổng cộng</span></td>
                                     <td><span class="sum">
-                                            {{ number_format($total, 0, ',', '.') }}₫
+                                            {{ number_format($total + $order->deliveryAgent->fee, 0, ',', '.') }}₫
                                         </span></td>
                                 </tr>
                             </tfoot>

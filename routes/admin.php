@@ -108,5 +108,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::get('/{id}/cancel', [App\Http\Controllers\Admin\OrderController::class, 'Cancel'])->name('admin.order.cancel');
             Route::get('/{id}/print', [App\Http\Controllers\Admin\OrderController::class, 'print'])->name('admin.order.print');
         });
+
+        Route::group(['prefix' => 'delivery'], function () {
+            Route::get('', [App\Http\Controllers\Admin\DeliveryController::class, 'index'])->name('admin.delivery.index');
+            Route::post('', [App\Http\Controllers\Admin\DeliveryController::class, 'store'])->name('admin.delivery.store');
+            Route::get('/{id}/edit', [App\Http\Controllers\Admin\DeliveryController::class, 'edit'])->name('admin.delivery.edit');
+            Route::post('/{id}/edit', [App\Http\Controllers\Admin\DeliveryController::class, 'update'])->name('admin.delivery.update');
+            Route::get('/{id}/delete', [App\Http\Controllers\Admin\DeliveryController::class, 'destroy'])->name('admin.delivery.delete');
+            Route::get('/{id}/change-status', [App\Http\Controllers\Admin\DeliveryController::class, 'changeStatus'])->name('admin.delivery.confirm');
+        });
     });
 });

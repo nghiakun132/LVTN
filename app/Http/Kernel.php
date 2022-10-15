@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\checkCart;
 use App\Http\Middleware\checkUserLogin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\CheckLoginAdmin::class,
         'role' => \App\Http\Middleware\CheckRole::class,
         'user' => checkUserLogin::class,
+        'checkCart' => checkCart::class,
     ];
 }

@@ -58,6 +58,7 @@ class OrderController extends Controller
                             }
                         ]);
                     },
+                    'deliveryAgent'
                 ])
                 ->first();
 

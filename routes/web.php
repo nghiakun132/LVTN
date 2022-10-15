@@ -65,18 +65,17 @@ Route::group(['namespace' => 'Client'], function () {
         });
 
 
-
-        Route::get('/thanh-toan', [App\Http\Controllers\Client\CartController::class, 'checkout'])->name('client.cart.checkout');
-        Route::post('/thanh-toan', [App\Http\Controllers\Client\CartController::class, 'checkoutPost'])->name('client.cart.checkoutPost');
-        Route::post('/ap-ma-giam-gia', [App\Http\Controllers\Client\CartController::class, 'applyCoupon'])->name('client.cart.applyCoupon');
-        Route::post('/huy-ma-giam-gia', [App\Http\Controllers\Client\CartController::class, 'cancelCoupon'])->name('client.cart.cancelCoupon');
-        Route::get('/huy-paypal', [App\Http\Controllers\Client\CartController::class, 'cancelTransaction'])->name('cancelTransaction');
-        Route::get('/hoan-thanh-paypal', [App\Http\Controllers\Client\CartController::class, 'successTransaction'])->name('successTransaction');
+        Route::group(['middleware' => ['checkCart']], function () {
+            Route::get('/thanh-toan', [App\Http\Controllers\Client\CartController::class, 'checkout'])->name('client.cart.checkout');
+            Route::post('/thanh-toan', [App\Http\Controllers\Client\CartController::class, 'checkoutPost'])->name('client.cart.checkoutPost');
+            Route::post('/ap-ma-giam-gia', [App\Http\Controllers\Client\CartController::class, 'applyCoupon'])->name('client.cart.applyCoupon');
+            Route::post('/huy-ma-giam-gia', [App\Http\Controllers\Client\CartController::class, 'cancelCoupon'])->name('client.cart.cancelCoupon');
+            Route::get('/huy-paypal', [App\Http\Controllers\Client\CartController::class, 'cancelTransaction'])->name('cancelTransaction');
+            Route::get('/hoan-thanh-paypal', [App\Http\Controllers\Client\CartController::class, 'successTransaction'])->name('successTransaction');
+            Route::get('thanh-toan-vnpay', [App\Http\Controllers\Client\CartController::class, 'vnpay'])->name('vnpay');
+        });
         Route::get('/hoan-thanh', [App\Http\Controllers\Client\CartController::class, 'success'])->name('client.cart.success');
-        Route::get('thanh-toan-vnpay', [App\Http\Controllers\Client\CartController::class, 'vnpay'])->name('vnpay');
     });
-
-
     Route::get('/san-pham-da-xem', [App\Http\Controllers\Client\ProductController::class, 'watched'])->name('client.product.watched');
     //category
 

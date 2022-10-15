@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Coupons;
+use App\Models\DeliveryAgent;
 use App\Models\Order;
 use App\Models\Order_details;
 use App\Models\Product;
@@ -36,7 +37,7 @@ class CartController extends Controller
             }
             $data = [
                 'carts' => $carts,
-                'total' => $total
+                'total' => $total,
             ];
             return view('client.cart.index', $data);
         } catch (\Exception $e) {
@@ -172,6 +173,7 @@ class CartController extends Controller
 
     public function checkout(Request $request)
     {
+        $deliveries = DeliveryAgent::all();
         $user = User::where('id', session('user')->id)->with('address')
             ->select('id', 'name', 'email', 'phone')
             ->first();
@@ -193,6 +195,7 @@ class CartController extends Controller
         $data = [
             'carts' => $carts,
             'user' => $user,
+            'deliveries' => $deliveries,
             'total' => $total
         ];
         return view('client.cart.checkout', $data);
@@ -237,6 +240,7 @@ class CartController extends Controller
     {
         session()->put('address_id', $request->address_user);
         session()->put('note', $request->note);
+        session()->put('delivery_agent_id', $request->delivery_method);
         $user = session('user');
         $carts = Cart::where('user_id', $user->id)->get();
         $total = 0;
@@ -397,11 +401,15 @@ class CartController extends Controller
                         ->first();
                     $total = $total - ($coupon->coupon_discount / 100 * $total);
                 }
+
+                $fee = DeliveryAgent::where('id', session('delivery_agent_id'))->first();
+
                 $order = new Order();
                 $order->order_code = 'DH' . date('ymdHis') . strtoupper(Str::random(8));
                 $order->user_id = session('user')->id;
-                $order->total = $total;
+                $order->total = $total + $fee->fee;
                 $order->note = session('note');
+                $order->delivery_agent_id =  $fee->id;
                 $order->payment_method = 'Paypal';
                 $order->address_id = session('address_id');
                 $order->status = 1;
@@ -446,13 +454,15 @@ class CartController extends Controller
     public function action($amount, $method)
     {
         try {
+            $fee = DeliveryAgent::where('id', session('delivery_agent_id'))->first();
             $carts = Cart::where('user_id', session('user')->id)->get();
             DB::beginTransaction();
             $order = new Order();
             $order->order_code = 'DH' . date('ymdHis') . strtoupper(Str::random(8));
             $order->user_id = session('user')->id;
-            $order->total = $amount;
+            $order->total = $amount + $fee->fee;
             $order->note = session('note');
+            $order->delivery_agent_id = $fee->id;
             $order->payment_method = $method;
             $order->address_id = session('address_id');
             $order->status = 1;
@@ -476,6 +486,8 @@ class CartController extends Controller
             Cart::where('user_id', session('user')->id)->delete();
             session()->forget('coupon');
             session()->forget('address_id');
+            session()->forget('note');
+            session()->forget('delivery_agent_id');
             DB::commit();
             return redirect()->route('client.cart.success');
         } catch (\Exception $exception) {

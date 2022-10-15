@@ -521,6 +521,10 @@ $(".btnReplyComment").click(function (e) {
 });
 $(".btn-delete-coupon").click(function (e) {
     e.preventDefault();
+    const disable = $(this).attr("disabled");
+    if (disable == "disabled") {
+        return;
+    }
     $.ajax({
         url: "/huy-ma-giam-gia",
         method: "POST",
@@ -549,4 +553,13 @@ $(".btn-delete-coupon").click(function (e) {
             });
         },
     });
+});
+
+$(".delivery_method").change(function (e) {
+    const fee = $(this).data("fee");
+    $("#fee").text(parseInt(fee).toLocaleString("vi-VN") + "đ");
+    // $("#total").text(parseInt($("#total").data("total")) + parseInt(fee));
+    const total = $("#total").data("total");
+    const totalFee = parseInt(total) + parseInt(fee);
+    $("#total").text(parseInt(totalFee).toLocaleString("vi-VN") + "đ");
 });

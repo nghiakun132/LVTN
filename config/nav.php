@@ -62,6 +62,11 @@ return [
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
     [
+        'name' => 'Đơn vị vận chuyển',
+        'route' => 'admin.delivery.index',
+        'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
+    ],
+    [
         'name' => 'Bài viết',
         'route' => 'admin.home',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
