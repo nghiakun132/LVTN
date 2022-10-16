@@ -64,10 +64,65 @@
                     </form>
                 </div>
             </div>
+
             <div class="summary summary-checkout">
+                <div class="summary-item shipping-method">
+                    <h4 class="title-box f-title">Thông tin người nhận</h4>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>
+                                Họ tên :
+                            </th>
+                            <td>
+                                <b>{{ $user->name }}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Địa chỉ :
+                            </th>
+                            <td>
+                                <select class="form-control select_add" name="address_user" id="address-user">
+                                    @foreach ($user->address as $address)
+                                        <option value="{{ $address->id }}"
+                                            {{ $address->default == 1 ? 'selected' : '' }}>{{ $address->address }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                SĐT :
+                            </th>
+                            <td>
+                                <b>{{ $user->phone }}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="{{ route('client.address.create') }}" id="myBtn" class="btn btn-info">Thêm
+                                    địa
+                                    chỉ</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="summary-item payment-method">
+                    <h4 class="title-box">Phương thức vận chuyển</h4>
+                    <div class="choose-payment-methods">
+                        @foreach ($deliveries as $delivery)
+                            <label class="payment-method">
+                                <input name="delivery_method" value="{{ $delivery->id }}" class="delivery_method"
+                                    data-fee="{{ $delivery->fee }}" type="radio" required>
+                                <span>{{ $delivery->name }}</span>
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
                 <form action="{{ route('client.cart.checkoutPost') }}" method="post">
                     @csrf
-                    <div class="summary-item payment-method">
+                    <div class="summary-item payment-method" style="float: none">
                         <h4 class="title-box">Phương thức thanh toán</h4>
                         <div class="choose-payment-methods">
                             <label class="payment-method">
@@ -86,85 +141,37 @@
                                 <span>Thanh toán qua Paypal</span>
                             </label>
                         </div>
-                        <p class="summary-info grand-total"><span>Tạm tính</span> <span
-                                class="grand-total-price text-danger">&nbsp;&nbsp;
-                                {{ number_format($total, 0, ',', '.') . 'đ' }}</span>
-                        </p>
-                        <p class="summary-info grand-total"><span>Giảm giá</span> <span
-                                class="grand-total-price text-danger">&nbsp;&nbsp;
-                                {{ session('coupon') ? number_format($total * (session('coupon')['discount'] / 100), 0, ',', '.') . 'đ' : 0 }}</span>
-                        </p>
-                        <p class="summary-info grand-total"><span>Phí vận chuyển </span> <span id="fee"
-                                class="grand-total-price text-danger"> 0đ</span>
-                        </p>
-                        </p>
-                        <p class="summary-info grand-total"><span>Thành tiền</span> <span class="grand-total-price"
-                                style="color: red" id="total"
-                                data-total="{{ session('coupon') ? $total - $total * (session('coupon')['discount'] / 100) : $total }}">
-                                &nbsp;&nbsp;&nbsp;&nbsp;{{ session('coupon')
-                                    ? number_format($total - $total * (session('coupon')['discount'] / 100), 0, ',', '.') . 'đ'
-                                    : number_format($total, 0, ',', '.') . 'đ' }}
-                            </span>
-                        </p>
-
                         <textarea name="note" id="note" cols="10" class="form-control" rows="5" style="margin-bottom: 5px"
                             placeholder="Ghi chú đơn hàng"></textarea>
+                        <div style="float: right">
 
-                        <button class="btn btn-medium btn-order">Đặt hàng ngay</button>
-                    </div>
-                    <div class="summary-item payment-method">
-                        <h4 class="title-box">Phương thức vận chuyển</h4>
-                        <div class="choose-payment-methods">
-                            @foreach ($deliveries as $delivery)
-                                <label class="payment-method">
-                                    <input name="delivery_method" value="{{ $delivery->id }}" class="delivery_method"
-                                        data-fee="{{ $delivery->fee }}" type="radio" required>
-                                    <span>{{ $delivery->name }}</span>
-                                </label>
-                            @endforeach
+                            <p class="summary-info grand-total"><span>Tạm tính</span> <span
+                                    class="grand-total-price text-danger">&nbsp;&nbsp;
+                                    {{ number_format($total, 0, ',', '.') . 'đ' }}</span>
+                            </p>
+                            <p class="summary-info grand-total"><span>Giảm giá</span> <span
+                                    class="grand-total-price text-danger">&nbsp;&nbsp;
+                                    {{ session('coupon') ? number_format($total * (session('coupon')['discount'] / 100), 0, ',', '.') . 'đ' : 0 }}</span>
+                            </p>
+                            <p class="summary-info grand-total"><span>Phí vận chuyển </span> <span id="fee"
+                                    class="grand-total-price text-danger"> 0đ</span>
+                            </p>
+                            </p>
+                            <p class="summary-info grand-total"><span>Thành tiền</span> <span
+                                    class="grand-total-price" style="color: red" id="total"
+                                    data-total="{{ session('coupon') ? $total - $total * (session('coupon')['discount'] / 100) : $total }}">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;{{ session('coupon')
+                                        ? number_format($total - $total * (session('coupon')['discount'] / 100), 0, ',', '.') . 'đ'
+                                        : number_format($total, 0, ',', '.') . 'đ' }}
+                                </span>
+                            </p>
+
+                            <button class="btn btn-medium btn-order">Đặt hàng ngay</button>
                         </div>
+
                     </div>
-                    <div class="summary-item shipping-method">
-                        <h4 class="title-box f-title">Thông tin người nhận</h4>
-                        <table class="table table-striped">
-                            <tr>
-                                <th>
-                                    Họ tên :
-                                </th>
-                                <td>
-                                    <b>{{ $user->name }}</b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Địa chỉ :
-                                </th>
-                                <td>
-                                    <select class="form-control select_add" name="address_user" id="address-user">
-                                        @foreach ($user->address as $address)
-                                            <option value="{{ $address->id }}"
-                                                {{ $address->default == 1 ? 'selected' : '' }}>{{ $address->address }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    SĐT :
-                                </th>
-                                <td>
-                                    <b>{{ $user->phone }}</b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="{{ route('client.address.create') }}" id="myBtn"
-                                        class="btn btn-info">Thêm địa chỉ</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+
+
                 </form>
                 <br>
 

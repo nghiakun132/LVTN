@@ -86,6 +86,11 @@
                 <div class="wrap-product-detail">
                     <div class="detail-media">
                         <div class="product-gallery">
+                            <div class="love-this-button">
+                                <a title="Thêm vào sản phẩm yêu thích" id="add-wishlist" data-id="{{ $product->pro_id }}">
+                                    <i class="fa fa-heart" aria-hidden="true"></i>
+                                </a>
+                            </div>
                             <ul class="slides">
                                 @foreach ($images as $image)
                                     <li data-thumb="{{ asset('images/products/' . $image->path) }}">
@@ -352,8 +357,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <p class="note">Để gửi bình luận, bạn cần đăng nhập hoặc đăng ký tài khoản.
-                                        </p>
+                                        {{-- <p class="note">Để gửi bình luận, bạn cần đăng nhập hoặc đăng ký tài khoản.
+                                        </p> --}}
                                     </div>
                                     <div class="col col-end">
                                         <button id="btn-submit" type="submit"

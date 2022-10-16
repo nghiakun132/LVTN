@@ -75,6 +75,9 @@ Route::group(['namespace' => 'Client'], function () {
             Route::get('thanh-toan-vnpay', [App\Http\Controllers\Client\CartController::class, 'vnpay'])->name('vnpay');
         });
         Route::get('/hoan-thanh', [App\Http\Controllers\Client\CartController::class, 'success'])->name('client.cart.success');
+        Route::get('/danh-sach-san-pham-yeu-thich', [App\Http\Controllers\Client\ProductController::class, 'wishlist'])->name('client.wishlist');
+        Route::post('/them-san-pham-yeu-thich', [App\Http\Controllers\Client\ProductController::class, 'addWishlist'])->name('client.wishlist.add');
+        Route::post('/xoa-san-pham-yeu-thich', [App\Http\Controllers\Client\ProductController::class, 'removeWishlist'])->name('client.wishlist.delete');
     });
     Route::get('/san-pham-da-xem', [App\Http\Controllers\Client\ProductController::class, 'watched'])->name('client.product.watched');
     //category

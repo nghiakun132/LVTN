@@ -544,9 +544,18 @@
         opacity: 0.9;
         animation: 1s ease 0s 1 normal none running fade;
     }
+    .wrap-iten-in-cart .products-cart .quantity .quantity-input{
+        max-width: 75px;
+    }
+    .wrap-iten-in-cart .products-cart .quantity .quantity-input .btn::before{
+        margin-left: -5px;
+    }
 }
 
 @media screen and (max-width: 426px) {
+    .wrap-iten-in-cart .products-cart .quantity .quantity-input .btn::before{
+        margin-left: -5px;
+    }
     .product-thumnail3 {
         left: 80px;
     }
@@ -648,6 +657,9 @@
         visibility: visible;
         opacity: 0.9;
         animation: 1s ease 0s 1 normal none running fade;
+    }
+    .rc-form {
+        padding: 0;
     }
 }
 

@@ -622,3 +622,56 @@ body.no-scroll {
     height: 100%;
     overflow: hidden;
 }
+.love-this-button {
+    position: absolute;
+    right: 50%;
+    top: 20px;
+    z-index: 99;
+}
+.love-this-button a {
+    display: block;
+    border-radius: 17px;
+    padding: 8px 8px 3px 8px;
+    visibility: visible;
+    background: #fff7f8 0% 0% no-repeat padding-box;
+    box-shadow: 0 4px 6px #00000029;
+}
+.love-this-button a:hover i {
+    color: #f8061e;
+}
+.love-this-button i {
+    font-size: 25px;
+    line-height: 25px;
+    width: 25px;
+    color: #f58b95;
+}
+.love-this-button i.icon-love-2 {
+    display: none;
+}
+.delete-wishlist {
+    position: absolute;
+    right: 0;
+    bottom: 0px;
+    z-index: 99;
+    display: none;
+    background-color: #fa1919;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.item:hover .delete-wishlist {
+    display: block;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    0% {
+        bottom: -10px;
+        display: none;
+    }
+    100% {
+        bottom: 0px;
+        display: block;
+    }
+}

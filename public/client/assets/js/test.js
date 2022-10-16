@@ -563,3 +563,77 @@ $(".delivery_method").change(function (e) {
     const totalFee = parseInt(total) + parseInt(fee);
     $("#total").text(parseInt(totalFee).toLocaleString("vi-VN") + "đ");
 });
+$("#add-wishlist").click(function (e) {
+    e.preventDefault();
+    if ($("#add-to-cart").data("id") == 0) {
+        $("#login").modal({
+            backdrop: "static",
+            keyboard: false,
+        });
+    }
+    const id = $(this).data("id");
+    $.ajax({
+        url: "/them-san-pham-yeu-thich",
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        data: {
+            id: id,
+        },
+        success: function (data) {
+            if (data.code == 200) {
+                Swal.fire({
+                    title: data.message,
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            }
+        },
+        error: function (data) {
+            Swal.fire({
+                title: data.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        },
+    });
+});
+
+$(".delete-wishlist").click(function (e) {
+    e.preventDefault();
+    const id = $(this).data("id");
+    $.ajax({
+        url: "/xoa-san-pham-yeu-thich",
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        data: {
+            id: id,
+        },
+        success: function (data) {
+            if (data.code == 200) {
+                Swal.fire({
+                    title: data.message,
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
+            }
+        },
+        error: function (data) {
+            Swal.fire({
+                title: data.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        },
+    });
+});

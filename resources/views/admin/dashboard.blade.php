@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Dashboard v3</h1>
+                        <h1 class="m-0">Dashboard</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                            <li class="breadcrumb-item active">Dashboard v3</li>
+                            <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                     </div>
                 </div>
@@ -172,7 +172,25 @@
                             <div class="card-header border-0">
                                 <div class="d-flex justify-content-between">
                                     <h3 class="card-title">Sales</h3>
-                                    <a href="javascript:void(0);">View Report</a>
+                                    <div class="dropdown">
+                                        <button class="btn btn-tool dropdown-toggle" type="button" data-toggle="dropdown">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item">
+                                                <i class="fas fa-calendar-day"></i> 7 Day
+                                            </a>
+                                            <a href="#" class="dropdown-item">
+                                                <i class="fas fa-calendar-week"></i> Week
+                                            </a>
+                                            <a href="#" class="dropdown-item">
+                                                <i class="fas fa-calendar"></i> Month
+                                            </a>
+                                            <a href="#" class="dropdown-item">
+                                                <i class="fas fa-calendar-times"></i> Year
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -194,11 +212,10 @@
                                 </div>
 
                                 <div class="d-flex flex-row justify-content-end">
-                                    <span class="mr-2">
-                                        <i class="fas fa-square text-primary"></i> This year
+                                    <span class="mr-2 title-bar">
+                                        <i class="fas fa-square text-primary" ></i> This year
                                     </span>
-
-                                    <span>
+                                    <span class="title-bar">
                                         <i class="fas fa-square text-gray"></i> Last year
                                     </span>
                                 </div>
