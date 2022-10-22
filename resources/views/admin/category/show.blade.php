@@ -41,12 +41,17 @@
                                                         <div class="form-group">
                                                             <label for="c_name">Tên danh mục</label>
                                                             <input type="text" placeholder="Nhập tên danh mục"
-                                                                name="c_name" class="form-control" id="c_name"
-                                                                value="{{ $category->c_name }}">
+                                                                name="c_name"
+                                                                class="form-control
+                                                                @error('c_name') is-invalid @enderror"
+                                                                id="c_name" value="{{ $category->c_name }}">
+                                                            @if ($errors->has('c_name'))
+                                                                <div class="invalid-feedback">
+                                                                    {{ $errors->first('c_name') }}
+                                                                </div>
+                                                            @endif
                                                         </div>
-                                                        @if ($errors->has('c_name'))
-                                                            <span class="text-danger">{{ $errors->first('c_name') }}</span>
-                                                        @endif
+
                                                         <div class="form-group">
                                                             <label for="dob">Chọn danh mục cha</label>
                                                             <select class="custom-select custom-select-md mb-3"
@@ -64,7 +69,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">
+                                                Cập nhật
+                                            </button>
                                         </form>
                                     </div>
 

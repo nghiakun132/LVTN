@@ -10,7 +10,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Trang chủ</a></li>
                             <li class="breadcrumb-item active">Quản lý danh mục</li>
                         </ol>
                     </div>
@@ -114,11 +114,16 @@
                                     <div class="form-group">
                                         <label for="c_name">Tên danh mục</label>
                                         <input type="text" placeholder="Nhập tên danh mục" name="c_name"
-                                            class="form-control" id="c_name">
+                                            class="form-control
+                                            @error('c_name') is-invalid @enderror"
+                                            id="c_name">
+                                        @if ($errors->has('c_name'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('c_name') }}
+                                            </div>
+                                        @endif
                                     </div>
-                                    @if ($errors->has('c_name'))
-                                        <span class="text-danger">{{ $errors->first('c_name') }}</span>
-                                    @endif
+
                                     <div class="form-group">
                                         <label for="dob">Chọn danh mục cha</label>
                                         <select class="custom-select custom-select-md mb-3" name="parent_id">

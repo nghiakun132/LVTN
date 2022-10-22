@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Repositories\Import;
+namespace App\Repositories;
 
 use App\Models\imports;
-use App\Repositories\BaseRepository;
 
 class ImportRepository extends BaseRepository
 {

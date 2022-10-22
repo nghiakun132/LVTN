@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Repositories\Delivery;
+namespace App\Repositories;
 
 use App\Models\DeliveryAgent;
-use App\Repositories\BaseRepository;
 
 class DeliveryRepository extends BaseRepository
 {

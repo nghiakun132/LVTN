@@ -70,10 +70,12 @@
                                                                 <a href="{{ route('admin.brand.show', $brand->b_id) }}"
                                                                     class="btn btn-primary btn-sm">
                                                                     <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                                    Sửa
                                                                 </a>
                                                                 <a href="{{ route('admin.brand.delete', $brand->b_id) }}"
                                                                     class="btn btn-danger btn-sm">
                                                                     <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                    Xóa
                                                                 </a>
                                                             </td>
                                                         </tr>
@@ -109,32 +111,47 @@
                                     <div class="form-group">
                                         <label for="b_name">Tên thương hiệu</label>
                                         <input type="text" placeholder="Nhập tên thương hiệu" name="b_name"
-                                            class="form-control" id="b_name">
+                                            class="form-control
+                                            @error('b_name') is-invalid @enderror"
+                                            id="b_name">
+                                        @if ($errors->has('b_name'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('b_name') }}
+                                            </div>
+                                        @endif
                                     </div>
-                                    @if ($errors->has('b_name'))
-                                        <span class="text-danger">{{ $errors->first('b_name') }}</span>
-                                    @endif
+
                                     <div class="form-group">
                                         <label for="b_category">Danh mục</label>
-                                        <select class="custom-select custom-select-xl" name="b_category_id">
-                                            <option selected>Chọn danh mục</option>
+                                        <select
+                                            class="custom-select custom-select-md @error('b_category_id') is-invalid @enderror"
+                                            name="b_category_id">
+                                            <option value="" selected>Chọn danh mục</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->c_id }}">{{ $category->c_name }}</option>
                                             @endforeach
                                         </select>
+                                        @if ($errors->has('b_category_id'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('b_category_id') }}
+                                            </div>
+                                        @endif
                                     </div>
-                                    @if ($errors->has('b_category_id'))
-                                        <span class="text-danger">{{ $errors->first('b_category_id') }}</span>
-                                    @endif
-                                    <div class="input-group">
-                                        <input type="file" class="form-control" id="inputGroupFile04" name="b_banner">
-                                        <button class="btn btn-outline-secondary" type="button"
-                                            id="delete-img">Xóa</button>
+                                    <div class="form-group">
+                                        <label for="b_banner">Avatar</label>
+                                        <div class="input-group">
+                                            <input type="file" class="form-control" id="inputGroupFile04"
+                                                name="b_banner">
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                id="delete-img">Xóa</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">
+                            Thêm mới
+                        </button>
                     </form>
                 </div>
             </div>

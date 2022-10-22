@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\ImportExport;
 use App\Http\Controllers\Controller;
-use App\Repositories\Import\ImportRepository;
+use App\Repositories\ImportRepository;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;

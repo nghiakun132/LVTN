@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BrandRequest;
 use App\Models\Category;
-use App\Repositories\Brand\BrandRepository;
-use App\Repositories\Category\CategoryRepository;
+use App\Repositories\BrandRepository;
+use App\Repositories\CategoryRepository;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,8 +39,19 @@ class BrandController extends Controller
         return view('admin.brand.index', $data);
     }
 
-    public function store(BrandRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'b_name' => 'required',
+            'b_category_id' => 'required',
+            'b_name' => 'required|' . Rule::unique('brands', 'b_name')->where(function ($query) use ($request) {
+                return $query->where('b_category_id', $request->b_category_id);
+            }),
+        ], [
+            'b_name.required' => 'Tên thương hiệu không được để trống',
+            'b_category_id.required' => 'Danh mục không được để trống',
+            'b_name.unique' => 'Tên thương hiệu và danh mục đã tồn tại ',
+        ]);
         try {
             DB::beginTransaction();
             $data = [

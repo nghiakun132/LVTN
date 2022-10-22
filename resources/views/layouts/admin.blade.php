@@ -185,18 +185,12 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-                                </p>
-                            </a>
-                        </li>
-
                         @foreach (config('nav') as $key => $item)
-                            <li class="nav-item">
-                                <a href="{{ route($item['route']) }}" class="nav-link">
+                            <li class="nav-item {{ request()->is($item['prefix'] . '*') ? 'menu-open' : '' }}">
+                                <a href="{{ route($item['route']) }}"
+                                    class="nav-link
+                                    {{ request()->is($item['prefix'] . '*') ? 'active' : '' }}
+                                ">
                                     <?php echo $item['icons']; ?>
                                     <p>
                                         {{ $item['name'] }}

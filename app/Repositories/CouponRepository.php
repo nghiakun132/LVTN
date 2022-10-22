@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Repositories\Coupon;
+namespace App\Repositories;
 
 use App\Models\Coupons;
-use App\Repositories\BaseRepository;
 
 class CouponRepository extends BaseRepository
 {

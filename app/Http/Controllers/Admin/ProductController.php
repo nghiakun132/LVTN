@@ -6,15 +6,14 @@ use App\Exports\ProductExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Imports\ProductImport;
-use App\Models\Colors;
 use App\Models\Groups;
 use App\Models\Images;
 use App\Models\import_details;
 use App\Models\sales_products;
-use App\Repositories\Category\CategoryRepository;
-use App\Repositories\Import\ImportRepository;
-use App\Repositories\Product\ProductRepository;
-use App\Repositories\Sale\SaleRepository;
+use App\Repositories\CategoryRepository;
+use App\Repositories\ImportRepository;
+use App\Repositories\ProductRepository;
+use App\Repositories\SaleRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -51,6 +50,7 @@ class ProductController extends Controller
                 $query->select('group_id', 'name', 'slug');
             },
         ]);
+
         $data = [
             'products' => $products,
         ];
@@ -58,7 +58,9 @@ class ProductController extends Controller
     }
     public function create()
     {
-        $imports = $this->importRepository->getAll();
+        $imports = $this->importRepository->whereGetAll([
+            'i_status' => 1,
+        ]);
         $categories = $this->categoryRepository->getWithRelationship([
             'parent'
         ]);
@@ -95,6 +97,13 @@ class ProductController extends Controller
 
                 $importDetail = new import_details();
                 $importDetail->import_id = $import;
+                $importDetail->product_id = $product;
+                $importDetail->quantity = $request->pro_quantity;
+                $importDetail->price = $request->pro_price;
+                $importDetail->save();
+            } else {
+                $importDetail = new import_details();
+                $importDetail->import_id = $request->import_id;
                 $importDetail->product_id = $product;
                 $importDetail->quantity = $request->pro_quantity;
                 $importDetail->price = $request->pro_price;

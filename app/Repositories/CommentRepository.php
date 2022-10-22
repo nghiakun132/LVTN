@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Repositories\Comment;
+namespace App\Repositories;
 
 use App\Models\Comment;
-use App\Repositories\BaseRepository;
 
 class CommentRepository extends BaseRepository
 {

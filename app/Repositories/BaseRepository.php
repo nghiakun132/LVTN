@@ -77,4 +77,9 @@ abstract class BaseRepository implements RepositoryInterface
     {
         return $this->model->insertGetId($attributes);
     }
+
+    public function whereGetAll(array $where)
+    {
+        return $this->model->where($where)->get();
+    }
 }

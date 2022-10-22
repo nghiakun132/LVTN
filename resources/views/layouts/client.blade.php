@@ -273,10 +273,11 @@
                                                     của tôi</a>
                                             </li>
                                             <li class="menu-item list_hover">
-                                                <a title="Đơn hàng" href="{{route('client.order')}}">Đơn hàng</a>
+                                                <a title="Đơn hàng" href="{{ route('client.order') }}">Đơn hàng</a>
                                             </li>
                                             <li class="menu-item list_hover">
-                                                <a title="Danh sách yêu thích" href="{{route('client.wishlist')}}">Danh
+                                                <a title="Danh sách yêu thích"
+                                                    href="{{ route('client.wishlist') }}">Danh
                                                     sách
                                                     yêu thích</a>
                                             </li>
@@ -370,7 +371,7 @@
                     <div class="container">
                         <ul class="root clone-main-menu" data-menuname="Danh mục" id="mercado_main">
                             @foreach ($categoriesGlobal as $category)
-                                <li class="menu-item">
+                                <li class="menu-item {{ request()->is($category->c_slug . '*') ? 'actived' : '' }}">
                                     <a href="{{ route('client.category', $category->c_slug) }}" target="_self">
                                         <span class="icon-category">{{ $category->c_name }}</span>
                                     </a>
@@ -462,7 +463,6 @@
                                     </div>
                                 </li>
                             @endforeach
-
                         </ul>
                     </div>
                 </nav>

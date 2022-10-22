@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Brand;
+namespace App\Repositories;
 
 use App\Models\Brands;
 use App\Repositories\BaseRepository;

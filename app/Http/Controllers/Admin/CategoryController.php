@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Category\CategoryRepository;
+use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -59,7 +59,7 @@ class CategoryController extends Controller
             $data['updated_at'] = date('Y-m-d H:i:s');
             $this->categoryRepository->create($data);
             DB::commit();
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Thêm mới thành công');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
@@ -109,10 +109,10 @@ class CategoryController extends Controller
             $result  = $this->categoryRepository->update($data, $id);
             if (!$result) {
                 DB::rollBack();
-                return redirect()->back();
+                return redirect()->back()->with('error', 'Cập nhật thất bại');
             }
             DB::commit();
-            return redirect()->route('admin.category.index');
+            return redirect()->route('admin.category.index')->with('success', 'Cập nhật thành công');
         } catch (\Exception $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -125,7 +125,7 @@ class CategoryController extends Controller
             DB::beginTransaction();
             $this->categoryRepository->delete($id);
             DB::commit();
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Xóa thành công');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());

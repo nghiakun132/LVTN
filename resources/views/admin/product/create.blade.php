@@ -32,66 +32,94 @@
                                             <div class="form-group">
                                                 <label for="pro_name">Tên</label>
                                                 <input type="text" placeholder="Nhập tên" name="pro_name"
-                                                    class="form-control" id="pro_name">
+                                                    class="form-control
+                                                    @error('pro_name') is-invalid @enderror"
+                                                    id="pro_name">
+                                                @if ($errors->has('pro_name'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('pro_name') }}
+                                                    </div>
+                                                @endif
                                             </div>
-                                            @if ($errors->has('pro_name'))
-                                                <span class="text-danger">{{ $errors->first('pro_name') }}</span>
-                                            @endif
                                             <div class="form-group">
                                                 <label for="sku">SKU</label>
-                                                <input type="text" placeholder="Nhập tên" name="sku"
-                                                    class="form-control" id="sku">
+                                                <input type="text" placeholder="Nhập SKU" name="sku"
+                                                    class="form-control @error('sku') is-invalid @enderror" id="sku">
+                                                @if ($errors->has('sku'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('sku') }}
+                                                    </div>
+                                                @endif
                                             </div>
-                                            @if ($errors->has('sku'))
-                                                <span class="text-danger">{{ $errors->first('sku') }}</span>
-                                            @endif
+
                                             <div class="form-group mt-4">
                                                 <label for="pro_price">Giá</label>
                                                 <input type="number" placeholder="Nhập giá" name="pro_price"
-                                                    class="form-control" id="pro_price">
+                                                    class="form-control @error('pro_price') is-invalid @enderror"
+                                                    id="pro_price">
+                                                @if ($errors->has('pro_price'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('pro_price') }}
+                                                    </div>
+                                                @endif
                                             </div>
-                                            @if ($errors->has('pro_price'))
-                                                <span class="text-danger">{{ $errors->first('pro_price') }}</span>
-                                            @endif
+
                                             <div class="form-group mt-4">
                                                 <label for="pro_sale">Giảm giá</label>
                                                 <input type="number" placeholder="Nhập giảm giá" name="pro_sale"
-                                                    class="form-control" id="pro_sale">
+                                                    class="form-control @error('pro_sale') is-invalid @enderror"
+                                                    id="pro_sale">
+                                                @if ($errors->has('pro_sale'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('pro_sale') }}
+                                                    </div>
+                                                @endif
                                             </div>
-                                            @if ($errors->has('pro_sale'))
-                                                <span class="text-danger">{{ $errors->first('pro_sale') }}</span>
-                                            @endif
+
                                             <div class="form-group">
                                                 <label for="pro_avatar">Ảnh đại diện</label>
                                                 <div class="input-group">
-                                                    <input type="file" class="form-control" id="inputGroupFile04"
-                                                        name="pro_avatar">
+                                                    <input type="file"
+                                                        class="form-control @error('pro_avatar') is-invalid @enderror"
+                                                        id="inputGroupFile04" name="pro_avatar">
                                                     <button class="btn btn-outline-secondary" type="button"
                                                         id="delete-img">Xóa</button>
+                                                    @if ($errors->has('pro_avatar'))
+                                                        <div class="invalid-feedback">
+                                                            {{ $errors->first('pro_avatar') }}
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
-                                            @if ($errors->has('pro_avatar'))
-                                                <span class="text-danger">{{ $errors->first('pro_avatar') }}</span>
-                                            @endif
                                         </div>
                                         <div class="col-md-4 mt-4">
                                             <div class="form-group">
                                                 <label for="pro_name">Danh mục</label>
-                                                <select class="custom-select custom-select-md mb-3" name="pro_category_id"
-                                                    id="categories">
-                                                    <option value="0">Chọn danh mục</option>
+                                                <select
+                                                    class="custom-select custom-select-md @error('pro_category_id') is-invalid @enderror"
+                                                    name="pro_category_id" id="categories">
+                                                    <option value="">Chọn danh mục</option>
                                                     <?php echo $showSelect; ?>
                                                 </select>
+                                                @if ($errors->has('pro_category_id'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('pro_category_id') }}
+                                                    </div>
+                                                @endif
                                             </div>
-                                            @if ($errors->has('pro_category_id'))
-                                                <span class="text-danger">{{ $errors->first('pro_category_id') }}</span>
-                                            @endif
+
                                             <div class="form-group">
                                                 <label for="pro_name">Thương hiệu</label>
-                                                <select class="form-control form-control-xl" name="pro_brand_id"
-                                                    id="brands">
-                                                    <option value="0" selected>Chọn thương hiệu</option>
+                                                <select
+                                                    class="form-control @error('pro_name') is-invalid @enderror form-control-md"
+                                                    name="pro_brand_id" id="brands">
+                                                    <option value="" selected>Chọn thương hiệu</option>
                                                 </select>
+                                                @if ($errors->has('pro_brand_id'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('pro_brand_id') }}
+                                                    </div>
+                                                @endif
                                             </div>
                                             <div class="form-group">
                                                 <label for="pro_name">Nhóm</label>
@@ -112,6 +140,19 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
+                                                <label for="pro_quantity">Số lượng</label>
+                                                <input type="text" placeholder="Nhập số lượng" name="pro_quantity"
+                                                    class="form-control
+                                                    @error('pro_quantity') is-invalid @enderror"
+                                                    id="pro_quantity">
+                                                @if ($errors->has('pro_quantity'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('pro_quantity') }}
+                                                    </div>
+                                                @endif
+                                            </div>
+
+                                            <div class="form-group">
                                                 <label for="pro_name">Hóa đơn nhập hàng</label>
                                                 <select class="custom-select" name="import_id" id="import">
                                                     <option selected value="0">Chọn
@@ -124,14 +165,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-4">
-                                            <div class="form-group">
-                                                <label for="pro_quantity">Số lượng</label>
-                                                <input type="text" placeholder="Nhập số lượng" name="pro_quantity"
-                                                    class="form-control" id="pro_quantity">
-                                            </div>
-                                            @if ($errors->has('pro_quantity'))
-                                                <span class="text-danger">{{ $errors->first('pro_quantity') }}</span>
-                                            @endif
+
                                             <div class="form-group mt-4">
                                                 <label for="pro_content">Nội dung</label>
                                                 <textarea name="pro_content" id="pro_content" cols="30" rows="2.5" class="form-control"></textarea>

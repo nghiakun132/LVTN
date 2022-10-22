@@ -81,13 +81,14 @@
                                                                 @if ($user->status == 0)
                                                                     <a data-id="{{ $user->id }}"
                                                                         class="user-active"><span
-                                                                            class="badge badge-success">Hoạt
+                                                                            class="badge badge-success"> Đang hoạt
                                                                             động</span></a>
                                                                 @else
                                                                     <a data-id="{{ $user->id }}"
                                                                         class="user-active"><span
                                                                             class="badge
-                                                                        badge-danger">Khóa</span></a>
+                                                                        badge-danger">Đang
+                                                                            khóa</span></a>
                                                                 @endif
                                                             </td>
                                                             <td>

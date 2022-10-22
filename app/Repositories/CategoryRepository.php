@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Repositories\Category;
+namespace App\Repositories;
 
 use App\Models\Category;
-use App\Repositories\BaseRepository;
 
 class CategoryRepository extends BaseRepository
 {

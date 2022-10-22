@@ -10,7 +10,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Trang chủ</a></li>
                             <li class="breadcrumb-item active">Chỉnh sửa thương hiệu</li>
                         </ol>
                     </div>
@@ -41,28 +41,36 @@
                                                         <div class="form-group">
                                                             <label for="b_name">Tên thương hiệu</label>
                                                             <input type="text" placeholder="Nhập tên thương hiệu"
-                                                                name="b_name" class="form-control" id="b_name"
-                                                                value="{{ $brand->b_name }}">
+                                                                name="b_name"
+                                                                class="form-control
+                                                                @error('b_name') is-invalid @enderror
+                                                                "
+                                                                id="b_name" value="{{ $brand->b_name }}">
+                                                            @if ($errors->has('b_name'))
+                                                                <div class="invalid-feedback">
+                                                                    {{ $errors->first('b_name') }}
+                                                                </div>
+                                                            @endif
                                                         </div>
-                                                        @if ($errors->has('b_name'))
-                                                            <span class="text-danger">{{ $errors->first('b_name') }}</span>
-                                                        @endif
+
                                                         <div class="form-group">
                                                             <label for="b_category">Danh mục</label>
-                                                            <select class="custom-select custom-select-xl"
+                                                            <select
+                                                                class="custom-select custom-select-xl @error('b_category_id') is-invalid @enderror"
                                                                 name="b_category_id">
-                                                                <option>Chọn thương hiệu</option>
+                                                                <option value="">Chọn thương hiệu</option>
                                                                 @foreach ($categories as $category)
                                                                     <option value="{{ $category->c_id }}"
                                                                         {{ $brand->b_category_id == $category->c_id ? 'selected' : '' }}>
                                                                         {{ $category->c_name }}</option>
                                                                 @endforeach
                                                             </select>
+                                                            @if ($errors->has('b_category_id'))
+                                                                <span
+                                                                    class="text-danger">{{ $errors->first('b_category_id') }}</span>
+                                                            @endif
                                                         </div>
-                                                        @if ($errors->has('b_category_id'))
-                                                            <span
-                                                                class="text-danger">{{ $errors->first('b_category_id') }}</span>
-                                                        @endif
+
                                                         <div class="input-group">
                                                             <input type="file" class="form-control" id="inputGroupFile04"
                                                                 name="b_banner">
@@ -72,7 +80,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">
+                                                Cập nhật
+                                            </button>
                                         </form>
                                     </div>
 
