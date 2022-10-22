@@ -117,5 +117,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::get('/{id}/delete', [App\Http\Controllers\Admin\DeliveryController::class, 'destroy'])->name('admin.delivery.delete');
             Route::get('/{id}/change-status', [App\Http\Controllers\Admin\DeliveryController::class, 'changeStatus'])->name('admin.delivery.confirm');
         });
+
+        Route::group(['prefix' => 'user'], function () {
+            Route::get('', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.user.index');
+            Route::post('/active', [App\Http\Controllers\Admin\UserController::class, 'active'])->name('admin.user.active');
+            Route::get('/{id}/delete', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.user.delete');
+            Route::get('/{id}/change-status', [App\Http\Controllers\Admin\UserController::class, 'changeStatus'])->name('admin.user.confirm');
+        });
     });
 });

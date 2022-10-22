@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Repositories\Staff;
+namespace App\Repositories;
 
-use App\Models\Admin;
-use App\Repositories\BaseRepository;
-use App\Repositories\RepositoryInterface;
+use App\Models\User;
 
-class StaffRepository extends BaseRepository implements RepositoryInterface
+class UserRepository extends BaseRepository implements RepositoryInterface
 {
     public function getModel()
     {
-        return Admin::class;
+        return User::class;
     }
     public function getAll()
     {

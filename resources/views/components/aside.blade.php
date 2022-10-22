@@ -49,13 +49,13 @@
                 <span>Nhận
                     xét sản phẩm đã mua</span></a></li>
 
-        <li><a href="#">
+        <li><a href="{{route('client.product.watched')}}">
                 <span>
                     <i class="fa fa-eye" aria-hidden="true"></i>
                 </span>
                 <span>Sản phẩm bạn đã xem</span></a></li>
         <li>
-            <a class="redirect" href="#">
+            <a class="redirect" href="{{route('client.wishlist')}}">
                 <span>
                     <i class="fa fa-heart" aria-hidden="true"></i>
                 </span>

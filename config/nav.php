@@ -9,7 +9,7 @@ return [
     ],
     [
         'name' => 'Khách hàng',
-        'route' => 'admin.home',
+        'route' => 'admin.user.index',
         'icons' => '<i class="nav-icon fas fa-tachometer-alt"></i>',
     ],
     [

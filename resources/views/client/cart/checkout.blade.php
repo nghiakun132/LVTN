@@ -64,64 +64,66 @@
                     </form>
                 </div>
             </div>
-
-            <div class="summary summary-checkout">
-                <div class="summary-item shipping-method">
-                    <h4 class="title-box f-title">Thông tin người nhận</h4>
-                    <table class="table table-striped">
-                        <tr>
-                            <th>
-                                Họ tên :
-                            </th>
-                            <td>
-                                <b>{{ $user->name }}</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Địa chỉ :
-                            </th>
-                            <td>
-                                <select class="form-control select_add" name="address_user" id="address-user">
-                                    @foreach ($user->address as $address)
-                                        <option value="{{ $address->id }}"
-                                            {{ $address->default == 1 ? 'selected' : '' }}>{{ $address->address }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                SĐT :
-                            </th>
-                            <td>
-                                <b>{{ $user->phone }}</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="{{ route('client.address.create') }}" id="myBtn" class="btn btn-info">Thêm
-                                    địa
-                                    chỉ</a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="summary-item payment-method">
-                    <h4 class="title-box">Phương thức vận chuyển</h4>
-                    <div class="choose-payment-methods">
-                        @foreach ($deliveries as $delivery)
-                            <label class="payment-method">
-                                <input name="delivery_method" value="{{ $delivery->id }}" class="delivery_method"
-                                    data-fee="{{ $delivery->fee }}" type="radio" required>
-                                <span>{{ $delivery->name }}</span>
-                            </label>
-                        @endforeach
+            <form action="{{ route('client.cart.checkoutPost') }}" method="post">
+                @csrf
+                <div class="summary summary-checkout">
+                    <div class="summary-item shipping-method">
+                        <h4 class="title-box f-title">Thông tin người nhận</h4>
+                        <table class="table table-striped">
+                            <tr>
+                                <th>
+                                    Họ tên :
+                                </th>
+                                <td>
+                                    <b>{{ $user->name }}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Địa chỉ :
+                                </th>
+                                <td>
+                                    <select class="form-control select_add" name="address_user" id="address-user">
+                                        @foreach ($user->address as $address)
+                                            <option value="{{ $address->id }}"
+                                                {{ $address->default == 1 ? 'selected' : '' }}>{{ $address->address }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    SĐT :
+                                </th>
+                                <td>
+                                    <b>{{ $user->phone }}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="{{ route('client.address.create') }}" id="myBtn"
+                                        class="btn btn-info">Thêm
+                                        địa
+                                        chỉ</a>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
-                </div>
-                <form action="{{ route('client.cart.checkoutPost') }}" method="post">
-                    @csrf
+
+
+                    <div class="summary-item payment-method">
+                        <h4 class="title-box">Phương thức vận chuyển</h4>
+                        <div class="choose-payment-methods">
+                            @foreach ($deliveries as $delivery)
+                                <label class="payment-method">
+                                    <input name="delivery_method" value="{{ $delivery->id }}" class="delivery_method"
+                                        data-fee="{{ $delivery->fee }}" type="radio" required>
+                                    <span>{{ $delivery->name }}</span>
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
                     <div class="summary-item payment-method" style="float: none">
                         <h4 class="title-box">Phương thức thanh toán</h4>
                         <div class="choose-payment-methods">
@@ -168,14 +170,11 @@
 
                             <button class="btn btn-medium btn-order">Đặt hàng ngay</button>
                         </div>
-
                     </div>
+                    <br>
+                </div>
+            </form>
 
-
-                </form>
-                <br>
-
-            </div>
         </div>
     </div>
 </main>

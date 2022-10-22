@@ -23,6 +23,7 @@ class AuthController extends Controller
             'email.required' => 'Nhập thông tin đăng nhập',
             'password.required' => 'Nhập mật khẩu'
         ]);
+
         $check = true;
 
         $user = User::where('email', $request->email)->first();

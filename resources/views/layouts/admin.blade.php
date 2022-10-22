@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
+
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="{{ asset('admin/css/adminlte.css') }}">
 
@@ -225,7 +226,8 @@
         <script src="{{ asset('admin/js/dashboard3.js') }}"></script>
         <script src="{{ asset('admin/js/test.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
         <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
         <link rel="stylesheet" type="text/css"
             href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -252,6 +254,13 @@
                     },
                 });
             });
+            // $(document).ready(function() {
+            //     $('#example2').DataTable({
+            //         language: {
+            //             url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/vi.json"
+            //         },
+            //     });
+            // });
         </script>
         @include('components.toastr')
 

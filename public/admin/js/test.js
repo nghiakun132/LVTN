@@ -220,3 +220,51 @@ $("#activeAll").click(function (e) {
         });
     }
 });
+
+$(".user-active").click(function (e) {
+    e.preventDefault();
+    const id = $(this).data("id");
+    Swal.fire({
+        title: "Bạn có chắc chắn muốn thay đổi trạng thái?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Có, thay đổi nó!",
+        cancelButtonText: "Hủy",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "/panel/user/active",
+                data: {
+                    id: id,
+                },
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                },
+                type: "POST",
+                success: function (data) {
+                    if (data.code == 200) {
+                        Swal.fire(
+                            {
+                                title: "Đã duyệt!",
+                                text: "Dữ liệu đã được duyệt.",
+                                icon: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "#3085d6",
+                                confirmButtonText: "OK",
+                                timer: 2000,
+                            },
+                        );
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+                    }
+                },
+                error: function () {
+                    Swal.fire("Lỗi!", "Đã có lỗi xảy ra.", "error");
+                },
+            });
+        }
+    });
+});
