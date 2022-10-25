@@ -92,7 +92,12 @@
         top: 100px;
         right: 0px;
     }
-
+    .lts-product .item .cover2 {
+    position: absolute;
+    width: 100%;
+    top: 170px;
+    right: -3px;
+    }
     section .box-home .header {
         background: #009981;
         margin-bottom: 20px;

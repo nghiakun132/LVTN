@@ -69,10 +69,8 @@
                                                                             class="badge badge-danger">Chưa
                                                                             duyệt</span></a>
                                                                 @else
-                                                                    <a
-                                                                        href="{{ route('admin.import.changestatus', $import->i_id) }}"><span
-                                                                            class="badge badge-success">Đã
-                                                                            duyệt</span></a>
+                                                                    <span class="badge badge-success">Đã
+                                                                        duyệt</span>
                                                                 @endif
                                                             </td>
                                                             <td>

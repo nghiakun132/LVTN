@@ -33,8 +33,12 @@ class ImportController extends Controller
 
     public function export()
     {
-        $fileName = 'imports.xlsx';
-        return Excel::download(new ImportExport, $fileName);
+        try {
+            $fileName = 'import_' . time() . '.xlsx';
+            return Excel::download(new ImportExport, $fileName);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     public function detail($id)

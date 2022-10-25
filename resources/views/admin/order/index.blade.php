@@ -107,10 +107,8 @@
                                                                                 class="badge badge-primary">Đang vận
                                                                                 chuyển</span></a>
                                                                     @elseif($order->status == 4)
-                                                                        <a
-                                                                            href="{{ route('admin.order.confirm', $order->id) }}"><span
-                                                                                class="badge badge-success">Đã
-                                                                                giao</span></a>
+                                                                        <span class="badge badge-success">Đã
+                                                                            giao</span>
                                                                     @else
                                                                         <span class="badge badge-danger">Đã hủy</span></a>
                                                                     @endif

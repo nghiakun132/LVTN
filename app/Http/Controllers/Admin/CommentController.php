@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Comment\CommentRepository;
+use App\Repositories\CommentRepository;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller

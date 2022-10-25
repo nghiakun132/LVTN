@@ -292,6 +292,10 @@
 
             <div class="col-content lts-product col-product">
                 @foreach ($laptops as $laptop)
+                    @php
+                        $rand = $laptop->sales ? rand(0, count($laptop->sales) - 1) : 0;
+
+                    @endphp
                     <div class="item">
                         <div class="img">
                             <a
@@ -320,6 +324,24 @@
                                 <i class="icon-flash2"></i> Giảm
                                 {{ number_format(($laptop->pro_price * ($laptop->pro_sale / 100)) / 1000, 0, ',', '.') }}K
                             </span>
+                        @else
+                            @if (count($laptop->sales) > 0)
+                                <div class="cover2">
+                                    <div
+                                        style="color: yellow;
+                                                background: #00483D;
+                                                margin: 25px 20px 15px 15px;
+                                                padding: 3px;
+                                                border-radius: 18px;
+                                                font-size: 11px;
+                                                font-weight: 400;">
+                                        {{-- <marquee behavior="alternate"> --}}
+                                        <span style="color:white">
+                                            {{ $laptop->sales[$rand]->sales->s_name }}</span><br>
+                                        {{-- </marquee> --}}
+                                    </div>
+                                </div>
+                            @endif
                         @endif
                         <div class="info">
                             <a href="{{ route('client.product', [

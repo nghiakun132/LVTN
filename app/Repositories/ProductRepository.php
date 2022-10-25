@@ -36,4 +36,14 @@ class ProductRepository extends BaseRepository
     {
         return $this->model->where('pro_active', 1)->get();
     }
+
+    public function findWhereIn($column, $data = [])
+    {
+        return $this->model->whereIn($column, $data)->get();
+    }
+
+    public function whereNotIn($column, $data = [])
+    {
+        return $this->model->whereNotIn($column, $data)->get();
+    }
 }

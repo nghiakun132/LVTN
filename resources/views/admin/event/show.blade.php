@@ -47,6 +47,7 @@
                                                                                         </option>
                                                                                     @endforeach
                                                                                 </select>
+
                                                                                 @if ($errors->has('product_id'))
                                                                                     <div class="error text-danger">
                                                                                         {{ $errors->first('product_id') }}

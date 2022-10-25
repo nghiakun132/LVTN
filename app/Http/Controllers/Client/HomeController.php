@@ -31,7 +31,7 @@ class HomeController extends Controller
                 $details = $event->event_details->load(['products', 'products.brand', 'products.category']);
             }
             $laptops = Product::where('pro_category_id', 1)
-                ->inRandomOrder()
+                // ->inRandomOrder()
                 ->where('pro_active', 1)
                 ->with([
                     'sales' => function ($query) {
@@ -70,7 +70,6 @@ class HomeController extends Controller
                     'category'
                 ])
                 ->orderBy('pro_view', 'DESC')->limit(20)->get();
-
             $data = [
                 'apple' => $apple,
                 'end' => $end,

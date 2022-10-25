@@ -10,4 +10,9 @@ class SaleRepository extends BaseRepository
     {
         return sales::class;
     }
+
+    public function findWithRelationship(array $with, $id)
+    {
+        return $this->model->with($with)->where('id', $id)->first();
+    }
 }

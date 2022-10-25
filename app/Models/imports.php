@@ -24,6 +24,6 @@ class imports extends Model
 
     public function admin()
     {
-        return $this->belongsTo(admin::class, 'i_admin_id');
+        return $this->belongsTo(Admin::class, 'i_admin_id');
     }
 }

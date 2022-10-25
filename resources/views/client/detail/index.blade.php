@@ -87,7 +87,8 @@
                     <div class="detail-media">
                         <div class="product-gallery">
                             <div class="love-this-button">
-                                <a title="Thêm vào sản phẩm yêu thích" id="add-wishlist" data-id="{{ $product->pro_id }}">
+                                <a title="Thêm vào sản phẩm yêu thích" id="add-wishlist"
+                                    data-id="{{ $product->pro_id }}">
                                     <i class="fa fa-heart" aria-hidden="true"></i>
                                 </a>
                             </div>
@@ -160,14 +161,16 @@
                         <div class="product-action">
                             <a title="Mua ngay" id="quick-buy" class="btn-red btnQuickOrder btnbuy"><strong>MUA
                                     NGAY</strong><span> Giao tận nhà (COD) <br>Hoặc Nhận tại cửa hàng</span></a>
-
-                            <a style="width:120px; display:flex; flex-direction:column; max-width:100%; padding:5px;"
-                                id="add-to-cart" title="Thêm vào giỏ hàng"
-                                data-id="{{ Session::get('user')->id ?? 0 }}"
-                                class="add-cart btn-orange btnbuy btn-icon"><i class="fa fa-cart-arrow-down mt-4"
-                                    style="margin-top:10px" aria-hidden="true"></i><label style="font-size:11px;">Thêm
-                                    giỏ
-                                    hàng</label></a>
+                            @if ($product->pro_quantity > 0)
+                                <a style="width:120px; display:flex; flex-direction:column; max-width:100%; padding:5px;"
+                                    id="add-to-cart" title="Thêm vào giỏ hàng"
+                                    data-id="{{ Session::get('user')->id ?? 0 }}"
+                                    class="add-cart btn-orange btnbuy btn-icon"><i class="fa fa-cart-arrow-down mt-4"
+                                        style="margin-top:10px" aria-hidden="true"></i><label
+                                        style="font-size:11px;">Thêm
+                                        giỏ
+                                        hàng</label></a>
+                            @endif
                         </div>
                     </div>
                     <div class="advance-info">

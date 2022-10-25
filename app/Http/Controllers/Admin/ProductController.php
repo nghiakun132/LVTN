@@ -93,6 +93,7 @@ class ProductController extends Controller
                     'i_admin_id' => session()->get('admin')->id,
                     'i_status' => 1,
                     'i_total' => $request->pro_price * $request->pro_quantity,
+                    'created_at' => date('Y-m-d H:i:s'),
                 ]);
 
                 $importDetail = new import_details();

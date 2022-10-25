@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Sale\SaleRepository;
+use App\Repositories\ProductRepository;
+use App\Repositories\SaleRepository;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {
     protected $salesRepository;
+    protected $productRepository;
     public function __construct(
-        SaleRepository $salesRepository
+        SaleRepository $salesRepository,
+        ProductRepository $productRepository
     ) {
         $this->salesRepository = $salesRepository;
+        $this->productRepository = $productRepository;
     }
     public function index()
     {

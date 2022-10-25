@@ -76,14 +76,14 @@ class CartController extends Controller
             $data = $request->all();
             $cart = Cart::find($data['id']);
             Product::where('pro_id', $cart->product_id)->increment('pro_quantity', $cart->quantity);
-            Product::where('pro_id', $cart->product_id)->decrement('pro_quantity', $data['quantity']);
-            if ($cart->quantity > $cart->products->pro_quantity) {
+            if ($data['quantity'] > $cart->products->pro_quantity) {
                 DB::rollBack();
                 return response()->json([
                     'code' => 500,
                     'message' => 'Số lượng sản phẩm không đủ'
                 ], 500);
             }
+            Product::where('pro_id', $cart->product_id)->decrement('pro_quantity', $data['quantity']);
             $cart->quantity = $data['quantity'];
             $cart->save();
             DB::commit();

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event_details;
-use App\Repositories\Event\EventRepository;
-use App\Repositories\Product\ProductRepository;
+use App\Repositories\EventRepository;
+use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
