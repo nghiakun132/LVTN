@@ -8,7 +8,10 @@
     </div>
     <ul class="list-action">
         <li>
-            <a class="redirect" href="{{ route('client.user.index') }}">
+            <a class="redirect
+            {{ request()->is('tai-khoan') ? 'is-active' : '' }}
+            "
+                href="{{ route('client.user.index') }}">
                 <span><i class="fa fa-user" aria-hidden="true"></i></span>
                 <span>Thông tin tài khoản</span></a>
         </li>
@@ -18,14 +21,18 @@
                 <span>Thông báo của tôi</span><span class="badge">3</span></a>
         </li>
         <li>
-            <a class="redirect" href="{{ route('client.order') }}">
+            <a class="redirect
+            {{ request()->is('tai-khoan/don-hang-cua-toi'.'*') ? 'is-active' : '' }}
+            "
+                href="{{ route('client.order') }}">
                 <span>
                     <i class="fa fa-calendar" aria-hidden="true"></i>
                 </span>
                 <span>Quản lý đơn hàng</span></a>
         </li>
         <li>
-            <a class="redirect" href="#">
+            <a class="redirect
+            " href="#">
                 <span>
                     <i class="fa fa-retweet" aria-hidden="true"></i>
                 </span>
@@ -35,7 +42,10 @@
             </a>
         </li>
         <li>
-            <a class="redirect" href="{{ route('client.address') }}">
+            <a class="redirect
+            {{ request()->is('tai-khoan/so-dia-chi'.'*') ? 'is-active' : '' }}
+            "
+                href="{{ route('client.address') }}">
                 <span>
                     <i class="fa fa-location-arrow" aria-hidden="true"></i>
                 </span>
@@ -49,33 +59,17 @@
                 <span>Nhận
                     xét sản phẩm đã mua</span></a></li>
 
-        <li><a href="{{route('client.product.watched')}}">
+        <li><a href="{{ route('client.product.watched') }}">
                 <span>
                     <i class="fa fa-eye" aria-hidden="true"></i>
                 </span>
                 <span>Sản phẩm bạn đã xem</span></a></li>
         <li>
-            <a class="redirect" href="{{route('client.wishlist')}}">
+            <a class="redirect" href="{{ route('client.wishlist') }}">
                 <span>
                     <i class="fa fa-heart" aria-hidden="true"></i>
                 </span>
                 <span>Sản phẩm yêu thích</span></a>
-        </li>
-        <li>
-            <a href="#" class="redirect">
-                <span>
-                    <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                </span>
-                <span>Sản phẩm mua sau</span>
-            </a>
-        </li>
-        <li>
-            <a class="redirect" href="#">
-                <span>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                </span>
-                <span>Nhận xét của tôi</span>
-            </a>
         </li>
     </ul>
 </aside>

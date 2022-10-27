@@ -155,6 +155,13 @@ $("#quick-buy").click(function (e) {
 });
 
 $("#add-to-cart").click(function (e) {
+    if ($("#add-to-cart").data("id") == 0) {
+        $("#login").modal({
+            backdrop: "static",
+            keyboard: false,
+        });
+        return;
+    }
     if (
         $("#product-quantity").val() == 0 ||
         $("#product-quantity").val() == ""
@@ -176,13 +183,10 @@ $("#add-to-cart").click(function (e) {
             showConfirmButton: false,
             timer: 2000,
         });
+
+        $("#product-quantity").val($("#product-quantity").data("max"));
+
         return;
-    }
-    if ($("#add-to-cart").data("id") == 0) {
-        $("#login").modal({
-            backdrop: "static",
-            keyboard: false,
-        });
     }
 
     $.ajax({
@@ -614,6 +618,40 @@ $(".delete-wishlist").click(function (e) {
         data: {
             id: id,
         },
+        success: function (data) {
+            if (data.code == 200) {
+                Swal.fire({
+                    title: data.message,
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
+            }
+        },
+        error: function (data) {
+            Swal.fire({
+                title: data.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        },
+    });
+});
+
+$("#form-cancel").submit(function (e) {
+    e.preventDefault();
+    const data = $(this).serialize();
+    $.ajax({
+        url: "/tai-khoan/don-hang-cua-toi/huy-don-hang",
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        data: data,
         success: function (data) {
             if (data.code == 200) {
                 Swal.fire({

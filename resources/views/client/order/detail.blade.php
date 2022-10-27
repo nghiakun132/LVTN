@@ -50,6 +50,16 @@
                                     <p class="">Thanh toán bằng {{ $order->payment_method }}</p>
                                 </div>
                             </div>
+                            @if ($order->status == 0)
+                                <div class="gQjSfs">
+                                    <div class="title">Hủy đơn hàng</div>
+                                    <div class="content">
+                                        <p class="address"><span>Lý do: </span>{{ $order->deliveryAgent->name }}</p>
+                                        <p class="address"><span>Ngày hủy: </span>{{ $order->deliveryAgent->name }}</p>
+
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                         <table class="table-order">
                             <thead>
@@ -108,11 +118,50 @@
                                             {{ number_format($total + $order->deliveryAgent->fee, 0, ',', '.') }}₫
                                         </span></td>
                                 </tr>
+
+                                <tr>
+                                    {{-- <td colspan="4"><span>Trạng thái</span></td> --}}
+                                    <td colspan="8">
+                                        @if ($order->status == 1)
+                                            <a data-toggle="modal" data-target="#cancel-order" <button
+                                                class="btn btn-danger btn-sm">
+                                                <i class="fa fa-times" aria-hidden="true"></i> Hủy đơn hàng
+                                                </button>
+                                            </a>
+                                        @endif
+                                    </td>
+                                </tr>
                             </tfoot>
                         </table>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="cancel-order" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times text-danger"
+                            aria-hidden="true"></i></button>
+                    <h4 class="modal-title">Hủy đơn hàng</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" id="form-cancel">
+                        @csrf
+                        <div class="form-group">
+                            <label for="reason">Lý do hủy đơn hàng</label>
+                            <textarea name="reason" id="reason" cols="30" rows="5" class="form-control"></textarea>
+                        </div>
+                        <input type="hidden" name="order_id" value="{{ $order->id }}">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger">Hủy đơn hàng</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
         </div>
     </div>
 @stop

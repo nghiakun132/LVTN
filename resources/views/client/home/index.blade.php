@@ -1,6 +1,11 @@
 @extends('layouts.client')
 @section('content')
 @section('title', 'Trang chủ')
+<style>
+    .mb-4 {
+        margin-bottom: 4rem !important;
+    }
+</style>
 <main id="main">
     <div class="container">
         <div class="wrap-main-slide">
@@ -283,7 +288,15 @@
                 @endforeach
             </div>
         </div>
-        <div class="wrap-show-advance-info-box style-1">
+        <div class="wrap-show-advance-info-box style-1 ">
+            <div class="wrap-top-banner mb-4">
+                <a href="#" class="link-banner banner-effect-2">
+                    <figure>
+                        <img src="{{ asset('/images/banner/laptopevent.png') }}" width="1170" height="240"
+                            alt="" />
+                    </figure>
+                </a>
+            </div>
             <div class="header-title">
                 <h3>
                     <a href="#">Laptop nổi bật</a>
@@ -378,14 +391,14 @@
             </div>
         </div>
         <div class="wrap-show-advance-info-box style-1">
-            {{-- <div class="wrap-top-banner">
+            <div class="wrap-top-banner">
                 <a href="#" class="link-banner banner-effect-2">
                     <figure>
-                        <img src="{{ asset('/images/banner/qrc.png') }}" width="1170" height="240"
+                        <img src="{{ asset('/images/banner/dong-ho-huawei.jpg') }}" width="1170" height="240"
                             alt="" />
                     </figure>
                 </a>
-            </div> --}}
+            </div>
             <div class="title1">
                 <div id="wrap-text" class="ins-selectable-element ins-element-wrap ins-element-text">
                     <div id="text" class="ins-element-content ins-editable-text" not-sortable="true"
@@ -499,7 +512,7 @@
                         <div class="tab-content-item active" id="digital_1a">
                             <div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container"
                                 data-items="5" data-loop="false" data-nav="true" data-dots="false"
-                                data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"},"1200":{"items":"5"}}'>
+                                data-responsive='{"0":{"items":"2"},"480":{"items":"2"},"768":{"items":"4"},"992":{"items":"5"},"1200":{"items":"5"}}'>
                                 @for ($i = 0; $i < 8; $i++)
                                     <div class="product product-style-2 equal-elem">
                                         <div class="product-thumnail product-thumnail2">

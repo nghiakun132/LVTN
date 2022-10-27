@@ -51,7 +51,8 @@ Route::group(['namespace' => 'Client'], function () {
             Route::group(['prefix' => 'don-hang-cua-toi'], function () {
                 Route::get('', [App\Http\Controllers\Client\OrderController::class, 'index'])->name('client.order');
                 Route::get('chi-tiet/{id}', [App\Http\Controllers\Client\OrderController::class, 'detail'])->name('client.order.detail');
-                Route::get('huy-don-hang/{id}', [App\Http\Controllers\Client\OrderController::class, 'cancel'])->name('client.order.cancel');
+                Route::get('huy-don-hang', [App\Http\Controllers\Client\OrderController::class, 'cancel'])->name('client.order.cancel');
+                Route::post('huy-don-hang', [App\Http\Controllers\Client\OrderController::class, 'cancelPost'])->name('client.order.cancel.order');
             });
         });
 

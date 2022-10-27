@@ -1,7 +1,6 @@
 @extends('layouts.client')
 @section('content')
-@section('title', 'Detail')
-
+@section('title', $product->pro_name)
 <main id="main" class="main-site">
     <style>
         .table-border,

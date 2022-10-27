@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Order_Cancel;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -58,7 +59,8 @@ class OrderController extends Controller
                             }
                         ]);
                     },
-                    'deliveryAgent'
+                    'deliveryAgent',
+                    'orderCancel'
                 ])
                 ->first();
 
@@ -79,28 +81,35 @@ class OrderController extends Controller
 
     public function cancel($id)
     {
+
+        $order = Order::where('id', $id)->where('user_id', session('user')->id)->first();
+        return view('client.order.cancel', compact('order'));
+    }
+    public function cancelPost(Request $request)
+    {
         try {
             DB::beginTransaction();
-            $order = Order::where('id', $id)->where('user_id', session('user')->id)
-                ->with([
-                    'orderDetails' => function ($query) {
-                        $query->with([
-                            'product'
-                        ]);
-                    },
-                ])
-                ->first();
+            $order = Order::where('id', $request->order_id)->where('user_id', session('user')->id)->first();
             $order->status = 0;
             $order->save();
-            foreach ($order->orderDetails as $item) {
-                Product::where('pro_id', $item->product_id)->increment('pro_quantity', $item->quantity);
-            }
+
+            $orderCancel = new Order_Cancel();
+            $orderCancel->order_id = $order->id;
+            $orderCancel->reason = $request->reason;
+            $orderCancel->save();
+
             DB::commit();
-            return redirect()->back()->with('success', 'Đã hủy đơn hàng');
+
+            return response()->json([
+                'code' => 200,
+                'message' => 'Hủy đơn hàng thành công',
+            ]);
         } catch (\Exception $ex) {
-            report($ex);
             DB::rollBack();
-            return redirect()->back()->with('error', 'Hủy đơn hàng thất bại');
+            return response()->json([
+                'code' => 500,
+                'message' => $ex->getMessage()
+            ]);
         }
     }
 }

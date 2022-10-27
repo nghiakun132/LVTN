@@ -176,6 +176,9 @@
     color: rgb(0, 0, 0);
     border-radius: 44px;
 }
+.is-active i{
+    color: #ff2832 !important;
+}
 
 /*account infomation*/
 

@@ -26,6 +26,11 @@ class Order extends Model
         return $this->hasMany(Order_details::class, 'order_id');
     }
 
+    public function orderCancel()
+    {
+        return $this->hasOne(Order_Cancel::class, 'order_id');
+    }
+
     public function address()
     {
         return $this->belongsTo(Address::class, 'address_id');
