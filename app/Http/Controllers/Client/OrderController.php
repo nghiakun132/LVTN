@@ -68,7 +68,6 @@ class OrderController extends Controller
             foreach ($order->orderDetails as $item) {
                 $total += $item->price * $item->quantity;
             }
-
             $data = [
                 'order' => $order,
                 'total' => $total,

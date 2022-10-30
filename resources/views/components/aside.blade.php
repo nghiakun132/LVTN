@@ -22,7 +22,7 @@
         </li>
         <li>
             <a class="redirect
-            {{ request()->is('tai-khoan/don-hang-cua-toi'.'*') ? 'is-active' : '' }}
+            {{ request()->is('tai-khoan/don-hang-cua-toi' . '*') ? 'is-active' : '' }}
             "
                 href="{{ route('client.order') }}">
                 <span>
@@ -32,18 +32,7 @@
         </li>
         <li>
             <a class="redirect
-            " href="#">
-                <span>
-                    <i class="fa fa-retweet" aria-hidden="true"></i>
-                </span>
-                <span>
-                    Quản lý đổi trả
-                </span>
-            </a>
-        </li>
-        <li>
-            <a class="redirect
-            {{ request()->is('tai-khoan/so-dia-chi'.'*') ? 'is-active' : '' }}
+            {{ request()->is('tai-khoan/so-dia-chi' . '*') ? 'is-active' : '' }}
             "
                 href="{{ route('client.address') }}">
                 <span>
