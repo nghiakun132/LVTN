@@ -5,15 +5,43 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest;
 use App\Models\Admin;
+use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.dashboard');
+        $period = isset($request->period) ? $request->period : 'week';
+        $orders = Order::where('status', '<>', 0);
+        $ordersBefore = Order::where('status', '<>', 0);
+        switch ($period) {
+            case 'week':
+                $orders = $orders->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+                $ordersBefore = $ordersBefore->whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()]);
+                break;
+            case 'month':
+                $orders = $orders->whereMonth('created_at', '=', Carbon::now()->month);
+                $ordersBefore = $ordersBefore->whereMonth('created_at', '=', Carbon::now()->subMonth()->month);
+                break;
+            case 'year':
+                $orders = $orders->whereYear('created_at', '=', Carbon::now()->year);
+                $ordersBefore = $ordersBefore->whereYear('created_at', '=', Carbon::now()->subYear()->year);
+                break;
+            default:
+                break;
+        }
+
+        $data = [
+            'total' => $orders->sum('total'),
+            'totalBefore' => $ordersBefore->sum('total'),
+            'period' => $period,
+        ];
+        return view('admin.dashboard', $data);
     }
     public function login()
     {

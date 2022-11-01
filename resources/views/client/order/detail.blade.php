@@ -54,8 +54,10 @@
                                 <div class="gQjSfs">
                                     <div class="title">Hủy đơn hàng</div>
                                     <div class="content">
-                                        <p class="address"><span>Lý do: </span>{{ $order->orderCancel->reason }}</p>
-                                        <p class="address"><span>Ngày hủy: </span>{{ $order->orderCancel->created_at }}</p>
+                                        <p class="address"><span>Lý do: </span>{{ $order->orderCancel->reason ?? '' }}
+                                        </p>
+                                        <p class="address"><span>Ngày hủy: </span>{{ $order->orderCancel->created_at ?? ''}}
+                                        </p>
 
                                     </div>
                                 </div>

@@ -171,22 +171,22 @@
                         <div class="card">
                             <div class="card-header border-0">
                                 <div class="d-flex justify-content-between">
-                                    <h3 class="card-title">Sales</h3>
+                                    <h3 class="card-title">Doanh thu</h3>
                                     <div class="dropdown">
                                         <button class="btn btn-tool dropdown-toggle" type="button" data-toggle="dropdown">
                                             <i class="fas fa-calendar-alt"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="#" class="dropdown-item">
-                                                <i class="fas fa-calendar-day"></i> 7 Day
-                                            </a>
-                                            <a href="#" class="dropdown-item">
+                                            <a href="{{ request()->fullUrlWithQuery(['period' => 'week']) }}"
+                                                class="dropdown-item">
                                                 <i class="fas fa-calendar-week"></i> Week
                                             </a>
-                                            <a href="#" class="dropdown-item">
+                                            <a href="{{ request()->fullUrlWithQuery(['period' => 'month']) }}"
+                                                class="dropdown-item">
                                                 <i class="fas fa-calendar"></i> Month
                                             </a>
-                                            <a href="#" class="dropdown-item">
+                                            <a href="{{ request()->fullUrlWithQuery(['period' => 'year']) }}"
+                                                class="dropdown-item">
                                                 <i class="fas fa-calendar-times"></i> Year
                                             </a>
                                         </div>
@@ -196,14 +196,25 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <p class="d-flex flex-column">
-                                        <span class="text-bold text-lg">$18,230.00</span>
-                                        <span>Sales Over Time</span>
+                                        <span class="text-bold text-lg">
+                                            {{ number_format($total, 0, ',', '.') . ' đ' }}
+                                        </span>
+                                        {{-- <span>Sales Over Time</span> --}}
                                     </p>
                                     <p class="ml-auto d-flex flex-column text-right">
-                                        <span class="text-success">
-                                            <i class="fas fa-arrow-up"></i> 33.1%
-                                        </span>
-                                        <span class="text-muted">Since last month</span>
+                                        @if ($totalBefore > $total && $totalBefore != 0)
+                                            <span class="text-danger">
+                                                <i class="fas fa-arrow-down"></i>
+                                                {{ number_format(($totalBefore / $total) * 100 - 100, 0, ',', '.') . '%' }}
+                                            </span>
+                                        @else
+                                            <span class="text-success">
+                                                <i class="fas fa-arrow-up"></i>
+                                                {{ !empty($totalBefore) ? number_format(($total / $totalBefore) * 100 - 100, 0, ',', '.') . '%' : '0%' }}
+                                            </span>
+                                        @endif
+                                        <span class="text-muted">So với
+                                            {{ $period == 'week' ? 'tuần trước' : ($period == 'month' ? 'tháng trước' : 'năm trước') }}</span>
                                     </p>
                                 </div>
 
@@ -213,7 +224,7 @@
 
                                 <div class="d-flex flex-row justify-content-end">
                                     <span class="mr-2 title-bar">
-                                        <i class="fas fa-square text-primary" ></i> This year
+                                        <i class="fas fa-square text-primary"></i> This year
                                     </span>
                                     <span class="title-bar">
                                         <i class="fas fa-square text-gray"></i> Last year

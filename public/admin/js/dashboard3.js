@@ -12,7 +12,10 @@ $(function () {
     var intersect = true;
 
     var $salesChart = $("#sales-chart");
-    const api = "http://127.0.0.1:8000/api/statistic";
+
+    const url = window.location.href;
+    const period = url.split("?").pop();
+    const api = "http://127.0.0.1:8000/api/statistic?" + period;
     const options = {
         method: "GET",
         headers: {
@@ -20,27 +23,20 @@ $(function () {
             Accept: "application/json",
         },
     };
-    const data = fetch(api, options)
+    fetch(api, options)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
-            const data2 = data.data;
             var salesChart = new Chart($salesChart, {
                 type: "bar",
                 data: {
-                    labels: data2.map((item) => {
-                        return 'Tháng ' + item.month;
+                    labels: data.data.map((item) => {
+                        return item.date;
                     }),
                     datasets: [
                         {
                             backgroundColor: "#007bff",
                             borderColor: "#007bff",
-                            data: data2.map((item) => item.import),
-                        },
-                        {
-                            backgroundColor: "#ced4da",
-                            borderColor: "#ced4da",
-                            data: data2.map((item) => item.order),
+                            data: data.data.map((item) => item.doanhthu),
                         },
                     ],
                 },
@@ -179,5 +175,9 @@ $(function () {
         },
     });
 });
+
+function formatCurrency(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
 
 // lgtm [js/unused-local-variable]
