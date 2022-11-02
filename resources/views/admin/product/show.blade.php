@@ -118,18 +118,6 @@
                                                             class="text-danger">{{ $errors->first('pro_category_id') }}</span>
                                                     @endif
                                                     <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="pro_quantity">Số lượng</label>
-                                                            <input type="text" placeholder="Nhập số lượng"
-                                                                name="pro_quantity" class="form-control" id="pro_quantity"
-                                                                value="{{ $product->pro_quantity }}">
-                                                        </div>
-                                                        @if ($errors->has('pro_quantity'))
-                                                            <span
-                                                                class="text-danger">{{ $errors->first('pro_quantity') }}</span>
-                                                        @endif
-
-
                                                         <div class="form-group mt-4">
                                                             <label for="pro_content">Nội dung</label>
                                                             <textarea name="pro_content" id="pro_content" cols="30" rows="2.5" class="form-control">

@@ -41,12 +41,15 @@ class ProductController extends Controller
     {
         $products = $this->productRepository->getWithRelationship([
             'category' => function ($query) {
+                $query->withTrashed();
                 $query->select('c_id', 'c_name');
             },
             'brand' => function ($query) {
+                $query->withTrashed();
                 $query->select('b_id', 'b_name');
             },
             'group' => function ($query) {
+                $query->withTrashed();
                 $query->select('group_id', 'name', 'slug');
             },
         ]);
@@ -123,12 +126,15 @@ class ProductController extends Controller
     {
         $product = $this->productRepository->findOneWithRelationship([
             'category' => function ($query) {
+                $query->withTrashed();
                 $query->select('c_id', 'c_name');
             },
             'brand' => function ($query) {
+                $query->withTrashed();
                 $query->select('b_id', 'b_name');
             },
             'group' => function ($query) {
+                $query->withTrashed();
                 $query->select('group_id', 'name', 'slug');
             },
         ], $id);
@@ -137,33 +143,10 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        // $data = [
-        //     'pro_name' => $request->pro_name,
-        //     'pro_slug' => Str::slug($request->pro_name),
-        //     'pro_category_id' => $request->pro_category_id,
-        //     'pro_brand_id' => $request->pro_brand_id,
-        //     'pro_price' => $request->pro_price,
-        //     'pro_sale' => $request->pro_sale,
-        //     // 'pro_quantity' => $request->pro_quantity,
-        //     'pro_content' => $request->pro_content,
-        //     'pro_description' => $request->pro_description,
-        //     'group_id' => $request->group_id,
-        // ];
-
         $data = $request->except('_token', 'pro_avatar', 'pro_quantity');
         $data['pro_slug'] = Str::slug($request->pro_name);
         try {
             DB::beginTransaction();
-            $product = $this->productRepository->findOne($id);
-            if ($product->pro_quantity != $request->pro_quantity) {
-                $data['pro_quantity'] = $product->pro_quantity + $request->pro_quantity;
-                // $this->importRepository->create([
-                //     'i_product_id' => $id,
-                //     'i_price' => $request->pro_price,
-                //     'i_quantity' => $request->pro_quantity,
-                //     'i_status' => 1,
-                // ]);
-            }
             $this->productRepository->update($data, $id);
             DB::commit();
             return redirect()->route('admin.product.index')->with('success', 'Cập nhật thành công');
@@ -208,28 +191,21 @@ class ProductController extends Controller
     {
         $product = $this->productRepository->findOneWithRelationship([
             'category' => function ($query) {
+                $query->withTrashed();
                 $query->select('c_id', 'c_name');
             },
             'brand' => function ($query) {
+                $query->withTrashed();
                 $query->select('b_id', 'b_name');
             },
             'group' => function ($query) {
+                $query->withTrashed();
                 $query->select('group_id', 'name', 'slug');
             },
             'images' => function ($query) {
                 $query->select('product_id', 'path');
             }
         ], $id);
-        // $file = $product->pro_detail;
-        $data = [];
-        // if (!empty($file)) {
-        //     $file = storage_path('app/public/products/' . $file);
-        //     $data = Excel::toArray('', $file);
-        //     $key = $data[0][0];
-        //     $value = $data[0][1];
-        //     $data = array_combine($key, $value);
-        // }
-
         return view('admin.product.detail', compact('product'));
     }
 
@@ -248,17 +224,6 @@ class ProductController extends Controller
         }
     }
 
-    // public function detailPost(Request $request, $id)
-    // {
-    //     $fileName = $this->productRepository->findOne($id)->pro_slug . '.xlsx';
-    //     if ($request->file('file')) {
-    //         $file = $request->file('file');
-    //         $file->storeAs('public/products', $fileName);
-    //         $this->productRepository->update(['pro_detail' => $fileName], $id);
-    //         return redirect()->back()->with('success', 'Cập nhật thành công');
-    //     }
-    //     return redirect()->back()->with('error', 'Cập nhật thất bại');
-    // }
 
     public function addGroup(Request $request)
     {
@@ -288,7 +253,9 @@ class ProductController extends Controller
         $product = $this->productRepository->findOne($id);
         $sales = $this->saleRepository->getAll();
         $saleProduct = sales_products::where('product_id', $id)->with([
-            'sales'
+            'sales' => function ($query) {
+                $query->withTrashed();
+            }
         ])->get();
         return view('admin.product.addSale', compact('sales', 'saleProduct', 'product'));
     }
@@ -343,6 +310,7 @@ class ProductController extends Controller
             return redirect()->back()->with('success', 'Thêm thành công');
         } catch (\Exception $exception) {
             DB::rollBack();
+            \Log::error($exception->getMessage());
             return redirect()->back()->with('error', $exception->getMessage());
         }
     }

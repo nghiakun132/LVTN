@@ -20,7 +20,9 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = $this->categoryRepository->getWithRelationship([
-            'parent'
+            'parent' => function ($query) {
+                $query->withTrashed();
+            }
         ]);
         $arr = $categories->toArray();
         $child = $this->categoryRepository->show($arr, 0);

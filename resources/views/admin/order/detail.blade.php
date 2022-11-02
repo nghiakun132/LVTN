@@ -53,17 +53,7 @@
                                                         đ</strong>
                                                 </p>
                                                 <p><strong>Trạng thái:</strong>
-                                                    @if ($order->status == 1)
-                                                        <span class="badge badge-primary">Chờ xác nhận</span>
-                                                    @elseif($order->status == 2)
-                                                        <span class="badge badge-success">Đã xác nhận</span>
-                                                    @elseif($order->status == 3)
-                                                        <span class="badge badge-warning">Đang vận chuyển</span>
-                                                    @elseif($order->status == 4)
-                                                        <span class="badge badge-info">Đã giao</span>
-                                                    @else
-                                                        <span class="badge badge-danger">Đã hủy</span>
-                                                    @endif
+                                                    {!! $order->getStatus($order->status) !!}
                                                 </p>
                                                 <p><strong>Phương thức thanh toán:</strong>
                                                     <span class="badge badge-primary">{{ $order->payment_method }}</span>

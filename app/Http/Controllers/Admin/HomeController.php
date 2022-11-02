@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest;
 use App\Models\Admin;
 use App\Models\Order;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -18,6 +19,9 @@ class HomeController extends Controller
     {
         $period = isset($request->period) ? $request->period : 'week';
         $orders = Order::where('status', '<>', 0);
+        $ordersLatest = $orders->orderBy('created_at', 'desc')
+            ->with('user:id,name')
+            ->limit(10)->get();
         $ordersBefore = Order::where('status', '<>', 0);
         switch ($period) {
             case 'week':
@@ -36,10 +40,14 @@ class HomeController extends Controller
                 break;
         }
 
+        $users = User::limit(10)->get();
+
         $data = [
             'total' => $orders->sum('total'),
             'totalBefore' => $ordersBefore->sum('total'),
             'period' => $period,
+            'ordersLatest' => $ordersLatest,
+            'users' => $users
         ];
         return view('admin.dashboard', $data);
     }

@@ -17,12 +17,22 @@ class CategoryController extends Controller
             $category = Category::where('c_slug', $slug)->first();
             $brands = Brands::where('b_category_id', $category->c_id)->get();
             $products = Product::where('pro_category_id', $category->c_id)
+                ->whereIn('pro_brand_id', $brands->pluck('b_id'))
                 ->with([
                     'sales' => function ($query) {
-                        $query->with(
-                            'sales'
-                        );
-                    }
+                        $query->with([
+                            'sales' => function ($query2) {
+                                $query2->withTrashed();
+                            },
+
+                        ]);
+                    },
+                    // 'brand' => function ($query2) {
+                    //     $query2->withTrashed();
+                    // },
+                    // 'category' => function ($query2) {
+                    //     $query2->withTrashed();
+                    // },
                 ]);
             $giaTu = $request->gia_tu;
             $giaDen = $request->gia_den;
@@ -33,9 +43,11 @@ class CategoryController extends Controller
                     ->where('pro_price', '<=', $giaDen)
                     ->with([
                         'sales' => function ($query) {
-                            $query->with(
-                                'sales'
-                            );
+                            $query->with([
+                                'sales' => function ($query2) {
+                                    $query2->withTrashed();
+                                }
+                            ]);
                         }
                     ]);
             }
@@ -93,9 +105,11 @@ class CategoryController extends Controller
             $products = Product::where('pro_brand_id', $brand->b_id)
                 ->with([
                     'sales' => function ($query) {
-                        $query->with(
-                            'sales'
-                        );
+                        $query->with([
+                            'sales' => function ($query2) {
+                                $query2->withTrashed();
+                            }
+                        ]);
                     }
                 ]);
             $giaTu = $request->gia_tu;
@@ -109,7 +123,9 @@ class CategoryController extends Controller
                     ->with([
                         'sales' => function ($query) {
                             $query->with(
-                                'sales'
+                                ['sales' => function ($query2) {
+                                    $query2->withTrashed();
+                                }]
                             );
                         }
                     ]);
@@ -170,7 +186,9 @@ class CategoryController extends Controller
                 ->with([
                     'sales' => function ($query) {
                         $query->with(
-                            'sales'
+                            ['sales' => function ($query2) {
+                                $query2->withTrashed();
+                            }]
                         );
                     }
                 ]);
@@ -186,7 +204,9 @@ class CategoryController extends Controller
                     ->with([
                         'sales' => function ($query) {
                             $query->with(
-                                'sales'
+                                ['sales' => function ($query2) {
+                                    $query2->withTrashed();
+                                }]
                             );
                         }
                     ]);

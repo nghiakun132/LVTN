@@ -49,6 +49,7 @@ class ImportController extends Controller
                     $query->select('import_id', 'product_id', 'quantity', 'price');
                 },
                 'import_details.product' => function ($query) {
+                    $query->withTrashed();
                     $query->select('pro_id', 'pro_name');
                 },
             ],

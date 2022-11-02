@@ -23,7 +23,9 @@ class ProductController extends Controller
                 ->with([
                     'sales' => function ($query) {
                         $query->with([
-                            'sales'
+                            'sales' => function ($query) {
+                                $query->withTrashed();
+                            }
                         ]);
                     },
                     'event_details' => function ($query) {
@@ -31,9 +33,15 @@ class ProductController extends Controller
                             'events'
                         ]);
                     },
-                    'brand',
-                    'category',
-                    'group'
+                    'brand' => function ($query) {
+                        $query->withTrashed();
+                    },
+                    'category' => function ($query) {
+                        $query->withTrashed();
+                    },
+                    'group' => function ($query) {
+                        $query->withTrashed();
+                    },
                 ])
                 ->first();
             // dd($product);
@@ -43,18 +51,23 @@ class ProductController extends Controller
                 ->where('status', 1)
                 ->with([
                     'user' => function ($query) {
+                        $query->withTrashed();
                         $query->select('id', 'name', 'avatar', 'type');
                     },
                     'replies' => function ($query) {
                         $query->where('status', 1)
                             ->with([
-                                'user'
+                                'user' => function ($query) {
+                                    $query->withTrashed();
+                                }
                             ]);
                     },
                     'parent' => function ($query) {
                         $query->where('status', 0)
                             ->with([
-                                'user'
+                                'user' => function ($query) {
+                                    $query->withTrashed();
+                                }
                             ]);
                     }
                 ])
@@ -102,9 +115,15 @@ class ProductController extends Controller
                                 'sales'
                             ]);
                         },
-                        'brand',
-                        'category',
-                        'group'
+                        'brand' => function ($query) {
+                            $query->withTrashed();
+                        },
+                        'category' => function ($query) {
+                            $query->withTrashed();
+                        },
+                        'group' => function ($query) {
+                            $query->withTrashed();
+                        },
                     ])->paginate(12);
                 $data = [
                     'products' => $products
@@ -168,9 +187,15 @@ class ProductController extends Controller
                                 'sales'
                             ]);
                         },
-                        'brand',
-                        'category',
-                        'group'
+                        'brand' => function ($query) {
+                            $query->withTrashed();
+                        },
+                        'category' => function ($query) {
+                            $query->withTrashed();
+                        },
+                        'group' => function ($query) {
+                            $query->withTrashed();
+                        },
                     ]);
                 }
             ])

@@ -41,7 +41,9 @@ class EventController extends Controller
         $event = $this->eventRepository->getFirstWithRelationship([
             'event_details' => function ($query) {
                 $query->with([
-                    'products'
+                    'products' => function ($query) {
+                        $query->withTrashed();
+                    }
                 ]);
             }
         ], $id);

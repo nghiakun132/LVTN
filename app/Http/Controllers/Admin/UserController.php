@@ -19,7 +19,9 @@ class UserController extends Controller
     {
         $users = $this->userRepository->getWithRelationship([
             'order',
-            'address',
+            'address' => function ($query) {
+                $query->withTrashed();
+            },
         ]);
 
         $data = ['users' => $users];

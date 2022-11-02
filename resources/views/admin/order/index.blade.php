@@ -91,27 +91,12 @@
                                                                     {{ number_format($order->total, 0, ',', '.') }} VNĐ
                                                                 </td>
                                                                 <td>
-                                                                    @if ($order->status == 1)
-                                                                        <a
-                                                                            href="{{ route('admin.order.confirm', $order->id) }}"><span
-                                                                                class="badge badge-warning">Chờ xác
-                                                                                nhận</span></a>
-                                                                    @elseif($order->status == 2)
-                                                                        <a
-                                                                            href="{{ route('admin.order.confirm', $order->id) }}"><span
-                                                                                class="badge badge-info">Đã
-                                                                                xác nhận</span></a>
-                                                                    @elseif($order->status == 3)
-                                                                        <a
-                                                                            href="{{ route('admin.order.confirm', $order->id) }}"><span
-                                                                                class="badge badge-primary">Đang vận
-                                                                                chuyển</span></a>
-                                                                    @elseif($order->status == 4)
-                                                                        <span class="badge badge-success">Đã
-                                                                            giao</span>
-                                                                    @else
-                                                                        <span class="badge badge-danger">Đã hủy</span></a>
-                                                                    @endif
+                                                                    <a
+                                                                        href="{{ $order->status != 0
+                                                                        ? route('admin.order.confirm', $order->id) : 'javascript:;' }}">
+                                                                        {!! $order->getStatus($order->status) !!}
+                                                                    </a>
+                                                                </td>
                                                                 </td>
                                                                 <td>
                                                                     {{ $order->created_at }}

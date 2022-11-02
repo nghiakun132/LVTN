@@ -52,14 +52,21 @@ class OrderController extends Controller
                     'orderDetails' => function ($query) {
                         $query->with([
                             'product' => function ($query) {
+                                $query->withTrashed();
                                 $query->with([
-                                    'category',
-                                    'brand'
+                                    'category' => function ($query) {
+                                        $query->withTrashed();
+                                    },
+                                    'brand' => function ($query) {
+                                        $query->withTrashed();
+                                    },
                                 ]);
                             }
                         ]);
                     },
-                    'deliveryAgent',
+                    'deliveryAgent' => function ($query) {
+                        $query->withTrashed();
+                    },
                     'orderCancel'
                 ])
                 ->first();

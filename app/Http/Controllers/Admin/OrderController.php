@@ -46,12 +46,17 @@ class OrderController extends Controller
     public function detail($id)
     {
         $order = Order::where('id', $id)->with([
-            'user',
-            'address',
+            'user' => function ($query) {
+                $query->withTrashed();
+            },
+            'address' => function ($query) {
+                $query->withTrashed();
+            },
             'orderDetails',
-            'orderDetails.product',
+            'orderDetails.product' => function ($query) {
+                $query->withTrashed();
+            },
         ])->first();
-
         $data = [
             'order' => $order,
         ];
@@ -88,7 +93,9 @@ class OrderController extends Controller
             $order->status = 0;
             $order->save();
             foreach ($order->orderDetails as $orderDetail) {
-                Product::where('pro_id', $orderDetail->product_id)->increment('pro_quantity', $orderDetail->quantity);
+                Product::where('pro_id', $orderDetail->product_id)
+                    ->withTrashed()
+                    ->increment('pro_quantity', $orderDetail->quantity);
             }
             DB::commit();
             return redirect()->back()->with('success', 'Hủy đơn hàng thành công');
@@ -101,10 +108,16 @@ class OrderController extends Controller
     public function print($id)
     {
         $order = Order::where('id', $id)->with([
-            'user',
-            'address',
+            'user' => function ($query) {
+                $query->withTrashed();
+            },
+            'address' => function ($query) {
+                $query->withTrashed();
+            },
             'orderDetails',
-            'orderDetails.product',
+            'orderDetails.product' => function ($query) {
+                $query->withTrashed();
+            },
         ])->first();
         // view()->share('order', $order);
         $pdf = PDF::loadView('admin.order.print', [

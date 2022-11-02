@@ -25,9 +25,14 @@ class CartController extends Controller
             $carts = Cart::where('user_id', session('user')->id)
                 ->with([
                     'products' => function ($query) {
+                        $query->withTrashed();
                         $query->with([
-                            'category',
-                            'brand'
+                            'category' => function ($query) {
+                                $query->withTrashed();
+                            },
+                            'brand' => function ($query) {
+                                $query->withTrashed();
+                            },
                         ]);
                     }
                 ])
@@ -181,6 +186,7 @@ class CartController extends Controller
         $carts = Cart::where('user_id', session('user')->id)
             ->with([
                 'products' => function ($query) {
+                    $query->withTrashed();
                     $query->with([
                         'category',
                         'brand'

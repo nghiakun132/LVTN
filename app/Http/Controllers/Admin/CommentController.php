@@ -19,7 +19,9 @@ class CommentController extends Controller
     {
         $comments = $this->commentRepository->getWithRelationship([
             'user',
-            'product',
+            'product' => function ($query) {
+                $query->withTrashed();
+            },
         ]);
         $data = [
             'comments' => $comments,

@@ -55,18 +55,18 @@ class Order extends Model
     {
         switch ($this->status) {
             case 1:
-                return 'Đang chờ xác nhận';
+                return '<span class="badge badge-success">Đang chờ xác nhận</span>';
 
             case 2:
-                return 'Đã xác nhận';
+                return '<span class="badge badge-primary">Đã xác nhận</span>';
             case 3:
-                return 'Đang giao hàng';
+                return '<span class="badge badge-warning">Đang giao hàng</span>';
             case 4:
-                return 'Đã giao hàng';
+                return '<span class="badge badge-info">Đã giao hàng</span>';
             case 0:
-                return 'Đã hủy';
+                return '<span class="badge badge-danger">Đã hủy</span>';
             default:
-                return 'Đang chờ xác nhận';
+                return '<span class="badge badge-danger">Đang chờ xác nhận</span>';
         }
     }
 }

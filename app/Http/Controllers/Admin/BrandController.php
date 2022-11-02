@@ -27,6 +27,7 @@ class BrandController extends Controller
     {
         $brands = $this->brandRepository->getWithRelationship([
             'category' => function ($query) {
+                $query->withTrashed();
                 $query->select('c_id', 'c_name');
             }
         ]);

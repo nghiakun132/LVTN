@@ -18,11 +18,17 @@ class HomeController extends Controller
                 ->with([
                     'sales' => function ($query) {
                         $query->with([
-                            'sales'
+                            'sales' => function ($query) {
+                                $query->withTrashed();
+                            }
                         ]);
                     },
-                    'brand',
-                    'category'
+                    'brand' => function ($query) {
+                        $query->withTrashed();
+                    },
+                    'category ' => function ($query) {
+                        $query->withTrashed();
+                    },
                 ])
                 ->orderBy('pro_id', 'DESC')->limit(20)->get();
             $event = Events::where('status', 0)->first();
@@ -36,11 +42,17 @@ class HomeController extends Controller
                 ->with([
                     'sales' => function ($query) {
                         $query->with([
-                            'sales'
+                            'sales' => function ($query) {
+                                $query->withTrashed();
+                            }
                         ]);
                     },
-                    'brand',
-                    'category'
+                    'brand' => function ($query) {
+                        $query->withTrashed();
+                    },
+                    'category' => function ($query) {
+                        $query->withTrashed();
+                    },
                 ])
                 ->orderBy('pro_view', 'DESC')->limit(20)->get();
             $phones = Product::where('pro_category_id', 2)
@@ -49,11 +61,17 @@ class HomeController extends Controller
                 ->with([
                     'sales' => function ($query) {
                         $query->with([
-                            'sales'
+                            'sales' => function ($query) {
+                                $query->withTrashed();
+                            }
                         ]);
                     },
-                    'brand',
-                    'category'
+                    'brand' => function ($query) {
+                        $query->withTrashed();
+                    },
+                    'category' => function ($query) {
+                        $query->withTrashed();
+                    },
                 ])
                 ->orderBy('pro_view', 'DESC')->limit(20)->get();
 
@@ -63,11 +81,17 @@ class HomeController extends Controller
                 ->with([
                     'sales' => function ($query) {
                         $query->with([
-                            'sales'
+                            'sales' => function ($query) {
+                                $query->withTrashed();
+                            }
                         ]);
                     },
-                    'brand',
-                    'category'
+                    'brand' => function ($query) {
+                        $query->withTrashed();
+                    },
+                    'category' => function ($query) {
+                        $query->withTrashed();
+                    },
                 ])
                 ->orderBy('pro_view', 'DESC')->limit(20)->get();
             $data = [
@@ -91,11 +115,17 @@ class HomeController extends Controller
             ->with([
                 'sales' => function ($query) {
                     $query->with([
-                        'sales'
+                        'sales' => function ($query) {
+                            $query->withTrashed();
+                        }
                     ]);
                 },
-                'brand',
-                'category'
+                'brand' => function ($query) {
+                    $query->withTrashed();
+                },
+                'category' => function ($query) {
+                    $query->withTrashed();
+                },
             ])
             ->orderBy('pro_id', 'DESC')->paginate(10);
         return view('client.home.search', compact('products', 'keyword'));
@@ -108,12 +138,20 @@ class HomeController extends Controller
                 ->with([
                     'sales' => function ($query) {
                         $query->with([
-                            'sales'
+                            'sales' => function ($query) {
+                                $query->withTrashed();
+                            }
                         ]);
                     },
-                    'brand',
-                    'category',
-                    'group'
+                    'brand' => function ($query) {
+                        $query->withTrashed();
+                    },
+                    'category' => function ($query) {
+                        $query->withTrashed();
+                    },
+                    'group' => function ($query) {
+                        $query->withTrashed();
+                    },
                 ])->limit(5)->get();
 
             if ($products) {
