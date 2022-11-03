@@ -134,7 +134,6 @@ class AuthController extends Controller
         $address->save();
 
         Session()->forget('temp_user');
-        Session()->put('user', $user);
-        return redirect()->route('client.home');
+        return redirect()->route('client.home')->with('success', 'Đăng ký thành công');
     }
 }

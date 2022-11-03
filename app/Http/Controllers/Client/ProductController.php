@@ -165,6 +165,7 @@ class ProductController extends Controller
         $products = Wishlist::where('user_id', session()->get('user')->id)
             ->with([
                 'product' => function ($query) {
+                    $query->withTrashed();
                     $query->select([
                         'pro_id',
                         'pro_name',

@@ -93,10 +93,10 @@
         right: 0px;
     }
     .lts-product .item .cover2 {
-    position: absolute;
-    width: 100%;
-    top: 170px;
-    right: -3px;
+        position: absolute;
+        width: 100%;
+        top: 170px;
+        right: -3px;
     }
     section .box-home .header {
         background: #009981;
@@ -278,6 +278,26 @@
     }
 }
 @media screen and (min-width: 769px) and (max-width: 1200px) {
+    .krSXKE {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        background-color: rgb(255, 255, 255);
+        margin-bottom: 8px;
+        position: sticky;
+        top: 56px;
+        z-index: 1;
+    }
+    .order-status {
+        flex-shrink: 0;
+        padding: 14px 12px;
+        border-bottom: none;
+    }
+    .order-active {
+        flex-shrink: 0;
+        padding: 14px 12px;
+        border-bottom: 2px solid rgb(13, 92, 182);
+    }
     .product-thumnail.product-thumnail2 {
         left: 12px;
     }
@@ -549,16 +569,16 @@
         opacity: 0.9;
         animation: 1s ease 0s 1 normal none running fade;
     }
-    .wrap-iten-in-cart .products-cart .quantity .quantity-input{
+    .wrap-iten-in-cart .products-cart .quantity .quantity-input {
         max-width: 75px;
     }
-    .wrap-iten-in-cart .products-cart .quantity .quantity-input .btn::before{
+    .wrap-iten-in-cart .products-cart .quantity .quantity-input .btn::before {
         margin-left: -5px;
     }
 }
 
 @media screen and (max-width: 426px) {
-    .wrap-iten-in-cart .products-cart .quantity .quantity-input .btn::before{
+    .wrap-iten-in-cart .products-cart .quantity .quantity-input .btn::before {
         margin-left: -5px;
     }
     .product-thumnail3 {

@@ -110,6 +110,9 @@ $(".delete_product").click(function (e) {
                 success: function (data) {
                     if (data.code == 200) {
                         Swal.fire("Đã xóa!", "Dữ liệu đã được xóa.", "success");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1400);
                     }
                 },
                 error: function () {},
@@ -240,22 +243,22 @@ $(".user-active").click(function (e) {
                     id: id,
                 },
                 headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
                 },
                 type: "POST",
                 success: function (data) {
                     if (data.code == 200) {
-                        Swal.fire(
-                            {
-                                title: "Đã duyệt!",
-                                text: "Dữ liệu đã được duyệt.",
-                                icon: "success",
-                                showCancelButton: false,
-                                confirmButtonColor: "#3085d6",
-                                confirmButtonText: "OK",
-                                timer: 2000,
-                            },
-                        );
+                        Swal.fire({
+                            title: "Đã duyệt!",
+                            text: "Dữ liệu đã được duyệt.",
+                            icon: "success",
+                            showCancelButton: false,
+                            confirmButtonColor: "#3085d6",
+                            confirmButtonText: "OK",
+                            timer: 2000,
+                        });
                         setTimeout(function () {
                             location.reload();
                         }, 2000);

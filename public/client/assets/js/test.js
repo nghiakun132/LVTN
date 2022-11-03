@@ -41,16 +41,6 @@ function runSpeechRecognition() {
 }
 
 $("document").ready(function () {
-    $(".hero__categories ul").slideToggle(400);
-    $(".hero__categories ul").css("padding", "0");
-});
-
-$(".hero__categories__all").on("click", function () {
-    $(".hero__categories ul").css("padding", "0");
-    $(".hero__categories ul").slideToggle(400);
-});
-
-$("document").ready(function () {
     window.addEventListener("scroll", function () {
         if (window.scrollY > 666) {
             $(".back-to-top").css("display", "block");
@@ -673,5 +663,45 @@ $("#form-cancel").submit(function (e) {
                 timer: 2000,
             });
         },
+    });
+});
+
+$("#btnCheckOrder").click(function (e) {
+    Swal.fire({
+        title: "Nhập mã đơn hàng",
+        input: "text",
+        inputAttributes: {
+            autocapitalize: "off",
+        },
+        showCancelButton: true,
+        confirmButtonText: "Xem đơn hàng",
+        showLoaderOnConfirm: true,
+        preConfirm: (order) => {
+            return fetch(`/api/check-order/${order}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .catch((error) => {
+                    Swal.showValidationMessage("Lỗi: " + error);
+                });
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: `Mã đơn hàng: ${result.value.order.id}`,
+                html: `
+                    <p>Tên khách hàng: ${result.value.order.name}</p>
+                    <p>Số điện thoại: ${result.value.order.phone}</p>
+                    <p>Tổng tiền: ${result.value.order.total}</p>
+                    <p>Trạng thái: ${result.value.order.status}</p>
+                    <p>Ngày đặt hàng: ${result.value.order.created_at}</p>
+                `,
+                confirmButtonText: "Đóng",
+            });
+        }
     });
 });
