@@ -125,8 +125,10 @@
                             @if ($errors->has('password'))
                                 <span class="text-danger">{{ $errors->first('password') }}</span>
                             @endif
-                            <div class="checkbox">
-                                <label><input type="checkbox" name="remember"> Ghi nhớ</label>
+
+                            <div class=" pull-right">
+                                <label><a href="{{ route('forget.password.get') }}" style="color: #2e9ed5;">Quên mật
+                                        khẩu?</a></label>
                             </div>
                             <button type="submit" class="btn btn-login">Đăng nhập</button>
                         </form>
@@ -310,6 +312,26 @@
                 </div>
 
                 <div class="container ">
+                    <div id="navSocial">
+                        <div class="social-banner">
+                            <ul>
+                                <li><a href="https://facebook.com/nghiakun1012" title="" target="_blank"
+                                        class="blue"><span>
+                                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                                        </span></a></li>
+                                <li><a href="https://www.youtube.com/@nghiakun1012" title="" target="_blank"
+                                        class="red"><span>
+                                            <i class="fa fa-youtube" aria-hidden="true"></i>
+                                        </span></a></li>
+                                {{-- <li><a href="" title="" target="_blank" class="rainbow"><span>
+                                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                                        </span></a></li> --}}
+                                {{-- <li><a href="" title="Tiktok" target="_blank" class="black"><span>
+                                            <i class="fa fa-tiktok" aria-hidden="true"></i>
+                                        </span></a></li> --}}
+                            </ul>
+                        </div>
+                    </div>
                     <div class="mid-section main-info-area">
                         <div class="wrap-logo-top left-section">
                             <a href="{{ route('client.home') }}" class="link-to-home"><img
@@ -470,6 +492,7 @@
         </div>
     </header>
     @yield('content')
+
     <div>
         <a class="back-to-top btn"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
     </div>
@@ -624,10 +647,363 @@
     <script src="{{ asset('client/assets/js/jquery.countdown.min.js') }}"></script>
     <script src="{{ asset('client/assets/js/jquery.sticky.js') }}"></script>
     <script src="{{ asset('client/assets/js/functions.js') }}"></script>
+    <script src="{{ asset('client/assets/js/jssor.slider-28.1.0.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <script type="text/javascript">
+        function jssor_1_slider_init() {
+
+            var jssor_1_SlideshowTransitions = [{
+                    $Duration: 800,
+                    x: 0.3,
+                    $During: {
+                        $Left: [0.3, 0.7]
+                    },
+                    $Easing: {
+                        $Left: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    x: -0.3,
+                    $SlideOut: true,
+                    $Easing: {
+                        $Left: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    x: -0.3,
+                    $During: {
+                        $Left: [0.3, 0.7]
+                    },
+                    $Easing: {
+                        $Left: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    x: 0.3,
+                    $SlideOut: true,
+                    $Easing: {
+                        $Left: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    y: 0.3,
+                    $During: {
+                        $Top: [0.3, 0.7]
+                    },
+                    $Easing: {
+                        $Top: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    y: -0.3,
+                    $SlideOut: true,
+                    $Easing: {
+                        $Top: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    y: -0.3,
+                    $During: {
+                        $Top: [0.3, 0.7]
+                    },
+                    $Easing: {
+                        $Top: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    y: 0.3,
+                    $SlideOut: true,
+                    $Easing: {
+                        $Top: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    x: 0.3,
+                    $Cols: 2,
+                    $During: {
+                        $Left: [0.3, 0.7]
+                    },
+                    $ChessMode: {
+                        $Column: 3
+                    },
+                    $Easing: {
+                        $Left: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    x: 0.3,
+                    $Cols: 2,
+                    $SlideOut: true,
+                    $ChessMode: {
+                        $Column: 3
+                    },
+                    $Easing: {
+                        $Left: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    y: 0.3,
+                    $Rows: 2,
+                    $During: {
+                        $Top: [0.3, 0.7]
+                    },
+                    $ChessMode: {
+                        $Row: 12
+                    },
+                    $Easing: {
+                        $Top: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    y: 0.3,
+                    $Rows: 2,
+                    $SlideOut: true,
+                    $ChessMode: {
+                        $Row: 12
+                    },
+                    $Easing: {
+                        $Top: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    y: 0.3,
+                    $Cols: 2,
+                    $During: {
+                        $Top: [0.3, 0.7]
+                    },
+                    $ChessMode: {
+                        $Column: 12
+                    },
+                    $Easing: {
+                        $Top: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    y: -0.3,
+                    $Cols: 2,
+                    $SlideOut: true,
+                    $ChessMode: {
+                        $Column: 12
+                    },
+                    $Easing: {
+                        $Top: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    x: 0.3,
+                    $Rows: 2,
+                    $During: {
+                        $Left: [0.3, 0.7]
+                    },
+                    $ChessMode: {
+                        $Row: 3
+                    },
+                    $Easing: {
+                        $Left: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    x: -0.3,
+                    $Rows: 2,
+                    $SlideOut: true,
+                    $ChessMode: {
+                        $Row: 3
+                    },
+                    $Easing: {
+                        $Left: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    x: 0.3,
+                    y: 0.3,
+                    $Cols: 2,
+                    $Rows: 2,
+                    $During: {
+                        $Left: [0.3, 0.7],
+                        $Top: [0.3, 0.7]
+                    },
+                    $ChessMode: {
+                        $Column: 3,
+                        $Row: 12
+                    },
+                    $Easing: {
+                        $Left: $Jease$.$InCubic,
+                        $Top: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    x: 0.3,
+                    y: 0.3,
+                    $Cols: 2,
+                    $Rows: 2,
+                    $During: {
+                        $Left: [0.3, 0.7],
+                        $Top: [0.3, 0.7]
+                    },
+                    $SlideOut: true,
+                    $ChessMode: {
+                        $Column: 3,
+                        $Row: 12
+                    },
+                    $Easing: {
+                        $Left: $Jease$.$InCubic,
+                        $Top: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    $Delay: 20,
+                    $Clip: 3,
+                    $Assembly: 260,
+                    $Easing: {
+                        $Clip: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    $Delay: 20,
+                    $Clip: 3,
+                    $SlideOut: true,
+                    $Assembly: 260,
+                    $Easing: {
+                        $Clip: $Jease$.$OutCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    $Delay: 20,
+                    $Clip: 12,
+                    $Assembly: 260,
+                    $Easing: {
+                        $Clip: $Jease$.$InCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                },
+                {
+                    $Duration: 800,
+                    $Delay: 20,
+                    $Clip: 12,
+                    $SlideOut: true,
+                    $Assembly: 260,
+                    $Easing: {
+                        $Clip: $Jease$.$OutCubic,
+                        $Opacity: $Jease$.$Linear
+                    },
+                    $Opacity: 2
+                }
+            ];
+
+            var jssor_1_options = {
+                $AutoPlay: 1,
+                $SlideshowOptions: {
+                    $Class: $JssorSlideshowRunner$,
+                    $Transitions: jssor_1_SlideshowTransitions,
+                    $TransitionsOrder: 1
+                },
+                $ArrowNavigatorOptions: {
+                    $Class: $JssorArrowNavigator$
+                },
+                $ThumbnailNavigatorOptions: {
+                    $Class: $JssorThumbnailNavigator$,
+                    $SpacingX: 5,
+                    $SpacingY: 5
+                }
+            };
+
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+            /*#region responsive code begin*/
+
+            var MAX_WIDTH = 980;
+
+            function ScaleSlider() {
+                var containerElement = jssor_1_slider.$Elmt.parentNode;
+                var containerWidth = containerElement.clientWidth;
+
+                if (containerWidth) {
+
+                    var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+
+                    jssor_1_slider.$ScaleWidth(expectedWidth);
+                } else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+
+            ScaleSlider();
+
+            $Jssor$.$AddEvent(window, "load", ScaleSlider);
+            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+            /*#endregion responsive code end*/
+        };
+    </script>
+    <script type="text/javascript">
+        jssor_1_slider_init();
+    </script>
     @include('components.toastr')
 </body>
 

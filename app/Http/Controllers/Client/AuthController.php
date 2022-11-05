@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Models\Address;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
@@ -135,5 +137,77 @@ class AuthController extends Controller
 
         Session()->forget('temp_user');
         return redirect()->route('client.home')->with('success', 'Đăng ký thành công');
+    }
+
+    public function showForgetPasswordForm()
+    {
+        return view('client.user.forgot-password');
+    }
+
+    public function submitForgetPasswordForm(Request $request)
+    {
+        $request->validate(
+            [
+                'email' => 'required|email|exists:users',
+            ],
+            [
+                'email.required' => 'Nhập email',
+                'email.email' => 'Email không đúng định dạng',
+                'email.exists' => 'Email không tồn tại',
+            ]
+        );
+        $token = Str::random(64);
+
+        DB::table('password_resets')->insert([
+            'email' => $request->email,
+            'token' => $token,
+            'created_at' => Carbon::now()
+        ]);
+
+        Mail::send('client.user.email.forgetPassword', ['token' => $token], function ($message) use ($request) {
+            $message->to($request->email);
+            $message->subject('Reset Password');
+        });
+
+        return back()->with('success', 'We have e-mailed your password reset link!');
+    }
+
+    public function showResetPasswordForm($token)
+    {
+        return view('client.user.forgetPasswordLink', ['token' => $token]);
+    }
+
+    public function submitResetPasswordForm(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users',
+            'password' => 'required|string|min:6',
+            're-password' => 'required|same:password',
+        ], [
+            'email.required' => 'Nhập email',
+            'email.email' => 'Email không đúng định dạng',
+            'email.exists' => 'Email không tồn tại',
+            'password.required' => 'Nhập mật khẩu',
+            'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự',
+            're-password.required' => 'Nhập lại mật khẩu',
+            're-password.same' => 'Mật khẩu không khớp'
+        ]);
+
+        $updatePassword = DB::table('password_resets')
+            ->where([
+                'email' => $request->email,
+                'token' => $request->token
+            ])
+            ->first();
+        if (!$updatePassword) {
+            return redirect()->back()->withInput()->with('error', 'Invalid token!');
+        }
+
+        $user = User::where('email', $request->email)
+            ->update(['password' => Hash::make($request->password)]);
+
+        DB::table('password_resets')->where(['email' => $request->email])->delete();
+
+        return redirect()->route('client.login')->with('success', 'Mật khẩu đã được thay đổi');
     }
 }

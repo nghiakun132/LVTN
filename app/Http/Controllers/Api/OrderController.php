@@ -14,7 +14,6 @@ class OrderController extends Controller
     {
         try {
             $order = Order::where('order_code', $id)->first();
-
             if ($order) {
                 return response()->json([
                     'order' => [
@@ -28,6 +27,7 @@ class OrderController extends Controller
                 ]);
             } else {
                 return response()->json([
+                    'code' => 404,
                     'message' => 'Không tìm thấy đơn hàng'
                 ]);
             }

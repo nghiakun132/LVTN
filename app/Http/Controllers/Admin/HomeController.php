@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\Order;
 use App\Models\User;
 use Carbon\Carbon;
+use Google\Service\Analytics;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,7 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
+
         $period = isset($request->period) ? $request->period : 'week';
         $orders = Order::where('status', '<>', 0);
         $ordersLatest = $orders->orderBy('created_at', 'desc')

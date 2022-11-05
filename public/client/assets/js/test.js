@@ -690,7 +690,14 @@ $("#btnCheckOrder").click(function (e) {
         },
         allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
-        if (result.isConfirmed) {
+        if (result.value.code == 404) {
+            Swal.fire({
+                title: result.value.message,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        } else {
             Swal.fire({
                 title: `Mã đơn hàng: ${result.value.order.id}`,
                 html: `
