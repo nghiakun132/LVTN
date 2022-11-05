@@ -20,7 +20,7 @@
                     <div class="width-screen2">
                         <div class="order-heading"><span>Chi tiết đơn hàng #{{ $order->order_code }}</span><span
                                 class="split">-</span><span
-                                class="status">{{ $order->getStatus($order->status) }}</span>
+                                class="status">{{ $order->convertStatus($order->status) }}</span>
                         </div>
                         <div class="created-date">Ngày đặt hàng: {{ $order->created_at }}</div>
                         <div class="infomation-order">

@@ -983,12 +983,12 @@
                 var containerElement = jssor_1_slider.$Elmt.parentNode;
                 var containerWidth = containerElement.clientWidth;
 
-                if (containerWidth) {
+                if (containerWidth ) {
 
                     var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
 
                     jssor_1_slider.$ScaleWidth(expectedWidth);
-                } else {
+                    } else {
                     window.setTimeout(ScaleSlider, 30);
                 }
             }
@@ -1004,6 +1004,36 @@
     <script type="text/javascript">
         jssor_1_slider_init();
     </script>
+   {{-- <!-- Messenger Plugin chat Code -->
+   <div id="fb-root"></div>
+
+   <!-- Your Plugin chat code -->
+   <div id="fb-customer-chat" class="fb-customerchat">
+   </div>
+
+   <script>
+     var chatbox = document.getElementById('fb-customer-chat');
+     chatbox.setAttribute("page_id", "101249449220577");
+     chatbox.setAttribute("attribution", "biz_inbox");
+   </script>
+
+   <!-- Your SDK code -->
+   <script>
+     window.fbAsyncInit = function() {
+       FB.init({
+         xfbml            : true,
+         version          : 'v15.0'
+       });
+     };
+
+     (function(d, s, id) {
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) return;
+       js = d.createElement(s); js.id = id;
+       js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+   </script> --}}
     @include('components.toastr')
 </body>
 

@@ -16,9 +16,9 @@
                 <span>Thông tin tài khoản</span></a>
         </li>
         <li>
-            <a class="redirect" href="#">
+            <a class="redirect" href="{{ route('client.user.notification') }}">
                 <span><i class="fa fa-bell" aria-hidden="true"></i></span>
-                <span>Thông báo của tôi</span><span class="badge">3</span></a>
+                <span>Thông báo của tôi</span><span class="badge">{{ $noti }}</span></a>
         </li>
         <li>
             <a class="redirect

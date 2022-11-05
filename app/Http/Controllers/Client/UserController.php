@@ -4,6 +4,7 @@ namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
+use App\Models\Notification;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -153,5 +154,35 @@ class UserController extends Controller
     {
         Address::find($id)->delete();
         return redirect()->route('client.address')->with('success', 'Xóa thành công');
+    }
+
+    public function notification()
+    {
+        Notification::where('user_id', Session()->get('user')->id)
+            ->where('is_admin', 0)
+            ->update(['is_read' => 1]);
+
+        $type = request()->type;
+        $notification = Notification::where('user_id', Session()->get('user')->id);
+        switch ($type) {
+            case 'order':
+                $notification = $notification->where('type', 'Order');
+                break;
+            case 'voucher':
+                $notification = $notification->where('type', 'Voucher');
+                break;
+            case 'system':
+                $notification = $notification->where('type', 'System');
+                break;
+            default:
+                $notification = $notification;
+                break;
+        }
+        $notifications = $notification->orderBy('created_at', 'desc')->paginate(10);
+
+        $data = [
+            'notifications' => $notifications,
+        ];
+        return view('client.user.notification', $data);
     }
 }

@@ -65,6 +65,8 @@ Route::group(['namespace' => 'Client'], function () {
                 Route::get('huy-don-hang', [OrderController::class, 'cancel'])->name('client.order.cancel');
                 Route::post('huy-don-hang', [OrderController::class, 'cancelPost'])->name('client.order.cancel.order');
             });
+
+            Route::get('/thong-bao', [UserController::class, 'notification'])->name('client.user.notification');
         });
 
         Route::group(['prefix' => 'gio-hang'], function () {

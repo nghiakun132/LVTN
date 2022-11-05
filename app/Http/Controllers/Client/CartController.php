@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Coupons;
 use App\Models\DeliveryAgent;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Order_details;
 use App\Models\Product;
@@ -439,6 +440,26 @@ class CartController extends Controller
                 Cart::where('user_id', session('user')->id)->delete();
                 session()->forget('coupon');
                 session()->forget('address_id');
+
+                Notification::create([
+                    'is_admin' => 0,
+                    'user_id' => session('user')->id,
+                    'type' => 'Order',
+                    'message' => 'Đơn hàng ' . $order->order_code . ' đã được đặt thành công',
+                ]);
+
+                if ($total > 5000000) {
+                    $voucher = $this->getVoucher();
+                    if ($voucher != 0) {
+                        Notification::create([
+                            'is_admin' => 0,
+                            'user_id' => session('user')->id,
+                            'type' => 'Voucher',
+                            'message' => 'Bạn đã nhận được mã giảm giá ' . $voucher->voucher_code,
+                        ]);
+                    }
+                }
+
                 DB::commit();
                 return redirect()->route('client.cart.success');
             } catch (\Exception $exception) {
@@ -450,6 +471,14 @@ class CartController extends Controller
                 ->route('client.cart.checkout')
                 ->with('error', $response['message'] ?? 'Something went wrong.');
         }
+    }
+
+    public function getVoucher()
+    {
+        $coupon = Coupons::where('coupon_status', 1)
+            ->where('is_send', 1)
+            ->first();
+        return $coupon ?? 0;
     }
 
     public function success()
@@ -494,10 +523,31 @@ class CartController extends Controller
             session()->forget('address_id');
             session()->forget('note');
             session()->forget('delivery_agent_id');
+
+            Notification::create([
+                'is_admin' => 0,
+                'user_id' => session('user')->id,
+                'type' => 'Order',
+                'message' => 'Đơn hàng ' . $order->order_code . ' đã được đặt thành công',
+            ]);
+
+            if ($amount + $fee->fee > 5000000) {
+                $voucher = $this->getVoucher();
+                if (!empty($voucher)) {
+                    Notification::create([
+                        'is_admin' => 0,
+                        'user_id' => session('user')->id,
+                        'type' => 'Voucher',
+                        'message' => 'Bạn đã nhận được mã giảm giá ' . $voucher->coupon_code,
+                    ]);
+
+                    DB::table('coupons')->where('coupon_id', $voucher->coupon_id)->update(['is_send' => 0]);
+                }
+            }
             DB::commit();
-            return redirect()->route('client.cart.success');
         } catch (\Exception $exception) {
             DB::rollBack();
+            \Log::error($exception->getMessage());
             return redirect()->route('client.cart.checkout')->with('error', 'Thanh toán thất bại');
         }
     }

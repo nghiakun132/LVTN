@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
@@ -44,7 +45,6 @@ class ProductController extends Controller
                     },
                 ])
                 ->first();
-            // dd($product);
             $stars = Comment::where('product_id', $product->pro_id)->where('parent_id', 0)->avg('star');
             $comment = Comment::where('product_id', $product->pro_id)
                 ->where('parent_id', 0)
@@ -84,7 +84,17 @@ class ProductController extends Controller
                 array_push($watched, $product->pro_id);
                 Cookie::queue('watched', json_encode($watched), 60 * 24 * 3);
             }
-            $images = $product->images;
+            $images = $product->images->pluck('path')->toArray();
+            shuffle($images);
+
+            $related = Product::where('pro_category_id', $product->pro_category_id)
+                ->where('pro_brand_id', $product->pro_brand_id)
+                ->where('pro_id', '<>', $product->pro_id)
+                ->where('pro_active', 1)
+                ->orderBy('pro_id', 'DESC')
+                ->limit(8)
+                ->get();
+
             $data = [
                 'product' => $product,
                 'images' => $images,
@@ -93,12 +103,14 @@ class ProductController extends Controller
                 // 'tt' => $tt,
                 'comments' => $comment,
                 'stars' => $stars,
+                'related' => $related
 
             ];
             $product->pro_view = $product->pro_view + 1;
             $product->save();
             return view('client.detail.index', $data);
-        } catch (\Throwable $th) {
+        } catch (\Exception $ex) {
+            \Log::error($ex);
             return view('errors.404');
         }
     }

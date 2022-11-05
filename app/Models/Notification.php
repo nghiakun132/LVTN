@@ -27,4 +27,11 @@ class Notification extends Model
             return $this->belongsTo(User::class);
         }
     }
+
+    public function convertTime()
+    {
+        $time = strtotime($this->created_at);
+        $time = date('d/m/Y', $time);
+        return $time;
+    }
 }

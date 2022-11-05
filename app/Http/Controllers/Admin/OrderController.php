@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -67,16 +68,26 @@ class OrderController extends Controller
     {
         try {
             DB::beginTransaction();
-
             $order = Order::find($id);
             if ($order->status == 1) {
                 $order->status = 2;
+                $message = 'Đã xác nhận đơn hàng';
             } else if ($order->status == 2) {
                 $order->status = 3;
+                $message = 'Đang giao hàng';
             } else if ($order->status == 3) {
                 $order->status = 4;
+                $message = 'Đã giao hàng';
             }
             $order->save();
+
+            Notification::create([
+                'is_admin' => 0,
+                'user_id' => $order->user_id,
+                'type' => 'Order',
+                'message' => 'Đơn hàng ' . $order->order_code . ' ' . $message . '!',
+            ]);
+
             DB::commit();
             return redirect()->back()->with('success', 'Cập nhật trạng thái đơn hàng thành công');
         } catch (\Exception $e) {

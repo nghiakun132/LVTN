@@ -19,7 +19,7 @@
             this.mercado_better_equal_elems();
             this.mercado_price_quantity();
             this.mercado_toggle_slide_menu();
-            this.mercado_product_slider();
+            // this.mercado_product_slider();
             this.mercado_toggle_vertical_main_menu();
             this.mercado_sticky_menu();
         },

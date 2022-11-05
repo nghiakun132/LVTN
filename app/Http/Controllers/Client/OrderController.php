@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Order_Cancel;
 use App\Models\Product;
@@ -104,7 +105,16 @@ class OrderController extends Controller
             $orderCancel->reason = $request->reason;
             $orderCancel->save();
 
+            Notification::create([
+                'is_admin' => 0,
+                'user_id' => session('user')->id,
+                'type' => 'Order',
+                'message' => 'Đơn hàng ' . $order->order_code . ' đã bị hủy',
+            ]);
+
+
             DB::commit();
+
 
             return response()->json([
                 'code' => 200,

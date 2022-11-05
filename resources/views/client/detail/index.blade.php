@@ -56,6 +56,142 @@
             font-size: 14px;
         }
     </style>
+    <style>
+        .jssorl-009-spin img {
+            animation-name: jssorl-009-spin;
+            animation-duration: 1.6s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes jssorl-009-spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /*jssor slider arrow skin 106 css*/
+        .jssora106 {
+            display: block;
+            position: absolute;
+            cursor: pointer;
+        }
+
+        .jssora106 .c {
+            fill: #fff;
+            opacity: .3;
+        }
+
+        .jssora106 .a {
+            fill: none;
+            stroke: #000;
+            stroke-width: 350;
+            stroke-miterlimit: 10;
+        }
+
+        .jssora106:hover .c {
+            opacity: .5;
+        }
+
+        .jssora106:hover .a {
+            opacity: .8;
+        }
+
+        .jssora106.jssora106dn .c {
+            opacity: .2;
+        }
+
+        .jssora106.jssora106dn .a {
+            opacity: 1;
+        }
+
+        .jssora106.jssora106ds {
+            opacity: .3;
+            pointer-events: none;
+        }
+
+        /*jssor slider thumbnail skin 101 css*/
+        .jssort101 .p {
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+            background: #000;
+        }
+
+        .jssort101 .p .cv {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #000;
+            box-sizing: border-box;
+            z-index: 1;
+        }
+
+        .jssort101 .a {
+            fill: none;
+            stroke: #fff;
+            stroke-width: 400;
+            stroke-miterlimit: 10;
+            visibility: hidden;
+        }
+
+        .jssort101 .p:hover .cv,
+        .jssort101 .p.pdn .cv {
+            border: none;
+            border-color: transparent;
+        }
+
+        .jssort101 .p:hover {
+            padding: 2px;
+        }
+
+        .jssort101 .p:hover .cv {
+            background-color: rgba(0, 0, 0, 6);
+            opacity: .35;
+        }
+
+        .jssort101 .p:hover.pdn {
+            padding: 0;
+        }
+
+        .jssort101 .p:hover.pdn .cv {
+            border: 2px solid #fff;
+            background: none;
+            opacity: .35;
+        }
+
+        .jssort101 .pav .cv {
+            border-color: #fff;
+            opacity: .35;
+        }
+
+        .jssort101 .pav .a,
+        .jssort101 .p:hover .a {
+            visibility: visible;
+        }
+
+        .jssort101 .t {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            opacity: .6;
+        }
+
+        .jssort101 .pav .t,
+        .jssort101 .p:hover .t {
+            opacity: 1;
+        }
+    </style>
     <div class="container">
         <div class="wrap-breadcrumb">
             <ul>
@@ -91,14 +227,70 @@
                                     <i class="fa fa-heart" aria-hidden="true"></i>
                                 </a>
                             </div>
-                            <ul class="slides">
+                            {{-- <ul class="slides">
                                 @foreach ($images as $image)
                                     <li data-thumb="{{ asset('images/products/' . $image->path) }}">
                                         <img src="{{ asset('images/products/' . $image->path) }}"
                                             alt="{{ $image->path }}" />
                                     </li>
                                 @endforeach
-                            </ul>
+                            </ul> --}}
+
+                            <div class="banner-carousel" style="margin-top: 2rem">
+                                <div id="jssor_1"
+                                    style="position:relative;margin:0 auto;top:0px;left:0px;width:980px;height:480px;overflow:hidden;visibility:hidden;min-height: 400px">
+                                    <!-- Loading Screen -->
+                                    <div data-u="loading" class="jssorl-009-spin"
+                                        style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(252, 247, 247, 0.7);">
+                                        <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;"
+                                            src="{{ asset('client/images/spin.svg') }}" />
+                                    </div>
+                                    <div data-u="slides"
+                                        style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:380px;overflow:hidden;">
+                                        @foreach ($images as $image)
+                                            <div>
+                                                <img data-u="image"src="{{ asset('images/products/' . $image) }}" />
+                                                <img data-u="thumb" src="{{ asset('images/products/' . $image) }}" />
+                                            </div>
+                                        @endforeach
+
+                                    </div>
+                                    <div data-u="thumbnavigator" class="jssort101"
+                                        style="position:absolute;left:0px;bottom:0px;width:980px;height:100px;background-color:#000;"
+                                        data-autocenter="1" data-scale-bottom="0.75">
+                                        <div data-u="slides">
+                                            <div data-u="prototype" class="p" style="width:190px;height:90px;">
+                                                <div data-u="thumbnailtemplate" class="t"></div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-u="arrowleft" class="jssora106"
+                                        style="width:55px;height:55px;top:162px;left:30px;" data-scale="0.75">
+                                        <svg viewbox="0 0 16000 16000"
+                                            style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                                            <circle class="c" cx="8000" cy="8000" r="6260.9">
+                                            </circle>
+                                            <polyline class="a" points="7930.4,5495.7 5426.1,8000 7930.4,10504.3 ">
+                                            </polyline>
+                                            <line class="a" x1="10573.9" y1="8000" x2="5426.1"
+                                                y2="8000"></line>
+                                        </svg>
+                                    </div>
+                                    <div data-u="arrowright" class="jssora106"
+                                        style="width:55px;height:55px;top:162px;right:30px;" data-scale="0.75">
+                                        <svg viewbox="0 0 16000 16000"
+                                            style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                                            <circle class="c" cx="8000" cy="8000" r="6260.9">
+                                            </circle>
+                                            <polyline class="a"
+                                                points="8069.6,5495.7 10573.9,8000 8069.6,10504.3 "></polyline>
+                                            <line class="a" x1="5426.1" y1="8000" x2="10573.9"
+                                                y2="8000"></line>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="detail-info">
@@ -195,14 +387,6 @@
                             </div>
                             <div class="tab-content-item " id="add_infomation">
                                 <div class="table-responsive mt-4">
-                                    {{-- <table class="table table-bordered table-hover">
-                                        @foreach ($tt as $key => $item)
-                                            <tr>
-                                                <th>{{ $key }}</th>
-                                                <td class="item-detail">{{ $item }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </table> --}}
                                     <?php echo $product->pro_detail; ?>
                                 </div>
                             </div>
@@ -210,115 +394,55 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 sitebar">
-                <div class="widget widget-our-services ">
-                    <div class="widget-content">
-                        <ul class="our-services">
-                            <li class="service">
-                                <a class="link-to-service" href="#">
-                                    <i class="fa fa-truck" aria-hidden="true"></i>
-                                    <div class="right-content">
-                                        <b class="title">Miễn phí vận chuyển</b>
-                                        <span class="subtitle">Cho toàn bộ đơn hàng</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="service">
-                                <a class="link-to-service" href="#">
-                                    <i class="fa fa-gift" aria-hidden="true"></i>
-                                    <div class="right-content">
-                                        <b class="title">Quà tặng</b>
-                                        <span class="subtitle">Mã giảm giá</span>
-                                        <p class="desc">Khi mua đơn hàng trên 1.000.000đ</p>
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="service">
-                                <a class="link-to-service" href="#">
-                                    <i class="fa fa-reply" aria-hidden="true"></i>
-                                    <div class="right-content">
-                                        <b class="title">Hoàn trả</b>
-                                        <span class="subtitle">Trả hàng nếu không đúng mô tả</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="widget mercado-widget widget-product">
-                    <h2 class="widget-title">Sản phẩm phổ biến</h2>
-                    <div class="widget-content">
-                        <ul class="products">
-                             @foreach ($popularProducts as $popularProducts)
-                                <li class="product-item">
-                                    <div class="product product-widget-style">
-                                        <div class="thumbnnail">
-                                            <a href="{{ route('detail', $popularProducts->pro_slug) }}"
-                                                title="{{ $popularProducts->pro_name }}">
-                                                <figure><img
-                                                        src="{{ asset('uploads/products/' . $popularProducts->pro_avatar) }}"
-                                                        alt=""></figure>
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <a href="{{ route('detail', $popularProducts->pro_slug) }}"
-                                                class="product-name"><span>{{ $popularProducts->pro_name }}</span></a>
-                                            <div class="wrap-price"><span
-                                                    class="product-price">{{ number_format($popularProducts->pro_price - $popularProducts->pro_price * $popularProducts->pro_sale, 0, ',', ',') . ' VND' }}</span>
-                                            </div>
-                                            @if ($popularProducts->pro_sale > 0)
-                                                <div class="wrap-price"><span class="product-price"
-                                                        style="color:red;text-decoration-line: line-through">{{ number_format($popularProducts->pro_price, 0, ',', ',') . ' VND' }}</span>
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div> --}}
             <div class="single-advance-box col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="wrap-show-advance-info-box style-1 box-in-site">
                     <h3 class="title-box">Sản phẩm tương tự</h3>
-                    <div class="wrap-products">
-                        <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5"
-                            data-loop="false" data-nav="true" data-dots="false"
-                            data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}'>
-                            {{-- @foreach ($productRelated as $related)
-                                <div class="product product-style-2 equal-elem ">
-                                    <div class="product-thumnail">
-                                        <a href="{{ route('detail', $related->pro_slug) }}"
-                                            title="{{ $related->pro_name }}">
-                                            <figure><img src="{{ asset('uploads/products/' . $related->pro_avatar) }}"
-                                                    width="214" height="214" alt="{{ $related->pro_name }}">
-                                            </figure>
-                                        </a>
-                                        <div class="group-flash">
-                                            <span class="flash-item new-label">new</span>
-                                        </div>
-                                        <div class="wrap-btn">
-                                            <a href="{{ route('detail', $related->pro_slug) }}"
-                                                class="function-link">Xem chi tiết</a>
-                                        </div>
+                    <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5"
+                        data-loop="true" data-nav="true" data-dots="false" data-autoplay="true"
+                        data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}'>
+                        @foreach ($related as $related)
+                            <div class="product product-style-2 equal-elem ">
+                                <div class="product-thumnail">
+                                    <a href="{{ route('client.product', [
+                                        'slug' => $product->category->c_slug,
+                                        'brand' => $product->brand->b_slug,
+                                        'product' => $product->pro_slug,
+                                    ]) }}"
+                                        title="{{ $related->pro_name }}">
+                                        <figure><img src="{{ asset('images/products/' . $related->pro_avatar) }}"
+                                                width="214" height="214" alt="{{ $related->pro_name }}">
+                                        </figure>
+                                    </a>
+                                    <div class="group-flash">
+                                        <span class="flash-item new-label">new</span>
                                     </div>
-                                    <div class="product-info">
-                                        <a href="{{ route('detail', $related->pro_slug) }}"
-                                            class="product-name"><span>{{ $related->pro_name }}</span></a>
-                                        <div class="wrap-price"><span
-                                                class="product-price">{{ number_format($related->pro_price - $related->pro_price * $related->pro_sale, 0, ',', ',') . ' VND' }}</span>
-                                        </div>
-                                        @if ($related->pro_sale > 0)
-                                            <div class="wrap-price"><span class="product-price"
-                                                    style="color:red;text-decoration-line: line-through">{{ number_format($related->pro_price, 0, ',', ',') . ' VND' }}</span>
-                                            </div>
-                                        @endif
+                                    <div class="wrap-btn">
+                                        <a href="{{ route('client.product', [
+                                            'slug' => $product->category->c_slug,
+                                            'brand' => $product->brand->b_slug,
+                                            'product' => $product->pro_slug,
+                                        ]) }}"
+                                            class="function-link">Xem chi tiết</a>
                                     </div>
                                 </div>
-                            @endforeach --}}
-                        </div>
+                                <div class="product-info">
+                                    <a href="{{ route('client.product', [
+                                        'slug' => $product->category->c_slug,
+                                        'brand' => $product->brand->b_slug,
+                                        'product' => $product->pro_slug,
+                                    ]) }}"
+                                        class="product-name"><span>{{ $related->pro_name }}</span></a>
+                                    <div class="wrap-price"><span
+                                            class="product-price">{{ number_format($related->pro_price - $related->pro_price * $related->pro_sale, 0, ',', ',') . ' VND' }}</span>
+                                    </div>
+                                    @if ($related->pro_sale > 0)
+                                        <div class="wrap-price"><span class="product-price"
+                                                style="color:red;text-decoration-line: line-through">{{ number_format($related->pro_price, 0, ',', ',') . ' VND' }}</span>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="full-width-content">
