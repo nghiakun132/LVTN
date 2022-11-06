@@ -56,7 +56,8 @@
                                     <div class="content">
                                         <p class="address"><span>Lý do: </span>{{ $order->orderCancel->reason ?? '' }}
                                         </p>
-                                        <p class="address"><span>Ngày hủy: </span>{{ $order->orderCancel->created_at ?? ''}}
+                                        <p class="address"><span>Ngày hủy:
+                                            </span>{{ $order->orderCancel->created_at ?? '' }}
                                         </p>
 
                                     </div>
@@ -69,7 +70,8 @@
                                     <th>Sản phẩm</th>
                                     <th>Giá</th>
                                     <th>Số lượng</th>
-                                    <th>Giảm giá</th>
+                                    {{-- <th>Giảm giá</th> --}}
+                                    <th></th>
                                     <th>Tạm tính</th>
                                 </tr>
                             </thead>
@@ -99,7 +101,8 @@
                                         </td>
                                         <td class="price">{{ number_format($detail->price, 0, ',', '.') }}₫</td>
                                         <td class="quantity">{{ $detail->quantity }}</td>
-                                        <td class="discount-amount">0 ₫</td>
+                                        {{-- <td class="discount-amount">0 ₫</td> --}}
+                                        <td></td>
                                         <td class="raw-total">
                                             {{ number_format($detail->price * $detail->quantity, 0, ',', '.') }}₫</td>
                                     </tr>
@@ -111,13 +114,18 @@
                                     <td>{{ number_format($total, 0, ',', '.') }}₫</td>
                                 </tr>
                                 <tr>
+                                    <td colspan="4"><span>Giảm giá</span></td>
+                                    <td>{{ number_format(($order->discount / 100) * $total, 0, ',', '.') }}₫
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td colspan="4"><span>Phí vận chuyển</span></td>
                                     <td>{{ number_format($order->deliveryAgent->fee, 0, ',', '.') }}₫</td>
                                 </tr>
                                 <tr>
                                     <td colspan="4"><span>Tổng cộng</span></td>
                                     <td><span class="sum">
-                                            {{ number_format($total + $order->deliveryAgent->fee, 0, ',', '.') }}₫
+                                            {{ number_format($total + $order->deliveryAgent->fee - ($order->discount / 100) * $total, 0, ',', '.') }}₫
                                         </span></td>
                                 </tr>
 

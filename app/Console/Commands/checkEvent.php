@@ -30,7 +30,8 @@ class checkEvent extends Command
     public function handle()
     {
         $event = Events::where('status', 0)->first();
-        if ($event->end_date < date('Y-m-d H:i:s')) {
+
+        if ($event && $event->end_date < date('Y-m-d H:i:s')) {
             $event->status = 1;
             $event->save();
             $event_details = $event->event_details;
@@ -39,8 +40,8 @@ class checkEvent extends Command
                 $product->pro_sale = 0;
                 $product->save();
             }
+            $event->delete();
+            Event_details::truncate();
         }
-        $event->delete();
-        Event_details::truncate();
     }
 }

@@ -296,7 +296,7 @@
                         <div class="tab-content-item active" id="digital_1a">
                             <div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container"
                                 data-items="5" data-loop="false" data-nav="true" data-dots="false"
-                                data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"},"1200":{"items":"5"}}'>
+                                data-responsive='{"0":{"items":"2"},"480":{"items":"4"},"768":{"items":"4"},"992":{"items":"5"},"1200":{"items":"5"}}'>
                                 @for ($i = 0; $i < 9; $i++)
                                     <div class="product product-style-2 equal-elem">
                                         <div class="product-thumnail">
@@ -362,12 +362,12 @@
                                 </marquee>
                             </div>
                         </div> --}}
-                        @if ($apple->pro_sale > 0)
+                        {{-- @if ($apple->pro_sale > 0)
                             <span class="sales">
                                 <i class="icon-flash2"></i> Giảm
                                 {{ number_format(($apple->pro_price * ($apple->pro_sale / 100)) / 1000, 0, ',', '.') }}K
                             </span>
-                        @endif
+                        @endif --}}
                         <div class="info">
                             <a href="{{ route('client.product', [
                                 'slug' => $apple->category->c_slug,
@@ -692,7 +692,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="wrap-products">
                 <div class="wrap-product-tab tab-style-1">
                     <div class="tab-contents">
@@ -794,7 +793,7 @@
                 </div>
             </div>
         </div>
-        <section>
+        {{-- <section>
             <div class="container">
                 <div class="news-home box-home">
                     <div class="header">
@@ -837,7 +836,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
     </div>
 </main>
 

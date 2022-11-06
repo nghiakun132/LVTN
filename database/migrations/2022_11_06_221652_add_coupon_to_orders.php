@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('coupons', function (Blueprint $table) {
-            $table->boolean('is_send')->default(0);
+        Schema::table('orders', function (Blueprint $table) {
+            $table->integer('discount')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('coupons', function (Blueprint $table) {
-            $table->dropColumn('is_send');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn('discount');
         });
     }
 };

@@ -37,7 +37,7 @@
 
     .back-to-top {
         position: fixed;
-        bottom: 20px;
+        bottom: 115px;
         right: 29px;
         display: none;
         width: 67px;
@@ -47,7 +47,32 @@
         display: block;
         background: #00483d;
         opacity: 2.5;
-        border-radius: 8px;
+        border-radius: 50%;
+        animation: bounce 2s infinite;
+    }
+
+    .back-to-top:hover {
+        background: #00483d;
+        opacity: 1;
+    }
+
+    @keyframes bounce {
+
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+            transform: translateY(0);
+        }
+
+        40% {
+            transform: translateY(-30px);
+        }
+
+        60% {
+            transform: translateY(-15px);
+        }
     }
 
 
@@ -983,12 +1008,12 @@
                 var containerElement = jssor_1_slider.$Elmt.parentNode;
                 var containerWidth = containerElement.clientWidth;
 
-                if (containerWidth ) {
+                if (containerWidth) {
 
                     var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
 
                     jssor_1_slider.$ScaleWidth(expectedWidth);
-                    } else {
+                } else {
                     window.setTimeout(ScaleSlider, 30);
                 }
             }
@@ -1004,7 +1029,7 @@
     <script type="text/javascript">
         jssor_1_slider_init();
     </script>
-   {{-- <!-- Messenger Plugin chat Code -->
+    {{-- <!-- Messenger Plugin chat Code -->
    <div id="fb-root"></div>
 
    <!-- Your Plugin chat code -->

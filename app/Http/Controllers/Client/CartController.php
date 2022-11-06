@@ -254,9 +254,10 @@ class CartController extends Controller
         foreach ($carts as $cart) {
             $total += $cart->price * $cart->quantity;
         }
-        $coupon = $request->coupon_code;
+        $coupon = session('coupon');
+        // dd($coupon);
         if ($coupon) {
-            $cp = Coupons::where('coupon_code', $coupon)
+            $cp = Coupons::where('coupon_code', $coupon['name'])
                 ->where('coupon_status', 1)
                 ->first()->coupon_discount;
             if ($cp) {
@@ -299,7 +300,7 @@ class CartController extends Controller
                 }
                 break;
             case 'COD':
-                $this->action($total, "COD");
+                $this->action($total, "COD", $cp);
                 return redirect()->route('client.cart.success');
                 break;
             case 'VnPay':
@@ -375,7 +376,7 @@ class CartController extends Controller
     public function vnpay()
     {
         if (isset($_GET['vnp_ResponseCode']) && $_GET['vnp_ResponseCode'] == '00') {
-            $this->action($_GET['vnp_Amount'] / 100, "Thanh toán qua VNPAY");
+            $this->action($_GET['vnp_Amount'] / 100, "Thanh toán qua VNPAY", session('coupon')['discount']);
             return redirect()->route('client.cart.success');
         } else {
             return redirect()->route('client.cart.checkout')->with('error', 'Thanh toán thất bại');
@@ -420,6 +421,7 @@ class CartController extends Controller
                 $order->payment_method = 'Paypal';
                 $order->address_id = session('address_id');
                 $order->status = 1;
+                $order->discount = session('coupon')['discount'];
                 $order->save();
 
                 foreach ($carts as $cart) {
@@ -501,6 +503,7 @@ class CartController extends Controller
             $order->payment_method = $method;
             $order->address_id = session('address_id');
             $order->status = 1;
+            $order->discount = session('coupon')['discount'];
             $order->save();
 
             foreach ($carts as $cart) {

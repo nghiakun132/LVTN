@@ -19,6 +19,9 @@ class CategoryController extends Controller
             $products = Product::where('pro_category_id', $category->c_id)
                 ->whereIn('pro_brand_id', $brands->pluck('b_id'))
                 ->with([
+                    'comments' => function ($query) {
+                        $query->where('parent_id', 0);
+                    },
                     'sales' => function ($query) {
                         $query->with([
                             'sales' => function ($query2) {
@@ -27,29 +30,13 @@ class CategoryController extends Controller
 
                         ]);
                     },
-                    // 'brand' => function ($query2) {
-                    //     $query2->withTrashed();
-                    // },
-                    // 'category' => function ($query2) {
-                    //     $query2->withTrashed();
-                    // },
                 ]);
             $giaTu = $request->gia_tu;
             $giaDen = $request->gia_den;
             $sort = $request->sort;
             if (isset($giaTu) && isset($giaDen)) {
-                $products = Product::where('pro_category_id', $category->c_id)
-                    ->where('pro_price', '>=', $giaTu)
-                    ->where('pro_price', '<=', $giaDen)
-                    ->with([
-                        'sales' => function ($query) {
-                            $query->with([
-                                'sales' => function ($query2) {
-                                    $query2->withTrashed();
-                                }
-                            ]);
-                        }
-                    ]);
+                $products = $products->where('pro_price', '>=', $giaTu)
+                    ->where('pro_price', '<=', $giaDen);
             }
             if (isset($sort)) {
                 switch ($sort) {
@@ -103,7 +90,11 @@ class CategoryController extends Controller
                 ->where('b_category_id', $category->c_id)
                 ->first();
             $products = Product::where('pro_brand_id', $brand->b_id)
+
                 ->with([
+                    'comments' => function ($query) {
+                        $query->where('parent_id', 0);
+                    },
                     'sales' => function ($query) {
                         $query->with([
                             'sales' => function ($query2) {
@@ -116,19 +107,9 @@ class CategoryController extends Controller
             $giaDen = $request->gia_den;
             $sort = $request->sort;
             if (isset($giaTu) && isset($giaDen)) {
-                $products = Product::where('pro_category_id', $category->c_id)
-                    ->where('pro_brand_id', $brand->b_id)
+                $products = $products
                     ->where('pro_price', '>=', $giaTu)
-                    ->where('pro_price', '<=', $giaDen)
-                    ->with([
-                        'sales' => function ($query) {
-                            $query->with(
-                                ['sales' => function ($query2) {
-                                    $query2->withTrashed();
-                                }]
-                            );
-                        }
-                    ]);
+                    ->where('pro_price', '<=', $giaDen);
             }
             if (isset($sort)) {
                 switch ($sort) {

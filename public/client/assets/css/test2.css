@@ -857,3 +857,9 @@ body.no-scroll {
 .cgzxMV .circle.c-fd810b {
     background-color: rgb(253, 129, 11);
 }
+
+strike {
+    text-decoration: line-through;
+    color: rgb(27, 2, 2);
+    font-weight: 600;
+}

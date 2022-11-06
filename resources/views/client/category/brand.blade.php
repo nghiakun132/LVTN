@@ -215,6 +215,15 @@
                                             title="{{ $product->pro_name }}">
                                     </a>
                                 </div>
+                                <div class="stars-comment">
+                                    @if ($product->comments)
+                                        @for ($i = 0; $i < $product->comments->avg('star'); $i++)
+                                            <i class="fa fa-star" aria-hidden="true" style="font-size:15px"></i>
+                                        @endfor
+                                    @else
+                                        <i class="fa fa-star" aria-hidden="true" style="font-size:15px"></i>
+                                    @endif
+                                </div>
                                 @if ($product->pro_sale > 0)
                                     <div class="cover">
                                         <div
