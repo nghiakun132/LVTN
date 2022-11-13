@@ -21,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/statistic', [App\Http\Controllers\Api\StatisticController::class, 'index']);
 
 Route::get('/check-order/{id}', [App\Http\Controllers\Api\OrderController::class, 'index']);
+
+Route::get('/import', [App\Http\Controllers\Api\StatisticController::class, 'import']);

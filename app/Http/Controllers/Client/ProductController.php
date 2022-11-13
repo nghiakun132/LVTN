@@ -147,7 +147,8 @@ class ProductController extends Controller
                 ];
                 return view('client.detail.watched', $data);
             }
-        } catch (\Throwable $th) {
+        } catch (\Exception $th) {
+            report($th);
             return view('errors.404');
         }
     }

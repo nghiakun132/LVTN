@@ -60,12 +60,5 @@
                 </span>
                 <span>Sản phẩm yêu thích</span></a>
         </li>
-        <li>
-            <a class="redirect" href="#">
-                <span>
-                    <i class="fa fa-credit-card" aria-hidden="true"></i>
-                </span>
-                <span>Mã giảm giá</span></a>
-        </li>
     </ul>
 </aside>

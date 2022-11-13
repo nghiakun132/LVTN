@@ -29,14 +29,19 @@ $(function () {
             var salesChart = new Chart($salesChart, {
                 type: "bar",
                 data: {
-                    labels: data.data.map((item) => {
+                    labels: data.data.orders.map((item) => {
                         return item.date;
                     }),
                     datasets: [
                         {
                             backgroundColor: "#007bff",
                             borderColor: "#007bff",
-                            data: data.data.map((item) => item.doanhthu),
+                            data: data.data.orders.map((item) => item.doanhthu),
+                        },
+                        {
+                            backgroundColor: "#ced4da",
+                            borderColor: "#ced4da",
+                            data: [700, 1700, 2700, 2000, 1800, 1500, 2000, 700, 1700, 2700, 2000, 1800, 1500, 2000],
                         },
                     ],
                 },
@@ -99,5 +104,4 @@ $(function () {
             });
         });
     // eslint-disable-next-line no-unused-vars
-
 });

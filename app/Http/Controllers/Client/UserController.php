@@ -8,6 +8,7 @@ use App\Models\Notification;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -184,5 +185,24 @@ class UserController extends Controller
             'notifications' => $notifications,
         ];
         return view('client.user.notification', $data);
+    }
+
+    public function deleteNotification()
+    {
+        try {
+            DB::beginTransaction();
+            Notification::find(request()->id)->delete();
+            DB::commit();
+            return response()->json([
+                'code' => 200,
+                'message' => 'Xóa thành công',
+            ], 200);
+        } catch (\Exception $th) {
+            DB::rollBack();
+            return response()->json([
+                'code' => 500,
+                'message' => 'Xóa thất bại',
+            ], 500);
+        }
     }
 }

@@ -32,7 +32,7 @@
                                             data-target="#addEvent">
                                             <i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm mới
                                         </a>
-                                        <a class="btn btn-secondary btn-sm text-white float-right mr-3" href="#">
+                                        <a class="btn btn-secondary btn-sm text-white float-right mr-3" href="{{route('admin.event.check')}}">
                                             <i class="fa fa-check" aria-hidden="true"></i> Kiểm tra
                                         </a>
                                     </div>

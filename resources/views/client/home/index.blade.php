@@ -221,10 +221,10 @@
                 <div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5"
                     data-loop="false" data-nav="true" data-dots="false" data-autoplay="false"
                     data-autoplay-timeout="1000" data-autoplay-hover-pause="true"
-                    data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"},"1200":{"items":"5"}}'>
+                    data-responsive='{"0":{"items":"2"},"480":{"items":"3"},"768":{"items":"4"},"992":{"items":"4"},"1200":{"items":"5"}}'>
                     @foreach ($details as $detail)
                         <div class="product product-style-2 equal-elem">
-                            <div class="product-thumnail product-thumnail3">
+                            <div class="product-thumnail">
                                 <a href="{{ route('client.product', [
                                     'slug' => $detail->products->category->c_slug,
                                     'brand' => $detail->products->brand->b_slug,
@@ -296,7 +296,7 @@
                         <div class="tab-content-item active" id="digital_1a">
                             <div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container"
                                 data-items="5" data-loop="false" data-nav="true" data-dots="false"
-                                data-responsive='{"0":{"items":"2"},"480":{"items":"4"},"768":{"items":"4"},"992":{"items":"5"},"1200":{"items":"5"}}'>
+                                data-responsive='{"0":{"items":"2"},"480":{"items":"4"},"768":{"items":"4"},"992":{"items":"5"},"1200":{"items":"6"}}'>
                                 @for ($i = 0; $i < 9; $i++)
                                     <div class="product product-style-2 equal-elem">
                                         <div class="product-thumnail">
@@ -411,7 +411,7 @@
             </div>
 
             <div class="col-content lts-product col-product">
-                @foreach ($phones as $phone)
+                {{-- @foreach ($phones as $phone)
                     <div class="item">
                         <div class="img">
                             <a
@@ -427,14 +427,14 @@
                         <div class="sticker sticker-left">
                             <span><img src="{{ asset('images/bao-hanh-24t.png') }}" title="Chính hãng Apple"></span>
                         </div>
-                        {{-- <div class="cover">
+                        <div class="cover">
                             <div
                                 style="color: yellow;background: #00483D;margin: 25px 20px 15px 15px;padding: 3px;border-radius: 6px;font-size:14px;font-weight: 600;">
                                 <marquee behavior="alternate">
                                     <span style="color:white">Tặng PMH 300.000đ</span><br>
                                 </marquee>
                             </div>
-                        </div> --}}
+                        </div>
                         @if ($phone->pro_sale > 0)
                             <span class="sales">
                                 <i class="icon-flash2"></i> Giảm
@@ -472,7 +472,7 @@
                             </div>
                         @endif
                     </div>
-                @endforeach
+                @endforeach --}}
             </div>
         </div>
         <div class="wrap-show-advance-info-box style-1 ">
@@ -607,7 +607,7 @@
                             <div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container"
                                 data-items="5" data-loop="false" data-nav="true" data-dots="false"
                                 data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"},"1200":{"items":"5"}}'>
-                                @foreach ($watchs as $watch)
+                                {{-- @foreach ($watchs as $watch)
                                     <div class="product product-style-2 equal-elem">
                                         <div class="product-thumnail product-thumnail2 product-thumnail3">
                                             <a href="
@@ -661,7 +661,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                @endforeach --}}
 
                             </div>
                         </div>

@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Events;
 use App\Models\Product;
 use Illuminate\Http\Request;
+
 class HomeController extends Controller
 {
     public function index()
     {
-
         try {
             $details = [];
             $end = '';
@@ -26,7 +26,7 @@ class HomeController extends Controller
                     'brand' => function ($query) {
                         $query->withTrashed();
                     },
-                    'category ' => function ($query) {
+                    'category' => function ($query) {
                         $query->withTrashed();
                     },
                 ])
@@ -34,7 +34,17 @@ class HomeController extends Controller
             $event = Events::where('status', 0)->first();
             if ($event) {
                 $end = date('Y/m/d H:i:s', strtotime($event->end_date));
-                $details = $event->event_details->load(['products', 'products.brand', 'products.category']);
+                $details = $event->event_details->load([
+                    'products' => function ($query) {
+                        $query->withTrashed();
+                    },
+                    'products.brand' => function ($query) {
+                        $query->withTrashed();
+                    },
+                    'products.category' => function ($query) {
+                        $query->withTrashed();
+                    },
+                ]);
             }
             $laptops = Product::where('pro_category_id', 1)
                 // ->inRandomOrder()
@@ -55,52 +65,12 @@ class HomeController extends Controller
                     },
                 ])
                 ->orderBy('pro_view', 'DESC')->limit(20)->get();
-            $phones = Product::where('pro_category_id', 2)
-                ->inRandomOrder()
-                ->where('pro_active', 1)
-                ->with([
-                    'sales' => function ($query) {
-                        $query->with([
-                            'sales' => function ($query) {
-                                $query->withTrashed();
-                            }
-                        ]);
-                    },
-                    'brand' => function ($query) {
-                        $query->withTrashed();
-                    },
-                    'category' => function ($query) {
-                        $query->withTrashed();
-                    },
-                ])
-                ->orderBy('pro_view', 'DESC')->limit(20)->get();
 
-            $watchs = Product::where('pro_category_id', 11)
-                ->inRandomOrder()
-                ->where('pro_active', 1)
-                ->with([
-                    'sales' => function ($query) {
-                        $query->with([
-                            'sales' => function ($query) {
-                                $query->withTrashed();
-                            }
-                        ]);
-                    },
-                    'brand' => function ($query) {
-                        $query->withTrashed();
-                    },
-                    'category' => function ($query) {
-                        $query->withTrashed();
-                    },
-                ])
-                ->orderBy('pro_view', 'DESC')->limit(20)->get();
             $data = [
                 'apple' => $apple,
                 'end' => $end,
                 'details' => $details,
                 'laptops' => $laptops,
-                'phones' => $phones,
-                'watchs' => $watchs,
             ];
             return view('client.home.index', $data);
         } catch (\Exception $e) {

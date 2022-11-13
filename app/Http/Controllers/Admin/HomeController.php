@@ -45,8 +45,8 @@ class HomeController extends Controller
         $users = User::limit(10)->get();
 
         $data = [
-            'total' => $orders->sum('total'),
-            'totalBefore' => $ordersBefore->sum('total'),
+            'total' => $orders->sum('total') == 0 ? 1 : $orders->sum('total'),
+            'totalBefore' => $ordersBefore->sum('total') == 0 ? 1 : $ordersBefore->sum('total'),
             'period' => $period,
             'ordersLatest' => $ordersLatest,
             'users' => $users

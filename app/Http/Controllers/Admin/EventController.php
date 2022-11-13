@@ -7,6 +7,7 @@ use App\Models\Event_details;
 use App\Repositories\EventRepository;
 use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
@@ -47,6 +48,7 @@ class EventController extends Controller
                 ]);
             }
         ], $id);
+
         $data = [
             'products' => $products,
             'event' => $event,
@@ -115,5 +117,18 @@ class EventController extends Controller
                 'message' => 'Xóa thành công'
             ], 200);
         }
+    }
+
+    public function check()
+    {
+        Artisan::call('check:event');
+        return redirect()->back()->with('success', 'Check thành công');
+    }
+
+    public function delete($id)
+    {
+        $this->eventRepository->delete($id);
+        Event_details::where('event_id', $id)->delete();
+        return redirect()->back()->with('success', 'Xóa thành công');
     }
 }

@@ -55,13 +55,17 @@ $("document").ready(function () {
 });
 
 $(".search_input").on("focus", function () {
-    $("body").css("overflow", "hidden");
-    $(".autocomplete-suggestions").css("display", "block");
+    if (window.screen.width > 1200) {
+        $("body").css("overflow", "hidden");
+        $(".autocomplete-suggestions").css("display", "block");
+    }
 });
 
 $(".search_input").on("blur", function () {
-    $("body").css("overflow", "auto");
-    $(".autocomplete-suggestions").css("display", "none");
+    if (window.screen.width > 1200) {
+        $("body").css("overflow", "auto");
+        $(".autocomplete-suggestions").css("display", "none");
+    }
 });
 
 $(".search_input").keyup(function () {
@@ -73,8 +77,10 @@ $(".search_input").keyup(function () {
             method: "GET",
             data: { search: query },
             success: function (data) {
-                $(".autocomplete-suggestions").fadeIn();
-                $(".autocomplete-suggestions").html(data);
+                if (window.screen.width > 1200) {
+                    $(".autocomplete-suggestions").fadeIn();
+                    $(".autocomplete-suggestions").html(data);
+                }
             },
         });
     }
@@ -710,5 +716,42 @@ $("#btnCheckOrder").click(function (e) {
                 confirmButtonText: "Đóng",
             });
         }
+    });
+});
+
+$(".delete-notification").click(function (e) {
+    e.preventDefault();
+    const id = $(this).data("id");
+
+    $.ajax({
+        url: "/tai-khoan/xoa-thong-bao",
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        data: {
+            id: id,
+        },
+        success: function (data) {
+            if (data.code == 200) {
+                Swal.fire({
+                    title: data.message,
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
+            }
+        },
+        error: function (data) {
+            Swal.fire({
+                title: data.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        },
     });
 });

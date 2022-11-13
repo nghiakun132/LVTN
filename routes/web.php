@@ -67,6 +67,7 @@ Route::group(['namespace' => 'Client'], function () {
             });
 
             Route::get('/thong-bao', [UserController::class, 'notification'])->name('client.user.notification');
+            Route::post('/xoa-thong-bao', [UserController::class, 'deleteNotification'])->name('client.user.delete_notification');
         });
 
         Route::group(['prefix' => 'gio-hang'], function () {
