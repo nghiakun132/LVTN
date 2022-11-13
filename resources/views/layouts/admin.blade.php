@@ -246,6 +246,10 @@
                     language: {
                         url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/vi.json"
                     },
+                    lengthMenu: [
+                        [20, 50, 100, 250, -1],
+                        [20, 50, 100, 250, "All"]
+                    ],
                 });
             });
             // $(document).ready(function() {
