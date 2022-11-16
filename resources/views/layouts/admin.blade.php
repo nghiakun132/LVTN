@@ -217,7 +217,8 @@
         <script src="{{ asset('admin/js/adminlte.js') }}"></script>
         <script src="{{ asset('admin/js/Chart.min.js') }}"></script>
         <script src="{{ asset('admin/js/demo.js') }}"></script>
-        <script src="{{ asset('admin/js/dashboard3.js') }}"></script>
+        <script src="{{ asset('admin/js/areaChart.js') }}"></script>
+        <script src="{{ asset('admin/js/barChart.js') }}"></script>
         <script src="{{ asset('admin/js/test.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
@@ -252,13 +253,6 @@
                     ],
                 });
             });
-            // $(document).ready(function() {
-            //     $('#example2').DataTable({
-            //         language: {
-            //             url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/vi.json"
-            //         },
-            //     });
-            // });
         </script>
         @include('components.toastr')
 

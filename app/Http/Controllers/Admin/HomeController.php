@@ -25,28 +25,10 @@ class HomeController extends Controller
             ->with('user:id,name')
             ->limit(10)->get();
         $ordersBefore = Order::where('status', '<>', 0);
-        switch ($period) {
-            case 'week':
-                $orders = $orders->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
-                $ordersBefore = $ordersBefore->whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()]);
-                break;
-            case 'month':
-                $orders = $orders->whereMonth('created_at', '=', Carbon::now()->month);
-                $ordersBefore = $ordersBefore->whereMonth('created_at', '=', Carbon::now()->subMonth()->month);
-                break;
-            case 'year':
-                $orders = $orders->whereYear('created_at', '=', Carbon::now()->year);
-                $ordersBefore = $ordersBefore->whereYear('created_at', '=', Carbon::now()->subYear()->year);
-                break;
-            default:
-                break;
-        }
 
         $users = User::limit(10)->get();
 
         $data = [
-            'total' => $orders->sum('total') == 0 ? 1 : $orders->sum('total'),
-            'totalBefore' => $ordersBefore->sum('total') == 0 ? 1 : $ordersBefore->sum('total'),
             'period' => $period,
             'ordersLatest' => $ordersLatest,
             'users' => $users

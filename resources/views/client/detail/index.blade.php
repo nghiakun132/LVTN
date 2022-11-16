@@ -398,7 +398,7 @@
                 <div class="wrap-show-advance-info-box style-1 box-in-site">
                     <h3 class="title-box">Sản phẩm tương tự</h3>
                     <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5"
-                        data-loop="true" data-nav="true" data-dots="false" data-autoplay="true"
+                        data-loop="false" data-nav="true" data-dots="false" data-autoplay="true"
                         data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}'>
                         @foreach ($related as $related)
                             <div class="product product-style-2 equal-elem ">

@@ -352,7 +352,7 @@
                             </a>
                         </div>
                         <div class="sticker sticker-left">
-                            <span><img src="{{ asset('images/apple.png') }}" title="Chính hãng Apple"></span>
+                            <span><img src="{{ asset('images/hot.png') }}" title="Chính hãng Apple"></span>
                         </div>
                         {{-- <div class="cover">
                             <div

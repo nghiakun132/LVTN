@@ -47,16 +47,14 @@
         margin: 20px auto 0 auto;
     }
     .lts-product .item .img:hover {
-        animation: append 0.2s ease-in-out;
+        animation: append 1s infinite
     }
 
     @keyframes append {
         0% {
-            opacity: 0;
             transform: translateY(10px);
         }
         100% {
-            opacity: 1;
             transform: translateY(0);
         }
     }

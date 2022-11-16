@@ -92,9 +92,9 @@ class ProductController extends Controller
                 ->where('pro_id', '<>', $product->pro_id)
                 ->where('pro_active', 1)
                 ->orderBy('pro_id', 'DESC')
+                ->distinct()
                 ->limit(8)
                 ->get();
-
             $data = [
                 'product' => $product,
                 'images' => $images,

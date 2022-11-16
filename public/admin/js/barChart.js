@@ -15,7 +15,7 @@ $(function () {
 
     const url = window.location.href;
     const period = url.split("?").pop();
-    const api = "http://127.0.0.1:8000/api/statistic?" + period;
+    const api = "http://127.0.0.1:8000/api/userAndOrder?" + period;
     const options = {
         method: "GET",
         headers: {
@@ -26,22 +26,20 @@ $(function () {
     fetch(api, options)
         .then((response) => response.json())
         .then((data) => {
-            var salesChart = new Chart($salesChart, {
+            new Chart($salesChart, {
                 type: "bar",
                 data: {
-                    labels: data.data.orders.map((item) => {
-                        return item.date;
-                    }),
+                    labels: data.data.map((item) => item.date),
                     datasets: [
                         {
                             backgroundColor: "#007bff",
                             borderColor: "#007bff",
-                            data: data.data.orders.map((item) => item.doanhthu),
+                            data: data.data.map((item) => item.user),
                         },
                         {
                             backgroundColor: "#ced4da",
                             borderColor: "#ced4da",
-                            data: [700, 1700, 2700, 2000, 1800, 1500, 2000, 700, 1700, 2700, 2000, 1800, 1500, 2000],
+                            data: data.data.map((item) => item.order),
                         },
                     ],
                 },
@@ -58,6 +56,8 @@ $(function () {
                     legend: {
                         display: false,
                     },
+                    datasetFill: false,
+                    responsive: true,
                     scales: {
                         yAxes: [
                             {
@@ -65,26 +65,12 @@ $(function () {
                                 gridLines: {
                                     display: true,
                                     lineWidth: "4px",
-                                    color: "rgba(0, 0, 0, .2)",
+                                    color: "red",
                                     zeroLineColor: "transparent",
                                 },
                                 ticks: $.extend(
                                     {
                                         beginAtZero: true,
-
-                                        // Include a dollar sign in the ticks
-                                        callback: function (value) {
-                                            if (value / 1000 >= 1) {
-                                                return value.toLocaleString(
-                                                    "vi-VN",
-                                                    {
-                                                        style: "currency",
-                                                        currency: "VND",
-                                                    }
-                                                );
-                                            }
-                                            return value;
-                                        },
                                     },
                                     ticksStyle
                                 ),
@@ -103,5 +89,4 @@ $(function () {
                 },
             });
         });
-    // eslint-disable-next-line no-unused-vars
 });

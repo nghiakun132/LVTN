@@ -300,7 +300,7 @@ class CartController extends Controller
                 }
                 break;
             case 'COD':
-                $this->action($total, "COD", $cp);
+                $this->action($total, "COD");
                 return redirect()->route('client.cart.success');
                 break;
             case 'VnPay':
@@ -421,7 +421,7 @@ class CartController extends Controller
                 $order->payment_method = 'Paypal';
                 $order->address_id = session('address_id');
                 $order->status = 1;
-                $order->discount = session('coupon')['discount'];
+                $order->discount = session('coupon')['discount'] ?? 0;
                 $order->save();
 
                 foreach ($carts as $cart) {
@@ -503,7 +503,7 @@ class CartController extends Controller
             $order->payment_method = $method;
             $order->address_id = session('address_id');
             $order->status = 1;
-            $order->discount = session('coupon')['discount'];
+            $order->discount = session('coupon')['discount'] ?? 0;
             $order->save();
 
             foreach ($carts as $cart) {
