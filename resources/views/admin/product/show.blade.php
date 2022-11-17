@@ -79,7 +79,7 @@
                                                             <select class="form-control form-control-xl"
                                                                 name="pro_category_id" id="categories">
                                                                 <option value="0">Chọn danh mục</option>
-                                                                @foreach ($categoriesGlobal as $categoriesGlobal)
+                                                                @foreach ($categoriesGlobalSelect as $categoriesGlobal)
                                                                     <option value="{{ $categoriesGlobal->c_id }}"
                                                                         {{ $categoriesGlobal->c_id == $product->pro_category_id ? 'selected' : '' }}>
                                                                         {{ $categoriesGlobal->c_name }}

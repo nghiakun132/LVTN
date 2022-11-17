@@ -36,7 +36,18 @@ class AppServiceProvider extends ServiceProvider
         ])->where('parent_id', 0)
             ->where('c_status', 1)
             ->get();
-        // dd($categoriesGlobal);
+        $categoriesGlobalSelect = \App\Models\Category::with([
+            'parent' => function ($query) {
+                $query->with([
+                    'brand'
+                ]);
+            },
+            'brand' => function ($query) {
+                $query->select('b_id', 'b_name', 'b_category_id', 'b_slug');
+            },
+        ])
+            ->where('c_status', 1)
+            ->get();
         $brandGlobal = \App\Models\Brands::all();
         $groupGlobal = \App\Models\Groups::all();
 
@@ -44,6 +55,7 @@ class AppServiceProvider extends ServiceProvider
             view()->share('categoriesGlobal', $categoriesGlobal);
             view()->share('brandGlobal', $brandGlobal);
             view()->share('groupGlobal', $groupGlobal);
+            view()->share('categoriesGlobalSelect', $categoriesGlobalSelect);
         } catch (\Exception $e) {
         }
     }
