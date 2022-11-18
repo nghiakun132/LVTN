@@ -63,6 +63,13 @@
                                                                 @endif
                                                             </td>
                                                             <td>
+
+                                                                <a href="{{ route('admin.sale.addProduct', $sale->id) }}"
+                                                                    class="btn btn-primary btn-sm text-white">
+                                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                                    Thêm sản phẩm
+                                                                </a>
+
                                                                 <a href="{{ route('admin.sale.delete', $sale->id) }}"
                                                                     class="btn btn-danger btn-sm text-white">
                                                                     <i class="fa fa-trash"></i> Xóa
@@ -70,7 +77,6 @@
                                                             </td>
                                                         </tr>
                                                     @endforeach
-
                                                 </tbody>
                                             </table>
                                         </div>

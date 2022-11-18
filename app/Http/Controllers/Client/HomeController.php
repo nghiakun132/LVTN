@@ -9,28 +9,43 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+
+    private function relationship()
+    {
+        return [
+            'sales' => function ($query) {
+                $query->with([
+                    'sales' => function ($query) {
+                        $query->withTrashed();
+                    }
+                ]);
+            },
+            'brand' => function ($query) {
+                $query->withTrashed();
+            },
+            'category' => function ($query) {
+                $query->withTrashed();
+            },
+        ];
+    }
+
     public function index()
     {
         try {
             $details = [];
             $end = '';
-            $apple = Product::where('pro_category_id', 1)->where('pro_brand_id', 2)
-                ->with([
-                    'sales' => function ($query) {
-                        $query->with([
-                            'sales' => function ($query) {
-                                $query->withTrashed();
-                            }
-                        ]);
-                    },
-                    'brand' => function ($query) {
-                        $query->withTrashed();
-                    },
-                    'category' => function ($query) {
-                        $query->withTrashed();
-                    },
-                ])
-                ->orderBy('pro_id', 'DESC')->limit(20)->get();
+            $washingMachines = Product::where('pro_category_id', 9)->with($this->relationship())->limit(12)->get();
+
+            $televisions = Product::where('pro_category_id', 5)->with($this->relationship())
+                ->orderBy('pro_view', 'DESC')
+                ->limit(20)->get();
+
+            $fridges = Product::where('pro_category_id', 10)->with($this->relationship())
+                ->orderBy('pro_view', 'DESC')
+                ->limit(20)->get();
+            $liked = Product::with($this->relationship())
+                ->orderBy('pro_view', 'DESC')
+                ->limit(20)->get();
             $event = Events::where('status', 0)->first();
             if ($event) {
                 $end = date('Y/m/d H:i:s', strtotime($event->end_date));
@@ -47,33 +62,22 @@ class HomeController extends Controller
                 ]);
             }
             $laptops = Product::where('pro_category_id', 1)
-                // ->inRandomOrder()
                 ->where('pro_active', 1)
-                ->with([
-                    'sales' => function ($query) {
-                        $query->with([
-                            'sales' => function ($query) {
-                                $query->withTrashed();
-                            }
-                        ]);
-                    },
-                    'brand' => function ($query) {
-                        $query->withTrashed();
-                    },
-                    'category' => function ($query) {
-                        $query->withTrashed();
-                    },
-                ])
+                ->with($this->relationship())
                 ->orderBy('pro_view', 'DESC')->limit(20)->get();
 
             $data = [
-                'apple' => $apple,
+                'liked' => $liked,
                 'end' => $end,
                 'details' => $details,
                 'laptops' => $laptops,
+                'fridges' => $fridges,
+                'televisions' => $televisions,
+                'washingMachines' => $washingMachines,
             ];
             return view('client.home.index', $data);
         } catch (\Exception $e) {
+            report($e);
             return view('errors.404');
         }
     }
@@ -82,21 +86,7 @@ class HomeController extends Controller
     {
         $keyword = $request->search;
         $products = Product::where('pro_name', 'LIKE', '%' . $keyword . '%')
-            ->with([
-                'sales' => function ($query) {
-                    $query->with([
-                        'sales' => function ($query) {
-                            $query->withTrashed();
-                        }
-                    ]);
-                },
-                'brand' => function ($query) {
-                    $query->withTrashed();
-                },
-                'category' => function ($query) {
-                    $query->withTrashed();
-                },
-            ])
+            ->with($this->relationship())
             ->orderBy('pro_id', 'DESC')->paginate(10);
         return view('client.home.search', compact('products', 'keyword'));
     }
@@ -105,24 +95,7 @@ class HomeController extends Controller
         if ($request->ajax()) {
             $output = '';
             $products = Product::where('pro_name', 'LIKE', '%' . $request->search . '%')
-                ->with([
-                    'sales' => function ($query) {
-                        $query->with([
-                            'sales' => function ($query) {
-                                $query->withTrashed();
-                            }
-                        ]);
-                    },
-                    'brand' => function ($query) {
-                        $query->withTrashed();
-                    },
-                    'category' => function ($query) {
-                        $query->withTrashed();
-                    },
-                    'group' => function ($query) {
-                        $query->withTrashed();
-                    },
-                ])->limit(5)->get();
+                ->with($this->relationship())->limit(5)->get();
 
             if ($products) {
                 foreach ($products as $key => $product) {

@@ -93,6 +93,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'panel'], function () {
             Route::post('', [SaleController::class, 'store'])->name('admin.sale.store');
             Route::get('/{id}/delete', [SaleController::class, 'delete'])->name('admin.sale.delete');
             Route::get('changeStatus/{id}', [SaleController::class, 'changeStatus'])->name('admin.sale.changeStatus');
+            Route::get('/add-product/{id}', [SaleController::class, 'addProduct'])->name('admin.sale.addProduct');
+            Route::post('/add-product/{id}', [SaleController::class, 'addProductPost'])->name('admin.sale.addProductPost');
+            Route::get('/delete-product/{id}', [SaleController::class, 'deleteProduct'])->name('admin.sale.delete.product');
         });
 
         Route::group(['prefix' => 'event'], function () {
