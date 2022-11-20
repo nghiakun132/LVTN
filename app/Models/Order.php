@@ -53,38 +53,49 @@ class Order extends Model
 
     public function convertStatus()
     {
+        $status = '';
         switch ($this->status) {
             case 0:
-                return 'Đã hủy';
-            case 1:
-                return 'Đang chờ xác nhận';
+                $status = 'Đã hủy';
+                break;
             case 2:
-                return 'Đã xác nhận';
+                $status =  'Đã xác nhận';
+                break;
             case 3:
-                return 'Đang giao hàng';
+                $status = 'Đang giao hàng';
+                break;
             case 4:
-                return 'Đã hủy';
+                $status = 'Đã giao hàng';
+                break;
+            case 1:
             default:
-                return 'Đang chờ xác nhận';
+                $status =  'Đang chờ xác nhận';
+                break;
         }
+        return $status;
     }
 
     public function getStatus()
     {
+        $status = '';
         switch ($this->status) {
-            case 1:
-                return '<span class="badge badge-success">Đang chờ xác nhận</span>';
-
             case 2:
-                return '<span class="badge badge-primary">Đã xác nhận</span>';
+                $status =  '<span class="badge badge-primary">Đã xác nhận</span>';
+                break;
             case 3:
-                return '<span class="badge badge-warning">Đang giao hàng</span>';
+                $status =  '<span class="badge badge-warning">Đang giao hàng</span>';
+                break;
             case 4:
-                return '<span class="badge badge-info">Đã giao hàng</span>';
+                $status =  '<span class="badge badge-info">Đã giao hàng</span>';
+                break;
             case 0:
-                return '<span class="badge badge-danger">Đã hủy</span>';
+                $status =  '<span class="badge badge-danger">Đã hủy</span>';
+                break;
+            case 1:
             default:
-                return '<span class="badge badge-danger">Đang chờ xác nhận</span>';
+                $status =  '<span class="badge badge-success">Đang chờ xác nhận</span>';
+                break;
         }
+        return $status;
     }
 }

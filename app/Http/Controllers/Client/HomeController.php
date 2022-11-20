@@ -34,16 +34,19 @@ class HomeController extends Controller
         try {
             $details = [];
             $end = '';
-            $washingMachines = Product::where('pro_category_id', 9)->with($this->relationship())->limit(12)->get();
-
+            $washingMachines = Product::where('pro_category_id', 9)
+                ->where('pro_active', 1)
+                ->with($this->relationship())->limit(12)->get();
             $televisions = Product::where('pro_category_id', 5)->with($this->relationship())
+                ->where('pro_active', 1)
                 ->orderBy('pro_view', 'DESC')
                 ->limit(20)->get();
-
             $fridges = Product::where('pro_category_id', 10)->with($this->relationship())
+                ->where('pro_active', 1)
                 ->orderBy('pro_view', 'DESC')
                 ->limit(20)->get();
             $liked = Product::with($this->relationship())
+                ->where('pro_active', 1)
                 ->orderBy('pro_view', 'DESC')
                 ->limit(20)->get();
             $event = Events::where('status', 0)->first();
@@ -86,6 +89,7 @@ class HomeController extends Controller
     {
         $keyword = $request->search;
         $products = Product::where('pro_name', 'LIKE', '%' . $keyword . '%')
+            ->where('pro_active', 1)
             ->with($this->relationship())
             ->orderBy('pro_id', 'DESC')->paginate(10);
         return view('client.home.search', compact('products', 'keyword'));
@@ -95,11 +99,13 @@ class HomeController extends Controller
         if ($request->ajax()) {
             $output = '';
             $products = Product::where('pro_name', 'LIKE', '%' . $request->search . '%')
+                ->where('pro_active', 1)
                 ->with($this->relationship())->limit(5)->get();
 
             if ($products) {
                 foreach ($products as $key => $product) {
-                    $output .= '<div onmousedown="return false;" class="autocomplete-suggestion" data-index="' . $key . '">
+                    $output .= '<div onmousedown="return false;"
+                    class="autocomplete-suggestion" data-index="' . $key . '">
                         <div class="search-item" onclick="#">
                             <div class="img"><img
                                     src="' . asset('images/products/' . $product->pro_avatar) . '" />

@@ -28,9 +28,7 @@ abstract class BaseRepository implements RepositoryInterface
 
     public function findById($id)
     {
-        $result = $this->model->find($id);
-
-        return $result;
+        return $this->model->find($id);
     }
 
     public function create($attributes = [])
@@ -38,7 +36,7 @@ abstract class BaseRepository implements RepositoryInterface
         return $this->model->create($attributes);
     }
 
-    public function update($attributes = [], $id)
+    public function update($attributes, $id)
     {
         $result = $this->findById($id);
         if ($result) {

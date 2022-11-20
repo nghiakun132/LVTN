@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('check:event')->everyMinute();
         $schedule->command('check:comment')->everyMinute();
+        $schedule->command('check:cart')->everyMinute();
     }
 
     /**

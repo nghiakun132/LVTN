@@ -9,6 +9,7 @@ use App\Http\Controllers\Client\AuthController;
 use App\Http\Controllers\Client\CartController;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,9 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('', function () {
-//     return view('welcome');
-// });
+
 include 'admin.php';
 
 Route::group(['namespace' => 'Client'], function () {
@@ -33,9 +32,11 @@ Route::group(['namespace' => 'Client'], function () {
     Route::get('dang-xuat', [AuthController::class, 'logout'])->name('client.logout');
 
     Route::get('dang-nhap/google/', [AuthController::class, 'redirectToGoogle'])->name('client.login.google');
-    Route::get('dang-nhap/google/callback/', [AuthController::class, 'googleCallback'])->name('client.login.google.callback');
+    Route::get('dang-nhap/google/callback/', [AuthController::class, 'googleCallback'])
+        ->name('client.login.google.callback');
     Route::get('xac-thuc-tai-khoan', [AuthController::class, 'verifyAccount'])->name('client.verify.account');
-    Route::post('xac-thuc-tai-khoan', [AuthController::class, 'verifyAccountPost'])->name('client.verify.account.token');
+    Route::post('xac-thuc-tai-khoan', [AuthController::class, 'verifyAccountPost'])
+        ->name('client.verify.account.token');
     Route::get('dang-nhap/facebook', [AuthController::class, 'redirectToFacebook'])->name('client.login.facebook');
 
     Route::get('forget-password', [AuthController::class, 'showForgetPasswordForm'])->name('forget.password.get');
@@ -48,7 +49,8 @@ Route::group(['namespace' => 'Client'], function () {
     Route::group(['middleware' => ['user']], function () {
         Route::group(['prefix' => 'tai-khoan'],   function () {
             Route::get('', [UserController::class, 'index'])->name('client.user.index');
-            Route::post('thay-doi-thong-tin', [UserController::class, 'changeInformation'])->name('client.user.change_information');
+            Route::post('thay-doi-thong-tin', [UserController::class, 'changeInformation'])
+                ->name('client.user.change_information');
             Route::post('doi-mat-khau', [UserController::class, 'changePassword'])->name('client.user.change_password');
             Route::group(['prefix' => 'so-dia-chi'], function () {
                 Route::get('', [UserController::class, 'address'])->name('client.address');
@@ -56,8 +58,10 @@ Route::group(['namespace' => 'Client'], function () {
                 Route::post('/them', [UserController::class, 'addAddressPost'])->name('client.address.store');
                 Route::get('/{id}/sua', [UserController::class, 'editAddress'])->name('client.address.edit');
                 Route::post('/{id}/sua', [UserController::class, 'updateAddress'])->name('client.address.update');
-                Route::get('dat-mat-dinh/{id}', [UserController::class, 'setDefault'])->name('client.address.set_default');
-                Route::get('so-dia-chi/{id}/xoa', [UserController::class, 'deleteAddress'])->name('client.address.delete');
+                Route::get('dat-mat-dinh/{id}', [UserController::class, 'setDefault'])
+                    ->name('client.address.set_default');
+                Route::get('so-dia-chi/{id}/xoa', [UserController::class, 'deleteAddress'])
+                    ->name('client.address.delete');
             });
             Route::group(['prefix' => 'don-hang-cua-toi'], function () {
                 Route::get('', [OrderController::class, 'index'])->name('client.order');
@@ -67,7 +71,8 @@ Route::group(['namespace' => 'Client'], function () {
             });
 
             Route::get('/thong-bao', [UserController::class, 'notification'])->name('client.user.notification');
-            Route::post('/xoa-thong-bao', [UserController::class, 'deleteNotification'])->name('client.user.delete_notification');
+            Route::post('/xoa-thong-bao', [UserController::class, 'deleteNotification'])
+                ->name('client.user.delete_notification');
         });
 
         Route::group(['prefix' => 'gio-hang'], function () {
@@ -92,7 +97,8 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('/hoan-thanh', [CartController::class, 'success'])->name('client.cart.success');
         Route::get('/danh-sach-san-pham-yeu-thich', [ProductController::class, 'wishlist'])->name('client.wishlist');
         Route::post('/them-san-pham-yeu-thich', [ProductController::class, 'addWishlist'])->name('client.wishlist.add');
-        Route::post('/xoa-san-pham-yeu-thich', [ProductController::class, 'removeWishlist'])->name('client.wishlist.delete');
+        Route::post('/xoa-san-pham-yeu-thich', [ProductController::class, 'removeWishlist'])
+            ->name('client.wishlist.delete');
     });
     Route::get('/san-pham-da-xem', [ProductController::class, 'watched'])->name('client.product.watched');
     //category
@@ -105,6 +111,7 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('/{slug}/{brand}', [CategoryController::class, 'brand'])->name('client.brand');
         Route::get('/{slug}/{brand}/group/{group}', [CategoryController::class, 'group'])->name('client.group');
         Route::get('/{slug}/{brand}/{product}', [ProductController::class, 'index'])->name('client.product');
-        Route::post('/{slug}/{brand}/{product}/comment', [ProductController::class, 'comment'])->name('client.product.comment');
+        Route::post('/{slug}/{brand}/{product}/comment', [ProductController::class, 'comment'])
+            ->name('client.product.comment');
     });
 });

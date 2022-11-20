@@ -1,13 +1,6 @@
 (function ($) {
     "use strict";
-    // if ($(".mercado-google-maps").length == 1) {
-    //     var wfm = document.createElement("script");
-    //     wfm.src =
-    //         "http://maps.googleapis.com/maps/api/js?key=AIzaSyBpXkIHekTsMPHuS_yuG1cIK0j5TvVjFkE";
-    //     wfm.type = "text/javascript";
-    //     var sm = document.getElementsByTagName("script")[0];
-    //     sm.parentNode.insertBefore(wfm, sm);
-    // }
+
     var MERCADO_JS = {
         init: function () {
             // this.mercado_chosen();

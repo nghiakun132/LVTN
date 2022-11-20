@@ -11,7 +11,7 @@ class EventRepository extends BaseRepository
         return Events::class;
     }
 
-    public function getFirstWithRelationship($relationship = [], $id)
+    public function getFirstWithRelationship($relationship, $id)
     {
         return $this->model->with($relationship)->find($id);
     }

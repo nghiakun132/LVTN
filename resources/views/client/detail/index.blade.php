@@ -298,9 +298,11 @@
                             @for ($i = 1; $i <= $stars; $i++)
                                 <i class="fa fa-star" aria-hidden="true"></i>
                             @endfor
-                            {{-- <a href="#" class="count-review">({{ $countComments }} đánh giá)</a> --}}
                         </div>
                         <h2 class="product-name">{{ $product->pro_name }}</h2>
+                        <div class="short-desc">
+                            <p>Sku: {{ $product->sku }}</p>
+                        </div>
                         <div class="short-desc">
                             <?php echo $product->pro_content; ?>
                         </div>

@@ -24,8 +24,6 @@ class HomeController extends Controller
         $ordersLatest = $orders->orderBy('created_at', 'desc')
             ->with('user:id,name')
             ->limit(10)->get();
-        $ordersBefore = Order::where('status', '<>', 0);
-
         $users = User::limit(10)->get();
 
         $data = [

@@ -19,9 +19,6 @@ class OrderController extends Controller
 
         if (isset($request->status)) {
             switch ($request->status) {
-                case 'cho-xac-nhan':
-                    $status = 1;
-                    break;
                 case 'da-xac-nhan':
                     $status = 2;
                     break;
@@ -33,6 +30,10 @@ class OrderController extends Controller
                     break;
                 case 'da-huy':
                     $status = 0;
+                    break;
+                case 'cho-xac-nhan':
+                default:
+                    $status = 1;
                     break;
             }
             $orders = $orders->where('status', $status);
@@ -77,7 +78,7 @@ class OrderController extends Controller
                 $message = 'Đang giao hàng';
             } else if ($order->status == 3) {
                 $order->status = 4;
-                $message = 'Đã giao hàng';
+                $message = 'Đã đến tay khách hàng';
             }
             $order->save();
 
@@ -130,7 +131,6 @@ class OrderController extends Controller
                 $query->withTrashed();
             },
         ])->first();
-        // view()->share('order', $order);
         $pdf = PDF::loadView('admin.order.print', [
             'order' => $order,
         ]);

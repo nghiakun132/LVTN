@@ -57,6 +57,7 @@ class AppServiceProvider extends ServiceProvider
             view()->share('groupGlobal', $groupGlobal);
             view()->share('categoriesGlobalSelect', $categoriesGlobalSelect);
         } catch (\Exception $e) {
+            report($e);
         }
     }
 }

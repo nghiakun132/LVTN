@@ -1,10 +1,9 @@
 function runSpeechRecognition() {
-    var output = document.getElementById("output");
-    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-    var recognition = new SpeechRecognition();
+    let output = document.getElementById("output");
+    let SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+    let recognition = new SpeechRecognition();
     recognition.lang = "vi-VN";
     recognition.onstart = function () {
-        // output.setAttribute("value", "Đang nhận dạng...");
         return Swal.fire({
             title: "Mời bạn nói..............",
             showConfirmButton: false,
@@ -25,7 +24,7 @@ function runSpeechRecognition() {
     };
 
     recognition.onresult = function (event) {
-        var transcript = event.results[0][0].transcript;
+        let transcript = event.results[0][0].transcript;
         Swal.fire({
             title: transcript,
             icon: "success",
@@ -69,9 +68,8 @@ $(".search_input").on("blur", function () {
 });
 
 $(".search_input").keyup(function () {
-    var query = $(this).val();
+    let query = $(this).val();
     if (query != "") {
-        // var _token = $('input[name="_token"]').val();
         $.ajax({
             url: "/searchAjax",
             method: "GET",
@@ -558,7 +556,6 @@ $(".btn-delete-coupon").click(function (e) {
 $(".delivery_method").change(function (e) {
     const fee = $(this).data("fee");
     $("#fee").text(parseInt(fee).toLocaleString("vi-VN") + "đ");
-    // $("#total").text(parseInt($("#total").data("total")) + parseInt(fee));
     const total = $("#total").data("total");
     const totalFee = parseInt(total) + parseInt(fee);
     $("#total").text(parseInt(totalFee).toLocaleString("vi-VN") + "đ");

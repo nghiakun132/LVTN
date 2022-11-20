@@ -27,7 +27,7 @@ class ProductRepository extends BaseRepository
         return $product->pro_id;
     }
 
-    public function update($data = [], $id)
+    public function update($data, $id)
     {
         return $this->model->where('pro_id', $id)->update($data);
     }

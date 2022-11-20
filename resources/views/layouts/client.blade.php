@@ -9,10 +9,12 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/images/2.png') }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link
-        href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic,900,900italic&amp;subset=latin,latin-ext"
+        href="https://fonts.googleapis.com/css?family=Lato:300,400,
+        400italic,700,700italic,900,900italic&amp;subset=latin,latin-ext"
         rel="stylesheet" />
     <link
-        href="https://fonts.googleapis.com/css?family=Open%20Sans:300,400,400italic,600,600italic,700,700italic&amp;subset=latin,latin-ext"
+        href="https://fonts.googleapis.com/css?family=Open%20Sans:300,400,400italic,
+        600,600italic,700,700italic&amp;subset=latin,latin-ext"
         rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/animate.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('client/assets/css/font-awesome.min.css') }}" />
@@ -37,7 +39,7 @@
 
     .back-to-top {
         position: fixed;
-        bottom: 115px;
+        bottom: 150px;
         right: 29px;
         display: none;
         width: 67px;
@@ -441,8 +443,8 @@
                                                 @endif
                                                 <ul class="display-row format_1">
                                                     @foreach ($category->parent as $brand)
-                                                        <h4><a
-                                                                href="{{ route('client.category', $brand->c_slug) }}">{{ $brand->c_name }}</a>
+                                                        <h4><a href="{{ route('client.category', $brand->c_slug) }}">
+                                                                {{ $brand->c_name }}</a>
                                                         </h4>
                                                         @foreach ($brand->brand as $value)
                                                             <li><a

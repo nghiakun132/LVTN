@@ -98,29 +98,55 @@
                 <h3 class="title-box">Sản phẩm nhiều lượt xem nhất</h3>
                 <div class="wrap-products">
                     <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5"
-                        data-loop="false" data-nav="true" data-dots="false"
+                        data-loop="true" data-nav="true" data-dots="false" data-autoplay="true"
+                        data-autoplay-timeout="2000" data-autoplay-hover-pause="true"
                         data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}'>
-                        {{-- @foreach ($mostView as $mostView)
-                        <div class="product product-style-2 equal-elem ">
-                            <div class="product-thumnail">
-                                <a href="{{route('detail',$mostView->pro_slug)}}" title="{{$mostView->pro_name}}">
-                                    <figure><img src="uploads/products/{{$mostView->pro_avatar}}" width="214" height="214"
-                                            alt="{{$mostView->pro_name}}">
-                                    </figure>
-                                </a>
-                                <div class="group-flash">
-                                    <span class="flash-item new-label" style="background-color: red">hot</span>
+                        @foreach ($mostViews as $mostView)
+                            <div class="product product-style-2 equal-elem ">
+                                <div class="product-thumnail">
+                                    <a href="{{ route('client.product', [
+                                        'slug' => $mostView->category->c_slug,
+                                        'brand' => $mostView->brand->b_slug,
+                                        'product' => $mostView->pro_slug,
+                                    ]) }}"
+                                        title="{{ $mostView->pro_name }}">
+                                        <figure><img src="images/products/{{ $mostView->pro_avatar }}" width="214"
+                                                height="214" alt="{{ $mostView->pro_name }}">
+                                        </figure>
+                                    </a>
+                                    <div class="group-flash">
+                                        <span class="flash-item new-label" style="background-color: red">hot</span>
+                                    </div>
+                                    <div class="wrap-btn">
+                                        <a href="{{ route('client.product', [
+                                            'slug' => $mostView->category->c_slug,
+                                            'brand' => $mostView->brand->b_slug,
+                                            'product' => $mostView->pro_slug,
+                                        ]) }}"
+                                            class="function-link">quick view</a>
+                                    </div>
                                 </div>
-                                <div class="wrap-btn">
-                                    <a href="{{route('detail',$mostView->pro_slug)}}" class="function-link">quick view</a>
+                                <div class="product-info">
+                                    <a href="{{ route('client.product', [
+                                        'slug' => $mostView->category->c_slug,
+                                        'brand' => $mostView->brand->b_slug,
+                                        'product' => $mostView->pro_slug,
+                                    ]) }}"
+                                        class="product-name"><span>{{ $mostView->pro_name }}</span></a>
+                                    <div class="wrap-price"><span class="product-price">
+                                            {{ number_format($mostView->pro_price - ($mostView->pro_price * $mostView->pro_sale) / 100, 0, ',', '.') }}
+                                            ₫</span>
+                                        @if ($mostView->pro_sale > 0)
+                                            <del>
+                                                <p class="product-price">
+                                                    {{ number_format($mostView->pro_price, 0, ',', '.') }}
+                                                    ₫</p>
+                                            </del>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                            <div class="product-info">
-                                <a href="{{route('detail',$mostView->pro_slug)}}" class="product-name"><span>{{$mostView->pro_name}}</span></a>
-                                <div class="wrap-price"><span class="product-price">{{number_format($mostView->pro_price- ($mostView->pro_price*$mostView->pro_sale), 0, ',', ',') . ' VND' }}</span></div>
-                            </div>
-                        </div>
-                        @endforeach --}}
+                        @endforeach
 
                     </div>
                 </div>

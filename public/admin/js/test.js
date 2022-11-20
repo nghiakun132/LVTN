@@ -3,7 +3,7 @@ $("#delete-img").click(function () {
 });
 
 $("#categories").change(function () {
-    var category = $(this).val();
+    let category = $(this).val();
     $.ajax({
         url: "/panel/brand/get-brand-by-category",
         method: "GET",
@@ -35,7 +35,7 @@ $("#submitFormAddGroup").click(function (e) {
             name: name,
         },
         success: function (data) {
-            if (data.status == true) {
+            if (data.status) {
                 $("#addGroup").modal("hide");
                 $("#groups").append(
                     "<option value='" +
@@ -78,7 +78,9 @@ $(".js-delete-event").click(function (e) {
                 success: function (data) {
                     if (data.code == 200) {
                         Swal.fire("Đã xóa!", "Dữ liệu đã được xóa.", "success");
-                        // location.reload();
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1400);
                     }
                 },
                 error: function () {},

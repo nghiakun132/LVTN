@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
+const LOCATION_NOW = "Asia/Ho_Chi_Minh";
+const INPUT_PHONE = 'Vui lòng nhập số điện thoại';
+const MESSAGE_SUCCESS = 'Thao tác thành công';
+const MESSAGE_ERROR = 'Thao tác thất bại';
+
 class UserController extends Controller
 {
     public function index()
@@ -34,16 +39,16 @@ class UserController extends Controller
             'email.required' => 'Vui lòng nhập email',
             'email.email' => 'Email không hợp lệ',
             'email.unique' => 'Email đã tồn tại',
-            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'phone.required' => INPUT_PHONE,
             'phone.unique' => 'Số điện thoại đã tồn tại',
         ]);
         $user = User::find(Session()->get('user')->id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
-        $user->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
+        $user->updated_at = Carbon::now(LOCATION_NOW);
         $user->save();
-        return redirect()->back()->with('success', 'Cập nhật thành công');
+        return redirect()->back()->with('success', MESSAGE_SUCCESS);
     }
 
     public function changePassword(Request $request)
@@ -65,11 +70,11 @@ class UserController extends Controller
 
         if (Hash::check($request->password, $user->password)) {
             $user->password = Hash::make($request->new_password);
-            $user->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
+            $user->updated_at = Carbon::now(LOCATION_NOW);
             $user->save();
-            return redirect()->route('client.user.index')->with('success', 'Cập nhật thành công');
+            return redirect()->route('client.user.index')->with('success', MESSAGE_SUCCESS);
         } else {
-            return redirect()->route('client.user.index')->with('error', 'Mật khẩu cũ không đúng');
+            return redirect()->route('client.user.index')->with('error', MESSAGE_ERROR);
         }
     }
 
@@ -93,7 +98,7 @@ class UserController extends Controller
             'address' => 'required',
         ], [
             'name.required' => 'Vui lòng nhập họ tên',
-            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'phone.required' => INPUT_PHONE,
             'phone.size' => 'Số điện thoại không hợp lệ',
             'address.required' => 'Vui lòng nhập địa chỉ',
         ]);
@@ -108,9 +113,9 @@ class UserController extends Controller
                 ->update(['default' => 0]);
             $address->default = 1;
         }
-        $address->created_at = Carbon::now('Asia/Ho_Chi_Minh');
+        $address->created_at = Carbon::now(LOCATION_NOW);
         $address->save();
-        return redirect()->route('client.address')->with('success', 'Thêm thành công');
+        return redirect()->route('client.address')->with('success', MESSAGE_SUCCESS);
     }
     public function editAddress($id)
     {
@@ -125,7 +130,7 @@ class UserController extends Controller
             'address' => 'required',
         ], [
             'name.required' => 'Vui lòng nhập họ tên',
-            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'phone.required' => INPUT_PHONE,
             'phone.size' => 'Số điện thoại không hợp lệ',
             'address.required' => 'Vui lòng nhập địa chỉ',
         ]);
@@ -135,10 +140,13 @@ class UserController extends Controller
         $address->address = $request->address;
         $address->type = $request->type;
         if ($request->default == "on") {
+            Address::where('user_id', Session()->get('user')->id)
+                ->update(['default' => 0]);
+            $address->default = 1;
         }
         $address->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
         $address->save();
-        return redirect()->route('client.address')->with('success', 'Cập nhật thành công');
+        return redirect()->route('client.address')->with('success', MESSAGE_SUCCESS);
     }
     public function setDefault($id)
     {
@@ -148,13 +156,13 @@ class UserController extends Controller
         $address = Address::find($id);
         $address->default = 1;
         $address->save();
-        return redirect()->route('client.address')->with('success', 'Cập nhật thành công');
+        return redirect()->route('client.address')->with('success',  MESSAGE_SUCCESS);
     }
 
     public function deleteAddress($id)
     {
         Address::find($id)->delete();
-        return redirect()->route('client.address')->with('success', 'Xóa thành công');
+        return redirect()->route('client.address')->with('success',  MESSAGE_SUCCESS);
     }
 
     public function notification()
@@ -176,8 +184,6 @@ class UserController extends Controller
                 $notification = $notification->where('type', 'System');
                 break;
             default:
-                $notification = $notification;
-                break;
         }
         $notifications = $notification->orderBy('created_at', 'desc')->paginate(10);
 

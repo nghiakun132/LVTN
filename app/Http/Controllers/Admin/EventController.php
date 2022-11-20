@@ -73,7 +73,6 @@ class EventController extends Controller
             $products = Event_details::where('product_id', $data['product_id'])->where('event_id', $id)->first();
             if ($products) {
                 $products->update([
-                    // 'quantity' => $data['quantity'],
                     'percentage' => $data['percentage'],
                 ]);
                 $product = $this->productRepository->findOne($data['product_id']);
@@ -83,7 +82,6 @@ class EventController extends Controller
                 $eventDetails = new Event_details();
                 $eventDetails->product_id = $data['product_id'];
                 $eventDetails->event_id = $id;
-                // $eventDetails->quantity = $data['quantity'];
                 $eventDetails->percentage = $data['percentage'];
                 $eventDetails->save();
 

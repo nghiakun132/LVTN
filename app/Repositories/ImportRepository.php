@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Models\imports;
+use App\Models\Imports;
 
 class ImportRepository extends BaseRepository
 {
     public function getModel()
     {
-        return imports::class;
+        return Imports::class;
     }
 
     public function findOne($id)
@@ -16,7 +16,7 @@ class ImportRepository extends BaseRepository
         return $this->model->where('i_id', $id)->first();
     }
 
-    public function update($data = [], $id)
+    public function update($data, $id)
     {
         $result = $this->findOne($id);
         if ($result) {

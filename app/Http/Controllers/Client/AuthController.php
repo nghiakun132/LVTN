@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
+const INPUT_PASSWORD = 'Nhập mật khẩu';
+
 class AuthController extends Controller
 {
     public function login(Request $request)
@@ -23,7 +25,7 @@ class AuthController extends Controller
             'password' => 'required',
         ], [
             'email.required' => 'Nhập thông tin đăng nhập',
-            'password.required' => 'Nhập mật khẩu'
+            'password.required' =>  INPUT_PASSWORD,
         ]);
 
         $check = true;
@@ -114,7 +116,7 @@ class AuthController extends Controller
             'address.required' => 'Nhập địa chỉ',
             'phone.required' => 'Nhập số điện thoại',
             'phone.unique' => 'Số điện thoại đã tồn tại',
-            'password.required' => 'Nhập mật khẩu',
+            'password.required' => INPUT_PASSWORD,
             'confirmed.required' => 'Nhập lại mật khẩu',
             'confirmed.same' => 'Mật khẩu không khớp'
         ]);
@@ -187,7 +189,7 @@ class AuthController extends Controller
             'email.required' => 'Nhập email',
             'email.email' => 'Email không đúng định dạng',
             'email.exists' => 'Email không tồn tại',
-            'password.required' => 'Nhập mật khẩu',
+            'password.required' => INPUT_PASSWORD,
             'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự',
             're-password.required' => 'Nhập lại mật khẩu',
             're-password.same' => 'Mật khẩu không khớp'

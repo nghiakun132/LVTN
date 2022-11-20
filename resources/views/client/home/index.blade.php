@@ -296,11 +296,16 @@
                         <div class="tab-content-item active" id="digital_1a">
                             <div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container"
                                 data-items="5" data-loop="false" data-nav="true" data-dots="false"
+                                data-autoplay="true" data-autoplay-timeout="2000" data-autoplay-hover-pause="true"
                                 data-responsive='{"0":{"items":"2"},"480":{"items":"4"},"768":{"items":"4"},"992":{"items":"5"},"1200":{"items":"5"}}'>
                                 @foreach ($washingMachines as $washingMachine)
                                     <div class="product product-style-2 equal-elem">
                                         <div class="product-thumnail product-thumnail2">
-                                            <a href="" title="{{ $washingMachine->pro_name }}">
+                                            <a href="{{ route('client.product', [
+                                                'slug' => $washingMachine->category->c_slug,
+                                                'brand' => $washingMachine->brand->b_slug,
+                                                'product' => $washingMachine->pro_slug,
+                                            ]) }}" title="{{ $washingMachine->pro_name }}">
                                                 <figure>
                                                     <img src="{{ asset('/images/products/' . $washingMachine->pro_avatar) }}"
                                                         width="800" height="800" alt="{{ $washingMachine->pro_name }}" />
@@ -312,7 +317,11 @@
 
                                         </div>
                                         <div class="product-info">
-                                            <a href="#"
+                                            <a href="{{ route('client.product', [
+                                                'slug' => $washingMachine->category->c_slug,
+                                                'brand' => $washingMachine->brand->b_slug,
+                                                'product' => $washingMachine->pro_slug,
+                                            ]) }}"
                                                 class="product-name"><span>{{ $washingMachine->pro_name }}</span></a>
                                             <div class="wrap-price"><span class="product-price">
                                                     {{ number_format($washingMachine->pro_price - ($washingMachine->pro_price * $washingMachine->pro_sale) / 100, 0, ',', '.') }}

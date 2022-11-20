@@ -18,9 +18,7 @@ class OrderController extends Controller
             $orders = Order::where('user_id', session('user')->id)->orderBy('id', 'desc');
             if (isset($request->status)) {
                 switch ($request->status) {
-                    case 'cho-xac-nhan':
-                        $status = 1;
-                        break;
+
                     case 'da-xac-nhan':
                         $status = 2;
                         break;
@@ -33,6 +31,10 @@ class OrderController extends Controller
                     case 'da-huy':
                         $status = 0;
                         break;
+                    case 'cho-xac-nhan':
+                    default:
+                        $status = 1;
+                        break;
                 }
                 $orders = $orders->where('status', $status);
             }
@@ -41,6 +43,7 @@ class OrderController extends Controller
             ];
             return view('client.order.index', $data);
         } catch (\Exception $exception) {
+            report($exception);
             return view('errors.404');
         }
     }
@@ -82,6 +85,7 @@ class OrderController extends Controller
             ];
             return view('client.order.detail', $data);
         } catch (\Exception $ex) {
+            report($ex);
             return view('errors.404');
         }
     }

@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\imports;
+use App\Models\Imports;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -22,8 +22,7 @@ class ImportExport implements WithHeadings, FromCollection
 
     public function collection()
     {
-        $imports = imports::select('i_code', 'i_admin_id', 'created_at', 'i_total', 'i_status')->get();
-        // dd($imports);
+        $imports = Imports::select('i_code', 'i_admin_id', 'created_at', 'i_total', 'i_status')->get();
         foreach ($imports as $key => $import) {
             $import->i_code = $import->i_code;
             $import->i_admin_id = $import->admin->name;

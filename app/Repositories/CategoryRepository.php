@@ -10,19 +10,17 @@ class CategoryRepository extends BaseRepository
     {
         return Category::class;
     }
-    public function show(&$data, $parent_id)
+    public function show(&$data, $parent)
     {
         $menuTree = [];
         foreach ($data as $key => $value) {
-            if ($value['parent_id'] == $parent_id) {
-                if ($value['parent_id'] == $parent_id) {
-                    $children = $this->show($data, $value['c_id']);
-                    if ($children) {
-                        $value['children'] = $children;
-                    }
-                    $menuTree[] = $value;
-                    unset($data[$key]);
+            if ($value['parent_id'] == $parent) {
+                $children = $this->show($data, $value['c_id']);
+                if ($children) {
+                    $value['children'] = $children;
                 }
+                $menuTree[] = $value;
+                unset($data[$key]);
             }
         }
         return $menuTree;
@@ -31,8 +29,9 @@ class CategoryRepository extends BaseRepository
     {
         $num++;
         $html = '';
-        foreach ($list as $key => $value) {
-            $html .= '<option value=' . $value['c_id'] . '>' . str_repeat('----', $num - 1) . $value['c_name'] . '</option>';
+        foreach ($list as $value) {
+            $html .= '<option value=' . $value['c_id'] . '>' .
+                str_repeat('----', $num - 1) . $value['c_name'] . '</option>';
             if (isset($value['children'])) {
                 $html .= $this->showSelect($value['children'], $num);
             }
@@ -45,7 +44,7 @@ class CategoryRepository extends BaseRepository
         return $this->model->where('c_id', $id)->first();
     }
 
-    public function update($attributes = [], $id)
+    public function update($attributes, $id)
     {
         $result = $this->findOne($id);
         if ($result) {

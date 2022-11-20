@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Admin;
 
-class StaffRepository extends BaseRepository implements RepositoryInterface
+class StaffRepository extends BaseRepository
 {
     public function getModel()
     {

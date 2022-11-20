@@ -65,11 +65,4 @@ class Product extends Model
     {
         return $this->hasMany(Event_details::class, 'product_id');
     }
-
-
-    //booted
-    // protected static function booted()
-    // {
-    //     static::addGlobalScope(new \App\Models\Scopes\StatusScope);
-    // }
 }

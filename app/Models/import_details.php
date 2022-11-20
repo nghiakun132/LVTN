@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class import_details extends Model
+class Import_details extends Model
 {
     use HasFactory;
     protected $table = 'import_details';
@@ -24,6 +24,6 @@ class import_details extends Model
 
     public function import()
     {
-        return $this->belongsTo(imports::class, 'import_id');
+        return $this->belongsTo(Imports::class, 'import_id');
     }
 }

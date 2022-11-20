@@ -2,8 +2,8 @@
 
 namespace App\Imports;
 
-use App\Models\import_details;
-use App\Models\imports;
+use App\Models\Import_details;
+use App\Models\Imports;
 use App\Models\Product;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -21,13 +21,12 @@ class ProductImport implements ToCollection
     public function collection($rows)
     {
         $products = $this->getProduct();
-
         $codeImport = Str::random(10);
         $adminId = session()->get('admin')->id;
         $total = 0;
         $status = 1;
-        $import = new imports();
-        $import->i_code = $codeImport;
+        $import = new Imports();
+        $import->i_code = 'HDN' . date('YmdHis') . '-' . $codeImport;
         $import->i_admin_id = $adminId;
         $import->i_status = $status;
         $import->i_total = $total;
@@ -42,7 +41,7 @@ class ProductImport implements ToCollection
                 $productExist->update([
                     'pro_quantity' => $productExist->pro_quantity + $row[6],
                 ]);
-                $importDetail = new import_details();
+                $importDetail = new Import_details();
                 $importDetail->import_id = $import->i_id;
                 $importDetail->product_id = $productExist->pro_id;
                 $importDetail->quantity = $row[6];
@@ -64,7 +63,7 @@ class ProductImport implements ToCollection
                 $product->save();
 
                 $total += $row[4] * $row[6];
-                $importDetail = new import_details();
+                $importDetail = new Import_details();
                 $importDetail->import_id = $import->i_id;
                 $importDetail->product_id = $product->pro_id;
                 $importDetail->quantity = $row[6];
@@ -73,7 +72,7 @@ class ProductImport implements ToCollection
                 $importDetail->save();
             }
         }
-        $ip = imports::where('i_id', $import->i_id)->first();
+        $ip = Imports::where('i_id', $import->i_id)->first();
         $ip->i_total = $total;
         $ip->save();
     }

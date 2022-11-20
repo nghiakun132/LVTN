@@ -41,9 +41,19 @@ class CartController extends Controller
             foreach ($carts as $cart) {
                 $total += $cart->price * $cart->quantity;
             }
+
+            $mostViews  = Product::with([
+                'brand' => function ($query) {
+                    $query->withTrashed();
+                },
+                'category' => function ($query) {
+                    $query->withTrashed();
+                },
+            ])->orderBy('pro_view', 'desc')->take(10)->get();
             $data = [
                 'carts' => $carts,
                 'total' => $total,
+                'mostViews' => $mostViews,
             ];
             return view('client.cart.index', $data);
         } catch (\Exception $e) {
@@ -72,6 +82,11 @@ class CartController extends Controller
                 'message' => 'Thêm vào giỏ hàng thành công'
             ], 200);
         } catch (\Exception $ex) {
+            DB::rollBack();
+            return response()->json([
+                'code' => 500,
+                'message' => 'Thêm vào giỏ hàng thất bại'
+            ], 500);
         }
     }
 
@@ -243,6 +258,42 @@ class CartController extends Controller
         }
     }
 
+    public function PaypalPayment($total)
+    {
+        $paypal = new PayPalClient();
+        $paypal->setApiCredentials(config('paypal'));
+        $paypalToken = $paypal->getAccessToken();
+        $response = $paypal->createOrder([
+            "intent" => "CAPTURE",
+            "application_context" => [
+                "return_url" => route('successTransaction'),
+                "cancel_url" => route('cancelTransaction'),
+            ],
+            "purchase_units" => [
+                0 => [
+                    "amount" => [
+                        "currency_code" => "USD",
+                        "value" => round($total  / 22850, 2),
+                    ]
+                ]
+            ]
+        ]);
+        if (isset($response['id']) && $response['id'] != null) {
+            foreach ($response['links'] as $links) {
+                if ($links['rel'] == 'approve') {
+                    return redirect()->away($links['href']);
+                }
+            }
+            return redirect()
+                ->route('client.cart.checkout')
+                ->with('error', 'Something went wrong.');
+        } else {
+            return redirect()
+                ->route('client.cart.checkout')
+                ->with('error', $response['message'] ?? 'Something went wrong.');
+        }
+    }
+
     public function checkoutPost(Request $request)
     {
         session()->put('address_id', $request->address_user);
@@ -255,7 +306,6 @@ class CartController extends Controller
             $total += $cart->price * $cart->quantity;
         }
         $coupon = session('coupon');
-        // dd($coupon);
         if ($coupon) {
             $cp = Coupons::where('coupon_code', $coupon['name'])
                 ->where('coupon_status', 1)
@@ -266,39 +316,7 @@ class CartController extends Controller
         }
         switch ($request->payment_method) {
             case 'Paypal':
-                $paypal = new PayPalClient();
-                $paypal->setApiCredentials(config('paypal'));
-                $paypalToken = $paypal->getAccessToken();
-                $response = $paypal->createOrder([
-                    "intent" => "CAPTURE",
-                    "application_context" => [
-                        "return_url" => route('successTransaction'),
-                        "cancel_url" => route('cancelTransaction'),
-                    ],
-                    "purchase_units" => [
-                        0 => [
-                            "amount" => [
-                                "currency_code" => "USD",
-                                "value" => round($total  / 22850, 2),
-                            ]
-                        ]
-                    ]
-                ]);
-                if (isset($response['id']) && $response['id'] != null) {
-                    foreach ($response['links'] as $links) {
-                        if ($links['rel'] == 'approve') {
-                            return redirect()->away($links['href']);
-                        }
-                    }
-                    return redirect()
-                        ->route('client.cart.checkout')
-                        ->with('error', 'Something went wrong.');
-                } else {
-                    return redirect()
-                        ->route('client.cart.checkout')
-                        ->with('error', $response['message'] ?? 'Something went wrong.');
-                }
-                break;
+                return $this->PaypalPayment($total);
             case 'COD':
                 $this->action($total, "COD");
                 return redirect()->route('client.cart.success');
@@ -317,8 +335,6 @@ class CartController extends Controller
                     $vnp_Locale = 'vn';
                     $vnp_BankCode = 'NCB';
                     $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-                    //Add Params of 2.0.1 Version
-                    // $vnp_ExpireDate = $expire->format('YmdHis');
 
                     $inputData = array(
                         "vnp_Version" => "2.1.0",
@@ -333,7 +349,6 @@ class CartController extends Controller
                         "vnp_OrderType" => $vnp_OrderType,
                         "vnp_ReturnUrl" => $vnp_Returnurl,
                         "vnp_TxnRef" => $vnp_TxnRef,
-                        // "vnp_ExpireDate" => $vnp_ExpireDate,
                     );
                     if (isset($vnp_BankCode) && $vnp_BankCode != "") {
                         $inputData['vnp_BankCode'] = $vnp_BankCode;
@@ -376,7 +391,8 @@ class CartController extends Controller
     public function vnpay()
     {
         if (isset($_GET['vnp_ResponseCode']) && $_GET['vnp_ResponseCode'] == '00') {
-            $this->action($_GET['vnp_Amount'] / 100, "Thanh toán qua VNPAY", session('coupon')['discount']);
+            $discount = session('coupon')['discount'] ?? 0;
+            $this->action($_GET['vnp_Amount'] / 100, "Thanh toán qua VNPAY", $discount);
             return redirect()->route('client.cart.success');
         } else {
             return redirect()->route('client.cart.checkout')->with('error', 'Thanh toán thất bại');

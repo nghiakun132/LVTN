@@ -100,7 +100,6 @@ class ProductController extends Controller
                 'images' => $images,
                 'category' => $category,
                 'brand' => $brand,
-                // 'tt' => $tt,
                 'comments' => $comment,
                 'stars' => $stars,
                 'related' => $related

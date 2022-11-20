@@ -22,22 +22,34 @@ class StatisticController extends Controller
         $imports = new imports();
         switch ($condition) {
             case 'year':
-                $orders = $orders->select(DB::raw('SUM(total) as doanhthu'), DB::raw('MONTH(orders.created_at) as date'))
+                $orders = $orders->select(
+                    DB::raw('SUM(total) as doanhthu'),
+                    DB::raw('MONTH(orders.created_at) as date')
+                )
                     ->whereYear('orders.created_at', '=', Carbon::now()->year)
                     ->groupBy('date')->orderBy('date', 'asc');
 
-                $imports = $imports->select(DB::raw('SUM(i_total) as nhaphang'), DB::raw('MONTH(imports.created_at) as date'))
+                $imports = $imports->select(
+                    DB::raw('SUM(i_total) as nhaphang'),
+                    DB::raw('MONTH(imports.created_at) as date')
+                )
                     ->whereYear('imports.created_at', '=', Carbon::now()->year)
                     ->groupBy('date')->orderBy('date', 'asc');
 
                 break;
             case 'month':
             default:
-                $orders = $orders->select(DB::raw('SUM(total) as doanhthu'), DB::raw('DAY(orders.created_at) as date'))
+                $orders = $orders->select(
+                    DB::raw('SUM(total) as doanhthu'),
+                    DB::raw('DAY(orders.created_at) as date')
+                )
                     ->whereMonth('orders.created_at', '=', Carbon::now()->month)
                     ->groupBy('date')->orderBy('date', 'asc');
 
-                $imports = $imports->select(DB::raw('SUM(i_total) as nhaphang'), DB::raw('DAY(imports.created_at) as date'))
+                $imports = $imports->select(
+                    DB::raw('SUM(i_total) as nhaphang'),
+                    DB::raw('DAY(imports.created_at) as date')
+                )
                     ->whereMonth('imports.created_at', '=', Carbon::now()->month)
                     ->groupBy('date')->orderBy('date', 'asc');
                 break;

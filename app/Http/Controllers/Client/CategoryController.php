@@ -11,6 +11,39 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    protected function sortAndFilter($sort, $products)
+    {
+        if (isset($sort)) {
+            switch ($sort) {
+                case 'price_asc':
+                    $products = $products->orderBy('pro_price', 'asc');
+                    break;
+                case 'price_desc':
+                    $products = $products->orderBy('pro_price', 'desc');
+                    break;
+                case 'name_asc':
+                    $products = $products->orderBy('pro_name', 'asc');
+                    break;
+                case 'name_desc':
+                    $products = $products->orderBy('pro_name', 'desc');
+                    break;
+                case 'new':
+                    $products = $products->orderBy('pro_id', 'desc');
+                    break;
+                case 'old':
+                    $products = $products->orderBy('pro_id', 'asc');
+                    break;
+                case 'view':
+                    $products = $products->orderBy('pro_view', 'desc');
+                    break;
+                default:
+                    $products = $products->orderBy('pro_price', 'asc');
+                    break;
+            }
+        }
+        return $products;
+    }
+
     public function index(Request $request, $slug)
     {
         try {
@@ -18,6 +51,7 @@ class CategoryController extends Controller
             $brands = Brands::where('b_category_id', $category->c_id)->get();
             $products = Product::where('pro_category_id', $category->c_id)
                 ->whereIn('pro_brand_id', $brands->pluck('b_id'))
+                ->where('pro_active', 1)
                 ->with([
                     'comments' => function ($query) {
                         $query->where('parent_id', 0);
@@ -38,34 +72,8 @@ class CategoryController extends Controller
                 $products = $products->where('pro_price', '>=', $giaTu)
                     ->where('pro_price', '<=', $giaDen);
             }
-            if (isset($sort)) {
-                switch ($sort) {
-                    case 'price_asc':
-                        $products = $products->orderBy('pro_price', 'asc');
-                        break;
-                    case 'price_desc':
-                        $products = $products->orderBy('pro_price', 'desc');
-                        break;
-                    case 'name_asc':
-                        $products = $products->orderBy('pro_name', 'asc');
-                        break;
-                    case 'name_desc':
-                        $products = $products->orderBy('pro_name', 'desc');
-                        break;
-                    case 'new':
-                        $products = $products->orderBy('pro_id', 'desc');
-                        break;
-                    case 'old':
-                        $products = $products->orderBy('pro_id', 'asc');
-                        break;
-                    case 'view':
-                        $products = $products->orderBy('pro_view', 'desc');
-                        break;
-                    default:
-                        $products = $products->orderBy('pro_price', 'asc');
-                        break;
-                }
-            }
+
+            $products = $this->sortAndFilter($sort, $products);
 
             $products = $products->paginate(15);
 
@@ -90,7 +98,7 @@ class CategoryController extends Controller
                 ->where('b_category_id', $category->c_id)
                 ->first();
             $products = Product::where('pro_brand_id', $brand->b_id)
-
+                ->where('pro_active', 1)
                 ->with([
                     'comments' => function ($query) {
                         $query->where('parent_id', 0);
@@ -111,34 +119,8 @@ class CategoryController extends Controller
                     ->where('pro_price', '>=', $giaTu)
                     ->where('pro_price', '<=', $giaDen);
             }
-            if (isset($sort)) {
-                switch ($sort) {
-                    case 'price_asc':
-                        $products = $products->orderBy('pro_price', 'asc');
-                        break;
-                    case 'price_desc':
-                        $products = $products->orderBy('pro_price', 'desc');
-                        break;
-                    case 'name_asc':
-                        $products = $products->orderBy('pro_name', 'asc');
-                        break;
-                    case 'name_desc':
-                        $products = $products->orderBy('pro_name', 'desc');
-                        break;
-                    case 'new':
-                        $products = $products->orderBy('pro_id', 'desc');
-                        break;
-                    case 'old':
-                        $products = $products->orderBy('pro_id', 'asc');
-                        break;
-                    case 'view':
-                        $products = $products->orderBy('pro_view', 'desc');
-                        break;
-                    default:
-                        $products = $products->orderBy('pro_price', 'asc');
-                        break;
-                }
-            }
+
+            $products = $this->sortAndFilter($sort, $products);
 
             $products = $products->paginate(15);
 
@@ -162,6 +144,7 @@ class CategoryController extends Controller
             $brand = Brands::where('b_slug', $brandSlug)->first();
             $group = Groups::where('slug', $groupSlug)->first();
             $products = Product::where('pro_category_id', $category->c_id)
+                ->where('pro_active', 1)
                 ->where('pro_brand_id', $brand->b_id)
                 ->where('group_id', $group->group_id)
                 ->with([
@@ -178,6 +161,7 @@ class CategoryController extends Controller
             $sort = $request->sort;
             if (isset($giaTu) && isset($giaDen)) {
                 $products = Product::where('pro_category_id', $category->c_id)
+                    ->where('pro_active', 1)
                     ->where('pro_brand_id', $brand->b_id)
                     ->where('pro_price', '>=', $giaTu)
                     ->where('pro_price', '<=', $giaDen)
@@ -192,34 +176,8 @@ class CategoryController extends Controller
                         }
                     ]);
             }
-            if (isset($sort)) {
-                switch ($sort) {
-                    case 'price_asc':
-                        $products = $products->orderBy('pro_price', 'asc');
-                        break;
-                    case 'price_desc':
-                        $products = $products->orderBy('pro_price', 'desc');
-                        break;
-                    case 'name_asc':
-                        $products = $products->orderBy('pro_name', 'asc');
-                        break;
-                    case 'name_desc':
-                        $products = $products->orderBy('pro_name', 'desc');
-                        break;
-                    case 'new':
-                        $products = $products->orderBy('pro_id', 'desc');
-                        break;
-                    case 'old':
-                        $products = $products->orderBy('pro_id', 'asc');
-                        break;
-                    case 'view':
-                        $products = $products->orderBy('pro_view', 'desc');
-                        break;
-                    default:
-                        $products = $products->orderBy('pro_price', 'asc');
-                        break;
-                }
-            }
+
+            $products = $this->sortAndFilter($sort, $products);
 
             $products = $products->paginate(15);
 

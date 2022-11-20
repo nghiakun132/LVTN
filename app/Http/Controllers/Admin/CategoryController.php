@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+
+const DATE = 'Y-m-d H:i:s';
 class CategoryController extends Controller
 {
     protected $categoryRepository;
@@ -57,8 +59,8 @@ class CategoryController extends Controller
                 $fileName = $this->categoryRepository->uploadFile($file, 'categories');
                 $data['c_banner'] = $fileName;
             }
-            $data['created_at'] = date('Y-m-d H:i:s');
-            $data['updated_at'] = date('Y-m-d H:i:s');
+            $data['created_at'] = date(DATE);
+            $data['updated_at'] = date(DATE);
             $this->categoryRepository->create($data);
             DB::commit();
             return redirect()->back()->with('success', 'Thêm mới thành công');
@@ -106,8 +108,8 @@ class CategoryController extends Controller
                 $file->move('images/categories', $fileName);
                 $data['c_banner'] = $fileName;
             }
-            $data['created_at'] = date('Y-m-d H:i:s');
-            $data['updated_at'] = date('Y-m-d H:i:s');
+            $data['created_at'] = date(DATE);
+            $data['updated_at'] = date(DATE);
             $result  = $this->categoryRepository->update($data, $id);
             if (!$result) {
                 DB::rollBack();

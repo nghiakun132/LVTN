@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
+const MESSAGE_SUCCESS = 'Thao tác thành công';
+const MESSAGE_ERROR = 'Thao tác thất bại';
+
 class ProductController extends Controller
 {
     protected $productRepository;
@@ -115,10 +118,11 @@ class ProductController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('admin.product.index')->with('success', 'Thêm mới thành công');
+            return redirect()->route('admin.product.index')->with('success', MESSAGE_SUCCESS);
         } catch (\Exception $exception) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Thêm mới thất bại');
+            report($exception);
+            return redirect()->back()->with('error', MESSAGE_ERROR);
         }
     }
 
@@ -149,7 +153,7 @@ class ProductController extends Controller
             DB::beginTransaction();
             $this->productRepository->update($data, $id);
             DB::commit();
-            return redirect()->route('admin.product.index')->with('success', 'Cập nhật thành công');
+            return redirect()->route('admin.product.index')->with('success', MESSAGE_SUCCESS);
         } catch (\Exception $exception) {
             DB::rollBack();
             return redirect()->back()->with('error', $exception->getMessage());
@@ -162,9 +166,9 @@ class ProductController extends Controller
         if ($product) {
             $product->pro_active = !$product->pro_active;
             $product->save();
-            return redirect()->back()->with('success', 'Cập nhật thành công');
+            return redirect()->back()->with('success', MESSAGE_SUCCESS);
         }
-        return redirect()->back()->with('error', 'Cập nhật thất bại');
+        return redirect()->back()->with('error', MESSAGE_ERROR);
     }
 
     public function delete(Request $request)
@@ -233,9 +237,9 @@ class ProductController extends Controller
                 'slug' => Str::slug($request->name),
             ]);
             if ($result) {
-                return response()->json(['status' => true, 'message' => 'Thêm thành công']);
+                return response()->json(['status' => true, 'message' => MESSAGE_SUCCESS], 200);
             }
-            return response()->json(['status' => false, 'message' => 'Thêm thất bại']);
+            return response()->json(['status' => false, 'message' => MESSAGE_ERROR], 200);
         }
     }
     public function getGroup(Request $request)
@@ -274,18 +278,18 @@ class ProductController extends Controller
                     ]);
                 }
             }
-            return redirect()->back()->with('success', 'Thêm thành công');
+            return redirect()->back()->with('success', MESSAGE_SUCCESS);
         }
-        return redirect()->back()->with('error', 'Thêm thất bại');
+        return redirect()->back()->with('error', MESSAGE_ERROR);
     }
     public function deleteSales($id)
     {
         $saleProduct = sales_products::find($id);
         if ($saleProduct) {
             $saleProduct->delete();
-            return redirect()->back()->with('success', 'Xóa thành công');
+            return redirect()->back()->with('success', MESSAGE_SUCCESS);
         }
-        return redirect()->back()->with('error', 'Xóa thất bại');
+        return redirect()->back()->with('error', MESSAGE_ERROR);
     }
 
     public function addImg(Request $request, $id)
@@ -296,7 +300,7 @@ class ProductController extends Controller
             $data['pro_avatar'] = $fileName;
             $this->productRepository->update($data, $id);
         }
-        return redirect()->back()->with('success', 'Cập nhật thành công');
+        return redirect()->back()->with('success', MESSAGE_SUCCESS);
     }
 
     public function import(Request $request)
@@ -307,7 +311,7 @@ class ProductController extends Controller
                 Excel::import(new ProductImport, $request->file('file'));
             }
             DB::commit();
-            return redirect()->back()->with('success', 'Thêm thành công');
+            return redirect()->back()->with('success', MESSAGE_SUCCESS);
         } catch (\Exception $exception) {
             DB::rollBack();
             \Log::error($exception->getMessage());

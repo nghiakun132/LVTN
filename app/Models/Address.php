@@ -11,7 +11,7 @@ class Address extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'address';
-    protected $fillable = ['user_id', 'address', 'name', 'type', 'phone', 'default', 'deteled_at'];
+    protected $fillable = ['user_id', 'address', 'name', 'type', 'phone', 'default', 'deleted_at'];
 
     public function user()
     {

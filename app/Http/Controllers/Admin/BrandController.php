@@ -12,10 +12,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
+const REQUIRED = 'required|';
+
 class BrandController extends Controller
 {
     protected $brandRepository;
     protected $categoryRepository;
+
+
 
     public function __construct(CategoryRepository $categoryRepository, BrandRepository $brandRepository)
     {
@@ -43,9 +47,9 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'b_name' => 'required',
-            'b_category_id' => 'required',
-            'b_name' => 'required|' . Rule::unique('brands', 'b_name')->where(function ($query) use ($request) {
+            'b_name' => REQUIRED,
+            'b_category_id' => REQUIRED,
+            'b_name' => REQUIRED . Rule::unique('brands', 'b_name')->where(function ($query) use ($request) {
                 return $query->where('b_category_id', $request->b_category_id);
             }),
         ], [
@@ -91,8 +95,8 @@ class BrandController extends Controller
         $this->validate(
             $request,
             [
-                'b_name' => 'required|',
-                'b_category_id' => 'required|',
+                'b_name' => REQUIRED,
+                'b_category_id' => REQUIRED,
             ],
             [
                 'b_name.required' => 'Tên danh mục không được để trống',
