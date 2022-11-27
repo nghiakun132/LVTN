@@ -104,6 +104,10 @@ class OrderController extends Controller
             $order->status = 0;
             $order->save();
 
+            foreach ($order->orderDetails as $item) {
+                Product::where('pro_id', $item->product_id)->increment('pro_quantity', $item->quantity);
+            }
+
             $orderCancel = new Order_Cancel();
             $orderCancel->order_id = $order->id;
             $orderCancel->reason = $request->reason;

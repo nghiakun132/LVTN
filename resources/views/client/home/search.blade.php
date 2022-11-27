@@ -11,8 +11,8 @@
         </div>
         <section>
             <div class="list-product">
-                <h3>Tìm kiếm {{ $keyword }}</h3>
                 @if (count($products) > 0)
+                    <h3>Có {{ $count }} sản phẩm được tìm thấy với từ khóa <b>{{ $keyword }}</b></h3>
                     <div class="col-content lts-product col-product">
                         @foreach ($products as $product)
                             <div class="item">
@@ -48,8 +48,13 @@
                                     </div>
                                 @endif
                                 <div class="sticker sticker-left">
-                                    <span><img src="{{ asset('images/bao-hanh-24t.png') }}"
-                                            title="Chính hãng Apple"></span>
+                                    @if (rand(1, 10) % 2 == 0)
+                                        <span><img src="{{ asset('images/hot.png') }}" title="Chính hãng Apple"
+                                                alt="s"></span>
+                                    @else
+                                        <span><img src="{{ asset('images/bao-hanh-24t.png') }}" alt="s"
+                                                title="Chính hãng Apple"></span>
+                                    @endif
                                 </div>
                                 <div class="info">
                                     <a href="{{ route('client.product', [
@@ -72,8 +77,10 @@
                                         <a href="#">
                                             <ul>
                                                 @foreach ($product->sales as $sale)
-                                                    <li><span class="bag">KM</span>
-                                                        {{ $sale->sales->s_name }}</li>
+                                                    @if ($sale->sales->s_active == 1)
+                                                        <li><span class="bag">KM</span>
+                                                            {{ $sale->sales->s_name }}</li>
+                                                    @endif
                                                 @endforeach
                                             </ul>
                                         </a>
@@ -85,7 +92,7 @@
                     </div>
                 @else
                     <div class="col-content lts-product col-product">
-                        <h5>Không tìm thấy sản phẩm nào</h5>
+                        <h3>Không tìm thấy sản phẩm nào</h3>
                     </div>
                 @endif
 

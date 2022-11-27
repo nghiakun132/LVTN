@@ -85,12 +85,11 @@
                                     </button>
                                 </div>
                             </div>
-                            <!-- /.card-header -->
                             <div class="card-body p-0">
                                 <ul class="users-list clearfix">
                                     @foreach ($users as $user)
                                         <li>
-                                            <img src="{{ $user->type == 2 ? $user->avatar : ($user->avatar == null ? asset('images/default.jpg'): asset('images/avatar/' . $user->avatar)) }}"
+                                            <img src="{{ $user->type == 2 ? $user->avatar : ($user->avatar == null ? asset('images/default.jpg') : asset('images/avatar/' . $user->avatar)) }}"
                                                 alt="User Image">
                                             <a class="users-list-name" href="#">
                                                 {{ $user->name }}
@@ -98,13 +97,10 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                                <!-- /.users-list -->
                             </div>
-                            <!-- /.card-body -->
                             <div class="card-footer text-center">
                                 <a href="{{ route('admin.user.index') }}">Xem tất cả khách hàng</a>
                             </div>
-                            <!-- /.card-footer -->
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -190,7 +186,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
 @stop

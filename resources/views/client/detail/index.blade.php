@@ -307,7 +307,10 @@
                             <?php echo $product->pro_content; ?>
                         </div>
                         <div class="wrap-price"><span
-                                class="product-price">{{ number_format($product->pro_price - ($product->pro_price * $product->pro_sale) / 100, 0, ',', ',') . ' đ' }}</span>
+                                class="product-price">
+                                {{ number_format($product->pro_price - ($product->pro_price * $product->pro_sale)
+                                / 100, 0, ',', ',') . ' đ' }}
+                            </span>
                             @if ($product->pro_sale)
                                 <del>
                                     <p class="product-price">
@@ -327,11 +330,13 @@
                                 <strong class="label">KHUYẾN MÃI</strong>
                                 <ul>
                                     @foreach ($product->sales as $sales)
-                                        <li><span class="bag">KM {{ $loop->index + 1 }}
-                                            </span></li>
-                                        <li>
-                                            {{ $sales->sales->s_name }}
-                                        </li>
+                                        @if ($sales->sales->s_active == 1)
+                                            <li><span class="bag">KM {{ $loop->index + 1 }}
+                                                </span></li>
+                                            <li>
+                                                {{ $sales->sales->s_name }}
+                                            </li>
+                                        @endif
                                     @endforeach
 
                                 </ul>
@@ -355,7 +360,8 @@
                             <a title="Mua ngay" id="quick-buy" class="btn-red btnQuickOrder btnbuy"><strong>MUA
                                     NGAY</strong><span> Giao tận nhà (COD) <br>Hoặc Nhận tại cửa hàng</span></a>
                             @if ($product->pro_quantity > 0)
-                                <a style="width:120px; display:flex; flex-direction:column; max-width:100%; padding:5px;"
+                                <a style="width:120px; display:flex;
+                                flex-direction:column; max-width:100%; padding:5px;"
                                     id="add-to-cart" title="Thêm vào giỏ hàng"
                                     data-id="{{ Session::get('user')->id ?? 0 }}"
                                     class="add-cart btn-orange btnbuy btn-icon"><i class="fa fa-cart-arrow-down mt-4"
@@ -401,7 +407,8 @@
                     <h3 class="title-box">Sản phẩm tương tự</h3>
                     <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5"
                         data-loop="false" data-nav="true" data-dots="false" data-autoplay="true"
-                        data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}'>
+                        data-responsive='{"0":{"items":"1"},"480":{"items":"2"},
+                        "768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}'>
                         @foreach ($related as $related)
                             <div class="product product-style-2 equal-elem ">
                                 <div class="product-thumnail">
@@ -435,11 +442,15 @@
                                     ]) }}"
                                         class="product-name"><span>{{ $related->pro_name }}</span></a>
                                     <div class="wrap-price"><span
-                                            class="product-price">{{ number_format($related->pro_price - $related->pro_price * $related->pro_sale, 0, ',', ',') . ' VND' }}</span>
+                                            class="product-price">{{ number_format($related->pro_price -
+                                            $related->pro_price * $related->pro_sale,
+                                             0, ',', ',') . ' VND' }}</span>
                                     </div>
                                     @if ($related->pro_sale > 0)
                                         <div class="wrap-price"><span class="product-price"
-                                                style="color:red;text-decoration-line: line-through">{{ number_format($related->pro_price, 0, ',', ',') . ' VND' }}</span>
+                                                style="color:red;text-decoration-line: line-through">
+                                                {{ number_format($related->pro_price, 0, ',', ',')
+                                                 . ' VND' }}</span>
                                         </div>
                                     @endif
                                 </div>
@@ -478,7 +489,8 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="control">
-                                            <textarea title="Nội dung" placeholder="Nội dung. Tối thiểu 15 ký tự *" name="content" id="content"
+                                            <textarea title="Nội dung" placeholder="Nội dung. Tối thiểu 15 ký tự *"
+                                             name="content" id="content"
                                                 style="height: 52px; overflow-y: hidden;"></textarea>
                                         </div>
                                     </div>
@@ -502,7 +514,7 @@
                         <div class="item-comment">
                             <div class="avt">
                                 @if ($comment->user->type != 0)
-                                    <img src="{{ $comment->user->avatar }}">
+                                    <img src="{{ $comment->user->avatar }}" alt="">
                                 @else
                                     <img src="{{ asset('images/default.png') }}">
                                 @endif

@@ -237,8 +237,13 @@
                                     </div>
                                 @endif
                                 <div class="sticker sticker-left">
-                                    <span><img src="{{ asset('images/bao-hanh-24t.png') }}"
-                                            title="Chính hãng Apple"></span>
+                                    @if (rand(1, 10) % 2 == 0)
+                                        <span><img src="{{ asset('images/hot.png') }}" title="Chính hãng Apple"
+                                                alt="s"></span>
+                                    @else
+                                        <span><img src="{{ asset('images/bao-hanh-24t.png') }}" alt="s"
+                                                title="Chính hãng Apple"></span>
+                                    @endif
                                 </div>
                                 <div class="info">
                                     <a href="{{ route('client.product', [
@@ -260,8 +265,10 @@
                                     <div class="promote">
                                         <ul>
                                             @foreach ($product->sales as $sale)
-                                                <li><span class="bag">KM</span>
-                                                    {{ $sale->sales->s_name }}</li>
+                                                @if ($sale->sales->s_active == 1)
+                                                    <li><span class="bag">KM</span>
+                                                        {{ $sale->sales->s_name }}</li>
+                                                @endif
                                             @endforeach
                                         </ul>
                                     </div>

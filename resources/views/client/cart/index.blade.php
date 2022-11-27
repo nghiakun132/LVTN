@@ -79,10 +79,6 @@
                 </div>
                 <div class="checkout-info">
                     <a class="btn btn-checkout" href="{{ route('client.cart.checkout') }}">Thanh toán</a>
-                    {{-- @if ($countCart > 0)
-                    @else
-                    <a class="btn btn-checkout" id="disabled_btn" disabled href="#" onclick="return alert('Giỏ hàng đang rỗng, Hãy thêm gì đó vào giỏ hang !!!')">Check out</a>
-                    @endif --}}
                 </div>
                 <div class="update-clear">
                     <a class="btn btn-clear btn-primary" href="{{ route('client.home') }}">Tiếp tục mua hàng <i
@@ -100,7 +96,7 @@
                     <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5"
                         data-loop="true" data-nav="true" data-dots="false" data-autoplay="true"
                         data-autoplay-timeout="2000" data-autoplay-hover-pause="true"
-                        data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}'>
+                        data-responsive='{"0":{"items":"2"},"480":{"items":"3"},"768":{"items":"4"},"992":{"items":"4"},"1200":{"items":"5"}}'>
                         @foreach ($mostViews as $mostView)
                             <div class="product product-style-2 equal-elem ">
                                 <div class="product-thumnail">
@@ -147,7 +143,6 @@
                                 </div>
                             </div>
                         @endforeach
-
                     </div>
                 </div>
             </div>

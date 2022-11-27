@@ -441,12 +441,12 @@ $("#comment-form").submit(function (e) {
             success: function (data) {
                 if (data.code == 200) {
                     $("#content").val("");
-                    Swal.fire({
-                        title: "Đã gửi bình luận chờ duyệt",
-                        icon: "success",
-                        showConfirmButton: false,
-                        timer: 2000,
-                    });
+                    // Swal.fire({
+                    //     title: "Đã gửi bình luận chờ duyệt",
+                    //     icon: "success",
+                    //     showConfirmButton: false,
+                    //     timer: 2000,
+                    // });
                 } else {
                     Swal.fire({
                         title: "Đã có lỗi xảy ra",

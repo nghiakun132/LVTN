@@ -5,7 +5,7 @@
     <div class="container">
         <div class="wrap-breadcrumb">
             <ul>
-                <li class="item-link"><a href="#" class="link">Trang chủ</a></li>
+                <li class="item-link"><a href="{{route('client.home')}}" class="link">Trang chủ</a></li>
                 <li class="item-link"><span>@yield('title')</span></li>
             </ul>
         </div>

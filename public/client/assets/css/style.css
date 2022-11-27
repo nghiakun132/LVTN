@@ -4316,7 +4316,7 @@ article.single-post blockquote p:last-child::after {
     width: 100%;
     max-width: 249px;
     border-radius: 0;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 20px;
     font-weight: 600;
     text-transform: uppercase;
@@ -4593,9 +4593,9 @@ article.single-post blockquote p:last-child::after {
 }
 .wrap-product-detail .detail-info .wrap-price del > p {
     font-family: "Lato", san-serif;
-    font-weight: 300;
+    font-weight: 800;
     font-size: 20px !important;
-    color: #aaaaaa;
+    color: #333;
     text-decoration: line-through;
 }
 .wrap-product-detail .detail-info .stock-info p {

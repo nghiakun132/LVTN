@@ -91,8 +91,14 @@ class HomeController extends Controller
         $products = Product::where('pro_name', 'LIKE', '%' . $keyword . '%')
             ->where('pro_active', 1)
             ->with($this->relationship())
-            ->orderBy('pro_id', 'DESC')->paginate(10);
-        return view('client.home.search', compact('products', 'keyword'));
+            ->orderBy('pro_id', 'DESC');
+        $data = [
+            'count' => $products->count(),
+            'products' => $products->paginate(10),
+            'keyword' => $keyword,
+        ];
+
+        return view('client.home.search', $data);
     }
     public function searchAjax(Request $request)
     {

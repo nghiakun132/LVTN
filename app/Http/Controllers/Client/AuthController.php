@@ -30,7 +30,8 @@ class AuthController extends Controller
 
         $check = true;
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)
+            ->first();
 
         if (!strpos($request->email, '@')) {
             $user = User::where('phone', $request->email)->first();
@@ -42,6 +43,10 @@ class AuthController extends Controller
 
         if ($user && !Hash::check($request->password, $user->password)) {
             $check = false;
+        }
+
+        if ($user && $user->status == 1) {
+            return redirect()->back()->with('error', 'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.');
         }
 
         if (!$check) {

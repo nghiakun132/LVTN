@@ -47,8 +47,11 @@ class CategoryController extends Controller
     public function index(Request $request, $slug)
     {
         try {
-            $category = Category::where('c_slug', $slug)->first();
-            $brands = Brands::where('b_category_id', $category->c_id)->get();
+            $category = Category::where('c_slug', $slug)->where('c_status', 1)->first();
+
+            $brands = Brands::where('b_category_id', $category->c_id)
+                ->where('b_status', 1)
+                ->get();
             $products = Product::where('pro_category_id', $category->c_id)
                 ->whereIn('pro_brand_id', $brands->pluck('b_id'))
                 ->where('pro_active', 1)
@@ -65,6 +68,26 @@ class CategoryController extends Controller
                         ]);
                     },
                 ]);
+
+            if (Category::where('parent_id', $category->c_id)->where('c_status', 1)->count() > 0) {
+                $categories = Category::where('parent_id', $category->c_id)->where('c_status', 1)->get();
+                $products = Product::whereIn('pro_category_id', $categories->pluck('c_id'))
+                    ->where('pro_active', 1)
+                    ->with([
+                        'comments' => function ($query) {
+                            $query->where('parent_id', 0);
+                        },
+                        'sales' => function ($query) {
+                            $query->with([
+                                'sales' => function ($query2) {
+                                    $query2->withTrashed();
+                                },
+
+                            ]);
+                        },
+                    ]);
+            }
+
             $giaTu = $request->gia_tu;
             $giaDen = $request->gia_den;
             $sort = $request->sort;
@@ -92,10 +115,10 @@ class CategoryController extends Controller
     public function brand(Request $request, $categorySlug, $brandSlug)
     {
         try {
-            $category = Category::where('c_slug', $categorySlug)->first();
-            $brands = Brands::where('b_category_id', $category->c_id)->get();
+            $category = Category::where('c_slug', $categorySlug)->where('c_status', 1)->first();
+            $brands = Brands::where('b_category_id', $category->c_id)->where('b_status', 1)->get();
             $brand = Brands::where('b_slug', $brandSlug)
-                ->where('b_category_id', $category->c_id)
+                ->where('b_category_id', $category->c_id)->where('b_status', 1)
                 ->first();
             $products = Product::where('pro_brand_id', $brand->b_id)
                 ->where('pro_active', 1)
@@ -139,9 +162,9 @@ class CategoryController extends Controller
     public function group(Request $request, $categorySlug, $brandSlug, $groupSlug)
     {
         try {
-            $category = Category::where('c_slug', $categorySlug)->first();
-            $brands = Brands::where('b_category_id', $category->c_id)->get();
-            $brand = Brands::where('b_slug', $brandSlug)->first();
+            $category = Category::where('c_slug', $categorySlug)->where('c_status', 1)->first();
+            $brands = Brands::where('b_category_id', $category->c_id)->where('b_status', 1)->get();
+            $brand = Brands::where('b_slug', $brandSlug)->where('b_status', 1)->first();
             $group = Groups::where('slug', $groupSlug)->first();
             $products = Product::where('pro_category_id', $category->c_id)
                 ->where('pro_active', 1)

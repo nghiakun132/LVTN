@@ -305,10 +305,12 @@
                                                 'slug' => $washingMachine->category->c_slug,
                                                 'brand' => $washingMachine->brand->b_slug,
                                                 'product' => $washingMachine->pro_slug,
-                                            ]) }}" title="{{ $washingMachine->pro_name }}">
+                                            ]) }}"
+                                                title="{{ $washingMachine->pro_name }}">
                                                 <figure>
                                                     <img src="{{ asset('/images/products/' . $washingMachine->pro_avatar) }}"
-                                                        width="800" height="800" alt="{{ $washingMachine->pro_name }}" />
+                                                        width="800" height="800"
+                                                        alt="{{ $washingMachine->pro_name }}" />
                                                 </figure>
                                             </a>
                                             <div class="group-flash">
@@ -405,8 +407,10 @@
                                 <a href="#">
                                     <ul>
                                         @foreach ($liked->sales as $sales)
-                                            <li><span class="bag">KM</span>{{ $sales->sales->s_name }}
-                                            </li>
+                                            @if ($sales->sales->s_active == 1)
+                                                <li><span class="bag">KM</span>{{ $sales->sales->s_name }}
+                                                </li>
+                                            @endif
                                         @endforeach
                                     </ul>
                                 </a>
@@ -450,16 +454,15 @@
                             </a>
                         </div>
                         <div class="sticker sticker-left">
-                            <span><img src="{{ asset('images/bao-hanh-24t.png') }}" title="Chính hãng Apple"></span>
+                            @if (rand(1, 10) % 2 == 0)
+                                <span><img src="{{ asset('images/hot.png') }}" title="Chính hãng Apple"
+                                        alt="s"></span>
+                            @else
+                                <span><img src="{{ asset('images/bao-hanh-24t.png') }}" alt="s"
+                                        title="Chính hãng Apple"></span>
+                            @endif
                         </div>
-                        {{-- <div class="cover">
-                            <div
-                                style="color: yellow;background: #00483D;margin: 25px 20px 15px 15px;padding: 3px;border-radius: 6px;font-size:14px;font-weight: 600;">
-                                <marquee behavior="alternate">
-                                    <span style="color:white">Tặng PMH 300.000đ</span><br>
-                                </marquee>
-                            </div>
-                        </div> --}}
+
                         @if ($laptop->pro_sale > 0)
                             <span class="sales">
                                 <i class="icon-flash2"></i> Giảm
@@ -507,19 +510,21 @@
                                 <a href="#">
                                     <ul>
                                         @foreach ($laptop->sales as $sales)
-                                            <li><span class="bag">KM</span>{{ $sales->sales->s_name }}
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </a>
-                            </div>
-                        @endif
+                                            <@if ($sales->sales->s_active == 1)
+                                                <li><span class="bag">KM</span>{{ $sales->sales->s_name }}
+                                                </li>
+                                        @endif
+                        @endforeach
+                        </ul>
+                        </a>
                     </div>
-                @endforeach
+                @endif
             </div>
+            @endforeach
         </div>
-        <div class="wrap-show-advance-info-box style-1">
-            {{-- <div class="wrap-top-banner">
+    </div>
+    <div class="wrap-show-advance-info-box style-1">
+        {{-- <div class="wrap-top-banner">
                 <a href="#" class="link-banner banner-effect-2">
                     <figure>
                         <img src="{{ asset('/images/banner/qrc.png') }}" width="1170" height="240"
@@ -527,79 +532,79 @@
                     </figure>
                 </a>
             </div> --}}
-            {{-- <h3 class="title-box title1"><span> Latest Products</span></h3> --}}
-            <div class="title1">
-                <div id="wrap-text" class="ins-selectable-element ins-element-wrap ins-element-text">
-                    <div id="text" class="ins-element-content ins-editable-text" not-sortable="true"
-                        data-background-color-changed="true"
-                        style="font-size: 16px !important; color: rgb(0, 0, 0) !important;">
-                        <a href="javascript:void(0);" class="ins-element-link">
-                            <div class="ins-editable ins-element-editable" id="editable-text-1454703450633"
-                                data-bind-menu="notification|text_editing">&nbsp; TỦ LẠNH NỔI BẬT
-                            </div>
-                        </a>
-                    </div>
+        {{-- <h3 class="title-box title1"><span> Latest Products</span></h3> --}}
+        <div class="title1">
+            <div id="wrap-text" class="ins-selectable-element ins-element-wrap ins-element-text">
+                <div id="text" class="ins-element-content ins-editable-text" not-sortable="true"
+                    data-background-color-changed="true"
+                    style="font-size: 16px !important; color: rgb(0, 0, 0) !important;">
+                    <a href="javascript:void(0);" class="ins-element-link">
+                        <div class="ins-editable ins-element-editable" id="editable-text-1454703450633"
+                            data-bind-menu="notification|text_editing">&nbsp; TỦ LẠNH NỔI BẬT
+                        </div>
+                    </a>
                 </div>
             </div>
-            <div class="wrap-products">
-                <div class="wrap-product-tab tab-style-1">
-                    <div class="tab-contents">
-                        <div class="tab-content-item active" id="digital_1a">
-                            <div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container"
-                                data-items="5" data-loop="false" data-nav="true" data-dots="false"
-                                data-autoplay="true" data-autoplay-timeout="1500" data-autoplay-hover-pause="true"
-                                data-responsive='{"0":{"items":"2"},"480":{"items":"3"},"768":{"items":"4"},"992":{"items":"5"},"1200":{"items":"5"}}'>
-                                @foreach ($fridges as $fridge)
-                                    <div class="product product-style-2 equal-elem">
-                                        <div class="product-thumnail product-thumnail2">
-                                            <a href="{{ route('client.product', [
-                                                'slug' => $fridge->category->c_slug,
-                                                'brand' => $fridge->brand->b_slug,
-                                                'product' => $fridge->pro_slug,
-                                            ]) }}"
-                                                title="">
-                                                <figure>
-                                                    <img src="{{ asset('/images/products/' . $fridge->pro_avatar) }}"
-                                                        width="800" height="800" alt="{{ $fridge->pro_name }}">
-                                                </figure>
-                                            </a>
-                                            <div class="group-flash">
-                                                <span class="flash-item new-label">Hot</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <a href="{{ route('client.product', [
-                                                'slug' => $fridge->category->c_slug,
-                                                'brand' => $fridge->brand->b_slug,
-                                                'product' => $fridge->pro_slug,
-                                            ]) }}"
-                                                class="product-name">
-                                                <span>
-                                                    {{ $fridge->pro_name }}
-                                                </span>
-                                            </a>
-                                            <div class="wrap-price"><span class="product-price">
-                                                    {{ number_format($fridge->pro_price - ($fridge->pro_price * $fridge->pro_sale) / 100, 0, ',', '.') }}
-                                                    ₫</span>
-                                                @if ($fridge->pro_sale > 0)
-                                                    <del>
-                                                        <p class="product-price">
-                                                            {{ number_format($fridge->pro_price, 0, ',', '.') }}
-                                                            ₫</p>
-                                                    </del>
-                                                @endif
-                                            </div>
+        </div>
+        <div class="wrap-products">
+            <div class="wrap-product-tab tab-style-1">
+                <div class="tab-contents">
+                    <div class="tab-content-item active" id="digital_1a">
+                        <div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container"
+                            data-items="5" data-loop="false" data-nav="true" data-dots="false" data-autoplay="true"
+                            data-autoplay-timeout="1500" data-autoplay-hover-pause="true"
+                            data-responsive='{"0":{"items":"2"},"480":{"items":"3"},"768":{"items":"4"},"992":{"items":"5"},"1200":{"items":"5"}}'>
+                            @foreach ($fridges as $fridge)
+                                <div class="product product-style-2 equal-elem">
+                                    <div class="product-thumnail product-thumnail2">
+                                        <a href="{{ route('client.product', [
+                                            'slug' => $fridge->category->c_slug,
+                                            'brand' => $fridge->brand->b_slug,
+                                            'product' => $fridge->pro_slug,
+                                        ]) }}"
+                                            title="">
+                                            <figure>
+                                                <img src="{{ asset('/images/products/' . $fridge->pro_avatar) }}"
+                                                    width="800" height="800" alt="{{ $fridge->pro_name }}">
+                                            </figure>
+                                        </a>
+                                        <div class="group-flash">
+                                            <span class="flash-item new-label">Hot</span>
                                         </div>
                                     </div>
-                                @endforeach
-                            </div>
+                                    <div class="product-info">
+                                        <a href="{{ route('client.product', [
+                                            'slug' => $fridge->category->c_slug,
+                                            'brand' => $fridge->brand->b_slug,
+                                            'product' => $fridge->pro_slug,
+                                        ]) }}"
+                                            class="product-name">
+                                            <span>
+                                                {{ $fridge->pro_name }}
+                                            </span>
+                                        </a>
+                                        <div class="wrap-price"><span class="product-price">
+                                                {{ number_format($fridge->pro_price - ($fridge->pro_price * $fridge->pro_sale) / 100, 0, ',', '.') }}
+                                                ₫</span>
+                                            @if ($fridge->pro_sale > 0)
+                                                <del>
+                                                    <p class="product-price">
+                                                        {{ number_format($fridge->pro_price, 0, ',', '.') }}
+                                                        ₫</p>
+                                                </del>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="wrap-show-advance-info-box style-1">
-            {{-- <div class="wrap-top-banner">
+    </div>
+    <div class="wrap-show-advance-info-box style-1">
+        {{-- <div class="wrap-top-banner">
                 <a href="#" class="link-banner banner-effect-2">
                     <figure>
                         <img src="{{ asset('/images/banner/qrc.png') }}" width="1170" height="240"
@@ -607,67 +612,67 @@
                     </figure>
                 </a>
             </div> --}}
-            {{-- <h3 class="title-box title1"><span> Latest Products</span></h3> --}}
-            <div class="title1">
-                <div id="wrap-text" class="ins-selectable-element ins-element-wrap ins-element-text">
-                    <div id="text" class="ins-element-content ins-editable-text" not-sortable="true"
-                        data-background-color-changed="true"
-                        style="font-size: 16px !important; color: rgb(0, 0, 0) !important;">
-                        <a href="javascript:void(0);" class="ins-element-link">
-                            <div class="ins-editable ins-element-editable" id="editable-text-1454703450633"
-                                data-bind-menu="notification|text_editing">&nbsp; &nbsp; &nbsp; &nbsp;TIVI NỔI
-                                BẬT
-                            </div>
-                        </a>
-                    </div>
+        {{-- <h3 class="title-box title1"><span> Latest Products</span></h3> --}}
+        <div class="title1">
+            <div id="wrap-text" class="ins-selectable-element ins-element-wrap ins-element-text">
+                <div id="text" class="ins-element-content ins-editable-text" not-sortable="true"
+                    data-background-color-changed="true"
+                    style="font-size: 16px !important; color: rgb(0, 0, 0) !important;">
+                    <a href="javascript:void(0);" class="ins-element-link">
+                        <div class="ins-editable ins-element-editable" id="editable-text-1454703450633"
+                            data-bind-menu="notification|text_editing">&nbsp; &nbsp; &nbsp; &nbsp;TIVI NỔI
+                            BẬT
+                        </div>
+                    </a>
                 </div>
             </div>
-            <div class="wrap-products">
-                <div class="wrap-product-tab tab-style-1">
-                    <div class="tab-contents">
-                        <div class="tab-content-item active" id="digital_1a">
-                            <div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container"
-                                data-items="5" data-loop="false" data-nav="true" data-dots="false"
-                                data-autoplay="true" data-autoplay-timeout="2000" data-autoplay-hover-pause="true"
-                                data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"},"1200":{"items":"5"}}'>
-                                @foreach ($televisions as $television)
-                                    <div class="product product-style-2 equal-elem">
-                                        <div class="product-thumnail product-thumnail2">
-                                            <a href="detail.html" title="{{ $television->pro_name }}">
-                                                <figure>
-                                                    <img src="{{ asset('/images/products/' . $television->pro_avatar) }}"
-                                                        width="800" height="800"
-                                                        alt="{{ $television->pro_name }}" />
-                                                </figure>
-                                            </a>
-                                            <div class="group-flash">
-                                                <span class="flash-item new-label">new</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <a href="#"
-                                                class="product-name"><span>{{ $television->pro_name }}</span></a>
-                                            <div class="wrap-price"><span class="product-price">
-                                                    {{ number_format($television->pro_price - ($television->pro_price * $television->pro_sale) / 100, 0, ',', '.') }}
-                                                    ₫</span>
-                                                @if ($television->pro_sale > 0)
-                                                    <del>
-                                                        <p class="product-price">
-                                                            {{ number_format($television->pro_price, 0, ',', '.') }}
-                                                            ₫</p>
-                                                    </del>
-                                                @endif
-                                            </div>
+        </div>
+        <div class="wrap-products">
+            <div class="wrap-product-tab tab-style-1">
+                <div class="tab-contents">
+                    <div class="tab-content-item active" id="digital_1a">
+                        <div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container"
+                            data-items="5" data-loop="false" data-nav="true" data-dots="false" data-autoplay="true"
+                            data-autoplay-timeout="2000" data-autoplay-hover-pause="true"
+                            data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"},"1200":{"items":"5"}}'>
+                            @foreach ($televisions as $television)
+                                <div class="product product-style-2 equal-elem">
+                                    <div class="product-thumnail product-thumnail2">
+                                        <a href="detail.html" title="{{ $television->pro_name }}">
+                                            <figure>
+                                                <img src="{{ asset('/images/products/' . $television->pro_avatar) }}"
+                                                    width="800" height="800"
+                                                    alt="{{ $television->pro_name }}" />
+                                            </figure>
+                                        </a>
+                                        <div class="group-flash">
+                                            <span class="flash-item new-label">new</span>
                                         </div>
                                     </div>
-                                @endforeach
-                            </div>
+                                    <div class="product-info">
+                                        <a href="#"
+                                            class="product-name"><span>{{ $television->pro_name }}</span></a>
+                                        <div class="wrap-price"><span class="product-price">
+                                                {{ number_format($television->pro_price - ($television->pro_price * $television->pro_sale) / 100, 0, ',', '.') }}
+                                                ₫</span>
+                                            @if ($television->pro_sale > 0)
+                                                <del>
+                                                    <p class="product-price">
+                                                        {{ number_format($television->pro_price, 0, ',', '.') }}
+                                                        ₫</p>
+                                                </del>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- <section>
+    </div>
+    {{-- <section>
             <div class="container">
                 <div class="news-home box-home">
                     <div class="header">

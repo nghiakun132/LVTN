@@ -20,9 +20,10 @@ class HomeController extends Controller
     {
 
         $period = isset($request->period) ? $request->period : 'week';
-        $orders = Order::where('status', '<>', 0);
-        $ordersLatest = $orders->orderBy('created_at', 'desc')
-            ->with('user:id,name')
+        $ordersLatest = Order::where('status', '<>', 0)->orderBy('created_at', 'desc')
+            ->with(['user' => function ($query) {
+                $query->withTrashed();
+            }])
             ->limit(10)->get();
         $users = User::limit(10)->get();
 

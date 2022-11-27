@@ -8,16 +8,6 @@
 </style>
 <main id="main" class="main-site" style="background-color: rgb(245, 245, 250);">
     <div class="container">
-        {{-- <div class="top-category-ads">
-            <div class="ads-container">
-                <div class="full item">
-                    <a href="https://hoanghamobile.com/dien-thoai-di-dong/xiaomi-11t-pro-5g-12gb-256gb-chinh-hang-dgw?utm_source=web&amp;utm_medium=Homebanner&amp;utm_content=1108_xiaomi11Tpro&amp;utm_campaign=xiaomi11Tpro"
-                        target="_top"><img
-                            src="https://cdn.hoanghamobile.com/i/home/Uploads/2022/08/11/xiaomi-11-t-pro-1200x200_637958271379689466.jpg"
-                            class="img-responsive img-border-radius"></a>
-                </div>
-            </div>
-        </div> --}}
         <section id="quick">
             <div class="lst-quickfilter q-manu">
                 @foreach ($brands as $value)
@@ -244,8 +234,13 @@
                                     </div>
                                 @endif
                                 <div class="sticker sticker-left">
-                                    <span><img src="{{ asset('images/bao-hanh-24t.png') }}"
-                                            title="Chính hãng Apple"></span>
+                                    @if (rand(1, 10) % 2 == 0)
+                                        <span><img src="{{ asset('images/hot.png') }}" title="Chính hãng Apple"
+                                                alt="s"></span>
+                                    @else
+                                        <span><img src="{{ asset('images/bao-hanh-24t.png') }}" alt="s"
+                                                title="Chính hãng Apple"></span>
+                                    @endif
                                 </div>
                                 <div class="info">
                                     <a href="{{ route('client.product', [
@@ -267,8 +262,10 @@
                                     <div class="promote">
                                         <ul>
                                             @foreach ($product->sales as $sale)
-                                                <li><span class="bag">KM</span>
-                                                    {{ $sale->sales->s_name }}</li>
+                                                @if ($sale->sales->s_active == 1)
+                                                    <li><span class="bag">KM</span>
+                                                        {{ $sale->sales->s_name }}</li>
+                                                @endif
                                             @endforeach
                                         </ul>
                                     </div>

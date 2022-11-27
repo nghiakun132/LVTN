@@ -81,8 +81,10 @@
                                                 ]) }}">
                                                 <ul>
                                                     @foreach ($product->sales as $sale)
-                                                        <li><span class="bag">KM</span>
-                                                            {{ $sale->sales->s_name }}</li>
+                                                    @if ($sale->sales->s_active == 1)
+                                                    <li><span class="bag">KM</span>
+                                                        {{ $sale->sales->s_name }}</li>
+                                                        @endif
                                                     @endforeach
                                                 </ul>
                                             </a>
