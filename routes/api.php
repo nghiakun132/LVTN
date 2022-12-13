@@ -23,3 +23,5 @@ Route::get('/statistic', [App\Http\Controllers\Api\StatisticController::class, '
 Route::get('/check-order/{id}', [App\Http\Controllers\Api\OrderController::class, 'index']);
 
 Route::get('/userAndOrder', [App\Http\Controllers\Api\StatisticController::class, 'userAndOrder']);
+
+Route::get('/getProducts', [App\Http\Controllers\Api\ApiController::class, 'getProducts']);

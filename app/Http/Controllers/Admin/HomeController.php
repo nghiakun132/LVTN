@@ -45,6 +45,9 @@ class HomeController extends Controller
         $password = $request->password;
         $admin = Admin::where('email', $email)->first();
         if ($admin) {
+            if ($admin->status == 0) {
+                return redirect()->back()->with('error', 'Tài khoản đã bị khóa');
+            }
             if (Hash::check($password, $admin->password)) {
                 $request->session()->put('admin', $admin);
                 if ($request->remember = 'on') {

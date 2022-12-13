@@ -45,8 +45,10 @@ class AuthController extends Controller
             $check = false;
         }
 
+
         if ($user && $user->status == 1) {
-            return redirect()->back()->with('error', 'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.');
+            return redirect()->back()->with('error', 'Tài khoản của bạn đã bị khóa.
+             Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.');
         }
 
         if (!$check) {

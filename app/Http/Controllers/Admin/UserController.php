@@ -23,7 +23,6 @@ class UserController extends Controller
                 $query->withTrashed();
             },
         ]);
-
         $data = ['users' => $users];
 
         return view('admin.user.index', $data);

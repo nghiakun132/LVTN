@@ -1,6 +1,6 @@
 function runSpeechRecognition() {
     let output = document.getElementById("output");
-    let SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+    let SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
     let recognition = new SpeechRecognition();
     recognition.lang = "vi-VN";
     recognition.onstart = function () {
